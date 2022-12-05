@@ -18,7 +18,7 @@
       "Name": "Localize",
       "PropertyDataTypeKey": "String",
       "PropertyScopeKey": {
-        "PropertyScopeRuleNamespaceKey": "22",
+        "PropertyScopeRuleNamespaceKey": "118",
         "PropertyScopeRulesKey": [
           {
             "DisplayName": "Localize_StringId",
@@ -64,7 +64,7 @@
   "IsPcfControl": false,
   "IsPremiumPcfControl": false,
   "IsWidgetTemplate": false,
-  "LastModifiedTimestamp": "638058497004512572",
+  "LastModifiedTimestamp": "638058504246020262",
   "Name": "a517fe5616d745e8a0b2083d920900ca",
   "OverridableProperties": {},
   "Version": "637734804272964857"
