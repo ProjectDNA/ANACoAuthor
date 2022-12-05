@@ -1,0 +1,44 @@
+ToggleLabel As CanvasComponent:
+    Fill: =RGBA(0, 0, 0, 1)
+    Height: =80
+    IsToggled: =ToggleLabelToggle.Value
+    Text: ="Filter by File Type"
+    TextColor: =RGBA(255, 255, 255, 1)
+    UnderlineColor: =RGBA(255, 0, 0, 1)
+    Width: =640
+    X: =0
+    Y: =0
+    ZIndex: =1
+
+    ToggleLabelTitle As label:
+        Color: =Parent.TextColor
+        Font: =Font.Lato
+        Height: =70
+        PaddingLeft: =15
+        Size: =20
+        Text: =Parent.Text
+        Tooltip: =Parent.Text
+        Width: =640
+        ZIndex: =1
+
+    ToggleLabelUnderline As rectangle:
+        Fill: =Parent.UnderlineColor
+        Height: =3
+        Tooltip: =
+        Width: =361
+        X: =12
+        Y: =67
+        ZIndex: =2
+
+    ToggleLabelToggle As toggleSwitch:
+        Height: =49
+        HoverBorderColor: =
+        ShowLabel: =false
+        Size: =21
+        TextPosition: =TextPosition.Left
+        TrueFill: =RGBA(54, 176, 75, 1)
+        Width: =94
+        X: =516
+        Y: =20
+        ZIndex: =3
+

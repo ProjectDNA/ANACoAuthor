@@ -1,0 +1,10 @@
+[
+  {
+    "ApiId": "/providers/microsoft.powerapps/apis/shared_logicflows",
+    "FlowNameId": "972ec9aa-dbe5-4f6f-b7e5-a969f7fdf2d1",
+    "Name": "2Div-BugReportToDevOps",
+    "ServiceKind": "ConnectedWadl",
+    "Type": "ServiceInfo",
+    "WorkflowEntityId": "3f3d8c57-f101-ed11-82e6-000d3af4cb95"
+  }
+]

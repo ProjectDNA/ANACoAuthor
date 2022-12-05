@@ -1,0 +1,912 @@
+"PersonnelQualificationsEditScreen As screen.'phoneLayout_HeaderAndForm_ver3.0'":
+
+    PQ_EditForm As form:
+        AcceptsFocus: =false
+        DataSource: =Educations
+        DefaultMode: =FormMode.New
+        Height: =956
+        OnFailure: =Notify("An error occured, please try again.", NotificationType.Error)
+        OnSuccess: |-
+            =Set(BackPageVar, CivilQualificationScreen);
+            Navigate(FormOnSuccess, Transition.None, {BackPage: BackPageVar});
+        Width: =Parent.Width
+        Y: =180
+        ZIndex: =1
+
+        PQ_DegreeTypes As typedDataCard.comboBoxOptionSetSingleEditCard:
+            BorderStyle: =BorderStyle.Solid
+            DataField: ="cr5cd_degreetypes"
+            Default: =ThisItem.DegreeTypes
+            DisplayMode: |-
+                =If(
+                    Text(PQ_EducationLevelValue.Selected.Value) = "University (Université)",
+                    Parent.DisplayMode,
+                    DisplayMode.Disabled
+                )
+            DisplayName: =DataSourceInfo([@Educations],DataSourceInfo.DisplayName,"cr5cd_degreetypes")
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =50
+            Required: =If(Text(PQ_EducationLevelValue.Selected.Value) = "University (Université)", true, false)
+            Update: =PQ_DegreeTypesValue.Selected.Value
+            Width: =640
+            X: =0
+            Y: =1
+            ZIndex: =1
+
+            PQ_DegreeTypesLabel As label:
+                AutoHeight: =true
+                Height: =48
+                Size: =21
+                Text: |-
+                    =//Parent.DisplayName
+                    __localizer.Localize("ANA_PERSEDIT_DEGREE", LangEn)
+                Width: =Parent.Width - 60
+                Wrap: =false
+                X: =30
+                Y: =10
+                ZIndex: =1
+
+            PQ_DegreeTypesValue As combobox:
+                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                DefaultSelectedItems: =[Parent.Default]
+                DisplayFields: =["Value"]
+                DisplayMode: =Parent.DisplayMode
+                Height: =70
+                IsSearchable: =false
+                Items: =Choices('Degree Types')
+                PaddingLeft: =If(Self.DisplayMode = DisplayMode.Edit, 5, 0)
+                SearchFields: =["Value"]
+                SearchItems: =[]
+                SelectMultiple: =false
+                Size: =21
+                Tooltip: =Parent.DisplayName
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =PQ_DegreeTypesLabel.Y + PQ_DegreeTypesLabel.Height + 5
+                ZIndex: =2
+
+            PQ_DegreeTypesErrorMessage As label:
+                AutoHeight: =true
+                Height: =10
+                Live: =Live.Assertive
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Size: =24
+                Text: =__localizer.Localize("ANA_PERSEDIT_DEGREE_REQUIRED", LangEn)
+                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =PQ_DegreeTypesValue.Y + PQ_DegreeTypesValue.Height
+                ZIndex: =3
+
+            PQ_DegreeTypesStar As label:
+                Align: =Align.Center
+                Height: =PQ_DegreeTypesLabel.Height
+                Size: =21
+                Text: ="*"
+                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                Width: =30
+                Wrap: =false
+                Y: =PQ_DegreeTypesLabel.Y
+                ZIndex: =4
+
+        PQ_DateFrom As typedDataCard.dateTimeEditCard:
+            BorderStyle: =BorderStyle.Solid
+            DataField: ="cr5cd_datefrom"
+            Default: =ThisItem.'Date From'
+            DisplayMode: =Parent.DisplayMode
+            DisplayName: =DataSourceInfo([@Educations],DataSourceInfo.DisplayName,"cr5cd_datefrom")
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =50
+            Required: =true
+            Update: =PQ_DateFromDateValue.SelectedDate + Time(Value(PQ_DateFromHourValue.Selected.Value), Value(PQ_DateFromValue.Selected.Value), 0)
+            Width: =640
+            X: =0
+            Y: =4
+            ZIndex: =1
+
+            PQ_DateFromLabel As label:
+                AutoHeight: =true
+                Height: =48
+                Size: =21
+                Text: =__localizer.Localize("ANA_PERSEDIT_DATE_FROM", LangEn)
+                Width: =Parent.Width - 60
+                Wrap: =false
+                X: =30
+                Y: =10
+                ZIndex: =1
+
+            PQ_DateFromDateValue As datepicker:
+                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                DefaultDate: =Parent.Default
+                DisplayMode: =Parent.DisplayMode
+                EndYear: =Year(Today())+100
+                Height: =70
+                IsEditable: =true
+                PaddingBottom: =0
+                PaddingLeft: =If(Self.DisplayMode = DisplayMode.Edit, 5, 0)
+                Size: =24
+                StartYear: =1899
+                Tooltip: =Parent.DisplayName
+                Width: =580
+                X: =30
+                Y: =PQ_DateFromLabel.Y + PQ_DateFromLabel.Height + 5
+                ZIndex: =2
+
+            PQ_DateFromHourValue As dropdown:
+                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                Default: =Text(Hour(Parent.Default),"00")
+                DisplayMode: =Parent.DisplayMode
+                Height: =PQ_DateFromDateValue.Height
+                Items: =["00","01","02","03","04","05","06","07","08","09","10","11","12","13","14","15","16","17","18","19","20","21","22","23"]
+                PaddingBottom: =5
+                PaddingLeft: =If(Self.DisplayMode = DisplayMode.Edit, 5, 0)
+                PaddingRight: =5
+                PaddingTop: =5
+                Size: =21
+                Tooltip: =Parent.DisplayName
+                Visible: =false
+                Width: =PQ_DateFromDateValue.Width / 2 - 10
+                X: =PQ_DateFromDateValue.X + PQ_DateFromDateValue.Width + 10
+                Y: =PQ_DateFromDateValue.Y
+                ZIndex: =3
+
+            PQ_DateFromSeparator As label:
+                Align: =Align.Center
+                FontWeight: =FontWeight.Bold
+                Height: =PQ_DateFromHourValue.Height
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Size: =21
+                Text: |-
+                    =":"
+                Visible: =false
+                Width: =10
+                Wrap: =false
+                X: =PQ_DateFromHourValue.X + PQ_DateFromHourValue.Width
+                Y: =PQ_DateFromHourValue.Y
+                ZIndex: =4
+
+            PQ_DateFromValue As dropdown:
+                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                Default: =Text(Minute(Parent.Default),"00")
+                DisplayMode: =Parent.DisplayMode
+                Height: =PQ_DateFromHourValue.Height
+                Items: =["00","01","02","03","04","05","06","07","08","09","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31","32","33","34","35","36","37","38","39","40","41","42","43","44","45","46","47","48","49","50","51","52","53","54","55","56","57","58","59"]
+                PaddingBottom: =5
+                PaddingLeft: =If(Self.DisplayMode = DisplayMode.Edit, 5, 0)
+                PaddingRight: =5
+                PaddingTop: =5
+                Size: =21
+                Tooltip: =Parent.DisplayName
+                Visible: =false
+                Width: =PQ_DateFromHourValue.Width
+                X: =PQ_DateFromHourValue.X + PQ_DateFromHourValue.Width + PQ_DateFromSeparator.Width
+                Y: =PQ_DateFromHourValue.Y
+                ZIndex: =5
+
+            PQ_DateFromErrorMessage As label:
+                AutoHeight: =true
+                Height: =10
+                Live: =Live.Assertive
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Size: =24
+                Text: =__localizer.Localize("ANA_PERSEDIT_DATE_FROM_REQUIRED", LangEn)
+                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =PQ_DateFromHourValue.Y + PQ_DateFromHourValue.Height
+                ZIndex: =6
+
+            PQ_DateFromStar As label:
+                Align: =Align.Center
+                Height: =PQ_DateFromLabel.Height
+                Size: =21
+                Text: ="*"
+                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                Width: =30
+                Wrap: =false
+                Y: =PQ_DateFromLabel.Y
+                ZIndex: =7
+
+        PQ_DateTo As typedDataCard.dateTimeEditCard:
+            BorderStyle: =BorderStyle.Solid
+            DataField: ="cr5cd_dateto"
+            Default: =ThisItem.'Date To'
+            DisplayMode: =Parent.DisplayMode
+            DisplayName: =DataSourceInfo([@Educations],DataSourceInfo.DisplayName,"cr5cd_dateto")
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =50
+            Required: =true
+            Update: =PQ_DateToDateValue.SelectedDate + Time(Value(PQ_DateToHourValue.Selected.Value), Value(PQ_DateToMinuteValue.Selected.Value), 0)
+            Width: =640
+            X: =0
+            Y: =5
+            ZIndex: =1
+
+            PQ_DateToLabel As label:
+                AutoHeight: =true
+                Height: =48
+                Size: =21
+                Text: =__localizer.Localize("ANA_PERSEDIT_DATE_TO", LangEn)
+                Width: =Parent.Width - 60
+                Wrap: =false
+                X: =30
+                Y: =10
+                ZIndex: =1
+
+            PQ_DateToDateValue As datepicker:
+                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                DefaultDate: =Parent.Default
+                DisplayMode: =Parent.DisplayMode
+                EndYear: =Year(Today())+100
+                Height: =68
+                IsEditable: =true
+                PaddingBottom: =0
+                PaddingLeft: =If(Self.DisplayMode = DisplayMode.Edit, 5, 0)
+                Size: =24
+                StartYear: =1899
+                Tooltip: =Parent.DisplayName
+                Width: =580
+                X: =30
+                Y: =PQ_DateToLabel.Y + PQ_DateToLabel.Height + 5
+                ZIndex: =2
+
+            PQ_DateToHourValue As dropdown:
+                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                Default: =Text(Hour(Parent.Default),"00")
+                DisplayMode: =Parent.DisplayMode
+                Height: =PQ_DateToDateValue.Height
+                Items: =["00","01","02","03","04","05","06","07","08","09","10","11","12","13","14","15","16","17","18","19","20","21","22","23"]
+                PaddingBottom: =5
+                PaddingLeft: =If(Self.DisplayMode = DisplayMode.Edit, 5, 0)
+                PaddingRight: =5
+                PaddingTop: =5
+                Size: =21
+                Tooltip: =Parent.DisplayName
+                Visible: =false
+                Width: =PQ_DateToDateValue.Width / 2 - 10
+                X: =PQ_DateToDateValue.X + PQ_DateToDateValue.Width + 10
+                Y: =PQ_DateToDateValue.Y
+                ZIndex: =3
+
+            PQ_DateToSeparator As label:
+                Align: =Align.Center
+                FontWeight: =FontWeight.Bold
+                Height: =PQ_DateToHourValue.Height
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Size: =21
+                Text: |-
+                    =":"
+                Visible: =false
+                Width: =10
+                Wrap: =false
+                X: =PQ_DateToHourValue.X + PQ_DateToHourValue.Width
+                Y: =PQ_DateToHourValue.Y
+                ZIndex: =4
+
+            PQ_DateToMinuteValue As dropdown:
+                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                Default: =Text(Minute(Parent.Default),"00")
+                DisplayMode: =Parent.DisplayMode
+                Height: =PQ_DateToHourValue.Height
+                Items: =["00","01","02","03","04","05","06","07","08","09","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31","32","33","34","35","36","37","38","39","40","41","42","43","44","45","46","47","48","49","50","51","52","53","54","55","56","57","58","59"]
+                PaddingBottom: =5
+                PaddingLeft: =If(Self.DisplayMode = DisplayMode.Edit, 5, 0)
+                PaddingRight: =5
+                PaddingTop: =5
+                Size: =21
+                Tooltip: =Parent.DisplayName
+                Visible: =false
+                Width: =PQ_DateToHourValue.Width
+                X: =PQ_DateToHourValue.X + PQ_DateToHourValue.Width + PQ_DateToSeparator.Width
+                Y: =PQ_DateToHourValue.Y
+                ZIndex: =5
+
+            PQ_DateToErrorMessage As label:
+                AutoHeight: =true
+                Height: =10
+                Live: =Live.Assertive
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Size: =24
+                Text: =__localizer.Localize("ANA_PERSEDIT_DATE_TO_REQUIRED", LangEn)
+                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =PQ_DateToHourValue.Y + PQ_DateToHourValue.Height
+                ZIndex: =6
+
+            PQ_DateToStar As label:
+                Align: =Align.Center
+                Height: =PQ_DateToLabel.Height
+                Size: =21
+                Text: ="*"
+                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                Width: =30
+                Wrap: =false
+                Y: =PQ_DateToLabel.Y
+                ZIndex: =7
+
+        PQ_Personnel As typedDataCard.comboBoxEditCard:
+            BorderStyle: =BorderStyle.Solid
+            DataField: ="wywm_Personnel"
+            Default: =currPersonnel
+            DisplayMode: =Parent.DisplayMode
+            DisplayName: ="Personnel"
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =50
+            Required: =false
+            Update: =PQ_PersonnelValue.Selected
+            Visible: =false
+            Width: =640
+            X: =0
+            Y: =6
+            ZIndex: =1
+
+            PQ_PersonnelLabel As label:
+                AutoHeight: =true
+                Height: =48
+                Size: =21
+                Text: =Parent.DisplayName
+                Width: =Parent.Width - 60
+                Wrap: =false
+                X: =30
+                Y: =10
+                ZIndex: =1
+
+            PQ_PersonnelValue As combobox:
+                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                Default: =currPersonnel
+                DefaultSelectedItems: =Parent.Default
+                DisplayFields: =["wywm_name"]
+                DisplayMode: =Parent.DisplayMode
+                Height: =70
+                Items: =Choices([@Educations].wywm_Personnel)
+                PaddingLeft: =If(Self.DisplayMode = DisplayMode.Edit, 5, 0)
+                SearchFields: =["wywm_name"]
+                SearchItems: =Search(Choices([@Educations].wywm_Personnel),PQ_PersonnelValue.SearchText,"wywm_name")
+                SelectMultiple: =false
+                Size: =21
+                Tooltip: =Parent.DisplayName
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =PQ_PersonnelLabel.Y + PQ_PersonnelLabel.Height + 5
+                ZIndex: =2
+
+            PQ_PersonnelErrorMessage As label:
+                AutoHeight: =true
+                Height: =10
+                Live: =Live.Assertive
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Size: =24
+                Text: =Parent.Error
+                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =PQ_PersonnelValue.Y + PQ_PersonnelValue.Height
+                ZIndex: =3
+
+            PQ_PersonnelStar As label:
+                Align: =Align.Center
+                Height: =PQ_PersonnelLabel.Height
+                Size: =21
+                Text: ="*"
+                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                Width: =30
+                Wrap: =false
+                Y: =PQ_PersonnelLabel.Y
+                ZIndex: =4
+
+        "'PQ_Attachment#1' As typedDataCard.fileEditCard":
+            BorderStyle: =BorderStyle.Solid
+            DataField: ="cr5cd_attachment1"
+            Default: |-
+                =If(!IsBlank(ThisItem.'Attachment #1'.FileName), Table({DisplayName: ThisItem.'Attachment #1'.FileName, Value: ThisItem.'Attachment #1'.Value}), Blank())
+            DisplayMode: =Parent.DisplayMode
+            DisplayName: |-
+                ="Attachment #1"
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =50
+            Required: =true
+            Update: |-
+                ='PQ_Attachment#1Value'.Attachments
+            Width: =640
+            X: =0
+            Y: =7
+            ZIndex: =1
+
+            "'PQ_Attachment#1Label' As label":
+                AutoHeight: =true
+                Height: =48
+                Size: =21
+                Text: |-
+                    =__localizer.Localize("ANA_PERSEDIT_ATTACHMENT", LangEn)&" #1"
+                Width: =Parent.Width - 60
+                Wrap: =false
+                X: =30
+                Y: =10
+                ZIndex: =1
+
+            "'PQ_Attachment#1Value' As attachments":
+                AddAttachmentText: =__localizer.Localize("ANA_PERSEDIT_UPLOAD_FILE", LangEn)
+                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                DisplayMode: =Parent.DisplayMode
+                Height: =170
+                IsInDataCard: =true
+                Items: =Parent.Default
+                MaxAttachments: =1
+                MaxAttachmentsText: =""
+                NoAttachmentsText: =__localizer.Localize("ANA_PERSEDIT_FILE_IS_REQUIRED", LangEn)
+                PaddingBottom: =5
+                PaddingLeft: =If(Self.DisplayMode = DisplayMode.Edit, 5, 0)
+                PaddingRight: =5
+                PaddingTop: =5
+                Size: =21
+                Tooltip: =Parent.DisplayName
+                Width: =Parent.Width - 60
+                X: =30
+                Y: |-
+                    ='PQ_Attachment#1Label'.Y + 'PQ_Attachment#1Label'.Height + 5
+                ZIndex: =2
+
+            "'PQ_Attachment#1ErrorMessage' As label":
+                AutoHeight: =true
+                Height: =10
+                Live: =Live.Assertive
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Size: =24
+                Text: =__localizer.Localize("ANA_PERSEDIT_ATTACHMENT_REQUIRED", LangEn)
+                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                Width: =Parent.Width - 60
+                X: =30
+                Y: |-
+                    ='PQ_Attachment#1Value'.Y + 'PQ_Attachment#1Value'.Height
+                ZIndex: =3
+
+            "'PQ_Attachment#1Star' As label":
+                Align: =Align.Center
+                Height: |-
+                    ='PQ_Attachment#1Label'.Height
+                Size: =21
+                Text: ="*"
+                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                Width: =30
+                Wrap: =false
+                Y: |-
+                    ='PQ_Attachment#1Label'.Y
+                ZIndex: =4
+
+        "'PQ_Attachment#2' As typedDataCard.fileEditCard":
+            BorderStyle: =BorderStyle.Solid
+            DataField: ="cr5cd_attachment2"
+            Default: |-
+                =If(!IsBlank(ThisItem.'Attachment #2'.FileName), Table({DisplayName: ThisItem.'Attachment #2'.FileName, Value: ThisItem.'Attachment #2'.Value}), Blank())
+            DisplayMode: =Parent.DisplayMode
+            DisplayName: |-
+                ="Attachment #2"
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =50
+            Required: =false
+            Update: |-
+                ='PQ_Attachment#2Value'.Attachments
+            Width: =640
+            X: =0
+            Y: =8
+            ZIndex: =1
+
+            "'PQ_Attachment#2Label' As label":
+                AutoHeight: =true
+                Height: =48
+                Size: =21
+                Text: |-
+                    =__localizer.Localize("ANA_PERSEDIT_ATTACHMENT", LangEn)&" #2"
+                Width: =Parent.Width - 60
+                Wrap: =false
+                X: =30
+                Y: =10
+                ZIndex: =1
+
+            "'PQ_Attachment#2Value' As attachments":
+                AddAttachmentText: =__localizer.Localize("ANA_PERSEDIT_UPLOAD_FILE", LangEn)
+                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                DisplayMode: =Parent.DisplayMode
+                Height: =170
+                IsInDataCard: =true
+                Items: =Parent.Default
+                MaxAttachments: =1
+                MaxAttachmentsText: =""
+                NoAttachmentsText: =__localizer.Localize("ANA_PERSEDIT_FILE_IS_REQUIRED", LangEn)
+                PaddingBottom: =5
+                PaddingLeft: =If(Self.DisplayMode = DisplayMode.Edit, 5, 0)
+                PaddingRight: =5
+                PaddingTop: =5
+                Size: =21
+                Tooltip: =Parent.DisplayName
+                Width: =Parent.Width - 60
+                X: =30
+                Y: |-
+                    ='PQ_Attachment#2Label'.Y + 'PQ_Attachment#2Label'.Height + 5
+                ZIndex: =2
+
+            "'PQ_Attachment#2ErrorMessage' As label":
+                AutoHeight: =true
+                Height: =10
+                Live: =Live.Assertive
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Size: =24
+                Text: =Parent.Error
+                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                Width: =Parent.Width - 60
+                X: =30
+                Y: |-
+                    ='PQ_Attachment#2Value'.Y + 'PQ_Attachment#2Value'.Height
+                ZIndex: =3
+
+            "'PQ_Attachment#2Star' As label":
+                Align: =Align.Center
+                Height: |-
+                    ='PQ_Attachment#2Label'.Height
+                Size: =21
+                Text: ="*"
+                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                Width: =30
+                Wrap: =false
+                Y: |-
+                    ='PQ_Attachment#2Label'.Y
+                ZIndex: =4
+
+        "'PQ_Attachment#3' As typedDataCard.fileEditCard":
+            BorderStyle: =BorderStyle.Solid
+            DataField: ="cr5cd_attachment3"
+            Default: |-
+                =If(!IsBlank(ThisItem.'Attachment #3'.FileName), Table({DisplayName: ThisItem.'Attachment #3'.FileName, Value: ThisItem.'Attachment #3'.Value}), Blank())
+            DisplayMode: =Parent.DisplayMode
+            DisplayName: |-
+                ="Attachment #3"
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =50
+            Required: =false
+            Update: |-
+                ='PQ_Attachment#3Value'.Attachments
+            Width: =640
+            X: =0
+            Y: =9
+            ZIndex: =1
+
+            "'PQ_Attachment#3Label' As label":
+                AutoHeight: =true
+                Height: =48
+                Size: =21
+                Text: |-
+                    =__localizer.Localize("ANA_PERSEDIT_ATTACHMENT", LangEn)&" #3"
+                Width: =Parent.Width - 60
+                Wrap: =false
+                X: =30
+                Y: =10
+                ZIndex: =1
+
+            "'PQ_Attachment#3Value' As attachments":
+                AddAttachmentText: =__localizer.Localize("ANA_PERSEDIT_UPLOAD_FILE", LangEn)
+                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                DisplayMode: =Parent.DisplayMode
+                Height: =170
+                IsInDataCard: =true
+                Items: =Parent.Default
+                MaxAttachments: =1
+                MaxAttachmentsText: =""
+                NoAttachmentsText: =__localizer.Localize("ANA_PERSEDIT_FILE_IS_REQUIRED", LangEn)
+                PaddingBottom: =5
+                PaddingLeft: =If(Self.DisplayMode = DisplayMode.Edit, 5, 0)
+                PaddingRight: =5
+                PaddingTop: =5
+                Size: =21
+                Tooltip: =Parent.DisplayName
+                Width: =Parent.Width - 60
+                X: =30
+                Y: |-
+                    ='PQ_Attachment#3Label'.Y + 'PQ_Attachment#3Label'.Height + 5
+                ZIndex: =2
+
+            "'PQ_Attachment#3ErrorMessage' As label":
+                AutoHeight: =true
+                Height: =10
+                Live: =Live.Assertive
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Size: =24
+                Text: =Parent.Error
+                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                Width: =Parent.Width - 60
+                X: =30
+                Y: |-
+                    ='PQ_Attachment#3Value'.Y + 'PQ_Attachment#3Value'.Height
+                ZIndex: =3
+
+            "'PQ_Attachment#3Star' As label":
+                Align: =Align.Center
+                Height: |-
+                    ='PQ_Attachment#3Label'.Height
+                Size: =21
+                Text: ="*"
+                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                Width: =30
+                Wrap: =false
+                Y: |-
+                    ='PQ_Attachment#3Label'.Y
+                ZIndex: =4
+
+        PQ_InstitutionName As typedDataCard.textualEditCard:
+            BorderStyle: =BorderStyle.Solid
+            DataField: ="wywm_name"
+            Default: =ThisItem.'Institution Name'
+            DisplayMode: =Parent.DisplayMode
+            DisplayName: ="Institution Name"
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =50
+            MaxLength: =DataSourceInfo([@Educations], DataSourceInfo.MaxLength, "wywm_name")
+            Required: =true
+            Update: =PQ_InstitutionNameValue.Text
+            Width: =640
+            X: =0
+            Y: =0
+            ZIndex: =6
+
+            PQ_InstitutionNameLabel As label:
+                AutoHeight: =true
+                Height: =48
+                Size: =21
+                Text: =__localizer.Localize("ANA_PERSEDIT_INSTITUTION", LangEn)
+                Width: =Parent.Width - 60
+                Wrap: =false
+                X: =30
+                Y: =6
+                ZIndex: =1
+
+            PQ_InstitutionNameValue As text:
+                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                Default: =Parent.Default
+                DelayOutput: =true
+                DisplayMode: =Parent.DisplayMode
+                Height: =70
+                MaxLength: =Parent.MaxLength
+                PaddingLeft: =5
+                RadiusBottomLeft: =0
+                RadiusBottomRight: =0
+                RadiusTopLeft: =0
+                RadiusTopRight: =0
+                Size: =21
+                Tooltip: =Parent.DisplayName
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =PQ_InstitutionNameLabel.Y + PQ_InstitutionNameLabel.Height + 5
+                ZIndex: =2
+
+            PQ_InstitutionNameErrorMessage As label:
+                AutoHeight: =true
+                Height: =10
+                Live: =Live.Assertive
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Size: =24
+                Text: =__localizer.Localize("ANA_PERSEDIT_DEGREE_INSITUTION_REQUIRED", LangEn)
+                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =PQ_InstitutionNameValue.Y + PQ_InstitutionNameValue.Height
+                ZIndex: =3
+
+            PQ_InstitutionNameStar As label:
+                Align: =Align.Center
+                Height: =PQ_InstitutionNameLabel.Height
+                Size: =21
+                Text: ="*"
+                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                Width: =30
+                Wrap: =false
+                Y: =PQ_InstitutionNameLabel.Y
+                ZIndex: =4
+
+        PQ_EducationLevel As typedDataCard.comboBoxOptionSetSingleEditCard:
+            BorderStyle: =BorderStyle.Solid
+            DataField: ="wywm_educationlevel"
+            Default: =ThisItem.'Education Level'
+            DisplayMode: =Parent.DisplayMode
+            DisplayName: ="Education Level"
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =50
+            Required: =true
+            Update: =PQ_EducationLevelValue.Selected.Value
+            Width: =640
+            X: =0
+            Y: =2
+            ZIndex: =6
+
+            PQ_EducationLevelLabel As label:
+                AutoHeight: =true
+                Height: =48
+                Size: =21
+                Text: =__localizer.Localize("ANA_PERSEDIT_EDUC_LEVEL", LangEn)
+                Width: =Parent.Width - 60
+                Wrap: =false
+                X: =30
+                Y: =10
+                ZIndex: =1
+
+            PQ_EducationLevelValue As combobox:
+                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                DefaultSelectedItems: =[Parent.Default]
+                DisplayFields: =["Value"]
+                DisplayMode: =Parent.DisplayMode
+                Height: =70
+                IsSearchable: =false
+                Items: =Choices('Education Levels')
+                PaddingLeft: =If(Self.DisplayMode = DisplayMode.Edit, 5, 0)
+                SearchFields: =["Value"]
+                SearchItems: =[]
+                SelectMultiple: =false
+                Size: =21
+                Tooltip: =Parent.DisplayName
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =PQ_EducationLevelLabel.Y + PQ_EducationLevelLabel.Height + 5
+                ZIndex: =2
+
+            PQ_EducationLevelErrorMessage As label:
+                AutoHeight: =true
+                Height: =10
+                Live: =Live.Assertive
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Size: =24
+                Text: =__localizer.Localize("ANA_PERSEDIT_EDUC_LEVEL_REQUIRED", LangEn)
+                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =PQ_EducationLevelValue.Y + PQ_EducationLevelValue.Height
+                ZIndex: =3
+
+            PQ_EducationLevelStar As label:
+                Align: =Align.Center
+                Height: =PQ_EducationLevelLabel.Height
+                Size: =21
+                Text: ="*"
+                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                Width: =30
+                Wrap: =false
+                Y: =PQ_EducationLevelLabel.Y
+                ZIndex: =4
+
+        PQ_FieldOfStudy As typedDataCard.textualEditCard:
+            BorderStyle: =BorderStyle.Solid
+            DataField: ="wywm_fieldofstudy"
+            Default: =ThisItem.'Field Of Study'
+            DisplayMode: |-
+                =If(
+                    Text(PQ_EducationLevelValue.Selected.Value) = "University (Université)" || Text(PQ_EducationLevelValue.Selected.Value) = "College (Cégep)" || Text(PQ_EducationLevelValue.Selected.Value) = "Graduate School (Études supérieures)",
+                    Parent.DisplayMode,
+                    DisplayMode.Disabled
+                )
+            DisplayName: ="Field Of Study"
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =50
+            MaxLength: =DataSourceInfo([@Educations], DataSourceInfo.MaxLength, "wywm_fieldofstudy")
+            Required: =If(Text(PQ_EducationLevelValue.Selected.Value) = "University (Université)" || Text(PQ_EducationLevelValue.Selected.Value) = "College (Cégep)" || Text(PQ_EducationLevelValue.Selected.Value) = "Graduate School (Études supérieures)", true, false)
+            Update: =PQ_FieldOfStudyValue.Text
+            Width: =640
+            X: =0
+            Y: =3
+            ZIndex: =6
+
+            PQ_FieldOfStudyLabel As label:
+                AutoHeight: =true
+                Height: =48
+                Size: =21
+                Text: =__localizer.Localize("ANA_PERSEDIT_FIELD_STUDY", LangEn)
+                Width: =Parent.Width - 60
+                Wrap: =false
+                X: =30
+                Y: =10
+                ZIndex: =1
+
+            PQ_FieldOfStudyValue As text:
+                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                Default: =Parent.Default
+                DelayOutput: =true
+                DisplayMode: =Parent.DisplayMode
+                Height: =70
+                MaxLength: =Parent.MaxLength
+                PaddingLeft: =5
+                RadiusBottomLeft: =0
+                RadiusBottomRight: =0
+                RadiusTopLeft: =0
+                RadiusTopRight: =0
+                Size: =21
+                Tooltip: =Parent.DisplayName
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =PQ_FieldOfStudyLabel.Y + PQ_FieldOfStudyLabel.Height + 5
+                ZIndex: =2
+
+            PQ_FieldOfStudyErrorMessage As label:
+                AutoHeight: =true
+                Height: =10
+                Live: =Live.Assertive
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Size: =24
+                Text: =__localizer.Localize("ANA_PERSEDIT_FIELD_STUDY_REQUIRED", LangEn)
+                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =PQ_FieldOfStudyValue.Y + PQ_FieldOfStudyValue.Height
+                ZIndex: =3
+
+            PQ_FieldOfStudyStar As label:
+                Align: =Align.Center
+                Height: =PQ_FieldOfStudyLabel.Height
+                Size: =21
+                Text: ="*"
+                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                Width: =30
+                Wrap: =false
+                Y: =PQ_FieldOfStudyLabel.Y
+                ZIndex: =4
+
+    PQ_MainHeader As MainHeader:
+        PersonalImage: =currPersonnelImage
+        PersonalInfoScreen: =PersonalInfoScreen
+        ZIndex: =2
+
+    PQ__MenuLowerHeader As MenuLowerHeader:
+        LowerMenuTextLabel: =__localizer.Localize("ANA_PERSEDIT_ADD_DETAILS", LangEn)
+        Y: =PQ_MainHeader.Height
+        ZIndex: =3
+
+    PQ_Submit As icon.Check:
+        AccessibleLabel: =Self.Tooltip
+        Height: =88
+        Icon: =Icon.Check
+        OnSelect: |-
+            =SubmitForm(PQ_EditForm);
+            Refresh(Educations);
+        PaddingBottom: =22
+        PaddingLeft: =22
+        PaddingRight: =22
+        PaddingTop: =22
+        TabIndex: =0
+        Tooltip: ="Submit item"
+        Width: =88
+        X: =Parent.Width - Self.Width
+        Y: =91
+        ZIndex: =4
+

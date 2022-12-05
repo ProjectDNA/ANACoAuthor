@@ -1,0 +1,112 @@
+[
+  {
+    "CdsFCBContext": "{\"FileType\":true,\"ImageExternalStorage\":true}",
+    "EntitySetName": "wywm_mostrades",
+    "IsHidden": false,
+    "IsSampleData": false,
+    "IsWritable": true,
+    "LogicalName": "wywm_mostrade",
+    "MaxGetRowsCount": 500,
+    "Name": "MOS Trades",
+    "NativeCDSDataSourceInfoNameMapping": {
+      "_ownerid_value": "Owner",
+      "cr5cd_mostradenamefr": "MOS Trade Name Fr",
+      "cr971_alternate_key": "Alternate_Key",
+      "createdby": "Created By",
+      "createdon": "Created On",
+      "createdonbehalfby": "Created By (Delegate)",
+      "importsequencenumber": "Import Sequence Number",
+      "modifiedby": "Modified By",
+      "modifiedon": "Modified On",
+      "modifiedonbehalfby": "Modified By (Delegate)",
+      "overriddencreatedon": "Record Created On",
+      "owningbusinessunit": "Owning Business Unit",
+      "owningteam": "Owning Team",
+      "owninguser": "Owning User",
+      "statecode": "Status",
+      "statuscode": "Status Reason",
+      "timezoneruleversionnumber": "Time Zone Rule Version Number",
+      "utcconversiontimezonecode": "UTC Conversion Time Zone Code",
+      "versionnumber": "Version Number",
+      "wywm_abbrevation": "Abbrevation ENG",
+      "wywm_abbreviationfr": "Abbreviation FR",
+      "wywm_Course_MOSTrade_m_2_m": "Courses",
+      "wywm_Employment": "Employment",
+      "wywm_Employment_wywm_MOSTrade_wywm_MOSTra": "Employments",
+      "wywm_moscomponent": "MOS Component",
+      "wywm_mosid": "MOSID",
+      "wywm_mostrade_AsyncOperations": "System Jobs",
+      "wywm_mostrade_BulkDeleteFailures": "Bulk Delete Failures",
+      "wywm_mostrade_DuplicateBaseRecord": "Duplicate Records (wywm_mostrade_DuplicateBaseRecord)",
+      "wywm_mostrade_DuplicateMatchingRecord": "Duplicate Records (wywm_mostrade_DuplicateMatchingRecord)",
+      "wywm_mostrade_MailboxTrackingFolders": "Mailbox Auto Tracking Folders",
+      "wywm_mostrade_PrincipalObjectAttributeAccesses": "Field Sharing",
+      "wywm_mostrade_ProcessSession": "Process Sessions",
+      "wywm_mostrade_SyncErrors": "Sync Errors",
+      "wywm_mostrade_Teams": "Teams",
+      "wywm_mostradecode": "MOS Trade Code",
+      "wywm_mostradeid": "MOS Trade",
+      "wywm_mostradename": "MOS Trade Name",
+      "wywm_officerncm": "Officer/NCM",
+      "wywm_Personnel_MOSTrade_wywm_MOSTrade": "Personnels",
+      "wywm_Tasking_wywm_MOSTrade_m_2_m": "Taskings"
+    },
+    "PreferredName": "MOS Trades",
+    "Type": "NativeCDSDataSourceInfo"
+  },
+  {
+    "DisplayName": "MOS Trades (Views)",
+    "Name": "_wywm_mostrade_views",
+    "RelatedEntityName": "MOS Trades",
+    "TrimmedViewName": true,
+    "Type": "ViewInfo",
+    "ViewInfoNameMapping": {
+      "3f61113a-47ad-422c-8d9e-bc525fc3797a": "Active MOS Trades",
+      "64021321-91a0-ec11-b3fe-000d3a840012": "Res F Trades",
+      "6a7d3005-3d2e-4c12-8f70-e503fdfe4285": "Inactive MOS Trades",
+      "7922589c-6a6e-4eef-8d2f-2831e17de270": "MOS Trade Advanced Find View",
+      "991fe688-6d32-4e67-b8b5-f5389858bb40": "MOS Trade Associated View",
+      "fd377205-7dbf-4d35-aadd-2657f7480485": "MOS Trade Lookup View"
+    }
+  },
+  {
+    "DisplayName": "Status (MOS Trades)",
+    "Name": "wywm_mostrade_statecode",
+    "OptionSetInfoNameMapping": {
+      "0": "Active",
+      "1": "Inactive"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "statecode",
+        "OptionSetReferenceEntityName": "MOS Trades"
+      }
+    },
+    "OptionSetTypeKey": "StateType",
+    "RelatedColumnInvariantName": "statecode",
+    "RelatedEntityName": "MOS Trades",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Status Reason (MOS Trades)",
+    "Name": "wywm_mostrade_statuscode",
+    "OptionSetInfoNameMapping": {
+      "1": "Active",
+      "2": "Inactive"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "statuscode",
+        "OptionSetReferenceEntityName": "MOS Trades"
+      }
+    },
+    "OptionSetTypeKey": "StatusType",
+    "RelatedColumnInvariantName": "statuscode",
+    "RelatedEntityName": "MOS Trades",
+    "Type": "OptionSetInfo"
+  }
+]

@@ -1,0 +1,218 @@
+TrainingInfoCard As CanvasComponent:
+    EndDate: ="Text"
+    Fill: =RGBA(0, 0, 0, 0)
+    Height: =280
+    Location: ="Text"
+    OPIContact: ="Text"
+    OPIEmail: ="Text"
+    OPIName: ="Text"
+    StartDate: ="Text"
+    Type: ="Text"
+    Width: =560
+    X: =0
+    Y: =0
+    ZIndex: =1
+
+    BigRectangle11_3 As rectangle:
+        Fill: =If(DarkMode,Dark3,White1)
+        Height: =280
+        Width: =560
+        ZIndex: =1
+
+    Rectangle12_29 As rectangle:
+        BorderColor: =RGBA(128, 128, 128, 1)
+        Fill: =If(DarkMode,Dark3,White1)
+        Height: =40
+        Width: =560
+        ZIndex: =2
+
+    Rectangle12_32 As rectangle:
+        BorderColor: =RGBA(128, 128, 128, 1)
+        Fill: =If(DarkMode,Dark3,White1)
+        Height: =40
+        Width: =560
+        Y: =80
+        ZIndex: =3
+
+    Rectangle12_34 As rectangle:
+        BorderColor: =RGBA(128, 128, 128, 1)
+        Fill: =If(DarkMode,Dark3,White1)
+        Height: =40
+        Width: =560
+        Y: =160
+        ZIndex: =4
+
+    Rectangle12_36 As rectangle:
+        BorderColor: =RGBA(128, 128, 128, 1)
+        Fill: =If(DarkMode,Dark3,White1)
+        Height: =40
+        Width: =560
+        Y: =240
+        ZIndex: =5
+
+    Rectangle12_31 As rectangle:
+        BorderColor: =RGBA(128, 128, 128, 1)
+        Fill: =If(DarkMode,Dark4,RGBA(230, 230, 230, 1))
+        Height: =40
+        Width: =560
+        Y: =40
+        ZIndex: =6
+
+    Rectangle12_33 As rectangle:
+        BorderColor: =RGBA(128, 128, 128, 1)
+        Fill: =If(DarkMode,Dark4,RGBA(230, 230, 230, 1))
+        Height: =40
+        Width: =560
+        Y: =120
+        ZIndex: =7
+
+    Rectangle12_35 As rectangle:
+        BorderColor: =RGBA(128, 128, 128, 1)
+        Fill: =If(DarkMode,Dark4,RGBA(230, 230, 230, 1))
+        Height: =40
+        Width: =560
+        Y: =200
+        ZIndex: =8
+
+    Label20_58 As label:
+        Color: =If(DarkMode,White1,Black)
+        Font: =FontFamilyB
+        FontWeight: =FontWeight.Bold
+        PaddingLeft: =20
+        Size: =CardTextFont
+        Text: =__localizer.Localize("ANA_FILEDOC_END_DATE", LangEn)
+        Width: =280
+        Y: =40
+        ZIndex: =9
+
+    Label20_28 As label:
+        Color: =If(DarkMode,White1,Black)
+        Font: =FontFamilyB
+        FontWeight: =FontWeight.Bold
+        PaddingLeft: =20
+        Size: =CardTextFont
+        Text: =__localizer.Localize("ANA_FILEDOC_START_DATE", LangEn)
+        Width: =280
+        ZIndex: =10
+
+    Label20_60 As label:
+        Color: =If(DarkMode,White1,Black)
+        Font: =FontFamilyB
+        FontWeight: =FontWeight.Bold
+        PaddingLeft: =20
+        Size: =CardTextFont
+        Text: =__localizer.Localize("ANA_TRAINING_DETAIL_LOCATION", LangEn)
+        Width: =280
+        Y: =80
+        ZIndex: =11
+
+    Label20_62 As label:
+        Color: =If(DarkMode,White1,Black)
+        Font: =FontFamilyB
+        FontWeight: =FontWeight.Bold
+        PaddingLeft: =20
+        Size: =CardTextFont
+        Text: ="Type"
+        Width: =280
+        Y: =120
+        ZIndex: =12
+
+    Label20_64 As label:
+        Color: =If(DarkMode,White1,Black)
+        Font: =FontFamilyB
+        FontWeight: =FontWeight.Bold
+        PaddingLeft: =20
+        Size: =CardTextFont
+        Text: =__localizer.Localize("ANA_TRAINING_DETAIL_OPI_NAME", LangEn)
+        Width: =280
+        Y: =160
+        ZIndex: =13
+
+    Label20_66 As label:
+        Color: =If(DarkMode,White1,Black)
+        Font: =FontFamilyB
+        FontWeight: =FontWeight.Bold
+        PaddingLeft: =20
+        Size: =CardTextFont
+        Text: =__localizer.Localize("ANA_TRAINING_DETAIL_OPI_CONTACT", LangEn)
+        Width: =280
+        Y: =200
+        ZIndex: =14
+
+    Label20_57 As label:
+        Color: =If(DarkMode,White1,Black)
+        Font: =FontFamilyB
+        FontWeight: =FontWeight.Semibold
+        Size: =CardTextFont
+        Text: =Parent.StartDate
+        Width: =280
+        X: =280
+        ZIndex: =15
+
+    Label20_59 As label:
+        Color: =If(DarkMode,White1,Black)
+        Font: =FontFamilyB
+        FontWeight: =FontWeight.Semibold
+        Size: =CardTextFont
+        Text: =Parent.EndDate
+        Width: =280
+        X: =280
+        Y: =40
+        ZIndex: =16
+
+    Label20_61 As label:
+        Color: =If(DarkMode,White1,Black)
+        Font: =FontFamilyB
+        FontWeight: =FontWeight.Semibold
+        Size: =CardTextFont
+        Text: =Parent.Location
+        Width: =280
+        X: =280
+        Y: =80
+        ZIndex: =17
+
+    Label20_63 As label:
+        Color: =If(DarkMode,White1,Black)
+        Font: =FontFamilyB
+        FontWeight: =FontWeight.Semibold
+        Size: =CardTextFont
+        Text: =Parent.Type
+        Width: =280
+        X: =280
+        Y: =120
+        ZIndex: =18
+
+    Label20_65 As label:
+        Color: =If(DarkMode,White1,Black)
+        Font: =FontFamilyB
+        FontWeight: =FontWeight.Semibold
+        Size: =CardTextFont
+        Text: =Parent.OPIName
+        Width: =280
+        X: =280
+        Y: =160
+        ZIndex: =19
+
+    Label20_67 As label:
+        Color: =If(DarkMode,White1,Black)
+        Font: =FontFamilyB
+        FontWeight: =FontWeight.Semibold
+        Size: =CardTextFont
+        Text: =Parent.OPIContact
+        Width: =280
+        X: =280
+        Y: =200
+        ZIndex: =20
+
+    Label20_72 As label:
+        Color: =If(DarkMode,White1,Black)
+        Font: =FontFamilyB
+        FontWeight: =FontWeight.Semibold
+        Italic: =true
+        PaddingLeft: =20
+        Size: =CardTextFont
+        Text: =Parent.OPIEmail
+        Width: =560
+        Y: =240
+        ZIndex: =21
+

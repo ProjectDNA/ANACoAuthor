@@ -1,0 +1,1389 @@
+TrainingScreen As screen:
+    Fill: =If(DarkMode,Dark3,White1)
+    LoadingSpinner: =LoadingSpinner.Data
+    OnVisible: |+
+        =Refresh('Training Event Attendees');
+        Refresh('Course Applications');
+        Refresh(UserNotificationItems);
+        Set(
+            AlertNumber,
+            CountRows(
+                Filter(
+                    UserNotifications,
+                    Personnel.Personnel = currPersonnel.Personnel && Not(Type = "hidden")
+                )
+            )
+        );
+        
+        //if the user has not selected the date from in the filter, the default value will be today() (Training Events only)
+        If(IsBlank(TrainingDateFrom), UpdateContext({TrainingDateFrom: Today()}));
+        //if the user has not selected the final application date in the filter, the default value will be today() (Courses only)
+        If(IsBlank(CourseApplicationDayTo), UpdateContext({CourseApplicationDayTo: Today()}));
+        
+        UpdateContext({courseoptionSelected: 'Course Applications (Views)'.'Active Courses'});
+        UpdateContext({trainingoptionSelected: 'Training Event Attendees (Views)'.'My Active Training Event Attendees'});
+        
+        //Set(trainingoptionSelected, 'Training Event Attendees (Views)'.'My Active Training Event Attendees');
+        
+        // Dropdowns
+        Set(
+            showOrders,
+            false
+        );
+        Set(
+            showTraining,
+            false
+        );
+        Set(
+            showAttachments,
+            false
+        );
+        Set(
+            FilterVariable,
+            false
+        );
+        /*
+        Set(
+            TrainingList,
+            !TrainingList
+        );
+        Set(
+            CourseList,
+            false
+        );
+        */
+        
+
+    "'Training/Courses_Container' As groupContainer.manualLayoutContainer":
+        Height: =App.Height
+        Width: =App.Width
+        ZIndex: =79
+
+        Training_MainHeader As MainHeader:
+            PersonalImage: =currPersonnelImage
+            PersonalInfoScreen: =PersonalInfoScreen
+
+        Training_MenuLowerHeader As MenuLowerHeader:
+            BackScreen: =DashboardScreen
+            LowerMenuTextLabel: |
+                =__localizer.Localize("ANA_DASHBOARD_TRAINING", LangEn)
+            Width: =Parent.Width
+            Y: =Training_MainHeader.Height
+            ZIndex: =2
+
+        Training_ShowTrainingListBtn As button:
+            Fill: =If(TrainingList, StandbyListGold, Blue3)
+            FontWeight: =FontWeight.Normal
+            Height: =60
+            OnSelect: |-
+                =Set(TrainingList, true);
+                Set(CourseList, false);
+            Size: =20
+            Text: =__localizer.Localize("ANA_TASK_TRAININGS", LangEn)
+            Width: =300
+            X: =12
+            Y: =199
+            ZIndex: =3
+
+        Training_ShowCoursesListBtn As button:
+            Fill: =If(CourseList, StandbyListGold,Blue3)
+            FontWeight: =FontWeight.Normal
+            Height: =60
+            OnSelect: |-
+                =Set(CourseList, true);
+                Set(TrainingList, false);
+            Size: =20
+            Text: =__localizer.Localize("ANA_TASK_COURSES", LangEn)
+            Width: =300
+            X: =328
+            Y: =199
+            ZIndex: =4
+
+        Training_SearchInput As text:
+            Color: =If(DarkMode,White1,Black)
+            Default: =""
+            Fill: =If(DarkMode,Dark4,White1)
+            Height: =55
+            HintText: |-
+                =//If(TrainingList, "Search for Training Events", "Search for Courses")
+                //__localizer.Localize("ANA_TASK_SEARCH_TRAININGS", LangEn)
+                //__localizer.Localize("ANA_TASK_SEARCH_COURSES", LangEn)
+                If(TrainingList, __localizer.Localize("ANA_TASK_SEARCH_TRAININGS", LangEn), __localizer.Localize("ANA_TASK_SEARCH_COURSES", LangEn))
+            RadiusBottomLeft: =10
+            RadiusBottomRight: =10
+            RadiusTopLeft: =10
+            RadiusTopRight: =10
+            Size: =18
+            Width: =433
+            X: =12
+            Y: =276
+            ZIndex: =5
+
+        "Training_CourseGallery As gallery.'BrowseLayout_Vertical_ThreeTextVariant_ver4.0'":
+            Fill: =RGBA(0,0,0,0)
+            Height: =783
+            Items: |-
+                =Filter(
+                    Filter(
+                        'Course Applications',
+                        courseoptionSelected,
+                        Personnel.Personnel = currPersonnel.Personnel,
+                        IsBlank(CourseDaysSelected) || Course.'Training Days' = CourseDaysSelected,
+                        IsBlank(CourseDateFrom) || Course.'Start Date' >= CourseDateFrom,
+                        IsBlank(CourseDateTo) || Course.'End Date' <= CourseDateTo,
+                        IsBlank(CourseLocationSelected) || Course.Location = CourseLocationSelected,
+                        Course.'Final Application Date' >= CourseApplicationDayTo
+                        //IsBlank(CourseApplicationDayTo) || wywm_Course.wywm_finalapplicationdate <= CourseApplicationDayTo
+                    ),
+                    Lower(Training_SearchInput.Text) in Course.'Course Name'
+                )
+            Layout: =Layout.Vertical
+            OnSelect: =Navigate(TrainingScreen, ScreenTransition.CoverRight)
+            ShowScrollbar: =false
+            TemplatePadding: =0
+            TemplateSize: =194
+            Visible: =CourseList
+            Y: =351
+            ZIndex: =6
+
+            Training_CourseCard As rectangle:
+                BorderColor: =If(DarkMode,White1,Blue2)
+                BorderThickness: =3
+                Fill: =If(DarkMode,Dark2,RGBA(0, 0, 0, 0))
+                Height: =184
+                OnSelect: |-
+                    =/*
+                    Set(CourseData, LookUp(Courses, wywm_courseid = ThisItem.Course.wywm_courseid));
+                    Set(CourseOpiId, LookUp(Courses, wywm_courseid = CourseData.wywm_courseid).wywm_OPI.Personnel);
+                    Navigate(CourseDetailsScreen, ScreenTransition.UnCover, CourseData);
+                    
+                    //Navigate(TrainingFilterTesting, ScreenTransition.UnCover);
+                    Set(
+                        CourseCommitStatus,
+                        LookUp(
+                            'Course Applications',
+                            Personnel.Personnel = currPersonnel.Personnel && Course.wywm_courseid = ThisItem.Course.wywm_courseid
+                        ).'Application Status'
+                    );
+                    
+                    */
+                Tooltip: =
+                Width: =620
+                X: =10
+                Y: =10
+                ZIndex: =1
+
+            Training_CourseStatusButton As button:
+                Fill: |-
+                    =Switch(
+                        Text(ThisItem.'Application Status'),
+                        "Applied",
+                        Green,
+                        "Nominated",
+                        NominatedBlue,
+                        "Not Selected",
+                        Gray,
+                        "Standby List",
+                        StandbyListGold,
+                        "Loaded",
+                        LoadedBlue,
+                        "Not Interested",
+                        DeclinedRed
+                    )
+                    //   RGBA(56,96,178,1)
+                Font: =Font.Lato
+                Height: =33
+                OnSelect: =Select(Parent)
+                RadiusBottomLeft: =0
+                RadiusBottomRight: =0
+                RadiusTopLeft: =0
+                RadiusTopRight: =0
+                Size: =16
+                Text: |-
+                    =If(
+                        LangEn,
+                        Switch(
+                            // switch condition
+                            LookUp(
+                                'Course Applications',
+                                Personnel.Personnel = currPersonnel.Personnel && Course.wywm_courseid = ThisItem.Course.wywm_courseid
+                            ).'Application Status',
+                            // conditions
+                            'Application Status'.Hidden,
+                            "Apply",
+                            'Application Status'.Applied,
+                            "Applied",
+                            'Application Status'.'Not Interested',
+                            "Not Interested",
+                            'Application Status'.Loaded,
+                            "Loaded",
+                            'Application Status'.Nominated,
+                            "Nominated",
+                            'Application Status'.'Not Selected',
+                            "Not Selected",
+                            'Application Status'.'Standby List',
+                            "Standby List"
+                        ),
+                        If(
+                            currPersonnel.Gender = [@Gender].'801200000',
+                            Switch(
+                                LookUp(
+                                    'Course Applications',
+                                    Personnel.Personnel = currPersonnel.Personnel && Course.wywm_courseid = ThisItem.Course.wywm_courseid
+                                ).'Application Status',
+                            // conditions
+                                'Application Status'.'Not Selected',
+                                "Appliquer",
+                                'Application Status'.Hidden,
+                                "Appliquer",
+                                'Application Status'.Applied,
+                                "Appliqué",
+                                'Application Status'.'Not Interested',
+                                "Pas Intéressé",
+                                'Application Status'.Loaded,
+                                "Inscrit",
+                                'Application Status'.Nominated,
+                                "Nominé",
+                                'Application Status'.'Not Selected',
+                                "Non Séléctionné",
+                                'Application Status'.'Standby List',
+                                "Liste d'Attente"
+                            ),
+                            Switch(
+                                LookUp(
+                                    'Course Applications',
+                                    Personnel.Personnel = currPersonnel.Personnel && Course.wywm_courseid = ThisItem.Course.wywm_courseid
+                                ).'Application Status',
+                            // conditions
+                                'Application Status'.'Not Selected',
+                                "Appliquer",
+                                'Application Status'.Hidden,
+                                "Appliquer",
+                                'Application Status'.Applied,
+                                "Appliquée",
+                                'Application Status'.'Not Interested',
+                                "Pas Intéressée",
+                                'Application Status'.Loaded,
+                                "Inscrite",
+                                'Application Status'.Nominated,
+                                "Nominée",
+                                'Application Status'.'Not Selected',
+                                "Non Séléctionnée",
+                                'Application Status'.'Standby List',
+                                "Liste d'Attente"
+                            )
+                        )
+                    )
+                Width: =174
+                X: =442
+                Y: =24
+                ZIndex: =2
+
+            Training_CourseNextArrow As icon.ChevronRight:
+                AccessibleLabel: =Self.Tooltip
+                Color: =Yellow1
+                Height: =70
+                Icon: =Icon.NextArrow
+                OnSelect: =
+                PaddingBottom: =10
+                PaddingLeft: =10
+                PaddingRight: =10
+                PaddingTop: =10
+                TabIndex: =0
+                Tooltip: ="View item details"
+                Width: =70
+                X: =541
+                Y: =69
+                ZIndex: =3
+
+            Training_CourseFinalAppDate As label:
+                Align: =Align.Right
+                Color: =RGBA(255, 0, 0, 1)
+                FontWeight: =FontWeight.Semibold
+                Height: =50
+                OnSelect: =Select(Parent)
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =15
+                Size: =14
+                Text: |-
+                    =__localizer.Localize("ANA_COURSE_FINAL_APPLICATION_DATE", LangEn)&": "&ThisItem.Course.'Final Application Date'
+                Width: =620
+                X: =10
+                Y: =144
+                ZIndex: =4
+
+            Training_CourseName As label:
+                Color: =Yellow1
+                Font: =FontFamilyA
+                Height: =50
+                OnSelect: =Select(Parent)
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Size: =24
+                Text: |-
+                    =//ThisItem.Course.'Course Name'
+                    
+                    If(
+                        LangEn,
+                        ThisItem.Course.'Course Name',
+                        ThisItem.Course.'Course Name FR'
+                    )
+                    
+                    /*
+                    If(
+                        LangEn,
+                        ThisItem.Course.'Course Name',
+                        LookUp('Trainings',Training Event'.'Training Event' = 'Training Event').'Training Event Name Fr' 
+                    )
+                    */
+                VerticalAlign: =VerticalAlign.Top
+                Width: =411
+                X: =30
+                Y: =24
+                ZIndex: =5
+
+            Training_CourseInfoLabel As label:
+                Color: =If(DarkMode,White1,Black)
+                Height: =111
+                OnSelect: =Select(Parent)
+                Size: =18
+                Text: |-
+                    =Text( DateTimeValue( ThisItem.Course.'Start Date' ), "yyyy/mm/dd") & " - " & Text( DateTimeValue( ThisItem.Course.'End Date' ), "yyyy/mm/dd")
+                    &Char(13)&
+                    LookUp(
+                        Courses,
+                        Course = ThisItem.Course.Course
+                    ).'Hosting Unit'.'Unit Name'
+                    //__localizer.Localize("ANA_COURSE_DURATION", LangEn)&":
+                    //ThisItem.Course.Location &Char(13)&
+                Width: =168
+                Wrap: =false
+                X: =30
+                Y: =57
+                ZIndex: =6
+
+            Label10 As label:
+                Height: =111
+                OnSelect: =Select(Parent)
+                Size: =21
+                Text: =ThisItem.Course.Location
+                Width: =197
+                X: =198
+                Y: =57
+                ZIndex: =7
+
+            Training_CourseDetailsButton As button:
+                Fill: =RGBA(56, 96, 178, 0)
+                Height: =Parent.TemplateHeight
+                HoverFill: =ColorFade(RGBA(56, 96, 178, 0.2), 20%)
+                OnSelect: |-
+                    =Set(CourseData, LookUp(Courses, wywm_courseid = ThisItem.Course.wywm_courseid));
+                    Set(CourseOpiId, LookUp(Courses, wywm_courseid = CourseData.wywm_courseid).wywm_OPI.Personnel);
+                    Navigate(CourseDetailsScreen, ScreenTransition.UnCover, CourseData);
+                    
+                    //Navigate(TrainingFilterTesting, ScreenTransition.UnCover);
+                    Set(
+                        CourseCommitStatus,
+                        LookUp(
+                            'Course Applications',
+                            Personnel.Personnel = currPersonnel.Personnel && Course.wywm_courseid = ThisItem.Course.wywm_courseid
+                        ).'Application Status'
+                    );
+                Size: =24
+                Text: =
+                Width: =Parent.TemplateWidth
+                ZIndex: =8
+
+        Training_CourseFilterBtn As button:
+            BorderColor: =Black
+            Color: =If(DarkMode,White1,Black)
+            Fill: =If(DarkMode,Dark4,White1)
+            FontWeight: =FontWeight.Normal
+            Height: =55
+            OnSelect: =If(TrainingList, Set(TrainingFilterVariable,!TrainingFilterVariable), Set(CourseFilterVariable,!CourseFilterVariable))
+            Size: =20
+            Text: |-
+                =//"Filter"
+                __localizer.Localize("ANA_TASK_FILTER", LangEn)
+            Width: =172
+            X: =455
+            Y: =276
+            ZIndex: =7
+
+        "Training_TrainingGallery As gallery.'BrowseLayout_Vertical_ThreeTextVariant_ver4.0'":
+            Fill: =RGBA(0,0,0,0)
+            Height: =781
+            Items: |-
+                =Filter(
+                    Filter(
+                        'Training Event Attendees',
+                        // Views
+                        trainingoptionSelected,
+                        Personnel.Personnel = currPersonnel.Personnel,
+                        // Conditions
+                        IsBlank(TrainingTypeSelected) || 'Training Event'.'Training Type' = TrainingTypeSelected,
+                        'Training Event'.'Start Date' >= TrainingDateFrom,
+                        //wywm_TrainingEvent.wywm_startdate >= Today() || wywm_TrainingEvent.wywm_startdate >= TrainingDateFrom,
+                        IsBlank(TrainingDateTo) || 'Training Event'.'End Date' <= TrainingDateTo,
+                        IsBlank(TrainingLocationSelected) || 'Training Event'.Location = TrainingLocationSelected
+                    ),
+                    // Input search (En/Fr)
+                    Lower(Training_SearchInput.Text) in If(
+                        LangEn,
+                        Lower('Training Event'.'Training Event Name'),
+                        Lower('Training Event'.'Training Event Name Fr')
+                    )
+                )
+            Layout: =Layout.Vertical
+            OnSelect: =Navigate(TrainingScreen, ScreenTransition.CoverRight)
+            ShowScrollbar: =false
+            TemplatePadding: =0
+            TemplateSize: =194
+            Visible: |
+                =TrainingList
+            Y: =353
+            ZIndex: =8
+
+            Training_TrainingCard As rectangle:
+                BorderColor: =If(DarkMode,White1,Blue2)
+                BorderThickness: =3
+                Fill: =If(DarkMode,Dark2,RGBA(0, 0, 0, 0))
+                Height: =184
+                OnSelect: |
+                    =/*
+                    Set(
+                        EventData,
+                        ThisItem
+                    );
+                    //Set(CourseOpiId, LookUp(Courses, Course = CourseData.Course.Course).OPI.Personnel);
+                    Set(TrainingOpiID, LookUp('Training Events', 'Training Event' = ThisItem.'Training Event'.'Training Event').OPI.Personnel);
+                    
+                    Navigate(
+                        TrainingDetailsScreen,
+                        ScreenTransition.UnCover,
+                        ThisItem
+                    );
+                    //Navigate(TrainingFilterTesting, ScreenTransition.UnCover);
+                    Set(
+                        UserCommitStatus,
+                        LookUp(
+                            'Training Event Attendees',
+                            Personnel.Personnel = currPersonnel.Personnel && 'Training Event'.'Training Event' = ThisItem.'Training Event'.'Training Event'
+                        ).'Commit to Training Status'
+                    );
+                    */
+                Width: =620
+                X: =10
+                Y: =10
+                ZIndex: =1
+
+            Training_TrainingNextArrow As icon.ChevronRight:
+                AccessibleLabel: =Self.Tooltip
+                Color: =Yellow1
+                Height: =70
+                Icon: =Icon.NextArrow
+                OnSelect: |
+                    =Set(
+                        EventData,
+                        ThisItem
+                    );
+                    Navigate(
+                        TrainingDetailsScreen,
+                        ScreenTransition.UnCover,
+                        EventData
+                    );
+                    //Navigate(TrainingFilterTesting, ScreenTransition.UnCover);
+                    Set(
+                        UserCommitStatus,
+                        LookUp(
+                            'Training Event Attendees',
+                            Personnel.Personnel = currPersonnel.Personnel && 'Training Event'.wywm_trainingeventid = EventData.wywm_TrainingEvent.'Training Event'
+                        ).'Commit to Training Status'
+                    );
+                    /*
+                    Set(CommitStatus, LookUp(
+                        'Training Event Attendees',
+                        Personnel.Personnel = currPersonnel.Personnel && 'Training Event'.'Training Event' = EventData.'Training Event'.'Training Event'
+                    ).'Commit to Training Status');
+                    */
+                PaddingBottom: =10
+                PaddingLeft: =10
+                PaddingRight: =10
+                PaddingTop: =10
+                TabIndex: =0
+                Tooltip: ="View item details"
+                Width: =70
+                X: =541
+                Y: =69
+                ZIndex: =2
+
+            Training_TrainingMandLabel As label:
+                Color: =If(DarkMode,White1,Black)
+                Font: =FontFamilyB
+                FontWeight: =FontWeight.Semibold
+                Height: =37
+                OnSelect: =Select(Parent)
+                PaddingTop: =0
+                Size: =16
+                Text: =If(LangEn,"Mandatory", "Obligatoire")
+                Visible: |-
+                    =If(ThisItem.'Training Event'.'Allow Voluntary Withdrawal' = 'A Yes or No boolean'.'Not Allowed',
+                        true,
+                        false
+                    )
+                X: =391
+                Y: =102
+                ZIndex: =3
+
+            Training_TrainingStartDate As label:
+                Align: =Align.Right
+                AutoHeight: =true
+                Color: =If(DarkMode,White1,Black)
+                Font: =FontFamilyB
+                FontWeight: =FontWeight.Semibold
+                Height: =37
+                OnSelect: =Select(Parent)
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =10
+                PaddingTop: =0
+                Size: =CardTextFont
+                Text: |
+                    =Text( DateTimeValue( ThisItem.'Training Event'.'Start Date' ), "yyyy/mm/dd @ hh:mm") // 2022,Feb,02, 19:00
+                    //ThisItem.wywm_TrainingEvent.wywm_startdate // 12/7/2021 7:00pm
+                Width: =310
+                X: =320
+                Y: =145
+                ZIndex: =4
+
+            Training_TrainingName As label:
+                AutoHeight: =true
+                Color: =Yellow1
+                Font: =FontFamilyA
+                Height: =45
+                OnSelect: =Select(Parent)
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Size: =24
+                Text: |
+                    =If(
+                        LangEn,
+                        ThisItem.'Training Event'.'Training Event Name',
+                        LookUp('Training Events', ThisItem.'Training Event'.'Training Event' = 'Training Event').'Training Event Name Fr' 
+                    )
+                VerticalAlign: =VerticalAlign.Top
+                Width: =412
+                X: =30
+                Y: =24
+                ZIndex: =5
+
+            Training_TrainingStatusButton As button:
+                Fill: |-
+                    =Switch(
+                        ThisItem.'Commit to Training Status',
+                        'Commit to Training Status'.Notified,
+                        NotifiedBlue,
+                        'Commit to Training Status'.Accepted,
+                        Green,
+                        'Commit to Training Status'.Declined,
+                        DeclinedRed
+                    )
+                Font: =Font.Lato
+                Height: =33
+                OnSelect: |+
+                    =
+                    
+                RadiusBottomLeft: =0
+                RadiusBottomRight: =0
+                RadiusTopLeft: =0
+                RadiusTopRight: =0
+                Size: =16
+                Text: |-
+                    =If(
+                        LangEn,
+                        Switch(
+                            // switch condition
+                            LookUp(
+                                'Training Event Attendees',
+                                Personnel.Personnel = currPersonnel.Personnel && 'Training Event'.'Training Event' = ThisItem.'Training Event'.'Training Event'
+                            ).'Commit to Training Status',
+                            // conditions
+                            'Commit to Training Status'.Notified,
+                            "Invited",
+                            'Commit to Training Status'.Accepted,
+                            "Commited",
+                            'Commit to Training Status'.Declined,
+                            "Declined"
+                        ),
+                        If(
+                            currPersonnel.Gender = [@Gender].Male,
+                            Switch(
+                                LookUp(
+                                'Training Event Attendees',
+                                Personnel.Personnel = currPersonnel.Personnel && 'Training Event'.'Training Event' = ThisItem.'Training Event'.'Training Event'
+                            ).'Commit to Training Status',
+                            // conditions
+                            'Commit to Training Status'.Notified,
+                            "Invité",
+                            'Commit to Training Status'.Accepted,
+                            "Engagé",
+                            'Commit to Training Status'.Declined,
+                            "Refusé"
+                            ),
+                            Switch(
+                                LookUp(
+                                'Training Event Attendees',
+                                Personnel.Personnel = currPersonnel.Personnel && 'Training Event'.'Training Event' = ThisItem.'Training Event'.'Training Event'
+                            ).'Commit to Training Status',
+                            // conditions
+                            'Commit to Training Status'.Notified,
+                            "Invitée",
+                            'Commit to Training Status'.Accepted,
+                            "Engagée",
+                            'Commit to Training Status'.Declined,
+                            "Refusé"
+                            )
+                        )
+                    )
+                Width: =174
+                X: =442
+                Y: =24
+                ZIndex: =6
+
+            Training_TrainingInfoLabel As label:
+                Color: =If(DarkMode,White1,Black)
+                Height: =106
+                OnSelect: =Select(Parent)
+                Size: =21
+                Text: |-
+                    =If(
+                        Lower(ThisItem.'Training Event'.'Training Type') = "weekend",
+                        __localizer.Localize(
+                            "ANA_TRAINING_WEEKEND",
+                            LangEn
+                        ),
+                        __localizer.Localize(
+                            "ANA_TRAINING_WEEK",
+                            LangEn
+                        )
+                    ) & Char(13) & ThisItem.'Training Event'.'Hosting Unit NameEn' 
+                    //& Char(13) & ThisItem.'Training Event'.Location
+                Width: =162
+                X: =30
+                Y: =69
+                ZIndex: =7
+
+            Label9 As label:
+                Height: =106
+                OnSelect: =Select(Parent)
+                PaddingTop: =22
+                Size: =21
+                Text: =ThisItem.'Training Event'.Location
+                VerticalAlign: =VerticalAlign.Top
+                Width: =199
+                X: =192
+                Y: =69
+                ZIndex: =8
+
+            Training_TrainingDetailsButton As button:
+                Fill: =RGBA(56, 96, 178, 0)
+                Height: =Parent.TemplateHeight
+                HoverFill: =ColorFade(RGBA(56, 96, 178, 0.2), 20%)
+                OnSelect: |-
+                    =Set(
+                        EventData,
+                        ThisItem
+                    );
+                    //Set(CourseOpiId, LookUp(Courses, Course = CourseData.Course.Course).OPI.Personnel);
+                    Set(TrainingOpiID, LookUp('Training Events', 'Training Event' = ThisItem.'Training Event'.'Training Event').OPI.Personnel);
+                    
+                    Navigate(
+                        TrainingDetailsScreen,
+                        ScreenTransition.UnCover,
+                        ThisItem
+                    );
+                    //Navigate(TrainingFilterTesting, ScreenTransition.UnCover);
+                    Set(
+                        UserCommitStatus,
+                        LookUp(
+                            'Training Event Attendees',
+                            Personnel.Personnel = currPersonnel.Personnel && 'Training Event'.'Training Event' = ThisItem.'Training Event'.'Training Event'
+                        ).'Commit to Training Status'
+                    );
+                Size: =24
+                Text: =
+                Width: =Parent.TemplateWidth
+                ZIndex: =9
+
+        Training_FilterPopup As group:
+            Height: =5
+            Width: =5
+            X: =80
+            Y: =80
+            ZIndex: =49
+
+            Training_FilterCloseRect As rectangle:
+                Fill: =RGBA(0, 0, 0, .2)
+                Height: =1134
+                OnSelect: |-
+                    =Set(
+                        TrainingFilterVariable,
+                        false
+                    );
+                Visible: =TrainingFilterVariable
+                Width: =640
+                Y: =2
+                ZIndex: =9
+
+            Training_FilterRect As rectangle:
+                BorderColor: =NominatedBlue
+                BorderThickness: =10
+                Fill: =RGBA(255, 255, 255, 1)
+                Height: =1087
+                Visible: =TrainingFilterVariable
+                Width: =561
+                X: =40
+                Y: =20
+                ZIndex: =10
+
+            Training_FilterBy As label:
+                Align: =Align.Center
+                Color: =NominatedBlue
+                FontWeight: =FontWeight.Bold
+                Height: =70
+                Size: =35
+                Text: =If(LangEn, "Filter By", "Filtrer Par")
+                Visible: =TrainingFilterVariable
+                Width: =560
+                X: =40
+                Y: =46
+                ZIndex: =11
+
+            Training_DropType As dropdown:
+                AllowEmptySelection: =true
+                Default: =""
+                Height: =67
+                Items: =Filter(Choices('Training Type'), Value <> 'Training Type'.Course)
+                Size: =21
+                Visible: =TrainingFilterVariable
+                Width: =454
+                X: =64
+                Y: =509
+                ZIndex: =12
+
+            Training_DropLocation As dropdown:
+                AllowEmptySelection: =true
+                Default: =""
+                Height: =67
+                Items: =Distinct('Training Events',Location)
+                Size: =21
+                Visible: =TrainingFilterVariable
+                Width: =454
+                X: =64
+                Y: =628
+                ZIndex: =13
+
+            Training_DatePickerFrom As datepicker:
+                DefaultDate: |
+                    =Today()
+                Height: =70
+                InputTextPlaceholder: =
+                Reset: =true
+                Size: =24
+                Visible: =TrainingFilterVariable
+                Width: =186
+                X: =60
+                Y: =366
+                ZIndex: =14
+
+            Training_DatePickerTo As datepicker:
+                DefaultDate: =
+                Height: =70
+                InputTextPlaceholder: =
+                Reset: =true
+                Size: =24
+                Visible: =TrainingFilterVariable
+                Width: =186
+                X: =332
+                Y: =365
+                ZIndex: =15
+
+            Training_FilterStatus As label:
+                Align: =Align.Center
+                Height: =79
+                Size: =21
+                Text: =If(LangEn, "Status", "Statut")
+                Visible: =TrainingFilterVariable
+                Width: =420
+                X: =81
+                Y: =152
+                ZIndex: =16
+
+            Training_FilterDate As label:
+                Align: =Align.Center
+                Height: =79
+                Size: =21
+                Text: ="Date"
+                Visible: =TrainingFilterVariable
+                Width: =420
+                X: =79
+                Y: =281
+                ZIndex: =17
+
+            Training_FilterDateFrom As label:
+                Align: =Align.Center
+                Height: =71
+                Size: =21
+                Text: =If(LangEn, "From", "À partir de")
+                Visible: =TrainingFilterVariable
+                Width: =205
+                X: =50
+                Y: =305
+                ZIndex: =18
+
+            Training_FilterDateTo As label:
+                Align: =Align.Center
+                Height: =71
+                Size: =21
+                Text: =If(LangEn, "To", "Jusqu’à")
+                Visible: =TrainingFilterVariable
+                Width: =205
+                X: =321
+                Y: =305
+                ZIndex: =19
+
+            Training_FilterLocation As label:
+                Align: =Align.Center
+                Height: =79
+                Size: =21
+                Text: =__localizer.Localize("ANA_TRAINING_DETAIL_LOCATION", LangEn)
+                Visible: =TrainingFilterVariable
+                Width: =420
+                X: =85
+                Y: =566
+                ZIndex: =20
+
+            Training_FilterType As label:
+                Align: =Align.Center
+                Height: =79
+                Size: =21
+                Text: ="Type"
+                Visible: =TrainingFilterVariable
+                Width: =420
+                X: =85
+                Y: =443
+                ZIndex: =21
+
+            Training_SetFilters As icon.CancelBadge:
+                Color: =NominatedBlue
+                Icon: =Icon.NextArrow
+                OnSelect: |+
+                    =Set(
+                        TrainingFilterVariable,
+                        false
+                    );
+                    If( 
+                        Text(Training_DropStatus.Selected.Value) = "Accepted",
+                        UpdateContext({trainingoptionSelected: 'Training Event Attendees (Views)'.'My Active Accepted'}),
+                        Text(Training_DropStatus.Selected.Value) = "Not Selected (Rejected)",
+                        UpdateContext({trainingoptionSelected: 'Training Event Attendees (Views)'.'My Active Not Selected (Rejected)'}),
+                        Text(Training_DropStatus.Selected.Value) = "Declined",
+                        UpdateContext({trainingoptionSelected: 'Training Event Attendees (Views)'.'My Active Declined'}),
+                        Text(Training_DropStatus.Selected.Value) = "Notified",
+                        UpdateContext({trainingoptionSelected: 'Training Event Attendees (Views)'.'My Active Notified'}),
+                        IsBlank(Training_DropStatus.Selected.Value),
+                        UpdateContext({trainingoptionSelected: 'Training Event Attendees (Views)'.'My Active Training Event Attendees'})
+                    );
+                    UpdateContext({TrainingTypeSelected: Training_DropType.Selected.Value});
+                    UpdateContext({TrainingDateFrom: Training_DatePickerFrom.SelectedDate});
+                    UpdateContext({TrainingDateTo: Training_DatePickerTo.SelectedDate});
+                    UpdateContext({TrainingLocationSelected: Training_DropLocation.SelectedText.Value});
+                    
+                Visible: =TrainingFilterVariable
+                X: =509
+                Y: =52
+                ZIndex: =22
+
+            Training_ResetAll As icon.CancelBadge:
+                Color: =NominatedBlue
+                Height: =58
+                Icon: =Icon.Reload
+                OnSelect: |
+                    =Reset(Training_DropStatus);
+                    Reset(Training_DropType);
+                    Reset(Training_DropLocation);
+                    Reset(Training_DatePickerFrom);
+                    Reset(Training_DatePickerTo);
+                Visible: =TrainingFilterVariable
+                Width: =58
+                X: =73
+                Y: =58
+                ZIndex: =23
+
+            Training_ResetStatus As icon.CancelBadge:
+                Color: =NominatedBlue
+                Height: =40
+                Icon: =Icon.Reload
+                OnSelect: |+
+                    =Reset(Training_DropStatus);
+                    
+                    
+                Visible: =TrainingFilterVariable
+                Width: =40
+                X: =539
+                Y: =236
+                ZIndex: =24
+
+            Training_ResetLocation As icon.CancelBadge:
+                Color: =NominatedBlue
+                Height: =40
+                Icon: =Icon.Reload
+                OnSelect: |+
+                    =Reset(Training_DropLocation);
+                    
+                    
+                Visible: =TrainingFilterVariable
+                Width: =40
+                X: =539
+                Y: =639
+                ZIndex: =25
+
+            Training_ResetType As icon.CancelBadge:
+                Color: =NominatedBlue
+                Height: =40
+                Icon: =Icon.Reload
+                OnSelect: |+
+                    =Reset(Training_DropType);
+                    
+                    
+                Visible: =TrainingFilterVariable
+                Width: =40
+                X: =539
+                Y: =521
+                ZIndex: =26
+
+            Training_DropStatus As dropdown:
+                AllowEmptySelection: =true
+                Default: =
+                Height: =67
+                Items: =Filter(Choices('Commit to Training Status'), Value <> 'Commit to Training Status'.Hidden)
+                Size: =21
+                Visible: =TrainingFilterVariable
+                Width: =458
+                X: =60
+                Y: =224
+                ZIndex: =27
+
+            Training_ResetDateFrom As icon.CancelBadge:
+                Color: =NominatedBlue
+                Height: =40
+                Icon: =Icon.Reload
+                OnSelect: |+
+                    =Reset(Training_DatePickerTo);
+                    Reset(Training_DatePickerFrom);
+                    
+                    
+                    
+                Visible: =TrainingFilterVariable
+                Width: =40
+                X: =539
+                Y: =384
+                ZIndex: =28
+
+        Training_CourseFilterPopup As group:
+            Height: =5
+            Width: =5
+            X: =100
+            Y: =100
+            ZIndex: =53
+
+            Training_CourseFilterCloseRect As rectangle:
+                Fill: =RGBA(0, 0, 0, .2)
+                Height: =1134
+                OnSelect: |-
+                    =Set(
+                        CourseFilterVariable,
+                        false
+                    );
+                Visible: =CourseFilterVariable
+                Width: =640
+                Y: =2
+                ZIndex: =29
+
+            Training_CourseFilterRect As rectangle:
+                BorderColor: =NominatedBlue
+                BorderThickness: =10
+                Fill: =RGBA(255, 255, 255, 1)
+                Height: =1087
+                Visible: =CourseFilterVariable
+                Width: =561
+                X: =40
+                Y: =20
+                ZIndex: =30
+
+            Training_CourseFilterBy As label:
+                Align: =Align.Center
+                Color: =NominatedBlue
+                FontWeight: =FontWeight.Bold
+                Height: =70
+                Size: =35
+                Text: |
+                    =If(LangEn, "Filter By", "Filtrer Par")
+                Visible: =CourseFilterVariable
+                Width: =560
+                X: =40
+                Y: =46
+                ZIndex: =31
+
+            Training_CourseDropType As dropdown:
+                AllowEmptySelection: =true
+                Default: =""
+                Height: =67
+                Items: =Choices('Training Days')
+                Size: =21
+                Visible: =CourseFilterVariable
+                Width: =454
+                X: =64
+                Y: =509
+                ZIndex: =32
+
+            Training_CourseDropLocation As dropdown:
+                AllowEmptySelection: =true
+                Default: =""
+                Height: =67
+                Items: =Distinct(Courses,Location)
+                Size: =21
+                Visible: =CourseFilterVariable
+                Width: =454
+                X: =64
+                Y: =628
+                ZIndex: =33
+
+            Training_CourseDatePickerFrom As datepicker:
+                DefaultDate: |
+                    =
+                Height: =70
+                InputTextPlaceholder: =
+                Reset: =true
+                Size: =24
+                Visible: =CourseFilterVariable
+                Width: =186
+                X: =60
+                Y: =366
+                ZIndex: =34
+
+            Training_CourseDatePickerTo As datepicker:
+                DefaultDate: =
+                Height: =70
+                InputTextPlaceholder: =
+                Reset: =true
+                Size: =24
+                Visible: =CourseFilterVariable
+                Width: =186
+                X: =332
+                Y: =365
+                ZIndex: =35
+
+            Training_CourseFilterStatus As label:
+                Align: =Align.Center
+                Height: =79
+                Size: =21
+                Text: =If(LangEn, "Status", "Statut")
+                Visible: =CourseFilterVariable
+                Width: =420
+                X: =85
+                Y: =152
+                ZIndex: =36
+
+            Training_CourseFilterDate As label:
+                Align: =Align.Center
+                Height: =79
+                Size: =21
+                Text: ="Date"
+                Visible: =CourseFilterVariable
+                Width: =420
+                X: =85
+                Y: =281
+                ZIndex: =37
+
+            Training_CourseFilterDateFrom As label:
+                Align: =Align.Center
+                Height: =71
+                Size: =21
+                Text: =If(LangEn, "From", "À partir de")
+                Visible: =CourseFilterVariable
+                Width: =205
+                X: =50
+                Y: =305
+                ZIndex: =38
+
+            Training_CourseFilterDateTo As label:
+                Align: =Align.Center
+                Height: =71
+                Size: =21
+                Text: =If(LangEn, "To", "Jusqu’à")
+                Visible: =CourseFilterVariable
+                Width: =205
+                X: =321
+                Y: =305
+                ZIndex: =39
+
+            Training_CourseFilterLocation As label:
+                Align: =Align.Center
+                Height: =79
+                Size: =21
+                Text: =__localizer.Localize("ANA_TRAINING_DETAIL_LOCATION", LangEn)
+                Visible: =CourseFilterVariable
+                Width: =420
+                X: =85
+                Y: =566
+                ZIndex: =40
+
+            Training_CourseFilterApplicationDate As label:
+                Align: =Align.Center
+                Height: =79
+                Size: =21
+                Text: =__localizer.Localize("ANA_COURSE_FINAL_APPLICATION_DATE", LangEn)
+                Visible: =CourseFilterVariable
+                Width: =420
+                X: =85
+                Y: =697
+                ZIndex: =41
+
+            Training_CourseFilterType As label:
+                Align: =Align.Center
+                Height: =79
+                Size: =21
+                Text: ="Type"
+                Visible: =CourseFilterVariable
+                Width: =420
+                X: =85
+                Y: =443
+                ZIndex: =42
+
+            Training_CourseSetFilters As icon.CancelBadge:
+                Color: =NominatedBlue
+                Icon: =Icon.NextArrow
+                OnSelect: |+
+                    =Set(
+                        CourseFilterVariable,
+                        false
+                    );
+                    If(
+                        Text(Training_CourseDropStatus.Selected.Value) = "Applied",
+                        UpdateContext({courseoptionSelected: 'Course Applications (Views)'.'Active Courses Applied'}),
+                        Text(Training_CourseDropStatus.Selected.Value) = "Nominated",
+                        UpdateContext({courseoptionSelected: 'Course Applications (Views)'.'Active Courses Nominated'}),
+                        Text(Training_CourseDropStatus.Selected.Value) = "Not Selected",
+                        UpdateContext({courseoptionSelected: 'Course Applications (Views)'.'Active Courses Not Selected'}),
+                        Text(Training_CourseDropStatus.Selected.Value) = "Standby List",
+                        UpdateContext({courseoptionSelected: 'Course Applications (Views)'.'Active Courses Standby List'}),
+                        Text(Training_CourseDropStatus.Selected.Value) = "Loaded",
+                        UpdateContext({courseoptionSelected: 'Course Applications (Views)'.'Active Courses Loaded'}),
+                        Text(Training_CourseDropStatus.Selected.Value) = "Not Interested",
+                        UpdateContext({courseoptionSelected: 'Course Applications (Views)'.'Active Courses Not Interested'}),
+                        IsBlank(Training_CourseDropStatus.Selected.Value),
+                        UpdateContext({courseoptionSelected: 'Course Applications (Views)'.'Active Courses'})
+                    );
+                    /*
+                    If(
+                        Text(Training_CourseDropStatus.Selected.Value) = "Applied",
+                        UpdateContext({courseoptionSelected: 'Course Applications (Views)'.'Active Courses Applied'}),
+                        Text(Training_CourseDropStatus.Selected.Value) = "Nominated",
+                        UpdateContext({courseoptionSelected: 'Course Applications (Views)'.'Active Courses Nominated'}),
+                        Text(Training_CourseDropStatus.Selected.Value) = "Not Selected",
+                        UpdateContext({courseoptionSelected: 'Course Applications (Views)'.'Active Courses Not Selected'}),
+                        Text(Training_CourseDropStatus.Selected.Value) = "Standby List",
+                        UpdateContext({courseoptionSelected: 'Course Applications (Views)'.'Active Courses Standby List'}),
+                        Text(Training_CourseDropStatus.Selected.Value) = "Loaded",
+                        UpdateContext({courseoptionSelected: 'Course Applications (Views)'.'Active Courses Loaded'}),
+                        Text(Training_CourseDropStatus.Selected.Value) = "Not Interested",
+                        UpdateContext({courseoptionSelected: 'Course Applications (Views)'.'Active Courses Not Interested'}),
+                        Text(Training_CourseDropStatus.Selected.Value) = "Notified",
+                        UpdateContext({courseoptionSelected: 'Course Applications (Views)'.'Active Courses Notified'}),
+                        IsBlank(Training_CourseDropStatus.Selected.Value),
+                        UpdateContext({courseoptionSelected: 'Course Applications (Views)'.'Active Courses'})
+                    );
+                    */
+                    UpdateContext({CourseDaysSelected: Training_CourseDropType.Selected.Value});
+                    UpdateContext({CourseDateFrom: Training_CourseDatePickerFrom.SelectedDate});
+                    UpdateContext({CourseDateTo: Training_CourseDatePickerTo.SelectedDate});
+                    UpdateContext({CourseLocationSelected: Training_CourseDropLocation.SelectedText.Value});
+                    UpdateContext({CourseApplicationDayTo: Training_CourseFinalApplicationDate.SelectedDate});
+                    
+                    //UpdateContext({CourseUnitSelected: courseDropUnit.SelectedText.Value});
+                    
+                Visible: =CourseFilterVariable
+                X: =509
+                Y: =52
+                ZIndex: =43
+
+            Training_CourseResetAll As icon.CancelBadge:
+                Color: =NominatedBlue
+                Height: =58
+                Icon: =Icon.Reload
+                OnSelect: |
+                    =Reset(Training_CourseDropStatus);
+                    Reset(Training_CourseDropType);
+                    Reset(Training_CourseDropLocation);
+                    Reset(Training_CourseFinalApplicationDate);
+                    Reset(Training_CourseDatePickerFrom);
+                    Reset(Training_CourseDatePickerTo);
+                Visible: =CourseFilterVariable
+                Width: =58
+                X: =73
+                Y: =58
+                ZIndex: =44
+
+            Training_CourseResetStatus As icon.CancelBadge:
+                Color: =NominatedBlue
+                Height: =40
+                Icon: =Icon.Reload
+                OnSelect: |+
+                    =Reset(Training_CourseDropStatus);
+                    
+                    
+                Visible: =CourseFilterVariable
+                Width: =40
+                X: =539
+                Y: =240
+                ZIndex: =45
+
+            Training_CourseResetLocation As icon.CancelBadge:
+                Color: =NominatedBlue
+                Height: =40
+                Icon: =Icon.Reload
+                OnSelect: |+
+                    =Reset(Training_CourseDropLocation);
+                    
+                    
+                Visible: =CourseFilterVariable
+                Width: =40
+                X: =539
+                Y: =639
+                ZIndex: =46
+
+            Training_CourseResetType As icon.CancelBadge:
+                Color: =NominatedBlue
+                Height: =40
+                Icon: =Icon.Reload
+                OnSelect: |+
+                    =Reset(Training_CourseDropType);
+                    
+                    
+                Visible: =CourseFilterVariable
+                Width: =40
+                X: =539
+                Y: =521
+                ZIndex: =47
+
+            Training_CourseDropStatus As dropdown:
+                AllowEmptySelection: =true
+                Default: =
+                Height: =67
+                Items: =Filter(Choices('Application Status'), Value <> 'Application Status'.Hidden)
+                Size: =21
+                Visible: =CourseFilterVariable
+                Width: =458
+                X: =60
+                Y: =224
+                ZIndex: =48
+
+            Training_CourseResetcourseFinalAppDate As icon.CancelBadge:
+                Color: =NominatedBlue
+                Height: =40
+                Icon: =Icon.Reload
+                OnSelect: |
+                    =Reset(Training_CourseFinalApplicationDate);
+                Visible: =CourseFilterVariable
+                Width: =40
+                X: =432
+                Y: =796
+                ZIndex: =50
+
+            Training_CourseResetDateFrom As icon.CancelBadge:
+                Color: =NominatedBlue
+                Height: =40
+                Icon: =Icon.Reload
+                OnSelect: |+
+                    =Reset(Training_CourseDatePickerTo);
+                    Reset(Training_CourseDatePickerFrom);
+                    
+                    
+                    
+                Visible: =CourseFilterVariable
+                Width: =40
+                X: =539
+                Y: =381
+                ZIndex: =51
+
+            Training_CourseFinalApplicationDate As datepicker:
+                DefaultDate: |
+                    =Today()
+                Height: =70
+                InputTextPlaceholder: =
+                Reset: =true
+                Size: =24
+                Visible: =CourseFilterVariable
+                Width: =186
+                X: =210
+                Y: =781
+                ZIndex: =52
+
+        Training_DebugButtonGroup As group:
+            Height: =5
+            Width: =5
+            X: =40
+            Y: =40
+            ZIndex: =58
+
+            Debug_PersonalInfo_1 As button:
+                Height: =70
+                OnSelect: =Navigate(PersonalInfoScreen)
+                Size: =24
+                Text: ="Button"
+                Visible: =false
+                Width: =75
+                X: =565
+                Y: =92
+                ZIndex: =54
+
+            Debug_Messenger_1 As button:
+                Height: =70
+                OnSelect: |-
+                    =Launch("msteams://")
+                Size: =24
+                Text: ="Button"
+                Visible: =false
+                Width: =75
+                X: =490
+                Y: =92
+                ZIndex: =55
+
+            Debug_Notification_1 As button:
+                Height: =70
+                OnSelect: =Navigate(NotificationScreen)
+                Size: =24
+                Text: ="Button"
+                Visible: =false
+                Width: =75
+                X: =415
+                Y: =92
+                ZIndex: =56
+
+            Debug_MainMenu_1 As button:
+                Height: =70
+                OnSelect: =Navigate(DashboardScreen)
+                Size: =24
+                Text: ="Button"
+                Visible: =false
+                Width: =75
+                X: =266
+                Y: =92
+                ZIndex: =57
+

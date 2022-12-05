@@ -1,0 +1,46 @@
+"FormOnSuccess As screen.'phoneLayout_Success_ver3.0'":
+
+    FOS_IconCircle As circle.Circle:
+        Fill: =RGBA(141, 198, 63, 1)
+        Height: =152
+        Width: =152
+        X: =(Parent.Width/2)-(Self.Width/2)
+        Y: =360
+        ZIndex: =1
+
+    FOS_IconCheck As icon.Check:
+        BorderColor: =RGBA(141, 198, 63, 1)
+        Height: =152
+        Icon: =Icon.Check
+        PaddingBottom: =Self.PaddingTop
+        PaddingLeft: =Self.PaddingTop
+        PaddingRight: =Self.PaddingTop
+        PaddingTop: =18
+        Width: =152
+        X: =(Parent.Width/2)-(Self.Width/2)
+        Y: =360
+        ZIndex: =2
+
+    FOS_LblSuccessMsg As label:
+        Align: =Align.Center
+        AutoHeight: =true
+        FontWeight: =FontWeight.Semibold
+        Height: =FOS_IconCircle.Height
+        Size: =21
+        Text: =If(LangEn, "Your form has been successfully submitted.", "Votre formulaire a été soumis avec succès.")
+        Width: =Parent.Width * 0.75
+        X: =Parent.Width/2 - Self.Width/2
+        Y: =FOS_IconCheck.Y + FOS_IconCheck.Height + 100
+        ZIndex: =3
+
+    FOS_MainHeader As MainHeader:
+        PersonalImage: =currPersonnelImage
+        PersonalInfoScreen: =PersonalInfoScreen
+        ZIndex: =4
+
+    FOS_MenuLowerHeader As MenuLowerHeader:
+        BackScreen: =BackPage
+        LowerMenuTextLabel: =If(LangEn, "Success", "Succès")
+        Y: =90
+        ZIndex: =5
+

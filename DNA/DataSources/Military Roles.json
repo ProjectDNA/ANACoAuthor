@@ -1,0 +1,134 @@
+[
+  {
+    "CdsFCBContext": "{\"FileType\":true,\"ImageExternalStorage\":true}",
+    "EntitySetName": "wywm_militaryroles",
+    "IsHidden": false,
+    "IsSampleData": false,
+    "IsWritable": true,
+    "LogicalName": "wywm_militaryrole",
+    "MaxGetRowsCount": 500,
+    "Name": "Military Roles",
+    "NativeCDSDataSourceInfoNameMapping": {
+      "_ownerid_value": "Owner",
+      "cr971_alternate_key": "Alternate_Key",
+      "createdby": "Created By",
+      "createdon": "Created On (createdon)",
+      "createdonbehalfby": "Created By (Delegate)",
+      "importsequencenumber": "Import Sequence Number",
+      "modifiedby": "Modified By",
+      "modifiedon": "Modified On",
+      "modifiedonbehalfby": "Modified By (Delegate)",
+      "overriddencreatedon": "Record Created On",
+      "owningbusinessunit": "Owning Business Unit",
+      "owningteam": "Status Reason (owningteam)",
+      "owninguser": "Created On (owninguser)",
+      "statecode": "Status",
+      "statuscode": "Status Reason (statuscode)",
+      "timezoneruleversionnumber": "Time Zone Rule Version Number",
+      "utcconversiontimezonecode": "UTC Conversion Time Zone Code",
+      "versionnumber": "Version Number",
+      "wywm_isactive": "Is Active",
+      "wywm_isvalid": "Is Valid",
+      "wywm_militaryrole_AsyncOperations": "System Jobs",
+      "wywm_militaryrole_BulkDeleteFailures": "Bulk Delete Failures",
+      "wywm_militaryrole_DuplicateBaseRecord": "Duplicate Records (wywm_militaryrole_DuplicateBaseRecord)",
+      "wywm_militaryrole_DuplicateMatchingRecord": "Duplicate Records (wywm_militaryrole_DuplicateMatchingRecord)",
+      "wywm_militaryrole_MailboxTrackingFolders": "Mailbox Auto Tracking Folders",
+      "wywm_militaryrole_PrincipalObjectAttributeAccesses": "Field Sharing",
+      "wywm_militaryrole_ProcessSession": "Process Sessions",
+      "wywm_militaryrole_SyncErrors": "Sync Errors",
+      "wywm_militaryrole_Teams": "Teams",
+      "wywm_MilitaryRole_wywm_MilitaryRole_wywm_": "IBTS Qualifications",
+      "wywm_militaryroleid": "Military Role",
+      "wywm_militaryrolename": "Military Role Name",
+      "wywm_Personnel": "Personnel",
+      "wywm_Personnel_ActiveMilitaryRole_wywm_Mi": "Personnels",
+      "wywm_Role": "Role",
+      "wywm_roleen": "Role En",
+      "wywm_rolefr": "Role Fr",
+      "wywm_totalibts": "Total IBTS",
+      "wywm_totalibts_date": "Owning User",
+      "wywm_totalibts_state": "Inactive",
+      "wywm_totalred": "Total Red",
+      "wywm_totalred_date": "Total Red (Last Updated On)",
+      "wywm_totalred_state": "Unit",
+      "wywm_validuntil": "Valid Until"
+    },
+    "PreferredName": "Military Roles",
+    "Type": "NativeCDSDataSourceInfo"
+  },
+  {
+    "DisplayName": "Military Roles (Views)",
+    "Name": "_wywm_militaryrole_views",
+    "RelatedEntityName": "Military Roles",
+    "TrimmedViewName": true,
+    "Type": "ViewInfo",
+    "ViewInfoNameMapping": {
+      "1ce1861b-650f-4396-9270-793257597552": "Active Military Roles",
+      "547e7be6-4cf0-4ba2-9072-4ad109217efc": "Military Role Associated View",
+      "67d1b647-7c8b-44df-9ba2-6fe899ffdfa3": "Military Role Advanced Find View",
+      "a186b7bf-299f-466b-a0fa-a8ff5811c5a5": "Military Role Lookup View",
+      "ac4eeeab-0dcd-407c-8619-6080299b8c3b": "Inactive Military Roles"
+    }
+  },
+  {
+    "DisplayName": "Status (Military Roles)",
+    "Name": "wywm_militaryrole_statecode",
+    "OptionSetInfoNameMapping": {
+      "0": "Active",
+      "1": "Inactive"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "statecode",
+        "OptionSetReferenceEntityName": "Military Roles"
+      }
+    },
+    "OptionSetTypeKey": "StateType",
+    "RelatedColumnInvariantName": "statecode",
+    "RelatedEntityName": "Military Roles",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Status Reason (Military Roles)",
+    "Name": "wywm_militaryrole_statuscode",
+    "OptionSetInfoNameMapping": {
+      "1": "Active",
+      "2": "Inactive"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "statuscode",
+        "OptionSetReferenceEntityName": "Military Roles"
+      }
+    },
+    "OptionSetTypeKey": "StatusType",
+    "RelatedColumnInvariantName": "statuscode",
+    "RelatedEntityName": "Military Roles",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Is Active (Military Roles)",
+    "Name": "wywm_wywm_militaryrole_isactive",
+    "OptionSetInfoNameMapping": {
+      "0": "Inactive",
+      "1": "Active"
+    },
+    "OptionSetIsBooleanValued": true,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "wywm_isactive",
+        "OptionSetReferenceEntityName": "Military Roles"
+      }
+    },
+    "OptionSetTypeKey": "BooleanType",
+    "RelatedColumnInvariantName": "wywm_isactive",
+    "RelatedEntityName": "Military Roles",
+    "Type": "OptionSetInfo"
+  }
+]

@@ -1,0 +1,102 @@
+[
+  {
+    "CdsFCBContext": "{\"FileType\":true,\"ImageExternalStorage\":true}",
+    "EntitySetName": "wywm_departureassistancegroups",
+    "IsHidden": false,
+    "IsSampleData": false,
+    "IsWritable": true,
+    "LogicalName": "wywm_departureassistancegroup",
+    "MaxGetRowsCount": 500,
+    "Name": "Departure Assistance Groups",
+    "NativeCDSDataSourceInfoNameMapping": {
+      "_ownerid_value": "Owner",
+      "createdby": "Created By",
+      "createdon": "Created On",
+      "createdonbehalfby": "Created By (Delegate)",
+      "importsequencenumber": "Import Sequence Number",
+      "modifiedby": "Modified By",
+      "modifiedon": "Modified On",
+      "modifiedonbehalfby": "Modified By (Delegate)",
+      "overriddencreatedon": "Record Created On",
+      "owningbusinessunit": "Owning Business Unit",
+      "owningteam": "Serial No.",
+      "owninguser": "Owning User",
+      "statecode": "Status",
+      "statuscode": "Status Reason",
+      "timezoneruleversionnumber": "Time Zone Rule Version Number",
+      "utcconversiontimezonecode": "UTC Conversion Time Zone Code",
+      "versionnumber": "Version Number",
+      "wywm_DAG": "DAG",
+      "wywm_departureassistancegroup_AsyncOperations": "System Jobs",
+      "wywm_departureassistancegroup_BulkDeleteFailures": "Bulk Delete Failures",
+      "wywm_departureassistancegroup_DuplicateBaseRecord": "Duplicate Records (wywm_departureassistancegroup_DuplicateBaseRecord)",
+      "wywm_departureassistancegroup_DuplicateMatchingRecord": "Duplicate Records (wywm_departureassistancegroup_DuplicateMatchingRecord)",
+      "wywm_departureassistancegroup_MailboxTrackingFolders": "Mailbox Auto Tracking Folders",
+      "wywm_departureassistancegroup_PrincipalObjectAttributeAccesses": "Field Sharing",
+      "wywm_departureassistancegroup_ProcessSession": "Process Sessions",
+      "wywm_departureassistancegroup_SyncErrors": "Sync Errors",
+      "wywm_departureassistancegroup_Teams": "Teams",
+      "wywm_departureassistancegroupid": "Departure Assistance Group",
+      "wywm_expirationdate": "Expiration Date",
+      "wywm_isvalid": "Is Valid",
+      "wywm_name": "Name",
+      "wywm_Personnel": "Personnel"
+    },
+    "PreferredName": "Departure Assistance Groups",
+    "Type": "NativeCDSDataSourceInfo"
+  },
+  {
+    "DisplayName": "Departure Assistance Groups (Views)",
+    "Name": "_wywm_departureassistancegroup_views",
+    "RelatedEntityName": "Departure Assistance Groups",
+    "TrimmedViewName": true,
+    "Type": "ViewInfo",
+    "ViewInfoNameMapping": {
+      "15b1d83c-6b32-4264-ad48-eb6a8381c4b6": "Departure Assistance Group Advanced Find View",
+      "50e1a54b-1646-4f5d-a402-3fb0c6adc744": "Inactive Departure Assistance Groups",
+      "7c348527-478a-47fc-ae33-68e1d0079402": "Departure Assistance Group Associated View",
+      "b1f0fb22-9ff1-438b-b8f8-31f7e218be38": "Departure Assistance Group Lookup View",
+      "b373accb-390f-45a8-99d2-9f17c57874f2": "Active Departure Assistance Groups"
+    }
+  },
+  {
+    "DisplayName": "Status (Departure Assistance Groups)",
+    "Name": "wywm_departureassistancegroup_statecode",
+    "OptionSetInfoNameMapping": {
+      "0": "Active",
+      "1": "Inactive"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "statecode",
+        "OptionSetReferenceEntityName": "Departure Assistance Groups"
+      }
+    },
+    "OptionSetTypeKey": "StateType",
+    "RelatedColumnInvariantName": "statecode",
+    "RelatedEntityName": "Departure Assistance Groups",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Status Reason (Departure Assistance Groups)",
+    "Name": "wywm_departureassistancegroup_statuscode",
+    "OptionSetInfoNameMapping": {
+      "1": "Active",
+      "2": "Inactive"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "statuscode",
+        "OptionSetReferenceEntityName": "Departure Assistance Groups"
+      }
+    },
+    "OptionSetTypeKey": "StatusType",
+    "RelatedColumnInvariantName": "statuscode",
+    "RelatedEntityName": "Departure Assistance Groups",
+    "Type": "OptionSetInfo"
+  }
+]

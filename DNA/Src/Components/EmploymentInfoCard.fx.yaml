@@ -1,0 +1,325 @@
+EmploymentInfoCard As CanvasComponent:
+    ApplicationDate: ="Text"
+    EndDate: ="Text"
+    Fill: =RGBA(0, 0, 0, 0)
+    Height: =400
+    Language: ="Text"
+    link: ="Text"
+    Location: ="Text"
+    OPIContact: ="Text"
+    OPIEmail: ="Text"
+    OPIName: ="Text"
+    OPIUnit: ="Text"
+    Rank: ="Text"
+    StartDate: ="Text"
+    Trade: ="Text"
+    Width: =560
+    X: =0
+    Y: =0
+    ZIndex: =1
+
+    Rectangle12_19 As rectangle:
+        BorderColor: =RGBA(128, 128, 128, 1)
+        Fill: =If(DarkMode,Dark3,White1)
+        Height: =40
+        Width: =560
+        ZIndex: =2
+
+    Rectangle12_21 As rectangle:
+        BorderColor: =RGBA(128, 128, 128, 1)
+        Fill: =If(DarkMode,Dark3,White1)
+        Height: =40
+        Width: =560
+        Y: =80
+        ZIndex: =3
+
+    Rectangle12_23 As rectangle:
+        BorderColor: =RGBA(128, 128, 128, 1)
+        Fill: =If(DarkMode,Dark3,White1)
+        Height: =40
+        Width: =560
+        Y: =160
+        ZIndex: =4
+
+    Rectangle12_25 As rectangle:
+        BorderColor: =RGBA(128, 128, 128, 1)
+        Fill: =If(DarkMode,Dark3,White1)
+        Height: =40
+        Width: =560
+        Y: =240
+        ZIndex: =5
+
+    Rectangle12_20 As rectangle:
+        BorderColor: =RGBA(128, 128, 128, 1)
+        Fill: =If(DarkMode,Dark4,RGBA(230, 230, 230, 1))
+        Height: =40
+        Width: =560
+        Y: =40
+        ZIndex: =7
+
+    Label20_38 As label:
+        Color: =If(DarkMode,White1,Black)
+        Font: =FontFamilyB
+        FontWeight: =FontWeight.Bold
+        PaddingLeft: =20
+        Size: =CardTextFont
+        Text: =__localizer.Localize("ANA_FILEDOC_END_DATE", LangEn)
+        Width: =280
+        Y: =40
+        ZIndex: =8
+
+    Rectangle12_22 As rectangle:
+        BorderColor: =RGBA(128, 128, 128, 1)
+        Fill: =If(DarkMode,Dark4,RGBA(230, 230, 230, 1))
+        Height: =40
+        Width: =560
+        Y: =120
+        ZIndex: =9
+
+    Rectangle12_24 As rectangle:
+        BorderColor: =RGBA(128, 128, 128, 1)
+        Fill: =If(DarkMode,Dark4,RGBA(230, 230, 230, 1))
+        Height: =40
+        Width: =560
+        Y: =200
+        ZIndex: =10
+
+    Rectangle12_26 As rectangle:
+        BorderColor: =RGBA(128, 128, 128, 1)
+        Fill: =If(DarkMode,Dark4,RGBA(230, 230, 230, 1))
+        Height: =40
+        Width: =560
+        Y: =280
+        ZIndex: =11
+
+    Label20_23 As label:
+        Color: =If(DarkMode,White1,Black)
+        Font: =FontFamilyB
+        FontWeight: =FontWeight.Bold
+        PaddingLeft: =20
+        Size: =CardTextFont
+        Text: =__localizer.Localize("ANA_FILEDOC_START_DATE", LangEn)
+        Width: =280
+        ZIndex: =12
+
+    Label20_40 As label:
+        Color: =If(DarkMode,White1,Black)
+        Font: =FontFamilyB
+        FontWeight: =FontWeight.Bold
+        PaddingLeft: =20
+        Size: =CardTextFont
+        Text: =__localizer.Localize("ANA_TRAINING_DETAIL_LOCATION", LangEn)
+        Width: =280
+        Y: =80
+        ZIndex: =13
+
+    Label20_42 As label:
+        Color: =If(DarkMode,White1,Black)
+        Font: =FontFamilyB
+        FontWeight: =FontWeight.Bold
+        PaddingLeft: =20
+        Size: =CardTextFont
+        Text: =__localizer.Localize("ANA_RANK", LangEn)
+        Width: =280
+        Y: =120
+        ZIndex: =14
+
+    Label20_44 As label:
+        Color: =If(DarkMode,White1,Black)
+        Font: =FontFamilyB
+        FontWeight: =FontWeight.Bold
+        PaddingLeft: =20
+        Size: =CardTextFont
+        Text: =__localizer.Localize("ANA_EMPLOYMENTS_MOSID", LangEn)
+        Width: =280
+        Y: =160
+        ZIndex: =15
+
+    Label20_46 As label:
+        Color: =If(DarkMode,White1,Black)
+        Font: =FontFamilyB
+        FontWeight: =FontWeight.Bold
+        PaddingLeft: =20
+        Size: =CardTextFont
+        Text: =__localizer.Localize("ANA_TRAINING_DETAIL_OPI_NAME", LangEn)
+        Width: =280
+        Y: =200
+        ZIndex: =16
+
+    Label20_48 As label:
+        Color: =If(DarkMode,White1,Black)
+        Font: =FontFamilyB
+        FontWeight: =FontWeight.Bold
+        PaddingLeft: =20
+        Size: =CardTextFont
+        Text: =__localizer.Localize("ANA_TRAINING_DETAIL_OPI_CONTACT", LangEn)
+        Width: =280
+        Y: =240
+        ZIndex: =17
+
+    Label20_24 As label:
+        Color: =If(DarkMode,White1,Black)
+        Font: =FontFamilyB
+        FontWeight: =FontWeight.Semibold
+        Size: =CardTextFont
+        Text: |-
+            =Parent.StartDate
+            //Text(DateTimeValue(Parent.StartDate), "yyyy/mm/dd @ hh:mm")
+        Width: =280
+        X: =280
+        ZIndex: =18
+
+    Label20_39 As label:
+        Color: =If(DarkMode,White1,Black)
+        Font: =FontFamilyB
+        FontWeight: =FontWeight.Semibold
+        Size: =CardTextFont
+        Text: =Parent.EndDate
+        Width: =280
+        X: =280
+        Y: =40
+        ZIndex: =19
+
+    Label20_41 As label:
+        Color: =If(DarkMode,White1,Black)
+        Font: =FontFamilyB
+        FontWeight: =FontWeight.Semibold
+        Size: =CardTextFont
+        Text: =Parent.Location
+        Width: =280
+        X: =280
+        Y: =80
+        ZIndex: =20
+
+    Label20_43 As label:
+        Color: =If(DarkMode,White1,Black)
+        Font: =FontFamilyB
+        FontWeight: =FontWeight.Semibold
+        Size: =16
+        Text: =Parent.Rank
+        Width: =280
+        X: =280
+        Y: =120
+        ZIndex: =21
+
+    Label20_45 As label:
+        Color: =If(DarkMode,White1,Black)
+        Font: =FontFamilyB
+        FontWeight: =FontWeight.Semibold
+        Size: =CardTextFont
+        Text: =Parent.Trade
+        Width: =280
+        X: =280
+        Y: =160
+        ZIndex: =22
+
+    Rectangle12_27 As rectangle:
+        BorderColor: =RGBA(128, 128, 128, 1)
+        Fill: =If(DarkMode,Dark3,White1)
+        Height: =40
+        Width: =560
+        Y: =320
+        ZIndex: =23
+
+    Label20_47 As label:
+        Color: =If(DarkMode,White1,Black)
+        Font: =FontFamilyB
+        FontWeight: =FontWeight.Semibold
+        Size: =CardTextFont
+        Text: =Parent.OPIName
+        Width: =280
+        X: =280
+        Y: =200
+        ZIndex: =24
+
+    Label20_49 As label:
+        Color: =If(DarkMode,White1,Black)
+        Font: =FontFamilyB
+        FontWeight: =FontWeight.Semibold
+        Size: =CardTextFont
+        Text: =Parent.OPIContact
+        Width: =280
+        X: =280
+        Y: =240
+        ZIndex: =25
+
+    Label20_50 As label:
+        Align: =Align.Center
+        Color: =If(DarkMode,White1,Black)
+        Font: =FontFamilyB
+        FontWeight: =FontWeight.Semibold
+        Italic: =true
+        PaddingLeft: =20
+        Size: =CardTextFont
+        Text: =Parent.OPIEmail
+        Width: =560
+        Y: =280
+        ZIndex: =26
+
+    Label20_51 As label:
+        Color: =If(DarkMode,White1,Black)
+        Font: =FontFamilyB
+        FontWeight: =FontWeight.Bold
+        PaddingLeft: =20
+        Size: =CardTextFont
+        Text: =__localizer.Localize("ANA_COURSE_HOST_UNIT", LangEn)
+        Width: =280
+        Y: =320
+        ZIndex: =27
+
+    Label20_52 As label:
+        Color: =If(DarkMode,White1,Black)
+        Font: =FontFamilyB
+        FontWeight: =FontWeight.Semibold
+        Size: =CardTextFont
+        Text: =Parent.OPIUnit
+        Width: =280
+        X: =280
+        Y: =320
+        ZIndex: =28
+
+    Rectangle12_28 As rectangle:
+        BorderColor: =RGBA(128, 128, 128, 1)
+        Fill: =If(DarkMode,Dark4,RGBA(230, 230, 230, 1))
+        Height: =40
+        Width: =560
+        Y: =360
+        ZIndex: =29
+
+    Label20_54 As label:
+        Color: =If(DarkMode,White1,Black)
+        Font: =FontFamilyB
+        FontWeight: =FontWeight.Semibold
+        Italic: =true
+        OnSelect: =Launch(Parent.link)
+        PaddingLeft: =20
+        Size: =CardTextFont
+        Text: =
+        Underline: =true
+        Width: =560
+        Wrap: =false
+        Y: =360
+        ZIndex: =33
+
+    Label20_55 As label:
+        Color: =If(DarkMode,White1,Black)
+        Font: =FontFamilyB
+        FontWeight: =FontWeight.Bold
+        PaddingLeft: =20
+        Size: =CardTextFont
+        Text: =__localizer.Localize("ANA_LANGUAGE", LangEn)
+        Width: =280
+        Y: =360
+        ZIndex: =34
+
+    Label20_56 As label:
+        Color: =If(DarkMode,White1,Black)
+        Font: =FontFamilyB
+        FontWeight: =FontWeight.Semibold
+        Size: =CardTextFont
+        Text: =Parent.Language
+        Width: =280
+        X: =280
+        Y: =360
+        ZIndex: =35
+

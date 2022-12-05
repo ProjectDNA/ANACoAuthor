@@ -1,0 +1,515 @@
+NotificationScreen As screen:
+    Fill: =RGBA(230, 230, 230, 1)
+    OnVisible: |
+        =Refresh('Training Event Attendees');
+        Refresh('Course Applications');
+        Refresh(UserNotificationItems);
+        
+        /*
+        Set( 
+            UserNotificationItems,
+            Filter(
+                UserNotifications,
+                Personnel.Personnel = currPersonnel.Personnel && Not(Type = "hidden") && 'Event Status' = 'Event Status (UserNotifications)'.Yes
+            )
+        );
+        */
+        
+        /*
+        ClearCollect(
+            cUserNotificationItems,
+            Filter(
+                UserNotifications,
+                Personnel.Personnel = currPersonnel.Personnel && Not(Type = "hidden") && 'Event Status' = 'Event Status (UserNotifications)'.Yes
+            )
+        )
+        */
+        
+        Set( 
+            UserNotificationItems,
+            Filter(
+                UserNotifications,
+                Personnel.Personnel = currPersonnel.Personnel && 'Deleted (UserNotifications)'.No && 'Event Status' = 'Event Status (UserNotifications)'.Yes
+            )
+        );
+
+    Notification_MainHeader As MainHeader:
+        PersonalImage: =currPersonnelImage
+        PersonalInfoScreen: =PersonalInfoScreen
+
+    Notification_MenuLowerHeader As MenuLowerHeader:
+        LowerMenuTextLabel: ="Notifications"
+        Y: =90
+        ZIndex: =2
+
+    Notification_Count As label:
+        Align: =Align.Right
+        FontWeight: =FontWeight.Semibold
+        Height: =45
+        PaddingRight: =15
+        Size: =21
+        Text: =CountRows(cUserNotificationItems) &" Notification(s)"
+        Width: =318
+        X: =322
+        Y: =1090
+        ZIndex: =5
+
+    "Notifications_Gallery As gallery.'BrowseLayout_Vertical_TwoTextOneImageVariant_ver4.0'":
+        Fill: =RGBA(255, 255, 255, 1)
+        Height: =910
+        Items: |
+            =cUserNotificationItems
+        Layout: =Layout.Vertical
+        OnSelect: |-
+            =Switch(
+                ThisItem.wywm_type,
+                "TrainingEvent",
+                Set(
+                    EventData,
+                    LookUp(
+                        'Training Event Attendees',
+                        wywm_TrainingEvent.wywm_trainingeventid = ThisItem.wywm_TrainingEvent.wywm_trainingeventid && wywm_Personnel.Personnel = currPersonnel.Personnel
+                    )
+                );
+                Set(
+                    UserCommitStatus,
+                    LookUp(
+                        'Training Event Attendees',
+                        wywm_Personnel.Personnel = currPersonnel.Personnel && wywm_TrainingEvent.wywm_trainingeventid = ThisItem.wywm_TrainingEvent.wywm_trainingeventid
+                    ).wywm_committotrainingstatus
+                );
+                Navigate(
+                    TrainingDetailsScreen,
+                    ScreenTransition.UnCover,
+                    EventData
+                );
+                ,
+                // Course
+                "Course",
+                Set(
+                    CourseData,
+                    LookUp(
+                        Courses,
+                        wywm_courseid = ThisItem.wywm_Course.wywm_courseid
+                    )
+                );
+                Set(
+                    CourseOpiId,
+                    LookUp(
+                        Courses,
+                        wywm_courseid = ThisItem.wywm_Course.wywm_courseid
+                    ).wywm_OPI.Personnel
+                );
+                Set(
+                    NotificationId,
+                    ThisItem.wywm_usernotificationid
+                );
+                Set(
+                    CourseCommitStatus,
+                    Blank()
+                );
+                Navigate(
+                    CourseDetailsScreen,
+                    ScreenTransition.UnCover,
+                    CourseData
+                );
+                ,
+                    // Tasking
+                "Tasking",
+                Set(
+                    TaskData,
+                    LookUp(
+                        Taskings,
+                        wywm_taskingid = ThisItem.wywm_Tasking.wywm_taskingid
+                    )
+                );
+                Set(
+                    TaskOpiId,
+                    LookUp(
+                        Taskings,
+                        wywm_taskingid = ThisItem.wywm_Tasking.wywm_taskingid
+                    ).wywm_OPI.Personnel
+                );
+                Set(
+                    NotificationId,
+                    ThisItem.wywm_usernotificationid
+                );
+                Set(
+                    TaskCommitStatus,
+                    'Approved/Not Selected'.Notified
+                );
+                Navigate(
+                    TaskDetailsScreen,
+                    ScreenTransition.UnCover,
+                    CourseData
+                );
+                
+            )
+        ShowScrollbar: =false
+        TemplatePadding: =0
+        TemplateSize: =178
+        Y: =180
+        ZIndex: =6
+
+        Notification_Separator As rectangle:
+            Height: =1
+            OnSelect: =Select(Parent)
+            Width: =Parent.TemplateWidth
+            Y: =Parent.TemplateHeight - 1
+            ZIndex: =5
+
+        Notification_Name As label:
+            Color: =Black
+            Height: =77
+            OnSelect: =Select(Parent)
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =24
+            Text: |-
+                =Switch(
+                    ThisItem.Type,
+                    "TrainingEvent",
+                    If(
+                        LangEn,
+                        ThisItem.'Training Event'.wywm_name,
+                        ThisItem.'Training Event'.'Training Event Name Fr'
+                    ),
+                    "Course",
+                    If(
+                        LangEn,
+                        ThisItem.Course.'Course Name',
+                        ThisItem.Course.'Course Name FR'
+                    ),
+                    "Tasking",
+                    If(
+                        LangEn,
+                        ThisItem.Tasking.Name,
+                        ThisItem.Tasking.'Task Name Fr'
+                    ),
+                    Blank(),
+                    ThisItem.Name
+                )
+            VerticalAlign: =VerticalAlign.Top
+            Width: =402
+            X: =21
+            Y: =46
+            ZIndex: =6
+
+        Notification_StartDate As label:
+            Font: =FontFamilyB
+            Height: =37
+            OnSelect: =Select(Parent)
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =CardTextFont
+            Text: |-
+                =Switch(
+                    ThisItem.Type,
+                    "TrainingEvent",
+                    Text(
+                        DateTimeValue(
+                            ThisItem.'Training Event'.wywm_startdate
+                        ),
+                        "yyyy/mm/dd @ hh:mm"
+                    ),
+                    Blank(),
+                    "Updated on: "&ThisItem.'Created On'
+                )
+            Width: =419
+            X: =21
+            Y: =128
+            ZIndex: =7
+
+        Notification_Type As label:
+            Align: =Align.Right
+            Color: |-
+                =Switch(
+                    ThisItem.Type,
+                    "invited_to_trainingEvent",
+                    Black,
+                    "Course",
+                    Red,
+                    "Tasking",
+                    Red,
+                    Blank(),
+                    Gray
+                )
+            Font: =FontFamilyB
+            FontWeight: =FontWeight.Semibold
+            Height: =49
+            OnSelect: =Select(Parent)
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =If(ThisItem.Type = Blank(), 13, CardTextFont)
+            Text: |+
+                =Switch(
+                    ThisItem.Type,
+                    "TrainingEvent",
+                    If(Lower(ThisItem.'Training Event'.wywm_trainingtype) = "weekend",
+                    __localizer.Localize("ANA_TRAINING_WEEKEND", LangEn),
+                    __localizer.Localize("ANA_TRAINING_WEEK", LangEn)
+                ),
+                    "Course",
+                    __localizer.Localize("ANA_COURSE_FINAL_APPLICATION_DATE", LangEn)&": "&ThisItem.Course.'Final Application Date',
+                    "Tasking",
+                    __localizer.Localize("ANA_COURSE_FINAL_APPLICATION_DATE", LangEn)&": "&ThisItem.Tasking.'Final Application Date',
+                    Blank(),
+                    __localizer.Localize("ANA_NOTIFICATION_CLICK", LangEn)
+                )
+                
+            Width: =572
+            X: =46
+            Y: =120
+            ZIndex: =8
+
+        Notification_Location As label:
+            Align: =Align.Right
+            Font: =FontFamilyB
+            FontWeight: =FontWeight.Semibold
+            Height: =30
+            OnSelect: =Select(Parent)
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =CardTextFont
+            Text: |-
+                =Switch(
+                    ThisItem.Type,
+                    "TrainingEvent",
+                    ThisItem.'Training Event'.wywm_location,
+                    "Course",
+                    ThisItem.Course.Location,
+                    "Tasking",
+                    ThisItem.Tasking.Location
+                )
+            Width: =238
+            X: =381
+            Y: =94
+            ZIndex: =9
+
+        Notification_HostUnit As label:
+            Align: =Align.Right
+            Font: =FontFamilyB
+            FontWeight: =FontWeight.Semibold
+            Height: =42
+            OnSelect: =Select(Parent)
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =CardTextFont
+            Text: |-
+                =Switch(
+                    ThisItem.Type,
+                    "TrainingEvent",
+                    ThisItem.'Training Event'.wywm_hostingunitnameen
+                )
+            Width: =159
+            X: =460
+            Y: =54
+            ZIndex: =10
+
+        Notification_InvitedLabel As label:
+            Color: =Black
+            Font: =FontFamilyB
+            FontWeight: =FontWeight.Semibold
+            Height: =34
+            OnSelect: =Select(Parent)
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Size: =12
+            Text: |-
+                =Switch(
+                    ThisItem.Type,
+                    "TrainingEvent",
+                    __localizer.Localize(
+                        "ANA_NOTIFICATION_INVITED",
+                        LangEn
+                    ),
+                    "Course",
+                        __localizer.Localize(
+                        "ANA_NOTIFICATION_INVITED",
+                        LangEn
+                    ),
+                    "Tasking",
+                    __localizer.Localize(
+                        "ANA_NOTIFICATION_TASK",
+                        LangEn
+                    ),
+                    Blank(),
+                    __localizer.Localize(
+                        "ANA_NOTIFICATION_NEW_NOTIFICATION",
+                        LangEn
+                    )
+                )
+                
+                
+                /*
+                Switch(
+                    ThisItem.Type,
+                    "TrainingEvent",
+                    __localizer.Localize(
+                        "ANA_NOTIFICATION_INVITED",
+                        LangEn
+                    ),
+                    "Course",
+                        __localizer.Localize(
+                        "ANA_NOTIFICATION_INVITED",
+                        LangEn
+                    ),
+                    "Tasking",
+                    If(LangEn, "New Tasking:", "Nouvelle tâche:"),
+                    Blank(),
+                    "New Notification"
+                )
+                */
+            Width: =391
+            X: =21
+            Y: =15
+            ZIndex: =11
+
+        Notification_RemoveNotificationIcon As icon.CancelBadge:
+            Color: =RGBA(255, 0, 0, 1)
+            Height: =32
+            Icon: =Icon.CancelBadge
+            OnSelect: |+
+                =
+                Patch(
+                    UserNotifications,
+                    LookUp(
+                        UserNotifications,
+                        UserNotification = ThisItem.UserNotification && Personnel.Personnel = currPersonnel.Personnel
+                    ),
+                    {Deleted: 'Deleted (UserNotifications)'.Yes}
+                );
+                
+                // patch type to hidden regardless of notification type
+                /*
+                Patch(
+                    UserNotifications,
+                    LookUp(
+                        UserNotifications,
+                        UserNotification = ThisItem.UserNotification && Personnel.Personnel = currPersonnel.Personnel
+                    ),
+                    {Type: "hidden"}
+                );
+                */
+                
+                /*
+                RemoveIf(
+                    UserNotifications,
+                    UserNotification = ThisItem.UserNotification && Personnel.Personnel = currPersonnel.Personnel
+                );
+                
+                RemoveIf(
+                    cUserNotificationItems,
+                    UserNotification = ThisItem.UserNotification && Personnel.Personnel = currPersonnel.Personnel
+                );
+                */
+                
+            Width: =32
+            X: =587
+            Y: =17
+            ZIndex: =12
+
+        Notification_StatusButton As button:
+            DisplayMode: =DisplayMode.View
+            Fill: |-
+                =Switch(
+                    ThisItem.Type,
+                    "TrainingEvent",
+                    Switch(
+                        LookUp(
+                            'Training Event Attendees',
+                            Personnel.Personnel = currPersonnel.Personnel && 'Training Event'.'Training Event' = ThisItem.'Training Event'.'Training Event'
+                        ).'Commit to Training Status',
+                        'Commit to Training Status'.Notified,
+                        NotifiedBlue,
+                        'Commit to Training Status'.Accepted,
+                    //AppliedGreen,
+                        Green,
+                        'Commit to Training Status'.Declined,
+                        DeclinedRed
+                    ),
+                    "Course",
+                    NotifiedBlue,
+                    "Tasking",
+                    NotifiedBlue
+                    
+                )
+            Height: =32
+            OnSelect: =Select(Parent)
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Size: |
+                =12
+            Text: |-
+                =Switch(
+                    ThisItem.Type,
+                    "TrainingEvent",
+                    If(
+                        LangEn,
+                        Switch(
+                        // switch condition
+                            LookUp(
+                                'Training Event Attendees',
+                                Personnel.Personnel = currPersonnel.Personnel && 'Training Event'.'Training Event' = ThisItem.'Training Event'.'Training Event'
+                            ).'Commit to Training Status',
+                        // conditions
+                            'Commit to Training Status'.Notified,
+                            "Invited",
+                            'Commit to Training Status'.Accepted,
+                            "Commited",
+                            'Commit to Training Status'.Declined,
+                            "Declined"
+                        ),
+                        If(
+                            currPersonnel.Gender = [@Gender].Male,
+                            Switch(
+                                LookUp(
+                                    'Training Event Attendees',
+                                    Personnel.Personnel = currPersonnel.Personnel && 'Training Event'.'Training Event' = ThisItem.'Training Event'.'Training Event'
+                                ).'Commit to Training Status',
+                        // conditions
+                                'Commit to Training Status'.Notified,
+                                "Invité",
+                                'Commit to Training Status'.Accepted,
+                                "Engagé",
+                                'Commit to Training Status'.Declined,
+                                "Refusé"
+                            ),
+                            Switch(
+                                LookUp(
+                                    'Training Event Attendees',
+                                    Personnel.Personnel = currPersonnel.Personnel && 'Training Event'.'Training Event' = ThisItem.'Training Event'.'Training Event'
+                                ).'Commit to Training Status',
+                        // conditions
+                                'Commit to Training Status'.Notified,
+                                "Invitée",
+                                'Commit to Training Status'.Accepted,
+                                "Engagée",
+                                'Commit to Training Status'.Declined,
+                                "Refusée"
+                            )
+                        )
+                    ),
+                    // Course
+                    If(LangEn, "Apply", "Appliquer")
+                )
+            Visible: =!IsBlank(ThisItem.Type)
+            Width: =165
+            X: =412
+            Y: =17
+            ZIndex: =13
+

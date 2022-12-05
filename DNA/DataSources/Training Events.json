@@ -1,0 +1,243 @@
+[
+  {
+    "CdsFCBContext": "{\"FileType\":true,\"ImageExternalStorage\":true}",
+    "EntitySetName": "wywm_trainingevents",
+    "IsHidden": false,
+    "IsSampleData": false,
+    "IsWritable": true,
+    "LogicalName": "wywm_trainingevent",
+    "MaxGetRowsCount": 500,
+    "Name": "Training Events",
+    "NativeCDSDataSourceInfoNameMapping": {
+      "_ownerid_value": "Owner",
+      "{Attachments}": "Attachments",
+      "bpf_wywm_trainingevent_wywm_trainingeventflow": "Training Event Flow",
+      "createdby": "Created By",
+      "createdon": "Created On",
+      "createdonbehalfby": "Created By (Delegate)",
+      "importsequencenumber": "Import Sequence Number",
+      "modifiedby": "Modified By",
+      "modifiedon": "Modified On",
+      "modifiedonbehalfby": "Modified By (Delegate)",
+      "overriddencreatedon": "Record Created On",
+      "owningbusinessunit": "Owning Business Unit",
+      "owningteam": "Owning Team",
+      "owninguser": "Owning User",
+      "processid": "Process Id",
+      "stageid": "(Deprecated) Stage Id",
+      "statecode": "Status",
+      "statuscode": "Status Reason",
+      "timezoneruleversionnumber": "Time Zone Rule Version Number",
+      "traversedpath": "(Deprecated) Traversed Path",
+      "utcconversiontimezonecode": "UTC Conversion Time Zone Code",
+      "versionnumber": "Version Number",
+      "wywm_allowmandatoryrequirements": "Allow Mandatory Requirements",
+      "wywm_allowvoluntarywithdrawal": "Allow Voluntary Withdrawal",
+      "wywm_attachment": "Attachment #1",
+      "wywm_attachment2": "Attachment #2",
+      "wywm_attachment3": "Attachment #3",
+      "wywm_commitedtotraining": "Commited to Training",
+      "wywm_commitedtotraining_date": "Education Level",
+      "wywm_commitedtotraining_state": "Active",
+      "wywm_daysbeforelastapplicationdate": "Days Before Last Application Date",
+      "wywm_declined": "Declined",
+      "wywm_declined_date": "Declined (Last Updated On)",
+      "wywm_declined_state": "Declined (State)",
+      "wywm_description": "Description",
+      "wywm_enddate": "End Date",
+      "wywm_HostingUnit": "Hosting Unit",
+      "wywm_hostingunitnameen": "Hosting Unit NameEn",
+      "wywm_incrementordecrementby1": "Increment or Decrement by 1",
+      "wywm_location": "Location",
+      "wywm_name": "Training Event Name",
+      "wywm_name_fr": "Training Event Name Fr",
+      "wywm_notified": "Notified ",
+      "wywm_notified_date": "Notified  (Last Updated On)",
+      "wywm_notified_state": "Notified  (State)",
+      "wywm_numberofmembersaccepted": "Number of Members Accepted",
+      "wywm_numberofparticipants": "Number of Participants",
+      "wywm_OPI": "OPI",
+      "wywm_opicalculated": "OPI CALCULATED",
+      "wywm_opicalculatedfr": "OPI CALCULATED FR",
+      "wywm_opiemail": "OPI EMAIL",
+      "wywm_opifullname": "OPI Name",
+      "wywm_prerequisites": "Prerequisites",
+      "wywm_startdate": "Start Date",
+      "wywm_trainingevent_Annotations": "Notes",
+      "wywm_trainingevent_AsyncOperations": "System Jobs",
+      "wywm_trainingevent_BulkDeleteFailures": "Bulk Delete Failures",
+      "wywm_trainingevent_DuplicateBaseRecord": "Duplicate Records (wywm_trainingevent_DuplicateBaseRecord)",
+      "wywm_trainingevent_DuplicateMatchingRecord": "Duplicate Records (wywm_trainingevent_DuplicateMatchingRecord)",
+      "wywm_trainingevent_FileAttachments": "FileAttachments",
+      "wywm_trainingevent_MailboxTrackingFolders": "Mailbox Auto Tracking Folders",
+      "wywm_trainingevent_PrincipalObjectAttributeAccesses": "Field Sharing",
+      "wywm_trainingevent_ProcessSession": "Process Sessions",
+      "wywm_trainingevent_SyncErrors": "Sync Errors",
+      "wywm_trainingevent_Teams": "Teams",
+      "wywm_TrainingEvent_wywm_TrainingEvent_wyw": "Training Event Attendees",
+      "wywm_trainingeventid": "Training Event",
+      "wywm_trainingmaterial1": "Training Material #1",
+      "wywm_trainingmaterial2": "Training Material #2",
+      "wywm_trainingmaterial3": "Training Material #3",
+      "wywm_trainingobjectives": "Training Objectives",
+      "wywm_trainingstatus": "Training Status",
+      "wywm_trainingtype": "Training Type",
+      "wywm_UserNotification_TrainingEvent_wywm_": "UserNotifications",
+      "wywm_wywm_paysheet_Purpose_wywm_trainingevent": "Paysheets"
+    },
+    "PreferredName": "Training Events",
+    "Type": "NativeCDSDataSourceInfo"
+  },
+  {
+    "DisplayName": "Training Events (Views)",
+    "Name": "_wywm_trainingevent_views",
+    "RelatedEntityName": "Training Events",
+    "TrimmedViewName": true,
+    "Type": "ViewInfo",
+    "ViewInfoNameMapping": {
+      "02468372-9183-405b-9651-a4dd6e55ddba": "Active Training Events",
+      "43b07bf8-84ba-4882-9e51-979850cc94b2": "Inactive Training Events",
+      "635c152c-5c82-4022-9e00-6973e3082323": "Training Event Advanced Find View",
+      "67e632ea-165b-43b9-94a1-e988b4dcb0bc": "Training Event Lookup View",
+      "703d7fac-47ae-4331-9891-f702511e15bf": "Training Event Associated View"
+    }
+  },
+  {
+    "DisplayName": "A Yes or No boolean",
+    "Name": "field_security_permission_type",
+    "OptionSetInfoNameMapping": {
+      "0": "Not Allowed",
+      "4": "Allowed"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": true,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "wywm_allowvoluntarywithdrawal",
+        "OptionSetReferenceEntityName": "Training Events"
+      },
+      "OptionSetReferenceItem1": {
+        "OptionSetReferenceColumnName": "wywm_allowmandatoryrequirements",
+        "OptionSetReferenceEntityName": "Training Events"
+      }
+    },
+    "OptionSetTypeKey": "PicklistType",
+    "RelatedColumnInvariantName": "wywm_allowvoluntarywithdrawal",
+    "RelatedEntityName": "Training Events",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Days",
+    "Name": "wywm_days",
+    "OptionSetInfoNameMapping": {
+      "801200000": "0",
+      "801200001": "1",
+      "801200002": "2",
+      "801200003": "3",
+      "801200004": "4",
+      "801200005": "5",
+      "801200006": "6",
+      "801200007": "7",
+      "801200008": "8",
+      "801200009": "9",
+      "801200010": "10"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": true,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "wywm_daysbeforelastapplicationdate",
+        "OptionSetReferenceEntityName": "Training Events"
+      }
+    },
+    "OptionSetTypeKey": "PicklistType",
+    "RelatedColumnInvariantName": "wywm_daysbeforelastapplicationdate",
+    "RelatedEntityName": "Training Events",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Status (Training Events)",
+    "Name": "wywm_trainingevent_statecode",
+    "OptionSetInfoNameMapping": {
+      "0": "Active",
+      "1": "Inactive"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "statecode",
+        "OptionSetReferenceEntityName": "Training Events"
+      }
+    },
+    "OptionSetTypeKey": "StateType",
+    "RelatedColumnInvariantName": "statecode",
+    "RelatedEntityName": "Training Events",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Status Reason (Training Events)",
+    "Name": "wywm_trainingevent_statuscode",
+    "OptionSetInfoNameMapping": {
+      "1": "Planning",
+      "2": "Completed",
+      "801200000": "Scheduled",
+      "801200001": "Personnel Notified",
+      "801200002": "Canceled"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "statuscode",
+        "OptionSetReferenceEntityName": "Training Events"
+      }
+    },
+    "OptionSetTypeKey": "StatusType",
+    "RelatedColumnInvariantName": "statuscode",
+    "RelatedEntityName": "Training Events",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Training Status",
+    "Name": "wywm_trainingstatus",
+    "OptionSetInfoNameMapping": {
+      "801200000": "Planning",
+      "801200001": "Scheduled",
+      "801200002": "Personnel Notified"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": true,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "wywm_trainingstatus",
+        "OptionSetReferenceEntityName": "Training Events"
+      }
+    },
+    "OptionSetTypeKey": "PicklistType",
+    "RelatedColumnInvariantName": "wywm_trainingstatus",
+    "RelatedEntityName": "Training Events",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Training Type",
+    "Name": "wywm_trainingtype",
+    "OptionSetInfoNameMapping": {
+      "801200000": "Weekly",
+      "801200001": "Weekend",
+      "801200002": "Course"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": true,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "wywm_trainingtype",
+        "OptionSetReferenceEntityName": "Training Events"
+      }
+    },
+    "OptionSetTypeKey": "PicklistType",
+    "RelatedColumnInvariantName": "wywm_trainingtype",
+    "RelatedEntityName": "Training Events",
+    "Type": "OptionSetInfo"
+  }
+]

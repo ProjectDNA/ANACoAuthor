@@ -1,0 +1,232 @@
+MilitaryQualificationsScreen As screen:
+    Fill: =If(DarkMode,Dark4,White1)
+    OnVisible: =Set(BackScreen, PersonalInfoScreen);
+
+    MQ_OperationalQUal_AddBtn_1 As icon.Add:
+        Color: =RGBA(0, 0, 0, 1)
+        Height: =42
+        Icon: =Icon.Add
+        OnSelect: |-
+            =Navigate(DEP_MQ_Add_OccupationalQual);
+            NewForm(MilQual_Add_OccupationalQual_Form);
+        Visible: =false
+        Width: =42
+        X: =568
+        Y: =195
+        ZIndex: =5
+
+    MilQual_Container As groupContainer.manualLayoutContainer:
+        Height: =App.Height
+        Width: =App.Width
+        ZIndex: =11
+
+        MilQual_VertContainer As groupContainer.verticalAutoLayoutContainer:
+            Height: =Parent.Height
+            LayoutAlignItems: =LayoutAlignItems.Stretch
+            LayoutDirection: =LayoutDirection.Vertical
+            LayoutMode: =LayoutMode.Auto
+            LayoutOverflowY: =LayoutOverflow.Scroll
+            Width: =Parent.Width
+            ZIndex: =2
+
+            MilQual_MainHeader_1 As MainHeader:
+                LayoutMinHeight: =640
+                PersonalImage: =currPersonnelImage
+                PersonalInfoScreen: =PersonalInfoScreen
+
+            MilQual_MenuLowerHeader_1 As MenuLowerHeader:
+                BackScreen: =PersonalInfoScreen
+                LayoutMinHeight: =640
+                LowerMenuTextLabel: =__localizer.Localize("ANA_PERS_MILITARY_QUALIF", LangEn)
+                Y: =90
+                ZIndex: =2
+
+            MilQual_OperationQualHeader_2 As label:
+                BorderColor: =RGBA(230, 230, 230, 1)
+                Color: =RGBA(255, 255, 255, 1)
+                Fill: =If(DarkMode,Dark2,Blue2)
+                Font: =FontFamilyB
+                FontWeight: =FontWeight.Semibold
+                Height: =67
+                LayoutMinHeight: =70
+                LayoutMinWidth: =Parent.Width
+                PaddingLeft: =25
+                Size: =CardTextFont
+                Text: =__localizer.Localize("ANA_MILIQUAL_OPERA_QUAL", LangEn)
+                Width: =640
+                Y: =180
+                ZIndex: =3
+
+            "OPQual_Gallery As gallery.'BrowseLayout_Vertical_ThreeTextVariant_ver4.0'":
+                AlignInContainer: =AlignInContainer.SetByContainer
+                Fill: =RGBA(255, 255, 255, 0)
+                Height: =(CountRows(Filter('Occupation Qualifications', wywm_Personnel.Personnel=currPersonnel.Personnel)) * (OPQual_Gallery.TemplateHeight))
+                Items: =Sort(Filter('Occupation Qualifications', Personnel.Personnel=currPersonnel.Personnel), 'Effective Date', Descending)
+                Layout: =Layout.Vertical
+                LayoutMinHeight: =287
+                LayoutMinWidth: =Parent.Width
+                NavigationStep: =0
+                ShowNavigation: =true
+                ShowScrollbar: =false
+                TemplatePadding: =0
+                TemplateSize: =168
+                ZIndex: =4
+
+                Title4_1 As label:
+                    AutoHeight: =true
+                    Color: =If(DarkMode,White1,Black)
+                    Height: =36
+                    OnSelect: =Select(Parent)
+                    PaddingBottom: =0
+                    PaddingLeft: =0
+                    PaddingRight: =0
+                    PaddingTop: =0
+                    Text: |-
+                        =If(
+                            LangEn,
+                            ThisItem.'OSQ Course'.wywm_nameeng,
+                            ThisItem.'OSQ Course'.wywm_namefr
+                        )
+                    VerticalAlign: =VerticalAlign.Top
+                    Width: =573
+                    X: =32
+                    Y: =14
+                    ZIndex: =1
+
+                Subtitle2_1 As label:
+                    AutoHeight: =true
+                    Color: =If(DarkMode,White1,Black)
+                    Height: =Self.Size * 1.8
+                    OnSelect: =Select(Parent)
+                    PaddingBottom: =0
+                    PaddingLeft: =0
+                    PaddingRight: =0
+                    PaddingTop: =0
+                    Text: |-
+                        ="Code: "&ThisItem.'OSQ Course'.wywm_code
+                    VerticalAlign: =VerticalAlign.Top
+                    Width: =Parent.TemplateWidth - 104
+                    X: =32
+                    Y: =61
+                    ZIndex: =2
+
+                Body2_1 As label:
+                    AutoHeight: =true
+                    Color: =If(DarkMode,White1,Black)
+                    Height: =38
+                    OnSelect: =Select(Parent)
+                    PaddingBottom: =0
+                    PaddingLeft: =0
+                    PaddingRight: =0
+                    PaddingTop: =0
+                    Text: |-
+                        =__localizer.Localize("ANA_MQ_EFFECTIVE_DATE", LangEn) 
+                        &
+                        " - "
+                        &
+                        Text( DateValue( ThisItem.'Effective Date' ), "yyyy/mm/dd" )
+                    VerticalAlign: =VerticalAlign.Top
+                    Width: =Parent.TemplateWidth - 104
+                    X: =32
+                    Y: =105
+                    ZIndex: =3
+
+                Separator2_1 As rectangle:
+                    Fill: =If(DarkMode,White1,Blue2)
+                    Height: =1
+                    OnSelect: =Select(Parent)
+                    Width: =Parent.TemplateWidth
+                    Y: =Parent.TemplateHeight - 1
+                    ZIndex: =5
+
+            MilQual_TrainingHistoryHeader_2 As label:
+                BorderColor: =RGBA(230, 230, 230, 1)
+                Color: =RGBA(255, 255, 255, 1)
+                Fill: =If(DarkMode,Dark2,Blue2)
+                Font: =FontFamilyB
+                FontWeight: =FontWeight.Semibold
+                Height: =67
+                LayoutMinHeight: =70
+                LayoutMinWidth: =Parent.Width
+                PaddingLeft: =25
+                Size: =CardTextFont
+                Text: =__localizer.Localize("ANA_MILIQUAL_TRAINING_HISTORY", LangEn)
+                Width: =640
+                Y: =647
+                ZIndex: =5
+
+            "TrainHis_Gallery As gallery.'BrowseLayout_Vertical_ThreeTextVariant_ver4.0'":
+                AlignInContainer: =AlignInContainer.SetByContainer
+                Fill: =RGBA(255, 255, 255, 0)
+                Height: =(CountRows(Filter('Training Histories', wywm_Personnel.Personnel=currPersonnel.Personnel)) * (TrainHis_Gallery.TemplateHeight))
+                Items: =Sort(Filter('Training Histories', Personnel.Personnel=currPersonnel.Personnel), 'Effective Date', Descending)
+                Layout: =Layout.Vertical
+                LayoutMinHeight: =287
+                LayoutMinWidth: =Parent.Width
+                ShowNavigation: =true
+                ShowScrollbar: =false
+                TemplatePadding: =0
+                TemplateSize: =168
+                ZIndex: =6
+
+                Title6_1 As label:
+                    AutoHeight: =true
+                    Color: =If(DarkMode,White1,Black)
+                    Height: =Self.Size * 1.8
+                    OnSelect: =Select(Parent)
+                    PaddingBottom: =0
+                    PaddingLeft: =0
+                    PaddingRight: =0
+                    PaddingTop: =0
+                    Text: =If(LangEn, ThisItem.'HRMS Course'.wywm_nameeng, ThisItem.'HRMS Course'.wywm_namefr) 
+                    VerticalAlign: =VerticalAlign.Top
+                    Width: =Parent.TemplateWidth - 104
+                    X: =32
+                    Y: =14
+                    ZIndex: =1
+
+                Subtitle4_1 As label:
+                    AutoHeight: =true
+                    Color: =If(DarkMode,White1,Black)
+                    Height: =Self.Size * 1.8
+                    OnSelect: =Select(Parent)
+                    PaddingBottom: =0
+                    PaddingLeft: =0
+                    PaddingRight: =0
+                    PaddingTop: =0
+                    Text: |-
+                        ="Code: "&ThisItem.'HRMS Course'.wywm_code
+                    VerticalAlign: =VerticalAlign.Top
+                    Width: =Parent.TemplateWidth - 104
+                    X: =32
+                    Y: =61
+                    ZIndex: =2
+
+                Body3_1 As label:
+                    AutoHeight: =true
+                    Color: =If(DarkMode,White1,Black)
+                    OnSelect: =Select(Parent)
+                    PaddingBottom: =0
+                    PaddingLeft: =0
+                    PaddingRight: =0
+                    PaddingTop: =0
+                    Text: |
+                        =__localizer.Localize("ANA_MQ_EFFECTIVE_DATE", LangEn) 
+                        &
+                        " - "
+                        &
+                        Text( DateValue( ThisItem.'Effective Date' ), "yyyy/mm/dd" )
+                    VerticalAlign: =VerticalAlign.Top
+                    Width: =Parent.TemplateWidth - 104
+                    X: =32
+                    Y: =105
+                    ZIndex: =3
+
+                Separator4_1 As rectangle:
+                    Fill: =If(DarkMode,White1,Blue2)
+                    Height: =1
+                    OnSelect: =Select(Parent)
+                    Width: =Parent.TemplateWidth
+                    Y: =Parent.TemplateHeight - 1
+                    ZIndex: =5
+

@@ -1,0 +1,35 @@
+MenuLowerHeader As CanvasComponent:
+    BackScreen: =
+    Fill: =If(DarkMode,Dark2,Blue2)
+    Height: =90
+    LowerMenuTextLabel: ="Text"
+    Width: =640
+    X: =0
+    Y: =0
+    ZIndex: =1
+
+    MenuLowerHeadeLabel As label:
+        Align: =Align.Center
+        Color: =RGBA(255, 255, 255, 1)
+        Font: =FontFamilyA
+        Height: =90
+        Size: =CardHeaderFont
+        Text: =Parent.LowerMenuTextLabel
+        Width: =639
+        ZIndex: =2
+
+    MenuLowerHeaderBackIcon As icon.Add:
+        Color: =Yellow1
+        Height: =52
+        Icon: =Icon.BackArrow
+        OnSelect: |-
+            =//Navigate(Parent.BackScreen, ScreenTransition.UnCover);
+            //Back()
+            
+            If(IsBlank(MenuLowerHeader.BackScreen), Back(), Navigate(MenuLowerHeader.BackScreen))
+            //Back()
+        Width: =52
+        X: =20
+        Y: =19
+        ZIndex: =3
+

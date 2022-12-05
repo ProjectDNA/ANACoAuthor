@@ -1,0 +1,166 @@
+[
+  {
+    "CdsFCBContext": "{\"FileType\":true,\"ImageExternalStorage\":true}",
+    "EntitySetName": "wywm_educations",
+    "IsHidden": false,
+    "IsSampleData": false,
+    "IsWritable": true,
+    "LogicalName": "wywm_education",
+    "MaxGetRowsCount": 500,
+    "Name": "Educations",
+    "NativeCDSDataSourceInfoNameMapping": {
+      "_ownerid_value": "Owner",
+      "cr5cd_attachment1": "Attachment #1",
+      "cr5cd_attachment2": "Attachment #2",
+      "cr5cd_attachment3": "Attachment #3",
+      "cr5cd_datefrom": "Date From",
+      "cr5cd_dateto": "Date To",
+      "cr5cd_degreetypes": "DegreeTypes",
+      "createdby": "Created By",
+      "createdon": "Created On (createdon)",
+      "createdonbehalfby": "Created By (Delegate)",
+      "importsequencenumber": "Import Sequence Number",
+      "modifiedby": "Modified By",
+      "modifiedon": "Modified On",
+      "modifiedonbehalfby": "Modified By (Delegate)",
+      "overriddencreatedon": "Record Created On (overriddencreatedon)",
+      "owningbusinessunit": "Owning Business Unit",
+      "owningteam": "Owning Team",
+      "owninguser": "Status Reason (owninguser)",
+      "statecode": "Status",
+      "statuscode": "Status Reason (statuscode)",
+      "timezoneruleversionnumber": "Time Zone Rule Version Number",
+      "utcconversiontimezonecode": "Created On (utcconversiontimezonecode)",
+      "versionnumber": "Record Created On (versionnumber)",
+      "wywm_degree": "Degree",
+      "wywm_education_AsyncOperations": "System Jobs",
+      "wywm_education_BulkDeleteFailures": "Bulk Delete Failures",
+      "wywm_education_FileAttachments": "FileAttachments",
+      "wywm_education_MailboxTrackingFolders": "Mailbox Auto Tracking Folders",
+      "wywm_education_PrincipalObjectAttributeAccesses": "Field Sharing",
+      "wywm_education_ProcessSession": "Process Sessions",
+      "wywm_education_SyncErrors": "Sync Errors",
+      "wywm_education_Teams": "Teams",
+      "wywm_educationid": "Education",
+      "wywm_educationlevel": "Education Level",
+      "wywm_enddatemonth": "End Date Month",
+      "wywm_enddateyear": "End Date Year",
+      "wywm_fieldofstudy": "Field Of Study",
+      "wywm_name": "Institution Name",
+      "wywm_Personnel": "Personnel",
+      "wywm_startdatemonth": "Start Date Month",
+      "wywm_startdateyear": "Start Date Year"
+    },
+    "PreferredName": "Educations",
+    "Type": "NativeCDSDataSourceInfo"
+  },
+  {
+    "DisplayName": "Educations (Views)",
+    "Name": "_wywm_education_views",
+    "RelatedEntityName": "Educations",
+    "TrimmedViewName": true,
+    "Type": "ViewInfo",
+    "ViewInfoNameMapping": {
+      "1e27529f-52a8-4336-8bec-a01f41c2a22b": "Education Advanced Find View",
+      "326ba363-6836-4871-912e-c9e49b1b5a99": "History",
+      "573ef512-8b1a-42ba-ad6d-4e9ced1fe689": "Education Associated View",
+      "ef80b84f-d5f9-408e-b0ee-d2c5de51108f": "Education Lookup View",
+      "efa19db3-b1ad-4bcd-a254-165a3b96a6d9": "Inactive Educations"
+    }
+  },
+  {
+    "DisplayName": "Degree Types",
+    "Name": "cr5cd_degreetypes",
+    "OptionSetInfoNameMapping": {
+      "193790001": "Bachelor's (Baccalauréat)",
+      "193790002": "Master's (Maîtrise)",
+      "193790003": "PhD (Doctorat)"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": true,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "cr5cd_degreetypes",
+        "OptionSetReferenceEntityName": "Educations"
+      }
+    },
+    "OptionSetTypeKey": "PicklistType",
+    "RelatedColumnInvariantName": "cr5cd_degreetypes",
+    "RelatedEntityName": "Educations",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Status (Educations)",
+    "Name": "wywm_education_statecode",
+    "OptionSetInfoNameMapping": {
+      "0": "Active",
+      "1": "Inactive"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "statecode",
+        "OptionSetReferenceEntityName": "Educations"
+      }
+    },
+    "OptionSetTypeKey": "StateType",
+    "RelatedColumnInvariantName": "statecode",
+    "RelatedEntityName": "Educations",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Status Reason (Educations)",
+    "Name": "wywm_education_statuscode",
+    "OptionSetInfoNameMapping": {
+      "1": "Active",
+      "2": "Inactive"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "statuscode",
+        "OptionSetReferenceEntityName": "Educations"
+      }
+    },
+    "OptionSetTypeKey": "StatusType",
+    "RelatedColumnInvariantName": "statuscode",
+    "RelatedEntityName": "Educations",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Month",
+    "Name": "yearlymonth_options",
+    "OptionSetInfoNameMapping": {
+      "1": "January",
+      "10": "October",
+      "11": "November",
+      "12": "December",
+      "2": "February",
+      "3": "March",
+      "4": "April",
+      "5": "May",
+      "6": "June",
+      "7": "July",
+      "8": "August",
+      "9": "September"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": true,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "wywm_enddatemonth",
+        "OptionSetReferenceEntityName": "Educations"
+      },
+      "OptionSetReferenceItem1": {
+        "OptionSetReferenceColumnName": "wywm_startdatemonth",
+        "OptionSetReferenceEntityName": "Educations"
+      }
+    },
+    "OptionSetTypeKey": "PicklistType",
+    "RelatedColumnInvariantName": "wywm_enddatemonth",
+    "RelatedEntityName": "Educations",
+    "Type": "OptionSetInfo"
+  }
+]

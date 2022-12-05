@@ -1,0 +1,55 @@
+{
+  "ComponentAllowCustomization": true,
+  "ComponentChangedSinceFileImport": true,
+  "ComponentManifest": {
+    "AllowAccessToGlobals": true,
+    "AllowCustomization": true,
+    "Description": "",
+    "Name": "StatusLabelWithDate",
+    "TemplateGuid": "633bb55872f94c93b789a7a582d3b1ed"
+  },
+  "ComponentType": "CanvasComponent",
+  "CustomGroupControlTemplateName": "",
+  "CustomProperties": [
+    {
+      "Category": 0,
+      "DisplayName": "Status",
+      "Hidden": false,
+      "Name": "Status",
+      "PropertyDataTypeKey": "String",
+      "Tooltip": "The status we wish to display (Valid, Expiring, Expired, or NotApplicable)",
+      "Type": "{\"Version\":\"1.326\",\"Type\":{\"Name\":\"Root\",\"Kind\":\"String\",\"EnumString\":\"\",\"Type\":[]}}"
+    },
+    {
+      "Category": 0,
+      "DisplayName": "Dag name",
+      "Hidden": false,
+      "Name": "DagName",
+      "PropertyDataTypeKey": "String",
+      "Tooltip": "A custom property",
+      "Type": "{\"Version\":\"1.326\",\"Type\":{\"Name\":\"Root\",\"Kind\":\"String\",\"EnumString\":\"\",\"Type\":[]}}"
+    },
+    {
+      "Category": 0,
+      "DisplayName": "Expiration date",
+      "Hidden": false,
+      "Name": "ExpirationDate",
+      "PropertyDataTypeKey": "DateTime",
+      "Tooltip": "A custom property",
+      "Type": "{\"Version\":\"1.326\",\"Type\":{\"Name\":\"Root\",\"Kind\":\"DateTime\",\"EnumString\":\"\",\"Type\":[]}}"
+    }
+  ],
+  "FirstParty": true,
+  "Id": "http://microsoft.com/appmagic/Component",
+  "IsComponentLocked": false,
+  "IsComponentTemplate": true,
+  "IsCustomGroupControlTemplate": false,
+  "IsPcfControl": false,
+  "IsPremiumPcfControl": false,
+  "IsWidgetTemplate": false,
+  "LastModifiedTimestamp": "638058497004508358",
+  "Name": "633bb55872f94c93b789a7a582d3b1ed",
+  "OverridableProperties": {},
+  "TemplateOriginalName": "9d9bb954209c4d2c8ead33de7869800b",
+  "Version": "637734642613344471"
+}

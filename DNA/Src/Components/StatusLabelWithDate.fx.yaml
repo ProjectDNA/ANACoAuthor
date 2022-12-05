@@ -1,0 +1,78 @@
+StatusLabelWithDate As CanvasComponent:
+    DagName: ="Text"
+    ExpirationDate: =Now()
+    Fill: =RGBA(0, 0, 0, 0)
+    Height: =120
+    Status: ="Text"
+    Width: =640
+    X: =0
+    Y: =0
+    ZIndex: =1
+
+    StatusLabelWithDateButton As button:
+        DisplayMode: =DisplayMode.View
+        Fill: |-
+            =Switch(Text(Parent.Status),
+                "Valid", Green,
+                "Expired", Red,
+                "Expiring", Yellow1,
+                Gray1
+            )
+        Height: =39
+        PaddingBottom: =90
+        PaddingLeft: =90
+        PaddingRight: =90
+        PaddingTop: =90
+        RadiusBottomLeft: =20
+        RadiusBottomRight: =20
+        RadiusTopLeft: =20
+        RadiusTopRight: =20
+        Size: =24
+        Text: =""
+        Width: =134
+        X: =252
+        Y: =41
+        ZIndex: =1
+
+    StatusLabelWithDateExpDate As label:
+        Font: =FontFamilyA
+        Height: =120
+        Size: =CardTextFont
+        Text: =Text(Parent.ExpirationDate, ShortDate)
+        Width: =171
+        X: =469
+        ZIndex: =2
+
+    StatusLabelWithDateStatus As label:
+        Align: =Align.Center
+        Color: =RGBA(255, 255, 255, 1)
+        DisabledBorderColor: =RGBA(0, 0, 0, 0)
+        Fill: =Transparent
+        Font: =FontFamilyA
+        Height: =120
+        Size: =CardSmallTextFont
+        Text: |-
+            =Switch(Parent.Status,
+                "Expiring", If(LangEn, Parent.Status, "Expire"),
+                "Expired", If(LangEn, Parent.Status, "Expiré"),
+                "Valid", If(LangEn, Parent.Status, "Valide"),
+                "N/A")
+        Width: =139
+        X: =250
+        ZIndex: =3
+
+    StatusLabelWithDateDagName As label:
+        Font: =FontFamilyA
+        Height: =118
+        Size: =CardTextFont
+        Text: =Parent.DagName
+        Width: =234
+        X: =16
+        ZIndex: =4
+
+    StatusLabelWithDateSeparator As rectangle:
+        Height: =2
+        Width: =640
+        Y: =118
+        ZIndex: =6
+

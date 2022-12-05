@@ -1,0 +1,22 @@
+OperationalSoldierScreen As screen:
+
+    OS_NotYetImplemented As NotYetImplemented:
+        FeedbackScreen: =BugScreen
+        Height: =1136
+
+    OS_MenuLowerHeader As MenuLowerHeader:
+        BackScreen: =PersonalInfoScreen
+        LowerMenuTextLabel: =__localizer.Localize("ANA_PERS_OPERATIONAL_SOLDIER", LangEn)
+        Y: =OS_MainHeader.Height
+        ZIndex: =2
+
+    OS_MainHeader As MainHeader:
+        PersonalImage: =currPersonnelImage
+        PersonalInfoScreen: =PersonalInfoScreen
+        ZIndex: =3
+
+    Rectangle2 As rectangle:
+        Height: =
+        X: =53
+        ZIndex: =5
+

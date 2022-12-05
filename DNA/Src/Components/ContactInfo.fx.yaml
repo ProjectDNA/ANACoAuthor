@@ -1,0 +1,324 @@
+ContactInfo As CanvasComponent:
+    activeMilitaryRole: ="Text"
+    address1: ="Text"
+    code: ="Text"
+    comp: ="Text"
+    currRank: ="Text"
+    dob: ="Text"
+    Fill: =RGBA(0, 0, 0, 0)
+    gender: ="Text"
+    Height: =App.Height
+    joinDate: ="Text"
+    mobilePhoneNumber: ="Text"
+    name: ="Text"
+    prefLanguage: ="Text"
+    securityClearance: ="Text"
+    serviceNumber: ="Text"
+    trade: ="Text"
+    type: ="Text"
+    unit: ="Text"
+    Width: =640
+    X: =0
+    Y: =0
+    ZIndex: =1
+
+    PI_PersonalInfo As group:
+        Height: =5
+        Width: =5
+        X: =60
+        Y: =60
+        ZIndex: =12
+
+        ContactInfoPersInfo As label:
+            Font: =FontFamilyB
+            FontWeight: =FontWeight.Semibold
+            Height: =62
+            Size: =CardMediumTextFont
+            Text: =__localizer.Localize("ANA_CONTACT_PERSONAL_INFO", LangEn)
+            VerticalAlign: =VerticalAlign.Top
+            Width: =596
+            X: =40
+            Y: =23
+            ZIndex: =1
+
+        ContactInfoPrefName As label:
+            Font: =FontFamilyB
+            FontWeight: =FontWeight.Semibold
+            Height: =70
+            Size: =CardTextFont
+            Text: |-
+                =__localizer.Localize("ANA_CONTACT_NAME", LangEn)&":"
+            Width: =118
+            X: =40
+            Y: =69
+            ZIndex: =2
+
+        ContactInfoPrefNameValue As label:
+            Font: =FontFamilyB
+            Height: =70
+            Size: =CardTextFont
+            Text: =Parent.name
+            Width: =393
+            X: =247
+            Y: =69
+            ZIndex: =3
+
+        ContactInfoPrefLan As label:
+            Font: =FontFamilyB
+            FontWeight: =FontWeight.Semibold
+            Height: =70
+            Size: =CardTextFont
+            Text: |-
+                =__localizer.Localize("ANA_CONTACT_PREF_LANG", LangEn)&":"
+            Width: =296
+            X: =40
+            Y: =115
+            ZIndex: =8
+
+        ContactInfoPrefLanValue As label:
+            Font: =FontFamilyB
+            Height: =70
+            Size: =CardTextFont
+            Text: =Parent.prefLanguage
+            Width: =393
+            X: =247
+            Y: =115
+            ZIndex: =9
+
+    PI_ContactInfo As group:
+        Height: =5
+        Width: =5
+        X: =60
+        Y: =20
+        ZIndex: =17
+
+        ContactInfoContactInfo As label:
+            Font: =FontFamilyB
+            FontWeight: =FontWeight.Semibold
+            Height: =111
+            Size: =CardMediumTextFont
+            Text: |-
+                =__localizer.Localize("ANA_CONTACT_CONTACT_INFO", LangEn)&":"
+            VerticalAlign: =VerticalAlign.Top
+            Width: =596
+            X: =34
+            Y: =205
+            ZIndex: =12
+
+        ContactInfoMobile As label:
+            Font: =FontFamilyB
+            FontWeight: =FontWeight.Semibold
+            Height: =125
+            Size: =CardTextFont
+            Text: |-
+                =__localizer.Localize("ANA_CONTACT_MOBILE_NUMB", LangEn)&":"
+            Width: =296
+            X: =37
+            Y: =229
+            ZIndex: =15
+
+        ContactInfoMobileValue As label:
+            Font: =FontFamilyB
+            Height: =119
+            Size: =CardTextFont
+            Text: =Parent.mobilePhoneNumber
+            Width: =307
+            X: =333
+            Y: =229
+            ZIndex: =16
+
+    PI_MilitaryInfo As group:
+        Height: =5
+        Width: =5
+        X: =60
+        Y: =60
+        ZIndex: =28
+
+        ContactInfoMilitaryInfo As label:
+            Font: =FontFamilyB
+            FontWeight: =FontWeight.Semibold
+            Height: =59
+            Size: =CardMediumTextFont
+            Text: |-
+                =__localizer.Localize("ANA_CONTACT_MILITARY_INFO", LangEn)&":"
+            VerticalAlign: =VerticalAlign.Top
+            Width: =596
+            X: =34
+            Y: =335
+            ZIndex: =17
+
+        ContactInfoRank As label:
+            Font: =FontFamilyB
+            FontWeight: =FontWeight.Semibold
+            Height: =67
+            Size: =CardTextFont
+            Text: |-
+                =__localizer.Localize("ANA_CONTACT_CURRENT_RANK", LangEn)&":"
+            Width: =194
+            X: =37
+            Y: =386
+            ZIndex: =18
+
+        ContactInfoRankValue As label:
+            Font: =FontFamilyB
+            Height: =67
+            Size: =CardTextFont
+            Text: =Parent.currRank
+            Width: =307
+            X: =333
+            Y: =383
+            ZIndex: =19
+
+        ContactInfoUnit As label:
+            Font: =FontFamilyB
+            FontWeight: =FontWeight.Semibold
+            Height: =67
+            Size: =CardTextFont
+            Text: |-
+                =__localizer.Localize("ANA_CONTACT_UNIT", LangEn)&":"
+            Width: =118
+            X: =37
+            Y: =434
+            ZIndex: =20
+
+        ContactInfoUnitValue As label:
+            DisplayMode: =DisplayMode.View
+            Font: =FontFamilyB
+            Height: =67
+            Size: =CardTextFont
+            Text: =Parent.unit
+            Width: =307
+            X: =333
+            Y: =434
+            ZIndex: =21
+
+        ContactInfoActiveRole As label:
+            Font: =FontFamilyB
+            FontWeight: =FontWeight.Semibold
+            Height: =67
+            Size: =CardTextFont
+            Text: |-
+                =__localizer.Localize("ANA_CONTACT_ACTIVE_MILITARY_ROLE", LangEn)&":"
+            Width: =281
+            X: =37
+            Y: =482
+            ZIndex: =22
+
+        ContactInfoActiveRoleValue As label:
+            Font: =FontFamilyB
+            Height: =67
+            Size: =CardTextFont
+            Text: =Parent.activeMilitaryRole
+            Width: =307
+            X: =333
+            Y: =482
+            ZIndex: =23
+
+        ContactInfoSN As label:
+            Font: =FontFamilyB
+            FontWeight: =FontWeight.Semibold
+            Height: =67
+            Size: =CardTextFont
+            Text: |-
+                =__localizer.Localize("ANA_CONTACT_SERVICE_NUMB", LangEn)&":"
+            Width: =296
+            X: =37
+            Y: =529
+            ZIndex: =24
+
+        ContactInfoSNValue As label:
+            Font: =FontFamilyB
+            Height: =67
+            Size: =CardTextFont
+            Text: =Parent.serviceNumber
+            Width: =307
+            X: =333
+            Y: =529
+            ZIndex: =25
+
+    PI_MOS_2 As group:
+        Height: =5
+        Width: =5
+        X: =4
+        Y: =-183
+        ZIndex: =37
+
+        MOS_2 As label:
+            Font: =FontFamilyB
+            FontWeight: =FontWeight.Semibold
+            Height: =119
+            Size: =CardMediumTextFont
+            Text: |-
+                =__localizer.Localize("ANA_CONTACT_MILITARY_OCC_SPEC", LangEn)&":"
+            VerticalAlign: =VerticalAlign.Top
+            Width: =596
+            X: =34
+            Y: =615
+            ZIndex: =28
+
+        ContactInfoType As label:
+            Font: =FontFamilyB
+            FontWeight: =FontWeight.Semibold
+            Height: =87
+            Size: =CardTextFont
+            Text: |-
+                ="Type:"
+            Width: =118
+            X: =34
+            Y: =694
+            ZIndex: =29
+
+        ContactInfoTrade As label:
+            Font: =FontFamilyB
+            FontWeight: =FontWeight.Semibold
+            Height: =87
+            Size: =CardTextFont
+            Text: |-
+                =__localizer.Localize("ANA_CONTACT_TRADE", LangEn)&":"
+            Width: =118
+            X: =34
+            Y: =744
+            ZIndex: =30
+
+        ContactInfoComp As label:
+            Font: =FontFamilyB
+            FontWeight: =FontWeight.Semibold
+            Height: =87
+            Size: =CardTextFont
+            Text: |-
+                =__localizer.Localize("ANA_CONTACT_COMP", LangEn)&":"
+            Width: =176
+            X: =34
+            Y: =794
+            ZIndex: =31
+
+        ContactInfoTypeValue As label:
+            Font: =FontFamilyB
+            Height: =87
+            Size: =CardTextFont
+            Text: =Parent.type
+            Width: =499
+            X: =141
+            Y: =694
+            ZIndex: =33
+
+        ContactInfoTradeValue As label:
+            Font: =FontFamilyB
+            Height: =87
+            Size: =CardTextFont
+            Text: =Parent.trade
+            Width: =499
+            X: =141
+            Y: =744
+            ZIndex: =34
+
+        ContactInfoCompValue As label:
+            Font: =FontFamilyB
+            Height: =87
+            Size: =CardTextFont
+            Text: =Parent.comp
+            Width: =499
+            X: =141
+            Y: =794
+            ZIndex: =35
+

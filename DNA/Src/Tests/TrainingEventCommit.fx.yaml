@@ -1,0 +1,28 @@
+"'df2ff713-ba06-4666-81d7-a1af94da0b37' As TestSuite":
+    Description: =""
+    DisplayName: ="TrainingEventCommit"
+
+    "'7bc6f3a8-17e1-4914-9057-93751c097143' As TestCase":
+        Description: =""
+        DisplayName: ="Verify user has commited"
+
+        Step1 As TestStep:
+            Description: ="Select 'Dashboard_ButtonTraining'"
+            Screen: =DashboardScreen
+            Value: =Select(Debug_TrainingMenu_2)
+
+        Step2 As TestStep:
+            Description: ="Select 'Training_TrainingCard' in row 1 in 'Training_TrainingGallery'"
+            Screen: =TrainingScreen
+            Value: =Select(Training_TrainingGallery, 1, Training_TrainingDetailsButton)
+
+        Step3 As TestStep:
+            Description: ="Select 'Training_TrainingCard' in row 1 in 'Training_TrainingGallery'"
+            Screen: =TrainingScreen
+            Value: =Select(Training_TrainingGallery, 1, Training_TrainingDetailsButton)
+
+        Step4 As TestStep:
+            Description: ="Select 'TrainingDetails_CommitBtn'"
+            Screen: =TrainingDetailsScreen
+            Value: =Select(TrainingDetails_CommitBtn)
+

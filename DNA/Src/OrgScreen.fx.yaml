@@ -1,0 +1,222 @@
+OrgScreen As screen:
+    Fill: =If(DarkMode,Dark3,White1)
+    LoadingSpinner: =LoadingSpinner.Data
+    OnVisible: =Reset(Org_Search)
+
+    Org_Container As groupContainer.manualLayoutContainer:
+        Height: =App.Height
+        Width: =App.Width
+        ZIndex: =5
+
+        "Org_Gallery As gallery.'BrowseLayout_Vertical_TwoTextOneImageVariant_ver4.0'":
+            Fill: =RGBA(230, 230, 230, 0)
+            Height: =876
+            Items: |-
+                =//NOT DELEGABLE, will not scale past 500 or 2000 users
+                // orgItems set in onVisible of current page
+                Filter(Personnels,
+                    Unit.Unit = currPersonnel.Unit.Unit,
+                    //search:"Ryan Rei"->"ryanrei" is it anywhere in SearchCandidate: "Ryan Reinholdt"->"ryanreinholdt"
+                    Lower(Substitute(Org_Search, " ", "")) in Lower('Current Rank'.Name)
+                    ||
+                    Lower(Substitute(Org_Search, " ", "")) in Text(Lower('Current Rank'.Name) & Lower('First Name'))
+                    ||
+                    Lower(Substitute(Org_Search, " ", "")) in Text(Lower('Current Rank'.'Description Abbreviation Eng') & Lower('First Name'))
+                    ||
+                    Lower(Substitute(Org_Search, " ", "")) in Text(Lower('Current Rank'.'Description Abbreviation FR') & Lower('First Name'))
+                    ||
+                    Lower(Substitute(Org_Search, " ", "")) in Text(Lower('Current Rank'.Name)  & Lower('Last Name'))
+                    ||
+                    Lower(Substitute(Org_Search, " ", "")) in Text(Lower('Current Rank'.'Description Abbreviation Eng')  & Lower('Last Name'))
+                    ||
+                    Lower(Substitute(Org_Search, " ", "")) in Text(Lower('Current Rank'.'Description Abbreviation FR')  & Lower('Last Name'))
+                    ||
+                    Lower(Substitute(Org_Search, " ", "")) in Lower('First Name') & Lower('Last Name')
+                    ||
+                    Lower(Substitute(Org_Search, " ", "")) in Lower('Last Name') & Lower('First Name')
+                    ||
+                    Lower(Substitute(Org_Search, " ", "")) in Lower('Service Number'),
+                    Not(Personnel = currPersonnel.Personnel)
+                )
+                
+                //Filter(orgItems, )
+                
+                /*
+                    //Thousands and thousands of results
+                    Table(
+                        Search("first name"),
+                        Search("last name"),
+                        Search("last name" + "first name"),
+                    )
+                
+                    //SEARCH does, can search ALL RECORDS IN THE BACKEND
+                    //SELECT 'text' FROM Table(col1, col2) => Search
+                
+                    Table(
+                        { searchText1: "ryansome" searchText2: "someryan"}
+                        .....500+ records
+                    )
+                
+                    //FILTER searches a prefetched table of up to 2000 records
+                    //SELECT 'text' FROM 
+                    //  (SELECT * FROM TABLE LIMIT 2000);
+                */
+                
+                /*Search(
+                    Filter(
+                        Personnels,
+                        Unit.wywm_unitid = currPersonnel.Unit.wywm_unitid
+                    ),
+                    Lower(OrgScreen_Search)
+                    , 
+                    "wywm_firstname", "wywm_name"
+                )
+                */
+                
+                
+                //Filter(spList, Textinput1.Text in 'Full Name')
+                //SERVICE NUMBER
+                
+                /*Search(
+                    
+                        Personnels,
+                
+                        OrgScreen_Search, "wywm_firstname") 
+                */
+            Layout: =Layout.Vertical
+            TemplatePadding: =0
+            TemplateSize: =91
+            Y: =260
+            ZIndex: =2
+
+            Org_MemberCard As rectangle:
+                Fill: =If(DarkMode,Dark2,White1)
+                Height: =Parent.TemplateHeight
+                OnSelect: |-
+                    =Select(Parent);
+                    Navigate(OrgContactScreen, CoverRight);
+                Width: =Parent.Width
+                ZIndex: =1
+
+            Org_MemberProfile As image:
+                BorderColor: =White1
+                BorderThickness: =3
+                Height: =60
+                Image: =If(IsBlank(ThisItem.'Military Id Card Front'), 'profile.PNG', ThisItem.'Military Id Card Front')
+                OnSelect: =Select(Parent)
+                RadiusBottomLeft: =100
+                RadiusBottomRight: =100
+                RadiusTopLeft: =100
+                RadiusTopRight: =100
+                Width: =60
+                X: =24
+                Y: =20
+                ZIndex: =2
+
+            Org_MemberName As label:
+                AutoHeight: =true
+                Color: =If(DarkMode,White1,Black)
+                Height: =90
+                OnSelect: =Select(Parent)
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Size: =15
+                Text: |-
+                    =If(LangEn, 
+                        ThisItem.'Current Rank'.wywm_descrshort_eng,
+                        ThisItem.'Current Rank'.wywm_descrshort_eng
+                    ) & ". " & ThisItem.'Last Name' & ", " & ThisItem.'First Name' 
+                Width: =251
+                Wrap: =false
+                X: =89
+                ZIndex: =3
+
+            Org_NextArrow As icon.ChevronRight:
+                AccessibleLabel: =Self.Tooltip
+                Color: =If(DarkMode,White1,Blue2)
+                Height: =60
+                Icon: =Icon.ChevronRight
+                OnSelect: =Navigate(OrgContactScreen, CoverRight)
+                PaddingBottom: =10
+                PaddingLeft: =10
+                PaddingRight: =10
+                PaddingTop: =10
+                TabIndex: =0
+                Tooltip: ="View item details"
+                Width: =60
+                X: =Parent.TemplateWidth - Self.Width - 5
+                Y: =(Parent.TemplateHeight / 2) - (Self.Height / 2)
+                ZIndex: =4
+
+            Org_Separator As rectangle:
+                Fill: =If(DarkMode,Gray1,Blue2)
+                Height: =2
+                OnSelect: =Select(Parent)
+                Width: =Parent.TemplateWidth
+                Y: =Org_MemberCard.Height
+                ZIndex: =5
+
+            Org_TeamsIcon As image:
+                Height: =48
+                Image: =teams_logo
+                OnSelect: |-
+                    =Launch("https://teams.microsoft.com/l/chat/0/0?users=" & ThisItem.'Military Email')
+                Width: =48
+                X: =353
+                Y: =20
+                ZIndex: =6
+
+            Org_EmailIcon As image:
+                Height: =48
+                Image: =outlook_logo
+                OnSelect: |
+                    =Launch("mailto:" & ThisItem.'Military Email' & "?subject=Subject%20DNA&body=Hi,%2C%20your%20message%20would%20go%20here.&#9; Bonjour,%20composer%20votre%20message%20ici");
+                Width: =48
+                X: =429
+                Y: =20
+                ZIndex: =7
+
+            Org_PhoneIcon As icon.Add:
+                Color: =If(DarkMode,White1,Black)
+                Height: =48
+                Icon: =Icon.Phone
+                OnSelect: |-
+                    =Launch("tel:" & ThisItem.'Mobile Phone Number');
+                Width: =48
+                X: =501
+                Y: =22
+                ZIndex: =8
+
+        Org_MainHeader As MainHeader:
+            PersonalImage: =currPersonnelImage
+            PersonalInfoScreen: =PersonalInfoScreen
+            ZIndex: =3
+
+        Org_MenuLowerHeader As MenuLowerHeader:
+            BackScreen: =DashboardScreen
+            LowerMenuTextLabel: =If(LangEn,"Unit Nominal Roll","Liste nominative d'unité")
+            Y: =Org_MainHeader.Height
+            ZIndex: =4
+
+        Org_Search As text:
+            BorderColor: =If(DarkMode,Dark2,Blue2)
+            Default: =""
+            Fill: =If(DarkMode,Dark4,White1)
+            Height: =80
+            HintText: =__localizer.Localize("ANA_ORG_SEARCH", LangEn)
+            Size: =21
+            Width: =640
+            Y: =180
+            ZIndex: =5
+
+        Icon2 As icon.Search:
+            Color: =If(DarkMode,White1,Blue2)
+            Height: =80
+            Icon: =Icon.Search
+            Width: =80
+            X: =560
+            Y: =180
+            ZIndex: =6
+

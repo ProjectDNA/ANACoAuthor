@@ -1,0 +1,676 @@
+[
+  {
+    "CdsFCBContext": "{\"FileType\":true,\"ImageExternalStorage\":true}",
+    "EntitySetName": "wywm_personnels",
+    "IsHidden": false,
+    "IsSampleData": false,
+    "IsWritable": true,
+    "LogicalName": "wywm_personnel",
+    "MaxGetRowsCount": 500,
+    "Name": "Personnels",
+    "NativeCDSDataSourceInfoNameMapping": {
+      "_ownerid_value": "Owner",
+      "createdby": "Created By",
+      "createdon": "Created On",
+      "createdonbehalfby": "Created By (Delegate)",
+      "importsequencenumber": "Import Sequence Number",
+      "modifiedby": "Modified By (modifiedby)",
+      "modifiedon": "Modified On",
+      "modifiedonbehalfby": "Modified By (Delegate)",
+      "overriddencreatedon": "Record Created On",
+      "owningbusinessunit": "Owning Business Unit",
+      "owningteam": "Modified By (owningteam)",
+      "owninguser": "Time Zone Rule Version Number",
+      "statecode": "Status",
+      "statuscode": "Status Reason",
+      "timezoneruleversionnumber": "Owning User",
+      "utcconversiontimezonecode": "UTC Conversion Time Zone Code",
+      "versionnumber": "Version Number",
+      "wywm_abbreviationcurrentrank": "Abbreviation current rank",
+      "wywm_abbreviationcurrentrankfrench": "Abbreviation current rank French",
+      "wywm_ActiveMilitaryRole": "Active Military Role",
+      "wywm_address1city": "Address 1 : City",
+      "wywm_address1country": "Address 1 : Country",
+      "wywm_address1postalcode": "Address 1 : Postal Code",
+      "wywm_address1province": "Address 1 : Province ",
+      "wywm_address1street1": "Address 1 : Street 1",
+      "wywm_address1street2": "Address 1 : Street 2",
+      "wywm_address2city": "Address 2 : City",
+      "wywm_address2country": "Address 2 : Country",
+      "wywm_address2postalcode": "Address 2 : Postal Code",
+      "wywm_address2province": "Address 2 : Province",
+      "wywm_address2street1": "Address 2 : Street 1",
+      "wywm_address2street2": "Address 2 : Street 2",
+      "wywm_annualdental": "Annual Dental",
+      "wywm_annualdentalexpirationdate": "Annual Dental Expiration Date",
+      "wywm_bluepassport": "Blue Passport",
+      "wywm_bluepassportexpirationdate": "Blue Passport Expiration Date",
+      "wywm_cbrn": "CBRN ",
+      "wywm_cbrnexpirationdate": "CBRN Expiration Date",
+      "wywm_component": "Component",
+      "wywm_Course_OPI_wywm_Personnel": "Courses",
+      "wywm_CourseApplication_Personnel_wywm_Per": "Course Applications",
+      "wywm_currentcivilianoccupation": "Current Civilian Occupation",
+      "wywm_CurrentRank": "Current Rank",
+      "wywm_dateofbirth": "Date of Birth",
+      "wywm_dnd404": "DND 404",
+      "wywm_dnd404expirationdate": "DND 404 Expiration Date",
+      "wywm_emergencycontactname": "Emergency Contact Name",
+      "wywm_emergencycontactnotification": "Emergency Contact Notification",
+      "wywm_emergencycontactnotificationexpdate": "Emergency Contact Notification Expiration Date",
+      "wywm_emergencycontactphonenumber": "Emergency Contact Phone Number",
+      "wywm_Employment_OPI_wywm_Personnel": "Employments",
+      "wywm_employmentstatus": "Employment Status",
+      "wywm_familycareplan": "Family Care Plan",
+      "wywm_familycareplanexpirationdate": "Family Care Plan Expiration Date",
+      "wywm_firstaid": "First Aid",
+      "wywm_firstaidexpirationdate": "First Aid Expiration Date",
+      "wywm_firstname": "First Name",
+      "wywm_gender": "Gender",
+      "wywm_greenpassport": "Green Passport",
+      "wywm_greenpassportexpirationdate": "Green Passport Expiration Date",
+      "wywm_hidecoursesnotifications": "Hide Courses Notifications",
+      "wywm_hidetaskingsnotifications": "Hide Taskings Notifications",
+      "wywm_hidetrainingeventsnotifications": "Hide Training Events Notifications",
+      "wywm_highesteducationlevel": "Highest Education Level",
+      "wywm_idcard": "ID Card",
+      "wywm_idcardexpirationdate": "ID Card Expiration Date",
+      "wywm_iddisc": "ID Disc",
+      "wywm_iddiscexpirationdate": "ID Disc Expiration Date",
+      "wywm_immunizationnastandardexpiration": "Immunization - North American Standard Expiration ",
+      "wywm_immunizationnorthamericanstandard": "Immunization - North American Standard",
+      "wywm_jobfield": "Job Field",
+      "wywm_joindate": "Join Date",
+      "wywm_lastoptour": "Last OP Tour",
+      "wywm_lastoptourexpirationdate": "Last OP Tour Expiration Date",
+      "wywm_memorialcross": "Memorial Cross",
+      "wywm_memorialcrossexpirationdate": "Memorial Cross Expiration Date",
+      "wywm_middlename": "Middle Name",
+      "wywm_militaryemail": "Military Email",
+      "wywm_militaryfamilyresourcecentersmrc": "Military Family Resource Centers (MRC)",
+      "wywm_militaryidcardback": "Military Id Card Back",
+      "wywm_militaryidcardbackid": "wywm_MilitaryIdCardBackId",
+      "wywm_militaryidcardfront": "Military Id Card Front",
+      "wywm_militaryidcardfrontid": "wywm_MilitaryIdCardFrontId",
+      "wywm_militaryidexpirationdate": "Military Id Expiration Date",
+      "wywm_mobilephonenumber": "Mobile Phone Number",
+      "wywm_moscomponent": "MOS Component",
+      "wywm_MOSTrade": "MOS Trade",
+      "wywm_mrcexpiration": "Military Family Resource Centers (MRC) Expiration ",
+      "wywm_name": "Last Name",
+      "wywm_nextofkin": "Next of KIN",
+      "wywm_nextofkinexpirationdate": "Next of KIN Expiration Date",
+      "wywm_nextpromotiondate": "Next Promotion Date",
+      "wywm_officerncm": "Officer/NCM",
+      "wywm_PendingPersonalDetailsChanges_Owning": "PendingPersonalDetailsChanges",
+      "wywm_personnel_AsyncOperations": "System Jobs",
+      "wywm_personnel_BulkDeleteFailures": "Bulk Delete Failures",
+      "wywm_personnel_DuplicateBaseRecord": "Duplicate Records (wywm_personnel_DuplicateBaseRecord)",
+      "wywm_personnel_DuplicateMatchingRecord": "Duplicate Records (wywm_personnel_DuplicateMatchingRecord)",
+      "wywm_personnel_MailboxTrackingFolders": "Mailbox Auto Tracking Folders",
+      "wywm_personnel_PrincipalObjectAttributeAccesses": "Field Sharing",
+      "wywm_personnel_ProcessSession": "Process Sessions",
+      "wywm_personnel_SyncErrors": "Sync Errors",
+      "wywm_personnel_Teams": "Teams",
+      "wywm_Personnel_wywm_Personnel_wywm_Civili": "Civilian Qualifications",
+      "wywm_Personnel_wywm_Personnel_wywm_Depart": "Departure Assistance Groups",
+      "wywm_Personnel_wywm_Personnel_wywm_Educat": "Educations",
+      "wywm_Personnel_wywm_Personnel_wywm_Milita": "Military Roles",
+      "wywm_Personnel_wywm_Personnel_wywm_Occupa": "Occupation Qualifications",
+      "wywm_Personnel_wywm_Personnel_wywm_Promot": "Promotions",
+      "wywm_Personnel_wywm_Personnel_wywm_Traini": "Training Histories",
+      "wywm_personnelid": "Personnel",
+      "wywm_pfet": "PFET ",
+      "wywm_pfetexpirationdate": "PFET Expiration Date",
+      "wywm_phone1": "Phone 1",
+      "wywm_phone2": "Phone 2",
+      "wywm_phone3": "Phone 3 ",
+      "wywm_physicalfitness": "Physical Fitness",
+      "wywm_physicalfitnessexpirationdate": "Physical Fitness Expiration Date",
+      "wywm_preferredlanguage": "Preferred Language ",
+      "wywm_religion": "Religion",
+      "wywm_reminder_courses": "Reminder_Course",
+      "wywm_reminder_employment": "Reminder_Employment",
+      "wywm_reminder_numdays": "Reminder_NumDays",
+      "wywm_reminder_tasking": "Reminder_Tasking",
+      "wywm_reminder_trainingevent": "Reminder_TrainingEvent",
+      "wywm_securityclearance": "Security Clearance",
+      "wywm_securityclearanceexpirydate": "Security Clearance Expiry Date",
+      "wywm_securityclearancelevel": "Security Clearance Level",
+      "wywm_servicenumber": "Service Number",
+      "wywm_signature": "Signature",
+      "wywm_signatureid": "wywm_SignatureId",
+      "wywm_sin": "SIN",
+      "wywm_supplementarydeathbenefits": "Supplementary Death Benefits",
+      "wywm_supplementarydeathbenefitsexpirationdate": "Supplementary Death Benefits Expiration Date",
+      "wywm_SystemUser": "System User",
+      "wywm_Tasking_OPI_wywm_Personnel": "Taskings",
+      "wywm_TaskingApplication_Personnel_wywm_Pe": "Tasking Applications",
+      "wywm_termsofservice": "Terms of Service",
+      "wywm_termsofserviceexpirationdate": "Terms of Service Expiration Date",
+      "wywm_TrainingEvent_OPI_wywm_Personnel": "Training Events",
+      "wywm_TrainingEventAttendee_AttendanceConf": "Training Event Attendees (wywm_TrainingEventAttendee_AttendanceConf)",
+      "wywm_TrainingEventAttendee_Personnel_wywm": "Training Event Attendees (wywm_TrainingEventAttendee_Personnel_wywm)",
+      "wywm_Unit": "Unit",
+      "wywm_UserNotification_Personnel_wywm_Pers": "UserNotifications",
+      "wywm_validciviliandriverslicense": "Valid Civilian Driver's License",
+      "wywm_validciviliandriverslicenseexpirationdate": "Valid Civilian Driver's License Expiration Date",
+      "wywm_weaponhandling": "Weapon Handling",
+      "wywm_weaponhandlingexpirationdate": "Weapon Handling Expiration Date",
+      "wywm_willorwillcertificate": "Will or Will Certificate",
+      "wywm_willorwillcertificateexpirationdate": "Will or Will Certificate Expiration Date",
+      "wywm_wywm_paysheet_Supervisor_wywm_personnel": "Paysheets"
+    },
+    "PreferredName": "Personnels",
+    "Type": "NativeCDSDataSourceInfo"
+  },
+  {
+    "DisplayName": "Personnels (Views)",
+    "Name": "_wywm_personnel_views",
+    "RelatedEntityName": "Personnels",
+    "TrimmedViewName": true,
+    "Type": "ViewInfo",
+    "ViewInfoNameMapping": {
+      "058e0ea5-7ef4-4081-ba87-abadd21eaf23": "Personnel Lookup View",
+      "1b784312-08b7-4028-96e4-84a69efc9999": "Personnel Associated View",
+      "5a9d8a43-8f02-420b-9d0b-652dd42deff3": "Personnel Advanced Find View",
+      "673f545d-fb8a-4a16-9a34-da51b404661a": "Inactive Personnels",
+      "e1f7747f-8ea1-42e8-bff6-8b337e104a88": "Active Personnels"
+    }
+  },
+  {
+    "DisplayName": "Component",
+    "Name": "wywm_component",
+    "OptionSetInfoNameMapping": {
+      "801200000": "Land",
+      "801200001": "Sea",
+      "801200002": "Air"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": true,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "wywm_component",
+        "OptionSetReferenceEntityName": "Personnels"
+      },
+      "OptionSetReferenceItem1": {
+        "OptionSetReferenceColumnName": "wywm_component",
+        "OptionSetReferenceEntityName": "Ranks"
+      }
+    },
+    "OptionSetTypeKey": "PicklistType",
+    "RelatedColumnInvariantName": "wywm_component",
+    "RelatedEntityName": "Personnels",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Education Levels",
+    "Name": "wywm_educationlevels",
+    "OptionSetInfoNameMapping": {
+      "801200000": "High School (École secondaire)",
+      "801200001": "College (Cégep)",
+      "801200002": "Graduate School (Études supérieures)",
+      "801200003": "University (Université)"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": true,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "wywm_highesteducationlevel",
+        "OptionSetReferenceEntityName": "Personnels"
+      },
+      "OptionSetReferenceItem1": {
+        "OptionSetReferenceColumnName": "wywm_educationlevel",
+        "OptionSetReferenceEntityName": "Educations"
+      }
+    },
+    "OptionSetTypeKey": "PicklistType",
+    "RelatedColumnInvariantName": "wywm_highesteducationlevel",
+    "RelatedEntityName": "Personnels",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Employment Status",
+    "Name": "wywm_employmentstatus",
+    "OptionSetInfoNameMapping": {
+      "801200000": "Class A",
+      "801200001": "Class B",
+      "801200002": "Class C",
+      "801200003": "Regular"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": true,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "wywm_employmentstatus",
+        "OptionSetReferenceEntityName": "Personnels"
+      }
+    },
+    "OptionSetTypeKey": "PicklistType",
+    "RelatedColumnInvariantName": "wywm_employmentstatus",
+    "RelatedEntityName": "Personnels",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Gender",
+    "Name": "wywm_gender",
+    "OptionSetInfoNameMapping": {
+      "801200000": "Male",
+      "801200001": "Female"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": true,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "wywm_gender",
+        "OptionSetReferenceEntityName": "Personnels"
+      }
+    },
+    "OptionSetTypeKey": "PicklistType",
+    "RelatedColumnInvariantName": "wywm_gender",
+    "RelatedEntityName": "Personnels",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Job Field",
+    "Name": "wywm_jobfield",
+    "OptionSetInfoNameMapping": {
+      "801200000": "Agriculture, Food and Natural Resources",
+      "801200001": "Architecture and Construction",
+      "801200002": "Education and Training",
+      "801200003": "Business Management and Administration",
+      "801200004": "Arts, Audio/Video Technology and Communications ",
+      "801200005": "Finance",
+      "801200006": "Government and Public Administration",
+      "801200007": "Health",
+      "801200008": "Hospitality and Tourism",
+      "801200009": "Human Services",
+      "801200010": "Information Technology",
+      "801200011": "Law, Public Safety, Corrections and Security",
+      "801200012": "Manufacturing ",
+      "801200013": "Marketing, Sales and Service",
+      "801200014": "Science, Technology, Engineering and Mathematics",
+      "801200015": "Transportation, Distribution and Logistics ",
+      "801200016": "Other"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": true,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "wywm_jobfield",
+        "OptionSetReferenceEntityName": "Personnels"
+      },
+      "OptionSetReferenceItem1": {
+        "OptionSetReferenceColumnName": "wywm_jobfield",
+        "OptionSetReferenceEntityName": "Civilian Qualifications"
+      }
+    },
+    "OptionSetTypeKey": "PicklistType",
+    "RelatedColumnInvariantName": "wywm_jobfield",
+    "RelatedEntityName": "Personnels",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "MOS Component",
+    "Name": "wywm_moscomponent",
+    "OptionSetInfoNameMapping": {
+      "801200000": "PRes/P Rés",
+      "801200001": "Reg F/F Rég"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": true,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "wywm_moscomponent",
+        "OptionSetReferenceEntityName": "Personnels"
+      },
+      "OptionSetReferenceItem1": {
+        "OptionSetReferenceColumnName": "wywm_moscomponent",
+        "OptionSetReferenceEntityName": "MOS Trades"
+      }
+    },
+    "OptionSetTypeKey": "PicklistType",
+    "RelatedColumnInvariantName": "wywm_moscomponent",
+    "RelatedEntityName": "Personnels",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Officer/NCM",
+    "Name": "wywm_officerncm",
+    "OptionSetInfoNameMapping": {
+      "801200000": "Officer/Officier",
+      "801200001": "NCM/MR"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": true,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "wywm_officerncm",
+        "OptionSetReferenceEntityName": "Personnels"
+      },
+      "OptionSetReferenceItem1": {
+        "OptionSetReferenceColumnName": "wywm_officerncm",
+        "OptionSetReferenceEntityName": "MOS Trades"
+      }
+    },
+    "OptionSetTypeKey": "PicklistType",
+    "RelatedColumnInvariantName": "wywm_officerncm",
+    "RelatedEntityName": "Personnels",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Status (Personnels)",
+    "Name": "wywm_personnel_statecode",
+    "OptionSetInfoNameMapping": {
+      "0": "Active",
+      "1": "Inactive"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "statecode",
+        "OptionSetReferenceEntityName": "Personnels"
+      }
+    },
+    "OptionSetTypeKey": "StateType",
+    "RelatedColumnInvariantName": "statecode",
+    "RelatedEntityName": "Personnels",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Status Reason (Personnels)",
+    "Name": "wywm_personnel_statuscode",
+    "OptionSetInfoNameMapping": {
+      "1": "Active",
+      "2": "Inactive"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "statuscode",
+        "OptionSetReferenceEntityName": "Personnels"
+      }
+    },
+    "OptionSetTypeKey": "StatusType",
+    "RelatedColumnInvariantName": "statuscode",
+    "RelatedEntityName": "Personnels",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Reminder_Course (Personnels)",
+    "Name": "wywm_personnel_wywm_reminder_courses",
+    "OptionSetInfoNameMapping": {
+      "0": "No",
+      "1": "Yes"
+    },
+    "OptionSetIsBooleanValued": true,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "wywm_reminder_courses",
+        "OptionSetReferenceEntityName": "Personnels"
+      }
+    },
+    "OptionSetTypeKey": "BooleanType",
+    "RelatedColumnInvariantName": "wywm_reminder_courses",
+    "RelatedEntityName": "Personnels",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Reminder_Employment (Personnels)",
+    "Name": "wywm_personnel_wywm_reminder_employment",
+    "OptionSetInfoNameMapping": {
+      "0": "No",
+      "1": "Yes"
+    },
+    "OptionSetIsBooleanValued": true,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "wywm_reminder_employment",
+        "OptionSetReferenceEntityName": "Personnels"
+      }
+    },
+    "OptionSetTypeKey": "BooleanType",
+    "RelatedColumnInvariantName": "wywm_reminder_employment",
+    "RelatedEntityName": "Personnels",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Reminder_Tasking (Personnels)",
+    "Name": "wywm_personnel_wywm_reminder_tasking",
+    "OptionSetInfoNameMapping": {
+      "0": "No",
+      "1": "Yes"
+    },
+    "OptionSetIsBooleanValued": true,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "wywm_reminder_tasking",
+        "OptionSetReferenceEntityName": "Personnels"
+      }
+    },
+    "OptionSetTypeKey": "BooleanType",
+    "RelatedColumnInvariantName": "wywm_reminder_tasking",
+    "RelatedEntityName": "Personnels",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Reminder_TrainingEvent (Personnels)",
+    "Name": "wywm_personnel_wywm_reminder_trainingevent",
+    "OptionSetInfoNameMapping": {
+      "0": "No",
+      "1": "Yes"
+    },
+    "OptionSetIsBooleanValued": true,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "wywm_reminder_trainingevent",
+        "OptionSetReferenceEntityName": "Personnels"
+      }
+    },
+    "OptionSetTypeKey": "BooleanType",
+    "RelatedColumnInvariantName": "wywm_reminder_trainingevent",
+    "RelatedEntityName": "Personnels",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Preferred Language ",
+    "Name": "wywm_preferredlanguage",
+    "OptionSetInfoNameMapping": {
+      "801200000": "English",
+      "801200001": "French"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": true,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "wywm_preferredlanguage",
+        "OptionSetReferenceEntityName": "Personnels"
+      }
+    },
+    "OptionSetTypeKey": "PicklistType",
+    "RelatedColumnInvariantName": "wywm_preferredlanguage",
+    "RelatedEntityName": "Personnels",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "RedYellowGreen",
+    "Name": "wywm_redyellowgreen",
+    "OptionSetInfoNameMapping": {
+      "308690001": "Red",
+      "308690002": "Yellow",
+      "308690003": "Green",
+      "801200000": "Valid",
+      "801200001": "Expiring",
+      "801200002": "Expired",
+      "801200003": "Non Applicable"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": true,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "wywm_pfet",
+        "OptionSetReferenceEntityName": "Personnels"
+      },
+      "OptionSetReferenceItem1": {
+        "OptionSetReferenceColumnName": "wywm_militaryfamilyresourcecentersmrc",
+        "OptionSetReferenceEntityName": "Personnels"
+      },
+      "OptionSetReferenceItem10": {
+        "OptionSetReferenceColumnName": "wywm_securityclearance",
+        "OptionSetReferenceEntityName": "Personnels"
+      },
+      "OptionSetReferenceItem11": {
+        "OptionSetReferenceColumnName": "wywm_annualdental",
+        "OptionSetReferenceEntityName": "Personnels"
+      },
+      "OptionSetReferenceItem12": {
+        "OptionSetReferenceColumnName": "wywm_emergencycontactnotification",
+        "OptionSetReferenceEntityName": "Personnels"
+      },
+      "OptionSetReferenceItem13": {
+        "OptionSetReferenceColumnName": "wywm_bluepassport",
+        "OptionSetReferenceEntityName": "Personnels"
+      },
+      "OptionSetReferenceItem14": {
+        "OptionSetReferenceColumnName": "wywm_immunizationnorthamericanstandard",
+        "OptionSetReferenceEntityName": "Personnels"
+      },
+      "OptionSetReferenceItem15": {
+        "OptionSetReferenceColumnName": "wywm_firstaid",
+        "OptionSetReferenceEntityName": "Personnels"
+      },
+      "OptionSetReferenceItem16": {
+        "OptionSetReferenceColumnName": "wywm_termsofservice",
+        "OptionSetReferenceEntityName": "Personnels"
+      },
+      "OptionSetReferenceItem17": {
+        "OptionSetReferenceColumnName": "wywm_memorialcross",
+        "OptionSetReferenceEntityName": "Personnels"
+      },
+      "OptionSetReferenceItem18": {
+        "OptionSetReferenceColumnName": "wywm_weaponhandling",
+        "OptionSetReferenceEntityName": "Personnels"
+      },
+      "OptionSetReferenceItem19": {
+        "OptionSetReferenceColumnName": "wywm_greenpassport",
+        "OptionSetReferenceEntityName": "Personnels"
+      },
+      "OptionSetReferenceItem2": {
+        "OptionSetReferenceColumnName": "wywm_validciviliandriverslicense",
+        "OptionSetReferenceEntityName": "Personnels"
+      },
+      "OptionSetReferenceItem20": {
+        "OptionSetReferenceColumnName": "wywm_physicalfitness",
+        "OptionSetReferenceEntityName": "Personnels"
+      },
+      "OptionSetReferenceItem21": {
+        "OptionSetReferenceColumnName": "wywm_nextofkin",
+        "OptionSetReferenceEntityName": "Personnels"
+      },
+      "OptionSetReferenceItem22": {
+        "OptionSetReferenceColumnName": "wywm_cbrn",
+        "OptionSetReferenceEntityName": "Personnels"
+      },
+      "OptionSetReferenceItem23": {
+        "OptionSetReferenceColumnName": "wywm_isvalid",
+        "OptionSetReferenceEntityName": "IBTS Qualifications"
+      },
+      "OptionSetReferenceItem24": {
+        "OptionSetReferenceColumnName": "wywm_isvalid",
+        "OptionSetReferenceEntityName": "Military Roles"
+      },
+      "OptionSetReferenceItem25": {
+        "OptionSetReferenceColumnName": "wywm_isvalid",
+        "OptionSetReferenceEntityName": "Departure Assistance Groups"
+      },
+      "OptionSetReferenceItem3": {
+        "OptionSetReferenceColumnName": "wywm_familycareplan",
+        "OptionSetReferenceEntityName": "Personnels"
+      },
+      "OptionSetReferenceItem4": {
+        "OptionSetReferenceColumnName": "wywm_idcard",
+        "OptionSetReferenceEntityName": "Personnels"
+      },
+      "OptionSetReferenceItem5": {
+        "OptionSetReferenceColumnName": "wywm_willorwillcertificate",
+        "OptionSetReferenceEntityName": "Personnels"
+      },
+      "OptionSetReferenceItem6": {
+        "OptionSetReferenceColumnName": "wywm_lastoptour",
+        "OptionSetReferenceEntityName": "Personnels"
+      },
+      "OptionSetReferenceItem7": {
+        "OptionSetReferenceColumnName": "wywm_iddisc",
+        "OptionSetReferenceEntityName": "Personnels"
+      },
+      "OptionSetReferenceItem8": {
+        "OptionSetReferenceColumnName": "wywm_dnd404",
+        "OptionSetReferenceEntityName": "Personnels"
+      },
+      "OptionSetReferenceItem9": {
+        "OptionSetReferenceColumnName": "wywm_supplementarydeathbenefits",
+        "OptionSetReferenceEntityName": "Personnels"
+      }
+    },
+    "OptionSetTypeKey": "PicklistType",
+    "RelatedColumnInvariantName": "wywm_pfet",
+    "RelatedEntityName": "Personnels",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Security Clearance Level",
+    "Name": "wywm_securityclearancelevel",
+    "OptionSetInfoNameMapping": {
+      "801200000": "Aucun (None)",
+      "801200001": "Cote de fiabilité (Enhanced Reliability)",
+      "801200002": "Secret",
+      "801200003": "Très secret (Top Secret)"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": true,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "wywm_securityclearancelevel",
+        "OptionSetReferenceEntityName": "Personnels"
+      }
+    },
+    "OptionSetTypeKey": "PicklistType",
+    "RelatedColumnInvariantName": "wywm_securityclearancelevel",
+    "RelatedEntityName": "Personnels",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Yes/No",
+    "Name": "wywm_yesno",
+    "OptionSetInfoNameMapping": {
+      "801200000": "Yes",
+      "801200001": "No"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": true,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "wywm_hidetaskingsnotifications",
+        "OptionSetReferenceEntityName": "Personnels"
+      },
+      "OptionSetReferenceItem1": {
+        "OptionSetReferenceColumnName": "wywm_hidecoursesnotifications",
+        "OptionSetReferenceEntityName": "Personnels"
+      },
+      "OptionSetReferenceItem2": {
+        "OptionSetReferenceColumnName": "wywm_hidetrainingeventsnotifications",
+        "OptionSetReferenceEntityName": "Personnels"
+      }
+    },
+    "OptionSetTypeKey": "PicklistType",
+    "RelatedColumnInvariantName": "wywm_hidetaskingsnotifications",
+    "RelatedEntityName": "Personnels",
+    "Type": "OptionSetInfo"
+  }
+]

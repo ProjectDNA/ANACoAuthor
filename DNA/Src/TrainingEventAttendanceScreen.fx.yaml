@@ -1,0 +1,374 @@
+TrainingEventAttendanceScreen As screen:
+
+    TEAttend__EventContainer As groupContainer.manualLayoutContainer:
+        Height: =958
+        Width: =Parent.Width
+        Y: =178
+        ZIndex: =1
+
+        TEAttend_ThisWeeksEventsContainer As groupContainer.verticalAutoLayoutContainer:
+            Height: =958
+            LayoutAlignItems: =LayoutAlignItems.Center
+            LayoutDirection: =LayoutDirection.Vertical
+            LayoutMode: =LayoutMode.Auto
+            Width: =Parent.Width
+            ZIndex: =1
+
+            TEAttend_AttendanceTypeSelector As dropdown:
+                Default: ="""This Week"""
+                Height: =70
+                Items: |-
+                    =//["This Week","Upcoming","Passed"]
+                    If(LangEn, ["This Week","Upcoming","Passed"], ["Cette Semaine","À venir","Passé"])
+                LayoutMinHeight: =70
+                LayoutMinWidth: =575
+                Size: =21
+                Width: =Parent.Width
+                ZIndex: =1
+
+            TEAttend_SearchField As SearchField:
+                hintText: =If(TrainingList, __localizer.Localize("ANA_TASK_SEARCH_TRAININGS", LangEn), __localizer.Localize("ANA_TASK_SEARCH_COURSES", LangEn))
+                LayoutMinHeight: =640
+                ZIndex: =3
+
+            "'TEAttend_This Week Gallery' As gallery.galleryVertical":
+                AlignInContainer: =AlignInContainer.SetByContainer
+                Items: |-
+                    =With(
+                        {
+                            StartDate: Today() - (Weekday(
+                                Today(),
+                                StartOfWeek.Sunday
+                            )) + 2,
+                            EndDate: DateAdd(
+                                Today(),
+                                (9 - Weekday(
+                                    Today(),
+                                    StartOfWeek.Sunday
+                                )),
+                                Days
+                            ),
+                            TrainingEvents: Filter(
+                            'Training Events',
+                            Status = 'Status (Training Events)'.Active)
+                        },
+                        Filter(
+                            TrainingEvents,
+                            'Start Date' >= StartDate && 'Start Date' < EndDate
+                        )
+                    )
+                Layout: =Layout.Vertical
+                LayoutMinHeight: =250
+                LayoutMinWidth: =320
+                ShowNavigation: =true
+                TemplatePadding: =0
+                TemplateSize: =TEAttendTW_Rectangle.Height + 2
+                Visible: =If(TEAttend_AttendanceTypeSelector.Selected.Value = "This Week" || TEAttend_AttendanceTypeSelector.Selected.Value = "Cette Semaine", true, false)
+                ZIndex: =4
+
+                TEAttendTW_Rectangle As rectangle:
+                    Fill: =RGBA(241, 244, 249, 1)
+                    Height: =233
+                    OnSelect: =Select(Parent)
+                    Width: =Parent.Width
+                    ZIndex: =1
+
+                TEAttendTW_TELabel As label:
+                    Height: =70
+                    OnSelect: =Select(Parent)
+                    Size: =30
+                    Text: |-
+                        =If(
+                            LangEn,
+                            ThisItem.'Training Event Name',
+                            ThisItem.'Training Event Name Fr' 
+                        )
+                    Width: =576
+                    Wrap: =false
+                    X: =25
+                    Y: =21
+                    ZIndex: =2
+
+                TEAttendTW_LocationLabel As label:
+                    Align: =Align.Center
+                    Height: =41
+                    OnSelect: =Select(Parent)
+                    Size: =21
+                    Text: =ThisItem.'(Deprecated) Traversed Path'
+                    Width: =221
+                    X: =202
+                    Y: =171
+                    ZIndex: =3
+
+                TEAttendTW_DatesLabel As label:
+                    Height: =119
+                    LineHeight: =2
+                    OnSelect: =Select(Parent)
+                    Size: =11
+                    Text: |-
+                        =Concatenate(
+                            ThisItem.'Start Date',
+                            If(LangEn, " to ", " au "),
+                            ThisItem.'End Date'
+                        )
+                    Width: =167
+                    X: =40
+                    Y: =103
+                    ZIndex: =4
+
+                TEAttendTW_AttendeesIcon As icon.People:
+                    Color: =RGBA(56, 96, 178, 1)
+                    Height: =43
+                    Icon: =Icon.People
+                    OnSelect: =Select(Parent)
+                    Width: =48
+                    X: =443
+                    Y: =108
+                    ZIndex: =6
+
+                TEAttendTW_LocationIcon As icon.People:
+                    Color: =RGBA(56, 96, 178, 1)
+                    Height: =35
+                    Icon: =Icon.Flag
+                    OnSelect: =Select(Parent)
+                    Width: =48
+                    X: =443
+                    Y: =177
+                    ZIndex: =7
+
+                TEAttendTW_NextIcon As icon.NextArrow:
+                    Color: =RGBA(166, 166, 166, 1)
+                    Icon: =Icon.NextArrow
+                    OnSelect: |-
+                        =Navigate(
+                            TrainingEventAttendanceDetailsScreen, 
+                            None
+                        );
+                        
+                        Set(AttendOpiID, LookUp('Training Events', 'Training Event' = ThisItem.'Training Event').OPI.Personnel);
+                        Set(AttendData,ThisItem);
+                    X: =536
+                    Y: =92
+                    ZIndex: =8
+
+            "'TEAttend_Upcoming Gallery' As gallery.galleryVertical":
+                AlignInContainer: =AlignInContainer.SetByContainer
+                Items: |-
+                    =With(
+                        {
+                            EndDate: DateAdd(
+                                Today(),
+                                (9 - Weekday(
+                                    Today(),
+                                    StartOfWeek.Sunday
+                                )),
+                                Days
+                            ),
+                            TrainingEvents: Filter(
+                            'Training Events',
+                            Status = 'Status (Training Events)'.Active)
+                        },
+                        Filter(
+                            TrainingEvents,
+                            'Start Date' >= EndDate
+                        )
+                    )
+                Layout: =Layout.Vertical
+                LayoutMinHeight: =250
+                LayoutMinWidth: =320
+                ShowNavigation: =true
+                TemplatePadding: =0
+                TemplateSize: =TEAttendTW_Rectangle_1.Height + 2
+                Visible: =If(TEAttend_AttendanceTypeSelector.Selected.Value = "Upcoming" || TEAttend_AttendanceTypeSelector.Selected.Value = "À venir", true, false)
+                ZIndex: =7
+
+                TEAttendTW_Rectangle_1 As rectangle:
+                    Fill: =RGBA(241, 244, 249, 1)
+                    Height: =233
+                    OnSelect: =Select(Parent)
+                    Width: =Parent.Width
+                    ZIndex: =1
+
+                TEAttendTW_TELabel_1 As label:
+                    Height: =70
+                    OnSelect: =Select(Parent)
+                    Size: =30
+                    Text: |-
+                        =If(
+                            LangEn,
+                            ThisItem.'Training Event Name',
+                            ThisItem.'Training Event Name Fr' 
+                        )
+                    Width: =576
+                    Wrap: =false
+                    X: =25
+                    Y: =21
+                    ZIndex: =2
+
+                TEAttendTW_LocationLabel_1 As label:
+                    Align: =Align.Center
+                    Height: =41
+                    OnSelect: =Select(Parent)
+                    Size: =21
+                    Text: =ThisItem.Location
+                    Width: =221
+                    X: =202
+                    Y: =171
+                    ZIndex: =3
+
+                TEAttendTW_DatesLabel_1 As label:
+                    Height: =119
+                    LineHeight: =2
+                    OnSelect: =Select(Parent)
+                    Size: =11
+                    Text: |-
+                        =Concatenate(
+                            ThisItem.'Start Date',
+                            If(LangEn, " to ", " au "),
+                            ThisItem.'End Date'
+                        )
+                    Width: =167
+                    X: =40
+                    Y: =103
+                    ZIndex: =4
+
+                TEAttendTW_AttendeesIcon_1 As icon.People:
+                    Color: =RGBA(56, 96, 178, 1)
+                    Height: =43
+                    Icon: =Icon.People
+                    OnSelect: =Select(Parent)
+                    Width: =48
+                    X: =443
+                    Y: =108
+                    ZIndex: =6
+
+                TEAttendTW_LocationIcon_1 As icon.People:
+                    Color: =RGBA(56, 96, 178, 1)
+                    Height: =35
+                    Icon: =Icon.Flag
+                    OnSelect: =Select(Parent)
+                    Width: =48
+                    X: =443
+                    Y: =177
+                    ZIndex: =7
+
+                TEAttendTW_NextIcon_1 As icon.NextArrow:
+                    Color: =RGBA(166, 166, 166, 1)
+                    Icon: =Icon.NextArrow
+                    OnSelect: |-
+                        =Navigate(
+                            TrainingEventAttendanceDetailsScreen, 
+                            None
+                        );
+                        
+                        Set(AttendOpiID, LookUp('Training Events', 'Training Event' = ThisItem.'Training Event').OPI.Personnel);
+                        Set(AttendData,ThisItem);
+                    X: =536
+                    Y: =92
+                    ZIndex: =8
+
+            "'TEAttend_Passed Gallery' As gallery.galleryVertical":
+                AlignInContainer: =AlignInContainer.SetByContainer
+                Items: |-
+                    =
+                    Filter(
+                        'Training Events', Status = 'Status (Training Events)'.Active,
+                        'Start Date' < (Today())
+                        )
+                Layout: =Layout.Vertical
+                LayoutMinHeight: =250
+                LayoutMinWidth: =320
+                ShowNavigation: =true
+                TemplatePadding: =0
+                TemplateSize: =TEAttendTW_Rectangle_2.Height + 2
+                Visible: =If(TEAttend_AttendanceTypeSelector.Selected.Value = "Passed" ||TEAttend_AttendanceTypeSelector.Selected.Value = "Passé", true, false)
+                ZIndex: =8
+
+                TEAttendTW_Rectangle_2 As rectangle:
+                    Fill: =RGBA(241, 244, 249, 1)
+                    Height: =233
+                    OnSelect: =Select(Parent)
+                    Width: =Parent.Width
+                    ZIndex: =1
+
+                TEAttendTW_TELabel_2 As label:
+                    Height: =70
+                    OnSelect: =Select(Parent)
+                    Size: =30
+                    Text: |-
+                        =If(
+                            LangEn,
+                            ThisItem.'Training Event Name',
+                            ThisItem.'Training Event Name Fr' 
+                        )
+                    Width: =576
+                    Wrap: =false
+                    X: =25
+                    Y: =21
+                    ZIndex: =2
+
+                TEAttendTW_LocationLabel_2 As label:
+                    Align: =Align.Center
+                    Height: =41
+                    OnSelect: =Select(Parent)
+                    Size: =21
+                    Text: =ThisItem.Location
+                    Width: =221
+                    X: =202
+                    Y: =171
+                    ZIndex: =3
+
+                TEAttendTW_DatesLabel_2 As label:
+                    Height: =119
+                    LineHeight: =2
+                    OnSelect: =Select(Parent)
+                    Size: =11
+                    Text: |-
+                        =Concatenate(
+                            ThisItem.'Start Date',
+                            If(LangEn, " to ", " au "),
+                            ThisItem.'End Date'
+                        )
+                    Width: =167
+                    X: =40
+                    Y: =103
+                    ZIndex: =4
+
+                TEAttendTW_AttendeesIcon_2 As icon.People:
+                    Color: =RGBA(56, 96, 178, 1)
+                    Height: =43
+                    Icon: =Icon.People
+                    OnSelect: =Select(Parent)
+                    Width: =48
+                    X: =443
+                    Y: =108
+                    ZIndex: =6
+
+                TEAttendTW_LocationIcon_2 As icon.People:
+                    Color: =RGBA(56, 96, 178, 1)
+                    Height: =35
+                    Icon: =Icon.Flag
+                    OnSelect: =Select(Parent)
+                    Width: =48
+                    X: =443
+                    Y: =177
+                    ZIndex: =7
+
+                TEAttendTW_NextIcon_2 As icon.NextArrow:
+                    Color: =RGBA(166, 166, 166, 1)
+                    Icon: =Icon.NextArrow
+                    OnSelect: |-
+                        =Navigate(
+                            TrainingEventAttendanceDetailsScreen, 
+                            None
+                        );
+                        
+                        Set(AttendOpiID, LookUp('Training Events', 'Training Event' = ThisItem.'Training Event').OPI.Personnel);
+                        Set(AttendData,ThisItem);
+                    X: =536
+                    Y: =92
+                    ZIndex: =8
+
+    MainHeader_1 As MainHeader:
+        ZIndex: =5
+

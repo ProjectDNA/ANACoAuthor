@@ -1,0 +1,180 @@
+[
+  {
+    "CdsFCBContext": "{\"FileType\":true,\"ImageExternalStorage\":true}",
+    "EntitySetName": "wywm_courseapplications",
+    "IsHidden": false,
+    "IsSampleData": false,
+    "IsWritable": true,
+    "LogicalName": "wywm_courseapplication",
+    "MaxGetRowsCount": 500,
+    "Name": "Course Applications",
+    "NativeCDSDataSourceInfoNameMapping": {
+      "_ownerid_value": "Owner",
+      "createdby": "Created By",
+      "createdon": "Created On",
+      "createdonbehalfby": "Created By (Delegate)",
+      "importsequencenumber": "Import Sequence Number",
+      "modifiedby": "Modified By",
+      "modifiedon": "Modified On",
+      "modifiedonbehalfby": "Modified By (Delegate)",
+      "overriddencreatedon": "Record Created On",
+      "owningbusinessunit": "Owning Business Unit",
+      "owningteam": "Active",
+      "owninguser": "Event Status",
+      "statecode": "Status",
+      "statuscode": "Status Reason (statuscode)",
+      "timezoneruleversionnumber": "Status Reason (timezoneruleversionnumber)",
+      "utcconversiontimezonecode": "Time Zone Rule Version Number",
+      "versionnumber": "Owning Team",
+      "wywm_applicationstatus": "Application Status",
+      "wywm_Course": "Course",
+      "wywm_courseapplication_AsyncOperations": "System Jobs",
+      "wywm_courseapplication_BulkDeleteFailures": "Bulk Delete Failures",
+      "wywm_courseapplication_DuplicateBaseRecord": "Duplicate Records (wywm_courseapplication_DuplicateBaseRecord)",
+      "wywm_courseapplication_DuplicateMatchingRecord": "Duplicate Records (wywm_courseapplication_DuplicateMatchingRecord)",
+      "wywm_courseapplication_MailboxTrackingFolders": "Mailbox Auto Tracking Folders",
+      "wywm_courseapplication_PrincipalObjectAttributeAccesses": "Field Sharing",
+      "wywm_courseapplication_ProcessSession": "Process Sessions",
+      "wywm_courseapplication_SyncErrors": "Sync Errors",
+      "wywm_courseapplication_Teams": "Teams",
+      "wywm_courseapplicationid": "Course Application",
+      "wywm_coycsmapproval": "Coy CSM Approval",
+      "wywm_coycsmdecisiondate": "Coy CSM Decision Date",
+      "wywm_name": "Name",
+      "wywm_Personnel": "Personnel",
+      "wywm_plwoapproval": "PL WO Approval",
+      "wywm_plwodecisiondate": "PL WO Decision Date",
+      "wywm_sectioncommandapproval": "Section Command Approval",
+      "wywm_sectioncommandapprovaldate": "Section Command Decision Date",
+      "wywm_unitrsmapproval": "Unit RSM Approval",
+      "wywm_unitrsmdecisiondate": "Unit RSM Decision Date"
+    },
+    "PreferredName": "Course Applications",
+    "Type": "NativeCDSDataSourceInfo"
+  },
+  {
+    "DisplayName": "Course Applications (Views)",
+    "Name": "_wywm_courseapplication_views",
+    "RelatedEntityName": "Course Applications",
+    "TrimmedViewName": true,
+    "Type": "ViewInfo",
+    "ViewInfoNameMapping": {
+      "0b3c61d3-baf2-4f0d-a668-cd07a6d20d33": "Inactive Course Applications",
+      "1dc2ed55-39de-4c2e-92cf-4fb0539eab63": "Active Course Applications",
+      "4549b962-8ca0-ec11-b3fe-000d3a840012": "Active Courses Standby List",
+      "518c7d0a-8ca0-ec11-b3fe-000d3a840012": "Active Courses Not Selected",
+      "51da97c4-8ba0-ec11-b3fe-000d3a840012": "Active Courses Nominated",
+      "542a7604-b48d-ec11-8d20-0022483bb30e": "Active Courses",
+      "7356c38a-d85e-47bc-88fa-6972b706bc1f": "Course Application Lookup View",
+      "913e1c12-8ba0-ec11-b3fe-000d3a840012": "Active Courses Applied",
+      "93924a40-8da0-ec11-b3fe-000d3a0c8e5f": "Active Courses Notified",
+      "9516be9b-d5af-455f-87e1-723820831bd5": "Course Application Advanced Find View",
+      "a5da5097-8ca0-ec11-b3fe-000d3a0c8e5f": "Active Courses Loaded",
+      "bcdd034f-e195-4508-981e-4dc5c53116de": "Course Application Associated View",
+      "c6ececf8-8ca0-ec11-b3fe-000d3a840012": "Active Courses Not Interested"
+    }
+  },
+  {
+    "DisplayName": "Application Status",
+    "Name": "wywm_applicationstatus",
+    "OptionSetInfoNameMapping": {
+      "801200000": "Applied",
+      "801200001": "Nominated",
+      "801200002": "Not Selected",
+      "801200003": "Standby List",
+      "801200004": "Loaded",
+      "801200005": "Not Interested",
+      "801200007": "Hidden"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": true,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "wywm_applicationstatus",
+        "OptionSetReferenceEntityName": "Course Applications"
+      }
+    },
+    "OptionSetTypeKey": "PicklistType",
+    "RelatedColumnInvariantName": "wywm_applicationstatus",
+    "RelatedEntityName": "Course Applications",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Approved/Not Selected",
+    "Name": "wywm_approved_notselected",
+    "OptionSetInfoNameMapping": {
+      "193790000": "Notified",
+      "801200000": "Approved",
+      "801200001": "Not Selected",
+      "801200002": "Pending"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": true,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "wywm_plwoapproval",
+        "OptionSetReferenceEntityName": "Course Applications"
+      },
+      "OptionSetReferenceItem1": {
+        "OptionSetReferenceColumnName": "wywm_coycsmapproval",
+        "OptionSetReferenceEntityName": "Course Applications"
+      },
+      "OptionSetReferenceItem2": {
+        "OptionSetReferenceColumnName": "wywm_sectioncommandapproval",
+        "OptionSetReferenceEntityName": "Course Applications"
+      },
+      "OptionSetReferenceItem3": {
+        "OptionSetReferenceColumnName": "wywm_unitrsmapproval",
+        "OptionSetReferenceEntityName": "Course Applications"
+      },
+      "OptionSetReferenceItem4": {
+        "OptionSetReferenceColumnName": "wywm_taskingapplicationstatus",
+        "OptionSetReferenceEntityName": "Tasking Applications"
+      }
+    },
+    "OptionSetTypeKey": "PicklistType",
+    "RelatedColumnInvariantName": "wywm_plwoapproval",
+    "RelatedEntityName": "Course Applications",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Status (Course Applications)",
+    "Name": "wywm_courseapplication_statecode",
+    "OptionSetInfoNameMapping": {
+      "0": "Active",
+      "1": "Inactive"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "statecode",
+        "OptionSetReferenceEntityName": "Course Applications"
+      }
+    },
+    "OptionSetTypeKey": "StateType",
+    "RelatedColumnInvariantName": "statecode",
+    "RelatedEntityName": "Course Applications",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Status Reason (Course Applications)",
+    "Name": "wywm_courseapplication_statuscode",
+    "OptionSetInfoNameMapping": {
+      "1": "Active",
+      "2": "Inactive"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "statuscode",
+        "OptionSetReferenceEntityName": "Course Applications"
+      }
+    },
+    "OptionSetTypeKey": "StatusType",
+    "RelatedColumnInvariantName": "statuscode",
+    "RelatedEntityName": "Course Applications",
+    "Type": "OptionSetInfo"
+  }
+]

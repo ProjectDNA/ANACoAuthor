@@ -1,0 +1,185 @@
+SubPersonalInfoScreen_1 As screen:
+    OnVisible: |-
+        =ClearCollect(
+            DetailPersInfo,
+            {
+                Label: __localizer.Localize("ANA_CONTACT_NAME", LangEn)&":",
+                value: currPersonnel.'First Name'&" "&currPersonnel.'Last Name',
+                id: 1
+            },
+            {
+                Label: __localizer.Localize("ANA_CONTACT_DOB", LangEn)&":",
+                value: Text(DateTimeValue(currPersonnel.'Date of Birth'), "yyyy/mm/dd"),
+                id: 2
+            },
+            {
+                Label: __localizer.Localize("ANA_CONTACT_PREF_LANG", LangEn)&":",
+                value: If(LangEn, Text(currPersonnel.'Preferred Language '), If(currPersonnel.'Preferred Language ' = [@'Preferred Language '].English, "Anglais", "Français")),
+                id: 3
+            },
+            {
+                Label: __localizer.Localize("ANA_DAG_LABEL_CLEARANCE_LEVEL", LangEn)&":",
+                value: Text(currPersonnel.'Security Clearance Level'),
+                id: 4
+            }
+        );
+
+    PI_TestNavigateButtonXXXX_2 As button:
+        Height: =70
+        OnSelect: |-
+            =//EditForm(SPIE_FormContainer);
+            Navigate(SubPersonalInfoEditScreen);
+        Size: =24
+        Text: ="Edit"
+        Visible: =EnableTestMode
+        Width: =108
+        X: =510
+        Y: =100
+        ZIndex: =1
+
+    "Gallery1 As gallery.'BrowseLayout_Vertical_OneTextVariant_ver4.0'":
+        Items: =DetailPersInfo
+        Layout: =Layout.Vertical
+        TemplatePadding: =0
+        TemplateSize: =Min(150, Self.Height )
+        Y: =180
+        ZIndex: =1
+
+        Title5 As label:
+            Height: =149
+            OnSelect: =Select(Parent)
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Text: =ThisItem.Label
+            Width: =168
+            ZIndex: =1
+
+        Separator3 As rectangle:
+            Height: =1
+            OnSelect: =Select(Parent)
+            Width: =Parent.TemplateWidth
+            Y: =Parent.TemplateHeight - 1
+            ZIndex: =3
+
+        Title5_1 As label:
+            Height: =150
+            OnSelect: =Select(Parent)
+            PaddingBottom: =0
+            PaddingLeft: =0
+            PaddingRight: =0
+            PaddingTop: =0
+            Text: =ThisItem.value
+            Width: =193
+            X: =447
+            ZIndex: =4
+
+    PI_SettingsIcon_2 As icon.Add:
+        Color: =RGBA(255, 255, 255, 1)
+        Height: =44
+        Icon: =Icon.Settings
+        OnSelect: =
+        Width: =44
+        X: =574
+        Y: =113
+        ZIndex: =2
+
+    PI_MainHeader_2 As MainHeader:
+        PersonalImage: =currPersonnelImage
+        PersonalInfoScreen: =PersonalInfoScreen
+        ZIndex: =3
+
+    PI_MenuLowerHeader_2 As MenuLowerHeader:
+        BackScreen: =PersonalInfoScreen
+        LowerMenuTextLabel: =__localizer.Localize("ANA_CONTACT_PERSONAL_INFO", LangEn)
+        Y: =90
+        ZIndex: =4
+
+    PI_EditBtn_2 As icon.Add:
+        Color: =RGBA(255, 255, 255, 1)
+        Height: =44
+        Icon: =Icon.Edit
+        OnSelect: |-
+            =//EditForm(SPIE_FormContainer);
+            Navigate(SubPersonalInfoEditScreen);
+        Width: =44
+        X: =562
+        Y: =113
+        ZIndex: =5
+
+    Label5 As label:
+        Fill: =RGBA(255, 191, 0, 1)
+        Height: =70
+        Size: =21
+        Text: =currPersonnel.'MOS Component'
+        Width: =560
+        X: =23
+        Y: =973
+        ZIndex: =11
+
+    Dashboard_DebugButtonGroup_3 As group:
+        Height: =5
+        Width: =5
+        X: =40
+        Y: =40
+        ZIndex: =13
+
+        Debug_PersonalInfo_7 As button:
+            Height: =70
+            OnSelect: =Navigate(PersonalInfoScreen)
+            Size: =24
+            Text: ="Button"
+            Visible: =false
+            Width: =75
+            X: =565
+            Y: =254
+            ZIndex: =6
+
+        Debug_Messenger_7 As button:
+            Height: =70
+            OnSelect: |-
+                =Launch("msteams://")
+            Size: =24
+            Text: ="Button"
+            Visible: =false
+            Width: =75
+            X: =490
+            Y: =254
+            ZIndex: =7
+
+        Debug_Notification_7 As button:
+            Height: =70
+            OnSelect: =Navigate(NotificationScreen)
+            Size: =24
+            Text: ="Button"
+            Visible: =false
+            Width: =75
+            X: =415
+            Y: =254
+            ZIndex: =8
+
+        Debug_MainMenu_7 As button:
+            Height: =70
+            OnSelect: =Navigate(DashboardScreen)
+            Size: =24
+            Text: ="Button"
+            Visible: =false
+            Width: =75
+            X: =266
+            Y: =254
+            ZIndex: =9
+
+        Debug_EditPI_2 As button:
+            Height: =70
+            OnSelect: |-
+                =//EditForm(SPIE_FormContainer);
+                Navigate(SubPersonalInfoEditScreen);
+            Size: =24
+            Text: ="Button"
+            Visible: =false
+            Width: =280
+            X: =266
+            Y: =324
+            ZIndex: =10
+

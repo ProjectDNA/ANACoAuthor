@@ -1,0 +1,106 @@
+[
+  {
+    "CdsFCBContext": "{\"FileType\":true,\"ImageExternalStorage\":true}",
+    "EntitySetName": "wywm_taskingapplications",
+    "IsHidden": false,
+    "IsSampleData": false,
+    "IsWritable": true,
+    "LogicalName": "wywm_taskingapplication",
+    "MaxGetRowsCount": 500,
+    "Name": "Tasking Applications",
+    "NativeCDSDataSourceInfoNameMapping": {
+      "_ownerid_value": "Owner",
+      "createdby": "Created By",
+      "createdon": "Created On",
+      "createdonbehalfby": "Created By (Delegate)",
+      "importsequencenumber": "Import Sequence Number",
+      "modifiedby": "Modified By",
+      "modifiedon": "Modified On",
+      "modifiedonbehalfby": "Modified By (Delegate)",
+      "overriddencreatedon": "Record Created On",
+      "owningbusinessunit": "Owning Business Unit",
+      "owningteam": "Organization ",
+      "owninguser": "Access Mode",
+      "statecode": "Status",
+      "statuscode": "Status Reason",
+      "timezoneruleversionnumber": "Address 2: Longitude",
+      "utcconversiontimezonecode": "Delegated Admin",
+      "versionnumber": "Integration user mode",
+      "wywm_name": "Name",
+      "wywm_Personnel": "Personnel",
+      "wywm_Tasking": "Tasking",
+      "wywm_taskingapplication_AsyncOperations": "System Jobs",
+      "wywm_taskingapplication_BulkDeleteFailures": "Bulk Delete Failures",
+      "wywm_taskingapplication_DuplicateBaseRecord": "Duplicate Records (wywm_taskingapplication_DuplicateBaseRecord)",
+      "wywm_taskingapplication_DuplicateMatchingRecord": "Duplicate Records (wywm_taskingapplication_DuplicateMatchingRecord)",
+      "wywm_taskingapplication_MailboxTrackingFolders": "Mailbox Auto Tracking Folders",
+      "wywm_taskingapplication_PrincipalObjectAttributeAccesses": "Field Sharing",
+      "wywm_taskingapplication_ProcessSession": "Process Sessions",
+      "wywm_taskingapplication_SyncErrors": "Sync Errors",
+      "wywm_taskingapplication_Teams": "Teams",
+      "wywm_taskingapplicationid": "Tasking Application",
+      "wywm_taskingapplicationstatus": "Tasking Application Status"
+    },
+    "PreferredName": "Tasking Applications",
+    "Type": "NativeCDSDataSourceInfo"
+  },
+  {
+    "DisplayName": "Tasking Applications (Views)",
+    "Name": "_wywm_taskingapplication_views",
+    "RelatedEntityName": "Tasking Applications",
+    "TrimmedViewName": true,
+    "Type": "ViewInfo",
+    "ViewInfoNameMapping": {
+      "02ed0f3b-73a1-ec11-b3fe-000d3a840012": "Active Tasking Pending",
+      "37b6956f-72a1-ec11-b3fe-000d3a0c8e5f": "Active Tasking",
+      "42d51d9b-3694-442e-9486-911a32cba5ad": "Active Tasking Applications",
+      "4f0f9155-0a74-4eb9-8702-50cbe3296830": "Inactive Tasking Applications",
+      "50895d7e-be18-49b1-8618-ec25ea3eef5a": "Tasking Application Lookup View",
+      "5999a88d-73a1-ec11-b3fe-000d3a840012": "Active Tasking Notified",
+      "8e206ea5-72a1-ec11-b3fe-000d3a840012": "Active Tasking Approved",
+      "bf92d252-5b1a-41ad-a129-300594cd9f1d": "Tasking Application Advanced Find View",
+      "c2986469-2d6f-4ddc-a5ef-0a51648372d1": "Tasking Application Associated View",
+      "cb1f11fd-72a1-ec11-b3fe-000d3a0c8e5f": "Active Tasking Not Selected"
+    }
+  },
+  {
+    "DisplayName": "Status (Tasking Applications)",
+    "Name": "wywm_taskingapplication_statecode",
+    "OptionSetInfoNameMapping": {
+      "0": "Active",
+      "1": "Inactive"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "statecode",
+        "OptionSetReferenceEntityName": "Tasking Applications"
+      }
+    },
+    "OptionSetTypeKey": "StateType",
+    "RelatedColumnInvariantName": "statecode",
+    "RelatedEntityName": "Tasking Applications",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Status Reason (Tasking Applications)",
+    "Name": "wywm_taskingapplication_statuscode",
+    "OptionSetInfoNameMapping": {
+      "1": "Active",
+      "2": "Inactive"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "statuscode",
+        "OptionSetReferenceEntityName": "Tasking Applications"
+      }
+    },
+    "OptionSetTypeKey": "StatusType",
+    "RelatedColumnInvariantName": "statuscode",
+    "RelatedEntityName": "Tasking Applications",
+    "Type": "OptionSetInfo"
+  }
+]

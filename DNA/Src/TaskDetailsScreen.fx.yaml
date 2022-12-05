@@ -1,0 +1,766 @@
+TaskDetailsScreen As screen:
+    Fill: =BackgroundColor
+    OnVisible: =
+
+    TaskingDetails_MainHeader As MainHeader:
+        PersonalImage: =currPersonnelImage
+        PersonalInfoScreen: =PersonalInfoScreen
+
+    TaskingDetails_MenuLowerHeader As MenuLowerHeader:
+        LowerMenuTextLabel: =If(LangEn, TaskData.Name, TaskData.'Task Name Fr')
+        Y: =TaskingDetails_MainHeader.Height
+        ZIndex: =2
+
+    TaskingDetails_EventName As label:
+        FontWeight: =FontWeight.Semibold
+        Height: =125
+        LineHeight: =1
+        PaddingTop: =20
+        Size: =33
+        Text: =If(LangEn, TaskData.Name, TaskData.'Task Name Fr')
+        VerticalAlign: =VerticalAlign.Top
+        Width: =398
+        X: =38
+        Y: =180
+        ZIndex: =3
+
+    TaskingDetail_BackgroundDimmer As rectangle:
+        Fill: =RGBA(0, 0, 0, 0.5)    
+        Height: =Parent.Height
+        Visible: =showImg
+        Width: =Parent.Width
+        ZIndex: =4
+
+    TaskDetails_ImageViewer As image:
+        Height: =198
+        Image: |-
+            =//EventData.'Training Event'.'Attachment #1'.Value
+        Visible: =showImg
+        Width: =640
+        Y: =938
+        ZIndex: =5
+
+    TaskDetails_Back As icon.Add:
+        Color: =RGBA(255, 0, 0, 1)
+        Height: =52
+        Icon: =Icon.CancelBadge
+        OnSelect: |-
+            =Set(showImg, false);
+            Set(showPdf, false);
+            Set(showAttachmentCancel, false)
+        Visible: =showAttachmentCancel
+        Width: =52
+        X: =21
+        Y: =111
+        ZIndex: =6
+
+    TaskDetails_Apply As button:
+        DisplayMode: |
+            =If( 
+                TaskCommitStatus =  'Approved/Not Selected'.'Not Selected' || TaskCommitStatus =  'Approved/Not Selected'.Pending || TaskCommitStatus =  'Approved/Not Selected'.Approved ,
+                DisplayMode.Disabled,
+                DisplayMode.Edit
+            )
+        Fill: =Yellow1
+        Height: =53
+        OnSelect: =Set(showAttestationTasking, !showAttestationTasking)
+        PaddingBottom: =0
+        PaddingLeft: =0
+        PaddingRight: =0
+        PaddingTop: =0
+        RadiusBottomLeft: =15
+        RadiusBottomRight: =15
+        RadiusTopLeft: =15
+        RadiusTopRight: =15
+        Text: |-
+            =If(
+                LangEn = true,
+                // True
+                Switch(
+                    TaskCommitStatus,
+                    'Approved/Not Selected'.Notified,
+                    "Apply",
+                    'Approved/Not Selected'.Pending,
+                    "Pending",
+                    'Approved/Not Selected'.'Not Selected',
+                    "Not Selected",
+                    'Approved/Not Selected'.Approved,
+                    "Approved"
+                ),
+                // French
+                If(
+                    // Male
+                    currPersonnel.Gender = [@Gender].'801200000',
+                    Switch(
+                    TaskCommitStatus,
+                    'Approved/Not Selected'.Notified,
+                    "Appliquer",
+                    'Approved/Not Selected'.Pending,
+                    "En attente",
+                    'Approved/Not Selected'.'Not Selected',
+                    "Non selectionné",
+                    'Approved/Not Selected'.Approved,
+                    "Approuvé"
+                    ),
+                    // Female
+                    Switch(
+                    TaskCommitStatus,
+                    'Approved/Not Selected'.Notified,
+                    "Appliquer",
+                    'Approved/Not Selected'.Pending,
+                    "En attente",
+                    'Approved/Not Selected'.'Not Selected',
+                    "Non selectionnée",
+                    'Approved/Not Selected'.Approved,
+                    "Approuvée"
+                    )
+                )
+            )
+        Width: =185
+        X: =427
+        Y: =220
+        ZIndex: =7
+
+    TaskDetails_InfoCard As TaskInfoCard:
+        ApplicationDate: |-
+            =Text(DateTimeValue(TaskData.'Final Application Date'), "yyyy/mm/dd @ hh:mm")
+        EndDate: |-
+            =Text(DateTimeValue(TaskData.'End Date'), "yyyy/mm/dd @ hh:mm")
+        Height: =398
+        Location: =TaskData.Location
+        OPIContact: =LookUp(Personnels, Personnel = TaskOpiId).'Mobile Phone Number'
+        OPIEmail: =TaskData.'OPI EMAIL'
+        OPIName: =If(LangEn, TaskData.'OPI CALCULATED', TaskData.'OPI CALCULATED FR')
+        OPIUnit: =LookUp(Personnels, Personnel = TaskOpiId).Unit.'Unit Name'
+        Rank: |
+            =Concat(TaskData.Ranks, Concatenate(Text(Name),"  "))
+        StartDate: |-
+            =Text(DateTimeValue(TaskData.'Start Date'), "yyyy/mm/dd @ hh:mm")
+        Trade: =Concat(TaskData.'MOS Trades', Concatenate(Text('MOS Trade Code'),"  "))
+        X: =40
+        Y: =305
+        ZIndex: =8
+
+    Task_Attach1 As group:
+        Height: =5
+        Width: =5
+        X: =40
+        Y: =40
+        ZIndex: =32
+
+        Task_Attach1Btn As button:
+            Align: =Align.Left
+            Color: =RGBA(0, 0, 0, 1)
+            DisabledColor: =RGBA(0, 0, 0, 0)
+            Fill: =Transparent
+            FontWeight: =FontWeight.Normal
+            Height: =26
+            HoverBorderColor: =RGBA(0, 0, 0, 0)
+            HoverColor: =RGBA(0, 0, 0, 1)
+            HoverFill: =Transparent
+            Italic: =true
+            OnSelect: |-
+                =If(
+                    EndsWith(
+                        Lower(TaskData.'Attachment #1'.FileName),
+                        ".png"
+                    ) || EndsWith(
+                        Lower(TaskData.'Attachment #1'.FileName),
+                        ".jpg"
+                    ) || EndsWith(
+                        Lower(TaskData.'Attachment #1'.FileName),
+                        ".jpeg"
+                    ),
+                    // Set the Image variable to the file
+                    Set(ImgVar, TaskData.'Attachment #1'.Value);
+                    // Show the Image Viewer
+                    Set(
+                        showImg,
+                        !showImg
+                    );
+                    // Show Image Viewer Exit Button
+                    Set(
+                        showAttachmentCancel,
+                        !showAttachmentCancel
+                    );
+                    ,
+                    // pdf or docx (nested if)
+                    If(
+                        EndsWith(
+                            Lower(TaskData.'Attachment #1'.FileName),
+                            ".pdf"
+                        ),
+                        // Set the DocVar to the file
+                        Set(DocVar, TaskData.'Attachment #1'.Value);
+                        // Show PDF Viewer
+                        Set(
+                            showPdf,
+                            !showPdf
+                        );
+                        Set(
+                            showAttachmentCancel,
+                            !showAttachmentCancel
+                        );
+                        ,
+                    // not an image && not a pdf
+                        false
+                    );
+                    
+                )
+            PressedBorderColor: =
+            PressedColor: =
+            Size: =12
+            Text: |
+                =CourseData.'Attachment #1'.FileName
+            Visible: |
+                =If(Not(TaskData.'Attachment #1'.Value = Blank()) && showAttachments, true, false)
+            Width: =469
+            X: =58
+            Y: =987
+            ZIndex: =28
+
+        Task_Attach1Download As icon.Save:
+            Color: =RGBA(0, 0, 0, 1)
+            Height: =16
+            Icon: =Icon.Download
+            OnSelect: |-
+                =Download(BASE_ENVIRON_URL & "wywm_taskings("&TaskData.Tasking&")/wywm_attachment1/$value");
+                Launch(BASE_ENVIRON_URL & "wywm_taskings("&TaskData.Tasking&")/wywm_attachment1/$value");
+            Visible: |
+                =If(Not(TaskData.'Attachment #1'.Value = Blank()) && showAttachments, true, false)
+            Width: =40
+            X: =530
+            Y: =990
+            ZIndex: =29
+
+    Tasking_Attachments As group:
+        Height: =5
+        Width: =5
+        X: =40
+        Y: =897
+        ZIndex: =33
+
+        Tasking_AttachmentsLabel As label:
+            BorderColor: =RGBA(230, 230, 230, 1)
+            BorderThickness: =2
+            Fill: =RGBA(255, 255, 255, 1)
+            Font: =FontFamilyB
+            FontWeight: =FontWeight.Semibold
+            Height: =70
+            PaddingLeft: =20
+            Size: =CardTextFont
+            Text: =__localizer.Localize("ANA_TRAINING_DETAIL_ATTACHMENTS", LangEn)
+            Width: =560
+            X: =35
+            Y: =Tasking_PrereqsBox.Y+Tasking_PrereqsBox.Height
+            ZIndex: =15
+
+        Tasking_AttachmentsIcon As icon.Add:
+            Color: =Yellow1
+            Height: =42
+            Icon: =Icon.ChevronDown
+            OnSelect: |
+                =Set(showAttachments, !showAttachments);
+                If(showDescription=true, Set(showDescription, false));
+                If(showReq=true, Set(showReq, false));
+            Width: =42
+            X: =533
+            Y: =Tasking_AttachmentsLabel.Y+15
+            ZIndex: =16
+
+        Tasking_AttachmentsBox As label:
+            BorderColor: =RGBA(230, 230, 230, 1)
+            BorderThickness: =2
+            Fill: =RGBA(255, 255, 255, 1)
+            FontWeight: =FontWeight.Semibold
+            Height: =152
+            PaddingLeft: =20
+            Size: =18
+            Text: =""
+            Visible: =showAttachments
+            Width: =560
+            X: =35
+            Y: =Tasking_AttachmentsLabel.Y+ Tasking_AttachmentsLabel.Height
+            ZIndex: =17
+
+    Button4 As button:
+        Height: =70
+        OnSelect: =Set(showWithdawlModal, !showWithdawlModal) 
+        Size: =24
+        Text: |-
+            ="Withdraw
+            "
+        Width: =280
+        X: =325
+        Y: =1031
+        ZIndex: =35
+
+    Task_Attach2 As group:
+        Height: =5
+        Width: =5
+        X: =20
+        Y: =20
+        ZIndex: =35
+
+        Task_Attach2Btn As button:
+            Align: =Align.Left
+            Color: =RGBA(0, 0, 0, 1)
+            DisabledColor: =RGBA(0, 0, 0, 0)
+            Fill: =Transparent
+            FontWeight: =FontWeight.Normal
+            Height: =26
+            HoverBorderColor: =RGBA(0, 0, 0, 0)
+            HoverColor: =RGBA(0, 0, 0, 1)
+            HoverFill: =Transparent
+            Italic: =true
+            OnSelect: |-
+                =If(
+                    EndsWith(
+                        Lower(TaskData.'Attachment #2'.FileName),
+                        ".png"
+                    ) || EndsWith(
+                        Lower(TaskData.'Attachment #2'.FileName),
+                        ".jpg"
+                    ) || EndsWith(
+                        Lower(TaskData.'Attachment #2'.FileName),
+                        ".jpeg"
+                    ),
+                    // Set the Image variable to the file
+                    Set(ImgVar, TaskData.'Attachment #2'.Value);
+                    // Show the Image Viewer
+                    Set(
+                        showImg,
+                        !showImg
+                    );
+                    // Show Image Viewer Exit Button
+                    Set(
+                        showAttachmentCancel,
+                        !showAttachmentCancel
+                    );
+                    ,
+                    // pdf or docx (nested if)
+                    If(
+                        EndsWith(
+                            Lower(TaskData.'Attachment #2'.FileName),
+                            ".pdf"
+                        ),
+                        // Set the DocVar to the file
+                        Set(DocVar, TaskData.'Attachment #2'.Value);
+                        // Show PDF Viewer
+                        Set(
+                            showPdf,
+                            !showPdf
+                        );
+                        Set(
+                            showAttachmentCancel,
+                            !showAttachmentCancel
+                        );
+                        ,
+                    // not an image && not a pdf
+                        false
+                    );
+                    
+                )
+            PressedBorderColor: =
+            PressedColor: =
+            Size: =12
+            Text: |
+                =CourseData.'Attachment #2'.FileName
+            Visible: |
+                =If(Not(TaskData.'Attachment #2'.Value = Blank()) && showAttachments, true, false)
+            Width: =469
+            X: =59
+            Y: =1034
+            ZIndex: =30
+
+        Task_Attach2Download As icon.Save:
+            Color: =RGBA(0, 0, 0, 1)
+            Height: =16
+            Icon: =Icon.Download
+            OnSelect: |-
+                =Download(BASE_ENVIRON_URL & "wywm_taskings("&TaskData.Tasking&")/wywm_attachment2/$value");
+                Launch(BASE_ENVIRON_URL & "wywm_taskings("&TaskData.Tasking&")/wywm_attachment2/$value");
+            Visible: |
+                =If(Not(TaskData.'Attachment #2'.Value = Blank()) && showAttachments, true, false)
+            Width: =40
+            X: =531
+            Y: =1037
+            ZIndex: =31
+
+    Task_Attach3 As group:
+        Height: =5
+        Width: =5
+        X: =20
+        Y: =20
+        ZIndex: =36
+
+        Task_Attach3Btn As button:
+            Align: =Align.Left
+            Color: =RGBA(0, 0, 0, 1)
+            DisabledColor: =RGBA(0, 0, 0, 0)
+            Fill: =Transparent
+            FontWeight: =FontWeight.Normal
+            Height: =26
+            HoverBorderColor: =RGBA(0, 0, 0, 0)
+            HoverColor: =RGBA(0, 0, 0, 1)
+            HoverFill: =Transparent
+            Italic: =true
+            OnSelect: |-
+                =If(
+                    EndsWith(
+                        Lower(TaskData.'Attachment #3'.FileName),
+                        ".png"
+                    ) || EndsWith(
+                        Lower(TaskData.'Attachment #3'.FileName),
+                        ".jpg"
+                    ) || EndsWith(
+                        Lower(TaskData.'Attachment #3'.FileName),
+                        ".jpeg"
+                    ),
+                    // Set the Image variable to the file
+                    Set(ImgVar, TaskData.'Attachment #3'.Value);
+                    // Show the Image Viewer
+                    Set(
+                        showImg,
+                        !showImg
+                    );
+                    // Show Image Viewer Exit Button
+                    Set(
+                        showAttachmentCancel,
+                        !showAttachmentCancel
+                    );
+                    ,
+                    // pdf or docx (nested if)
+                    If(
+                        EndsWith(
+                            Lower(TaskData.'Attachment #3'.FileName),
+                            ".pdf"
+                        ),
+                        // Set the DocVar to the file
+                        Set(DocVar, TaskData.'Attachment #3'.Value);
+                        // Show PDF Viewer
+                        Set(
+                            showPdf,
+                            !showPdf
+                        );
+                        Set(
+                            showAttachmentCancel,
+                            !showAttachmentCancel
+                        );
+                        ,
+                    // not an image && not a pdf
+                        false
+                    );
+                    
+                )
+            PressedBorderColor: =
+            PressedColor: =
+            Size: =12
+            Text: |
+                =CourseData.'Attachment #2'.FileName
+            Visible: |
+                =If(Not(TaskData.'Attachment #1'.Value = Blank()) && showAttachments, true, false)
+            Width: =469
+            X: =59
+            Y: =1082
+            ZIndex: =33
+
+        Task_Attach3Download As icon.Save:
+            Color: =RGBA(0, 0, 0, 1)
+            Height: =16
+            Icon: =Icon.Download
+            OnSelect: |-
+                =Download(BASE_ENVIRON_URL & "wywm_taskings("&TaskData.Tasking&")/wywm_attachment3/$value");
+                Launch(BASE_ENVIRON_URL & "wywm_taskings("&TaskData.Tasking&")/wywm_attachment3/$value");
+            Visible: |
+                =If(Not(TaskData.'Attachment #1'.Value = Blank()) && showAttachments, true, false)
+            Width: =40
+            X: =531
+            Y: =1085
+            ZIndex: =34
+
+    Tasking_DescriptionsDropdown As group:
+        Height: =5
+        Width: =5
+        X: =20
+        Y: =20
+        ZIndex: =41
+
+        Tasking_DescriptionsHeader As label:
+            BorderColor: =RGBA(230, 230, 230, 1)
+            BorderThickness: =2
+            Fill: =RGBA(255, 255, 255, 1)
+            Font: =FontFamilyB
+            FontWeight: =FontWeight.Semibold
+            Height: =70
+            PaddingLeft: =20
+            Size: =CardTextFont
+            Text: ="Description"
+            Width: =560
+            X: =35
+            Y: =763
+            ZIndex: =9
+
+        Tasking_DescriptionsIcon As icon.Add:
+            Color: =Yellow1
+            Height: =42
+            Icon: =Icon.ChevronDown
+            OnSelect: |-
+                =Set(showDescription, !showDescription);
+                Set(showReq, false);
+                Set(showAttachments, false);
+            Width: =42
+            X: =533
+            Y: =778
+            ZIndex: =10
+
+        Tasking_DescriptionsBox As label:
+            BorderColor: =RGBA(230, 230, 230, 1)
+            BorderThickness: =2
+            DisplayMode: =DisplayMode.View
+            Fill: =RGBA(255, 255, 255, 1)
+            Height: =If(showDescription, 160, 0)
+            Overflow: =Overflow.Scroll
+            PaddingLeft: =20
+            PaddingTop: =10
+            Size: =12
+            Text: =TaskData.Description
+            VerticalAlign: =VerticalAlign.Top
+            Visible: =showDescription
+            Width: =560
+            X: =35
+            Y: =833
+            ZIndex: =11
+
+    Tasking_PrereqsDropdown As group:
+        Height: =5
+        Width: =5
+        X: =20
+        Y: =20
+        ZIndex: =42
+
+        Tasking_PrereqsHeader As label:
+            BorderColor: =RGBA(230, 230, 230, 1)
+            BorderThickness: =2
+            Fill: =RGBA(255, 255, 255, 1)
+            Font: =FontFamilyB
+            FontWeight: =FontWeight.Semibold
+            Height: =70
+            PaddingLeft: =20
+            Size: =CardTextFont
+            Text: =__localizer.Localize("ANA_DETAIL_PREREQUISITES", LangEn)
+            Width: =560
+            X: =35
+            Y: =Tasking_DescriptionsBox.Y+Tasking_DescriptionsBox.Height
+            ZIndex: =12
+
+        Tasking_PrereqsArrow As icon.Add:
+            Color: =Yellow1
+            Height: =42
+            Icon: =Icon.ChevronDown
+            OnSelect: |-
+                =Set(showReq, !showReq);
+                If(showDescription, Set(showDescription, false));
+                Set(showAttachments, false);
+            Width: =42
+            X: =533
+            Y: =Tasking_PrereqsHeader.Y + 15
+            ZIndex: =13
+
+        Tasking_PrereqsBox As label:
+            BorderColor: =RGBA(230, 230, 230, 1)
+            BorderThickness: =2
+            Fill: =RGBA(255, 255, 255, 1)
+            Height: =If(showReq, 160, 0)
+            Overflow: =Overflow.Scroll
+            PaddingLeft: =20
+            PaddingTop: =20
+            Size: =12
+            Text: =TaskData.Prerequisites
+            VerticalAlign: =VerticalAlign.Top
+            Visible: |
+                =showReq
+            Width: =560
+            X: =35
+            Y: =Tasking_PrereqsHeader.Y+Tasking_PrereqsHeader.Height
+            ZIndex: =14
+
+    TaskDetails_ShowAttestationModalTasking As group:
+        Height: =5
+        Width: =5
+        X: =60
+        Y: =60
+        ZIndex: =62
+
+        TaskDetails_DeclineModalBackgr As rectangle:
+            Fill: =RGBA(0, 0, 0, 0.6)
+            Height: =1136
+            OnSelect: =Set(showAttestationTasking, false)
+            Visible: =showAttestationTasking
+            Width: =640
+            ZIndex: =19
+
+        TaskDetails_DeclineModalRec As rectangle:
+            BorderColor: =RGBA(255, 255, 255, 1)
+            Fill: =RGBA(255, 255, 255, 1)
+            Height: =357
+            Visible: =showAttestationTasking
+            Width: =596
+            X: =22
+            Y: =374
+            ZIndex: =20
+
+        TaskDetails_DeclineModalTitle As label:
+            Font: =Font.Lato
+            FontWeight: =FontWeight.Bold
+            Height: =60
+            PaddingLeft: =20
+            Size: =17
+            Text: ="Confirmation"
+            Visible: =showAttestationTasking
+            Width: =594
+            X: =21
+            Y: =374
+            ZIndex: =21
+
+        TaskDetails_Divider As rectangle:
+            BorderColor: =RGBA(255, 255, 255, 1)
+            Fill: =RGBA(0, 0, 0, 1)
+            Height: =1
+            Visible: =showAttestationTasking
+            Width: =596
+            X: =22
+            Y: =433
+            ZIndex: =22
+
+        TaskDetails_SubmitBtn As button:
+            Fill: =Blue3
+            Font: =Font.Lato
+            Height: =46
+            OnSelect: |
+                =Patch(
+                    'Tasking Applications',
+                    Defaults('Tasking Applications'),
+                    {
+                        'Tasking Application Status': 'Approved/Not Selected'.Pending,
+                        Tasking: TaskData,
+                        Personnel: currPersonnel
+                    }
+                );
+                /*
+                Patch(
+                    UserNotifications,
+                    LookUp(
+                        UserNotifications,
+                        wywm_usernotificationid = NotificationId && wywm_Personnel.Personnel = currPersonnel.Personnel && wywm_Tasking.wywm_taskingid = TaskData.wywm_taskingid
+                    ),
+                    {wywm_type: "hidden"}
+                );
+                */
+                
+                Patch(
+                        UserNotifications,
+                        LookUp(
+                            UserNotifications,
+                            Personnel.Personnel = currPersonnel.Personnel && Tasking.Tasking = TaskData.Tasking
+                        ),
+                        {Deleted: 'Deleted (UserNotifications)'.Yes}
+                    );
+                
+                
+                /*
+                RemoveIf(
+                    UserNotifications,
+                    Personnel.Personnel = currPersonnel.Personnel && Tasking.Tasking = TaskData.Tasking
+                );
+                */
+                
+                Set(
+                    TaskCommitStatus,
+                    'Approved/Not Selected'.Pending
+                );
+                
+                'CanvasApp_TaskingSendMobile+EmailNotification_1'.Run(
+                    true,
+                    TaskData.'Start Date',
+                    TaskData.'End Date',
+                    TaskData.'OPI CALCULATED',
+                    TaskData.'OPI EMAIL',
+                    LookUp(
+                        Personnels,
+                        Personnel = currPersonnel.Personnel
+                    ).'Military Email',
+                    TaskData.Name
+                );
+                
+                Set(
+                    showAttestationTasking,
+                    false
+                );
+                Navigate(
+                    TaskSuccessScreen,
+                    ScreenTransition.CoverRight
+                );
+                Refresh('Tasking Applications');
+                Refresh(UserNotificationItems);
+            RadiusBottomLeft: =5
+            RadiusBottomRight: =5
+            RadiusTopLeft: =5
+            RadiusTopRight: =5
+            Size: =16
+            Text: =__localizer.Localize("ANA_BUG_SUBMIT", LangEn)
+            Visible: =showAttestationTasking
+            Width: =159
+            X: =441
+            Y: =669
+            ZIndex: =23
+
+        TaskDetails_CancelBtn As button:
+            Fill: =RGBA(128, 128, 128, 1)
+            Font: =Font.Lato
+            FontWeight: =FontWeight.Normal
+            Height: =46
+            OnSelect: =Set(showAttestationTasking, false)
+            RadiusBottomLeft: =5
+            RadiusBottomRight: =5
+            RadiusTopLeft: =5
+            RadiusTopRight: =5
+            Size: =16
+            Text: =__localizer.Localize("ANA_DECLINE_CANCEL", LangEn)
+            Visible: =showAttestationTasking
+            Width: =130
+            X: =297
+            Y: =669
+            ZIndex: =24
+
+        TaskDetails_Confirmation As label:
+            FontWeight: =FontWeight.Semibold
+            Height: =53
+            Size: =18
+            Text: =__localizer.Localize("ANA_COURSE_CONFIRM1", LangEn)
+            Visible: =showAttestationTasking
+            Width: =560
+            X: =35
+            Y: =445
+            ZIndex: =25
+
+        TaskDetails_Understand As label:
+            Height: =44
+            Size: =16
+            Text: =__localizer.Localize("ANA_COURSE_CONFIRM2", LangEn)
+            Visible: =showAttestationTasking
+            Width: =560
+            X: =45
+            Y: =491
+            ZIndex: =26
+
+        TaskDetails_Available As label:
+            Height: =60
+            Size: =16
+            Text: =__localizer.Localize("ANA_COURSE_CONFIRM3", LangEn)
+            Visible: =showAttestationTasking
+            Width: =560
+            X: =45
+            Y: =529
+            ZIndex: =27
+

@@ -1,0 +1,55 @@
+ButtonStyle As CanvasComponent:
+    ButtonIcon: ="Text"
+    ButtonStyleText: ="Text"
+    Fill: =RGBA(0, 0, 0, 0)
+    Height: =60
+    NavigateTo: =App.ActiveScreen
+    Width: =640
+    X: =0
+    Y: =0
+    ZIndex: =1
+
+    ButtonStyleGroup As group:
+        Height: =5
+        Width: =5
+        X: =40
+        Y: =40
+        ZIndex: =4
+
+        ButtonStyleRectangleMilitaryQualifications As rectangle:
+            BorderColor: =Yellow1
+            BorderThickness: =2
+            Fill: =If(DarkMode,Dark4,Blue2)
+            Height: =Parent.Height
+            OnSelect: =Navigate(Parent.NavigateTo, ScreenTransition.CoverRight)
+            Width: =Parent.Width
+            ZIndex: =1
+
+        ButtonStyleLabelMilitaryQualifications As label:
+            Align: =Align.Center
+            BorderColor: =RGBA(255, 255, 255, 1)
+            Color: =RGBA(255, 255, 255, 1)
+            Font: =FontFamilyB
+            Height: =Parent.Height
+            OnSelect: =Navigate(Parent.NavigateTo, ScreenTransition.CoverRight)
+            PaddingLeft: =150
+            PaddingRight: =150
+            Size: =CardHeaderFont
+            Text: |
+                =Parent.ButtonStyleText
+            Width: =Parent.Width
+            Wrap: =false
+            ZIndex: =2
+
+        ButtonStyleIcon As icon.Add:
+            Color: =Yellow1
+            Height: =60
+            HoverFill: =ColorFade(Blue1, 20%)
+            Icon: |-
+                =Switch(Text(Parent.ButtonIcon),
+                    "ArrowRight", ArrowRight,
+                    Icon.AddDocument)
+            OnSelect: =Navigate(Parent.NavigateTo, ScreenTransition.CoverRight)
+            X: =528
+            ZIndex: =3
+

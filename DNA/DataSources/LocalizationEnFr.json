@@ -1,0 +1,121 @@
+[
+  {
+    "CdsFCBContext": "{\"FileType\":true,\"ImageExternalStorage\":true}",
+    "EntitySetName": "wywm_localizationenfrs",
+    "IsHidden": false,
+    "IsSampleData": false,
+    "IsWritable": true,
+    "LogicalName": "wywm_localizationenfr",
+    "MaxGetRowsCount": 500,
+    "Name": "LocalizationEnFr",
+    "NativeCDSDataSourceInfoNameMapping": {
+      "_ownerid_value": "Owner (_ownerid_value)",
+      "createdby": "Created By",
+      "createdon": "Created On",
+      "createdonbehalfby": "Created By (Delegate)",
+      "importsequencenumber": "Import Sequence Number",
+      "modifiedby": "Modified By",
+      "modifiedon": "Modified On",
+      "modifiedonbehalfby": "Modified By (Delegate)",
+      "overriddencreatedon": "Record Created On",
+      "owningbusinessunit": "Owning Business Unit",
+      "owningteam": "Active",
+      "owninguser": "Owner (owninguser)",
+      "statecode": "Status",
+      "statuscode": "Status Reason",
+      "timezoneruleversionnumber": "Time Zone Rule Version Number",
+      "utcconversiontimezonecode": "UTC Conversion Time Zone Code",
+      "versionnumber": "Version Number",
+      "wywm_en": "En",
+      "wywm_flagged": "Flagged",
+      "wywm_fr": "Fr",
+      "wywm_localizationenfr_AsyncOperations": "System Jobs",
+      "wywm_localizationenfr_BulkDeleteFailures": "Bulk Delete Failures",
+      "wywm_localizationenfr_DuplicateBaseRecord": "Duplicate Records (wywm_localizationenfr_DuplicateBaseRecord)",
+      "wywm_localizationenfr_DuplicateMatchingRecord": "Duplicate Records (wywm_localizationenfr_DuplicateMatchingRecord)",
+      "wywm_localizationenfr_MailboxTrackingFolders": "Mailbox Auto Tracking Folders",
+      "wywm_localizationenfr_PrincipalObjectAttributeAccesses": "Field Sharing",
+      "wywm_localizationenfr_ProcessSession": "Process Sessions",
+      "wywm_localizationenfr_SyncErrors": "Sync Errors",
+      "wywm_localizationenfr_Teams": "Teams",
+      "wywm_localizationenfrid": "LocalizationEnFr",
+      "wywm_stringid": "StringId"
+    },
+    "PreferredName": "LocalizationEnFr",
+    "Type": "NativeCDSDataSourceInfo"
+  },
+  {
+    "DisplayName": "LocalizationEnFr (Views)",
+    "Name": "_wywm_localizationenfr_views",
+    "RelatedEntityName": "LocalizationEnFr",
+    "TrimmedViewName": true,
+    "Type": "ViewInfo",
+    "ViewInfoNameMapping": {
+      "2ada6293-a06a-4843-ad8b-798a059ee7f2": "LocalizationEnFr Advanced Find View",
+      "4491d515-aed1-488f-aab5-35402db38090": "LocalizationEnFr Associated View",
+      "4de48c18-394d-4bee-8eb0-11e1372c271a": "Inactive LocalizationEnFr",
+      "a9891e01-ac06-4b63-86fa-8eb87318f889": "LocalizationEnFr Lookup View",
+      "ae9f0bc6-b397-4b53-a67d-f8a07023b34f": "Active LocalizationEnFr"
+    }
+  },
+  {
+    "DisplayName": "Status (LocalizationEnFr)",
+    "Name": "wywm_localizationenfr_statecode",
+    "OptionSetInfoNameMapping": {
+      "0": "Active",
+      "1": "Inactive"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "statecode",
+        "OptionSetReferenceEntityName": "LocalizationEnFr"
+      }
+    },
+    "OptionSetTypeKey": "StateType",
+    "RelatedColumnInvariantName": "statecode",
+    "RelatedEntityName": "LocalizationEnFr",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Status Reason (LocalizationEnFr)",
+    "Name": "wywm_localizationenfr_statuscode",
+    "OptionSetInfoNameMapping": {
+      "1": "Active",
+      "2": "Inactive"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "statuscode",
+        "OptionSetReferenceEntityName": "LocalizationEnFr"
+      }
+    },
+    "OptionSetTypeKey": "StatusType",
+    "RelatedColumnInvariantName": "statuscode",
+    "RelatedEntityName": "LocalizationEnFr",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Flagged (LocalizationEnFr)",
+    "Name": "wywm_wywm_localizationenfr_flagged",
+    "OptionSetInfoNameMapping": {
+      "0": "No",
+      "1": "Yes"
+    },
+    "OptionSetIsBooleanValued": true,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "wywm_flagged",
+        "OptionSetReferenceEntityName": "LocalizationEnFr"
+      }
+    },
+    "OptionSetTypeKey": "BooleanType",
+    "RelatedColumnInvariantName": "wywm_flagged",
+    "RelatedEntityName": "LocalizationEnFr",
+    "Type": "OptionSetInfo"
+  }
+]

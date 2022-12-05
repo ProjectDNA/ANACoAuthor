@@ -1,0 +1,39 @@
+StatusPill As CanvasComponent:
+    DagName: ="Text"
+    ExpirationDate: =Now()
+    Fill: =RGBA(0, 0, 0, 0)
+    Height: =120
+    Status: ="Text"
+    Width: =640
+    X: =0
+    Y: =0
+    ZIndex: =1
+
+    StatusPillButton As button:
+        DisplayMode: =DisplayMode.View
+        Fill: |-
+            =Switch(Text(Parent.Status),
+                "Valid", Green,
+                "Expired", Red,
+                "Expiring", Yellow1,
+                Gray1
+            )
+        Height: =Parent.Height
+        PaddingBottom: =0
+        PaddingLeft: =0
+        PaddingRight: =0
+        PaddingTop: =0
+        RadiusBottomLeft: =90
+        RadiusBottomRight: =90
+        RadiusTopLeft: =90
+        RadiusTopRight: =90
+        Size: =24
+        Text: |-
+            =Switch(Parent.Status,
+                "Expiring", If(LangEn, Parent.Status, "Expire"),
+                "Expired", If(LangEn, Parent.Status, "Expiré"),
+                "Valid", If(LangEn, Parent.Status, "Valide"),
+                "N/A")
+        Width: =640
+        ZIndex: =1
+

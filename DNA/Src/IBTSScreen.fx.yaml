@@ -1,0 +1,119 @@
+IBTSScreen As screen:
+    Fill: =If(DarkMode,Dark4,White1)
+    OnVisible: |-
+        =Set(BackScreen, PersonalInfoScreen);
+        Set(SortKey, Blank());
+
+    Container1 As groupContainer.manualLayoutContainer:
+        Height: =App.Height
+        Width: =App.Width
+        ZIndex: =5
+
+        IBTS_MenuLowerHeader As MenuLowerHeader:
+            BackScreen: =PersonalInfoScreen
+            LowerMenuTextLabel: |-
+                =If(LangEn,
+                    Text(First(Filter('Roles Templates', wywm_roletemplatename in currPersonnel.'Active Military Role'.'Military Role Name')).wywm_roleeng),
+                    Text(First(Filter('Roles Templates', wywm_roletemplatename in currPersonnel.'Active Military Role'.'Military Role Name')).wywm_rolefr)
+                )
+                
+                //TODO: Migrate from Filter to Search for performance/delegation
+            Y: =IBTS_MainHeader.Height
+
+        IBTS_MainHeader As MainHeader:
+            PersonalImage: =currPersonnelImage
+            PersonalInfoScreen: =PersonalInfoScreen
+            ZIndex: =2
+
+        "IBTS_Gallery As gallery.'BrowseLayout_Vertical_TwoTextOneImageVariant_ver4.0'":
+            Height: =Parent.Height - (IBTS_MenuLowerHeader.Height + IBTS_MainHeader.Height)
+            Items: =Sort(IBTS_QUALS, If(LangEn, 'Qualification Name', 'Qualification Name FR'))
+            Layout: =Layout.Vertical
+            ShowNavigation: =true
+            ShowScrollbar: =false
+            TemplatePadding: =0
+            TemplateSize: =130
+            Y: =IBTS_MenuLowerHeader.Height + IBTS_MainHeader.Height
+            ZIndex: =3
+
+            IBTS_Rectangle As rectangle:
+                Fill: |-
+                    =Switch(Text(ThisItem.'Is Valid'),
+                        "Valid", ValidGreen,
+                        "Expired", ExpiredRed,
+                        "Expiring", ExpiringYellow,
+                        Gray1
+                    )
+                Height: =129
+                OnSelect: =Select(Parent)
+                Width: =65
+                ZIndex: =1
+
+            IBTS_Separator As rectangle:
+                Fill: =If(DarkMode,Dark3,Blue2)
+                Height: =4
+                OnSelect: =Select(Parent)
+                Width: =Parent.TemplateWidth
+                Y: =126
+                ZIndex: =2
+
+            IBTS_StatusText As label:
+                Align: =Align.Center
+                Color: |-
+                    =Switch(Text(ThisItem.'Is Valid'),
+                        "Valid", ValidGreen,
+                        "Expired", ExpiredRed,
+                        "Expiring", ExpiringYellow,
+                        Gray1
+                    )
+                Font: =FontFamilyA
+                FontWeight: =FontWeight.Semibold
+                Height: =Parent.TemplateHeight/2
+                OnSelect: =Select(Parent)
+                Size: =CardTextFont
+                Text: |
+                    =Switch(Text(ThisItem.'Is Valid'),
+                        "Expiring", If(LangEn, Text(ThisItem.'Is Valid'), "Expire"),
+                        "Expired", If(LangEn, Text(ThisItem.'Is Valid'), "Expiré"),
+                        "Valid", If(LangEn, Text(ThisItem.'Is Valid'), "Valide"),
+                        "N/A"
+                    )
+                Width: =Parent.Width/2 - 80
+                X: =65
+                Y: =Parent.TemplateHeight/2
+                ZIndex: =3
+
+            IBTS_Name As label:
+                Color: =If(DarkMode,White1,Dark4)
+                Fill: =If(DarkMode,Dark4,White1)
+                Font: =FontFamilyA
+                FontWeight: =FontWeight.Bold
+                Height: =65
+                OnSelect: =Select(Parent)
+                Size: =CardTextFont
+                Text: =If(LangEn, ThisItem.'Qualification Name', ThisItem.'Qualification Name FR')
+                VerticalAlign: =VerticalAlign.Top
+                Width: =Parent.Width-IBTS_Rectangle.Width
+                X: =65
+                ZIndex: =4
+
+            IBTS_Expiration As label:
+                Align: =Align.Center
+                Color: |-
+                    =Switch(Text(ThisItem.'Is Valid'),
+                        "Valid", ValidGreen,
+                        "Expired", ExpiredRed,
+                        "Expiring", ExpiringYellow,
+                        Gray1
+                    )
+                Font: =FontFamilyA
+                FontWeight: =FontWeight.Semibold
+                Height: =Parent.TemplateHeight/2
+                OnSelect: =Select(Parent)
+                Size: =CardTextFont
+                Text: =Text( DateValue( ThisItem.'Expiry Date' ), "yyyy/mm/dd" )
+                Width: =Parent.Width/2
+                X: =Parent.Width/2
+                Y: =Parent.TemplateHeight/2
+                ZIndex: =5
+

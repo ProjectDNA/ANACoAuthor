@@ -1,0 +1,34 @@
+SearchInput As CanvasComponent:
+    Fill: =RGBA(0, 0, 0, 0)
+    Height: =80
+    OnReset: =
+    SearchText: =SearchInputTextInput.Text
+    Width: =640 
+    X: =0
+    Y: =0
+    ZIndex: =1
+
+    SearchInputTextInput As text:
+        Default: =""
+        Height: =70
+        HintText: =__localizer.Localize("ANA_FILE_AND_DOC_SEARCH", LangEn)
+        RadiusBottomLeft: =10
+        RadiusBottomRight: =10
+        RadiusTopLeft: =10
+        RadiusTopRight: =10
+        Size: =21
+        Width: =545
+        X: =76
+        Y: =5
+        ZIndex: =1
+
+    SearchInputCancelButton As icon.Add:
+        Color: =RGBA(184, 0, 0, 1)
+        Height: =48
+        Icon: =Icon.ArrowLeft
+        OnSelect: =Set(SearchMenuVisible, !SearchMenuVisible)
+        Width: =48
+        X: =8
+        Y: =16
+        ZIndex: =2
+

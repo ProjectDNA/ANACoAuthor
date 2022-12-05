@@ -1,0 +1,281 @@
+"TrainingSuccessScreen As screen.'phoneLayout_Success_ver3.0'":
+    Fill: =If(DarkMode,Dark4,White1)
+    OnVisible: |+
+        =Refresh('Training Event Attendees');
+        
+
+    TrainingSuccessContainer As groupContainer.manualLayoutContainer:
+        Height: =App.Height
+        Width: =App.Width
+        ZIndex: =24
+
+        TrainingSuccess_GreenBackground As rectangle:
+            Fill: =If(DarkMode,AppliedGreen,Green)
+            Height: =328
+            Width: =640
+            Y: =180
+            ZIndex: =1
+
+        TrainingSuccess_AttendanceConfirmed As label:
+            Align: =Align.Center
+            Color: =If(DarkMode,White1,Black)
+            Font: =FontFamilyB
+            FontWeight: =FontWeight.Semibold
+            Height: =65
+            Size: =CardInfoHeaderFont
+            Text: =__localizer.Localize("ANA_SUCCESS_ATENDANCE_CONFIRMATION", LangEn) 
+            Width: =640
+            Y: =1071
+            ZIndex: =4
+
+        TrainingSuccess_MainHeader As MainHeader:
+            PersonalImage: =currPersonnelImage
+            PersonalInfoScreen: =PersonalInfoScreen
+            ZIndex: =9
+
+        TrainingSuccess_MenuLowerHeader As MenuLowerHeader:
+            LowerMenuTextLabel: ="Confirmation"
+            Y: =90
+            ZIndex: =10
+
+        TrainingSuccess_EndDateValue As label:
+            Align: =Align.Center
+            Color: =If(DarkMode,White1,Black)
+            Font: =FontFamilyB
+            Height: =70
+            Size: =CardTextFont
+            Text: |
+                =Text( DateTimeValue( EventData.wywm_TrainingEvent.'End Date' ), "mm/dd/yyyy @ hh:mm")
+            Width: =317
+            X: =323
+            Y: =607
+            ZIndex: =17
+
+        TrainingSuccess_EndDate As label:
+            Color: =If(DarkMode,White1,Black)
+            Font: =FontFamilyB
+            FontWeight: =FontWeight.Bold
+            Height: =69
+            Size: =CardTextFont
+            Text: |-
+                =__localizer.Localize("ANA_FILEDOC_END_DATE", LangEn) & ":"
+            Width: =191
+            X: =47
+            Y: =608
+            ZIndex: =18
+
+        TrainingSuccess_StartDate As label:
+            Color: =If(DarkMode,White1,Black)
+            Font: =FontFamilyB
+            FontWeight: =FontWeight.Bold
+            Height: =79
+            Size: =CardTextFont
+            Text: |-
+                =__localizer.Localize("ANA_FILEDOC_START_DATE", LangEn) & ":"
+            Width: =222
+            X: =47
+            Y: =548
+            ZIndex: =19
+
+        TrainingSuccess_OpiContact As label:
+            Color: =If(DarkMode,White1,Black)
+            Font: =FontFamilyB
+            FontWeight: =FontWeight.Bold
+            Height: =79
+            Size: =CardTextFont
+            Text: |-
+                =__localizer.Localize("ANA_TRAINING_DETAIL_OPI_CONTACT", LangEn) & ":"
+            Width: =191
+            X: =47
+            Y: =789
+            ZIndex: =20
+
+        TrainingSuccess_OpiContactValue As label:
+            Align: =Align.Center
+            Color: =If(DarkMode,White1,Black)
+            Font: =FontFamilyB
+            Height: =51
+            Italic: =true
+            Size: =CardTextFont
+            Text: |-
+                =//LookUp('Training Events', 'Training Event' = EventData.wywm_TrainingEvent.'Training Event').OPI.'Civilian Email'
+                EventData.wywm_TrainingEvent.'OPI EMAIL'
+            Width: =402
+            X: =238
+            Y: =803
+            ZIndex: =21
+
+        TrainingSuccess_DetailLabelGroup As group:
+            Height: =5
+            Width: =5
+            X: =40
+            Y: =29
+            ZIndex: =22
+
+            TrainingSuccess_Location As label:
+                Color: =If(DarkMode,White1,Black)
+                Font: =FontFamilyB
+                FontWeight: =FontWeight.Bold
+                Height: =65
+                Size: =CardTextFont
+                Text: |-
+                    =__localizer.Localize("ANA_TRAINING_DETAIL_LOCATION", LangEn) & ":"
+                Width: =200
+                X: =47
+                Y: =670
+                ZIndex: =5
+
+            TrainingSuccess_ReportTo As label:
+                Color: =If(DarkMode,White1,Black)
+                Font: =FontFamilyB
+                FontWeight: =FontWeight.Bold
+                Height: =65
+                Size: =CardTextFont
+                Text: |-
+                    =__localizer.Localize("ANA_SUCCESS_REPORT_TO", LangEn) & ":"
+                Width: =315
+                X: =47
+                Y: =733
+                ZIndex: =6
+
+            TrainingSuccess_EquipmendDraw As label:
+                Color: =If(DarkMode,White1,Black)
+                Font: =FontFamilyB
+                FontWeight: =FontWeight.Bold
+                Height: =65
+                Size: =CardTextFont
+                Text: |-
+                    =__localizer.Localize("ANA_SUCCESS_EQUIPMENT_DRAW", LangEn) & ":"
+                Width: =302
+                X: =47
+                Y: =879
+                ZIndex: =7
+
+            TrainingSuccess_WeaponsDraw As label:
+                Color: =If(DarkMode,White1,Black)
+                Font: =FontFamilyB
+                FontWeight: =FontWeight.Bold
+                Height: =65
+                Size: =CardTextFont
+                Text: |-
+                    =__localizer.Localize("ANA_SUCCESS_WEAPONS_DRAW", LangEn) & ":"
+                Width: =302
+                X: =47
+                Y: =950
+                ZIndex: =8
+
+        TrainingSuccess_DetailGroup As group:
+            Height: =5
+            Width: =5
+            X: =40
+            Y: =29
+            ZIndex: =23
+
+            TrainingSuccess_StartDateValue As label:
+                Align: =Align.Center
+                Color: =If(DarkMode,White1,Black)
+                Font: =FontFamilyB
+                Height: =70
+                Size: =CardTextFont
+                Text: |+
+                    =Text( DateTimeValue( EventData.wywm_TrainingEvent.'Start Date' ), "mm/dd/yyyy @ hh:mm")
+                    
+                Width: =317
+                X: =323
+                Y: =550
+                ZIndex: =11
+
+            TrainingSuccess_LocationValue As label:
+                Align: =Align.Center
+                Color: =If(DarkMode,White1,Black)
+                Font: =FontFamilyB
+                Height: =70
+                Size: =CardTextFont
+                Text: =EventData.wywm_TrainingEvent.Location
+                Width: =317
+                X: =323
+                Y: =670
+                ZIndex: =12
+
+            TrainingSuccess_OpiNameValue As label:
+                Align: =Align.Center
+                Color: =If(DarkMode,White1,Black)
+                Font: =FontFamilyB
+                Height: =70
+                Size: =CardTextFont
+                Text: |-
+                    =If(
+                        LangEn,
+                        EventData.wywm_TrainingEvent.'OPI CALCULATED',
+                        EventData.wywm_TrainingEvent.'OPI CALCULATED FR'
+                    )
+                Width: =317
+                X: =323
+                Y: =728
+                ZIndex: =13
+
+            TrainingSuccess_EquipmentDrawValue As label:
+                Align: =Align.Center
+                Color: =If(DarkMode,White1,Black)
+                Font: =FontFamilyB
+                Height: =70
+                Size: =CardTextFont
+                Text: |-
+                    =Text( DateTimeValue( EventData.wywm_TrainingEvent.'Start Date' )-0.041, "mm/dd/yyyy @ hh:mm")
+                Width: =317
+                X: =323
+                Y: =870
+                ZIndex: =14
+
+            TrainingSuccess_WeaponsDrawValue As label:
+                Align: =Align.Center
+                Color: =If(DarkMode,White1,Black)
+                Font: =FontFamilyB
+                Height: =70
+                Size: =CardTextFont
+                Text: |
+                    =Text( DateTimeValue( EventData.wywm_TrainingEvent.'End Date' )-0.041, "mm/dd/yyyy @ hh:mm")
+                Width: =317
+                X: =323
+                Y: =945
+                ZIndex: =15
+
+        TrainingSuccess_IconGroup As group:
+            Height: =5
+            Width: =5
+            X: =40
+            Y: =29
+            ZIndex: =24
+
+            TrainingSuccess_IconCircle As circle.Circle:
+                Fill: =RGBA(54, 176, 75, 1)
+                Height: =126
+                Width: =126
+                X: =257
+                Y: =266
+                ZIndex: =2
+
+            TrainingSuccess_IconCheck As icon.Check:
+                Height: =126
+                Icon: =Icon.Check
+                PaddingBottom: =Self.PaddingTop
+                PaddingLeft: =Self.PaddingTop
+                PaddingRight: =Self.PaddingTop
+                PaddingTop: =18
+                Width: =126
+                X: =257
+                Y: =266
+                ZIndex: =3
+
+            TrainingSuccess_SuccessfullyCommited As label:
+                Align: =Align.Center
+                Color: =If(DarkMode,White1,Black)
+                Font: =FontFamilyB
+                FontWeight: =FontWeight.Semibold
+                Height: =70
+                Size: =CardInfoHeaderFont
+                Text: =__localizer.Localize("ANA_SUCCESS_SUCCESSFULLY_COMMITED", LangEn) & "."
+                Width: =640
+                Y: =408
+                ZIndex: =16
+

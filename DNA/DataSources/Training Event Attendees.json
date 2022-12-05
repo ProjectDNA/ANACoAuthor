@@ -1,0 +1,156 @@
+[
+  {
+    "CdsFCBContext": "{\"FileType\":true,\"ImageExternalStorage\":true}",
+    "EntitySetName": "wywm_trainingeventattendees",
+    "IsHidden": false,
+    "IsSampleData": false,
+    "IsWritable": true,
+    "LogicalName": "wywm_trainingeventattendee",
+    "MaxGetRowsCount": 500,
+    "Name": "Training Event Attendees",
+    "NativeCDSDataSourceInfoNameMapping": {
+      "_ownerid_value": "Owner",
+      "createdby": "Created By",
+      "createdon": "Created On",
+      "createdonbehalfby": "Created By (Delegate)",
+      "importsequencenumber": "Import Sequence Number",
+      "modifiedby": "Modified By",
+      "modifiedon": "Modified On",
+      "modifiedonbehalfby": "Modified By (Delegate) (modifiedonbehalfby)",
+      "overriddencreatedon": "Record Created On",
+      "owningbusinessunit": "Owning Business Unit",
+      "owningteam": "Owning Team",
+      "owninguser": "Owning User",
+      "statecode": "Status (statecode)",
+      "statuscode": "Status Reason (statuscode)",
+      "timezoneruleversionnumber": "Status Reason (timezoneruleversionnumber)",
+      "utcconversiontimezonecode": "Modified By (Delegate) (utcconversiontimezonecode)",
+      "versionnumber": "Status (versionnumber)",
+      "wywm_AttendanceConfirmedBy": "Attendance Confirmed By",
+      "wywm_attendanceconfirmedon": "Attendance Confirmed On",
+      "wywm_attendedtraining": "Attended Training",
+      "wywm_committotrainingstatus": "Commit to Training Status",
+      "wywm_committotrainingstatuslastupdate": "Commit to Training Status Last Update",
+      "wywm_declinereason": "Decline Reason",
+      "wywm_name": "Name",
+      "wywm_Personnel": "Personnel",
+      "wywm_TrainingEvent": "Training Event",
+      "wywm_trainingeventattendee_AsyncOperations": "System Jobs",
+      "wywm_trainingeventattendee_BulkDeleteFailures": "Bulk Delete Failures",
+      "wywm_trainingeventattendee_DuplicateBaseRecord": "Duplicate Records (wywm_trainingeventattendee_DuplicateBaseRecord)",
+      "wywm_trainingeventattendee_DuplicateMatchingRecord": "Duplicate Records (wywm_trainingeventattendee_DuplicateMatchingRecord)",
+      "wywm_trainingeventattendee_MailboxTrackingFolders": "Mailbox Auto Tracking Folders",
+      "wywm_trainingeventattendee_PrincipalObjectAttributeAccesses": "Field Sharing",
+      "wywm_trainingeventattendee_ProcessSession": "Process Sessions",
+      "wywm_trainingeventattendee_SyncErrors": "Sync Errors",
+      "wywm_trainingeventattendee_Teams": "Teams",
+      "wywm_trainingeventattendeeid": "Training Event Attendee"
+    },
+    "PreferredName": "Training Event Attendees",
+    "Type": "NativeCDSDataSourceInfo"
+  },
+  {
+    "DisplayName": "Training Event Attendees (Views)",
+    "Name": "_wywm_trainingeventattendee_views",
+    "RelatedEntityName": "Training Event Attendees",
+    "TrimmedViewName": true,
+    "Type": "ViewInfo",
+    "ViewInfoNameMapping": {
+      "0b48a091-c0a1-4545-8e7e-db4ae593be6a": "Inactive Training Event Attendees",
+      "1c9e24e7-abb9-ec11-983f-0022483d680c": "My Weekly Participation",
+      "28ebb3ab-a895-ec11-b3fe-000d3ae88f7f": "My Active Declined",
+      "3962ebba-e9a9-4d88-9fcc-e008a614beeb": "Active Training Event Attendees",
+      "3b4983ca-9395-ec11-b3fe-000d3ae88f7f": "My Active Accepted",
+      "5f31034a-9cb9-ec11-983f-0022483d6eb3": "My Weekend Participation",
+      "75b77b0f-ae95-ec11-b3fe-000d3a8429eb": "My Active Not Selected (Rejected)",
+      "78e269e2-9408-43b8-bc35-800e5ca8c340": "Training Event Attendee Associated View",
+      "87593b57-9aa7-4699-a338-9b9398953145": "Training Event Attendee Advanced Find View",
+      "9aa00be7-3e79-ec11-8d20-000d3a84a45c": "My Active Training Event Attendees",
+      "aba53777-a995-ec11-b3fe-000d3a8429eb": "My Active Notified",
+      "d8c8cad6-2c1c-4901-a627-156bad1c6423": "Training Event Attendee Lookup View"
+    }
+  },
+  {
+    "DisplayName": "Attended Training",
+    "Name": "wywm_attendedtraining",
+    "OptionSetInfoNameMapping": {
+      "801200000": "Yes",
+      "801200001": "No"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": true,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "wywm_attendedtraining",
+        "OptionSetReferenceEntityName": "Training Event Attendees"
+      }
+    },
+    "OptionSetTypeKey": "PicklistType",
+    "RelatedColumnInvariantName": "wywm_attendedtraining",
+    "RelatedEntityName": "Training Event Attendees",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Commit to Training Status",
+    "Name": "wywm_committotrainingstatus",
+    "OptionSetInfoNameMapping": {
+      "193790001": "Notified",
+      "193790003": "Accepted",
+      "801200000": "Declined",
+      "801200001": "Hidden",
+      "801200002": "Not Selected (Rejected)"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": true,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "wywm_committotrainingstatus",
+        "OptionSetReferenceEntityName": "Training Event Attendees"
+      }
+    },
+    "OptionSetTypeKey": "PicklistType",
+    "RelatedColumnInvariantName": "wywm_committotrainingstatus",
+    "RelatedEntityName": "Training Event Attendees",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Status (Training Event Attendees)",
+    "Name": "wywm_trainingeventattendee_statecode",
+    "OptionSetInfoNameMapping": {
+      "0": "Active",
+      "1": "Inactive"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "statecode",
+        "OptionSetReferenceEntityName": "Training Event Attendees"
+      }
+    },
+    "OptionSetTypeKey": "StateType",
+    "RelatedColumnInvariantName": "statecode",
+    "RelatedEntityName": "Training Event Attendees",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Status Reason (Training Event Attendees)",
+    "Name": "wywm_trainingeventattendee_statuscode",
+    "OptionSetInfoNameMapping": {
+      "1": "Active",
+      "2": "Inactive"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "statuscode",
+        "OptionSetReferenceEntityName": "Training Event Attendees"
+      }
+    },
+    "OptionSetTypeKey": "StatusType",
+    "RelatedColumnInvariantName": "statuscode",
+    "RelatedEntityName": "Training Event Attendees",
+    "Type": "OptionSetInfo"
+  }
+]

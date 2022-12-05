@@ -1,0 +1,229 @@
+"CourseSuccessScreen As screen.'phoneLayout_Success_ver3.0'":
+    Fill: =If(DarkMode,Dark4,White1)
+    OnVisible: |
+        =Refresh('Training Event Attendees');
+
+    CoursSuccess_Container As groupContainer.manualLayoutContainer:
+        Height: =App.Height
+        Width: =App.Width
+        ZIndex: =24
+
+        CourseSuccess_GreenBackground As rectangle:
+            Fill: =If(DarkMode,AppliedGreen,Green)
+            Height: =328
+            Width: =640
+            Y: =180
+            ZIndex: =1
+
+        CourseSuccess_AttendanceConfirmed As label:
+            Align: =Align.Center
+            Color: =If(DarkMode,White1,Black)
+            Font: =FontFamilyB
+            FontWeight: =FontWeight.Semibold
+            Height: =65
+            Size: =CardInfoHeaderFont
+            Text: =__localizer.Localize("ANA_SUCCESS_COURSE_CONFIRMATION", LangEn) 
+            Width: =640
+            Y: =1071
+            ZIndex: =4
+
+        CourseSuccess_MainHeader As MainHeader:
+            PersonalImage: =currPersonnelImage
+            PersonalInfoScreen: =PersonalInfoScreen
+            ZIndex: =7
+
+        CourseSuccess_MenuLowerHeader As MenuLowerHeader:
+            LowerMenuTextLabel: ="Confirmation"
+            Y: =90
+            ZIndex: =8
+
+        CourseSuccess_EndDateValue As label:
+            Align: =Align.Center
+            Color: =If(DarkMode,White1,Black)
+            Font: =FontFamilyB
+            Height: =70
+            Size: =CardTextFont
+            Text: |
+                =Text(DateTimeValue(CourseData.'End Date'), "mm/dd/yyyy @ hh:mm")
+            Width: =317
+            X: =323
+            Y: =607
+            ZIndex: =13
+
+        CourseSuccess_EndDate As label:
+            Color: =If(DarkMode,White1,Black)
+            Font: =FontFamilyB
+            FontWeight: =FontWeight.Bold
+            Height: =69
+            Size: =CardTextFont
+            Text: |-
+                =__localizer.Localize("ANA_FILEDOC_END_DATE", LangEn) & ":"
+            Width: =191
+            X: =47
+            Y: =608
+            ZIndex: =14
+
+        CourseSuccess_StartDate As label:
+            Color: =If(DarkMode,White1,Black)
+            Font: =FontFamilyB
+            FontWeight: =FontWeight.Bold
+            Height: =79
+            Size: =CardTextFont
+            Text: |-
+                =__localizer.Localize("ANA_FILEDOC_START_DATE", LangEn) & ":"
+            Width: =222
+            X: =47
+            Y: =548
+            ZIndex: =15
+
+        CourseSuccess_OpiContact As label:
+            Color: =If(DarkMode,White1,Black)
+            Font: =FontFamilyB
+            FontWeight: =FontWeight.Bold
+            Height: =79
+            Size: =CardTextFont
+            Text: |-
+                =__localizer.Localize("ANA_TRAINING_DETAIL_OPI_CONTACT", LangEn) & ":"
+            Width: =191
+            X: =47
+            Y: =789
+            ZIndex: =16
+
+        CourseSuccess_OpiContactValue As label:
+            Align: =Align.Center
+            Color: =If(DarkMode,White1,Black)
+            Font: =FontFamilyB
+            Height: =51
+            Italic: =true
+            Size: =CardTextFont
+            Text: |+
+                =//LookUp(Courses, Course = CourseData.Course).OPI.'Civilian Email'
+                CourseData.'OPI EMAIL'
+                
+            Width: =402
+            X: =238
+            Y: =803
+            ZIndex: =17
+
+        CourseSuccess_DetailLabelGroup As group:
+            Height: =5
+            Width: =5
+            X: =40
+            Y: =29
+            ZIndex: =18
+
+            CourseSuccess_Location As label:
+                Color: =If(DarkMode,White1,Black)
+                Font: =FontFamilyB
+                FontWeight: =FontWeight.Bold
+                Height: =65
+                Size: =CardTextFont
+                Text: |-
+                    =__localizer.Localize("ANA_TRAINING_DETAIL_LOCATION", LangEn) & ":"
+                Width: =200
+                X: =47
+                Y: =670
+                ZIndex: =5
+
+            CourseSuccess_ReportTo As label:
+                Color: =If(DarkMode,White1,Black)
+                Font: =FontFamilyB
+                FontWeight: =FontWeight.Bold
+                Height: =65
+                Size: =CardTextFont
+                Text: |-
+                    =__localizer.Localize("ANA_SUCCESS_REPORT_TO", LangEn) & ":"
+                Width: =302
+                X: =47
+                Y: =733
+                ZIndex: =6
+
+        CourseSuccess_DetailGroup As group:
+            Height: =5
+            Width: =5
+            X: =40
+            Y: =29
+            ZIndex: =19
+
+            CourseSuccess_StartDateValue As label:
+                Align: =Align.Center
+                Color: =If(DarkMode,White1,Black)
+                Font: =FontFamilyB
+                Height: =70
+                Size: =CardTextFont
+                Text: |+
+                    =Text(DateTimeValue(CourseData.'Start Date'), "mm/dd/yyyy @ hh:mm")
+                    
+                Width: =317
+                X: =323
+                Y: =550
+                ZIndex: =9
+
+            CourseSuccess_LocationValue As label:
+                Align: =Align.Center
+                Color: =If(DarkMode,White1,Black)
+                Font: =FontFamilyB
+                Height: =70
+                Size: =CardTextFont
+                Text: =CourseData.Location
+                Width: =317
+                X: =323
+                Y: =670
+                ZIndex: =10
+
+            CourseSuccess_OpiNameValue As label:
+                Align: =Align.Center
+                Color: =If(DarkMode,White1,Black)
+                Font: =FontFamilyB
+                Height: =70
+                Size: =CardTextFont
+                Text: |
+                    =If(
+                        LangEn,
+                        CourseData.'OPI CALCULATED',
+                        CourseData.'OPI CALCULATED FR'
+                    )
+                Width: =317
+                X: =323
+                Y: =728
+                ZIndex: =11
+
+        CourseSuccess_IconGroup As group:
+            Height: =5
+            Width: =5
+            X: =40
+            Y: =29
+            ZIndex: =20
+
+            CourseSuccess_IconCircle As circle.Circle:
+                Fill: =RGBA(54, 176, 75, 1)
+                Height: =126
+                Width: =126
+                X: =257
+                Y: =266
+                ZIndex: =2
+
+            CourseSuccess_IconCheck As icon.Check:
+                Height: =126
+                Icon: =Icon.Check
+                PaddingBottom: =Self.PaddingTop
+                PaddingLeft: =Self.PaddingTop
+                PaddingRight: =Self.PaddingTop
+                PaddingTop: =18
+                Width: =126
+                X: =257
+                Y: =266
+                ZIndex: =3
+
+            CourseSuccess_SuccessfullyCommited As label:
+                Align: =Align.Center
+                Color: =If(DarkMode,White1,Black)
+                Font: =FontFamilyB
+                FontWeight: =FontWeight.Semibold
+                Height: =70
+                Size: =CardInfoHeaderFont
+                Text: =__localizer.Localize("ANA_SUCCESS_COURSE_APPLICATION", LangEn) & "."
+                Width: =640
+                Y: =408
+                ZIndex: =12
+

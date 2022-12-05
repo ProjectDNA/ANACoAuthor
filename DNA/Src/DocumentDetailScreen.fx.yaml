@@ -1,0 +1,33 @@
+DocumentDetailScreen As screen:
+    LoadingSpinner: =LoadingSpinner.Controls
+    OnVisible: =
+
+    DocDetails_MainHeader As MainHeader:
+        PersonalImage: =currPersonnelImage
+        ZIndex: =3
+
+    DocDetails_MenuLowerHeader As MenuLowerHeader:
+        LowerMenuTextLabel: =__localizer.Localize("ANA_SPLASH_LABEL_FILES_AND_DOCS", LangEn)
+        Y: =DocDetails_MainHeader.Height
+        ZIndex: =4
+
+    DocDetails_DocumentPDF As pdfViewer:
+        BorderColor: =RGBA(0, 0, 0, 1)
+        Document: =SelectedFile.File.Value
+        Fill: =RGBA(0, 0, 0, 0.5)
+        Height: =956
+        OnStateChange: |+
+            =//only change DocumentLoaded (passed from previous page navigate)
+            //if the number of pages has changed from 0, to N
+            //which occurs when the document is finished loading
+            //log all page changes
+            If(DocDetails_DocumentPDF.PageCount <> 0 
+                && Len(Text(DocDetails_DocumentPDF.PageCount)) > 0,
+                    Set(DocumentLoaded, true),
+                    false   
+            );
+            
+        ShowControls: =true
+        Y: =180
+        ZIndex: =5
+

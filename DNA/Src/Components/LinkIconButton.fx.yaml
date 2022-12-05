@@ -1,0 +1,54 @@
+LinkIconButton As CanvasComponent:
+    Fill: =RGBA(0, 0, 0, 0)
+    Height: =240
+    Icon: ="Text"
+    Link: ="Text"
+    Text: ="Text"
+    Width: =200
+    X: =0
+    Y: =0
+    ZIndex: =1
+
+    LIB_Button As button:
+        BorderThickness: =0
+        Color: =RGBA(0, 0, 0, 1)
+        Fill: =WhiteSmoke
+        Height: =Parent.Height
+        HoverFill: =
+        OnSelect: =Launch(Parent.Link);
+        Size: =24
+        Text: =""
+        Width: =Parent.Width
+        ZIndex: =1
+
+    LIB_Label As label:
+        Align: =Align.Center
+        Color: =Black
+        Font: =FontFamilyB
+        FontWeight: =FontWeight.Semibold
+        Height: =80
+        HoverFill: =
+        OnSelect: =Launch(Parent.Link);
+        Size: =CardHeaderFont
+        Text: =Parent.Text
+        Width: =Parent.Width
+        Y: =LIB_Icon.Y + LIB_Icon.Height
+        ZIndex: =2
+
+    LIB_Icon As icon.Add:
+        Color: =Blue2
+        Height: =99
+        HoverFill: =
+        Icon: |-
+            =Switch(Parent.Icon,
+                "mail", Icon.Mail,
+                "person", Icon.Person,
+                "help", Icon.Help,
+                Icon.Help
+            )
+                
+        OnSelect: =Launch(Parent.Text);
+        Width: =Parent.Width
+        Y: =Parent.Height * 0.1
+        ZIndex: =3
+

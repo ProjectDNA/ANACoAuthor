@@ -1,0 +1,114 @@
+[
+  {
+    "CdsFCBContext": "{\"FileType\":true,\"ImageExternalStorage\":true}",
+    "EntitySetName": "wywm_units",
+    "IsHidden": false,
+    "IsSampleData": false,
+    "IsWritable": true,
+    "LogicalName": "wywm_unit",
+    "MaxGetRowsCount": 500,
+    "Name": "Units",
+    "NativeCDSDataSourceInfoNameMapping": {
+      "_ownerid_value": "Owner",
+      "cr971_alternate_key": "Alternate_Key",
+      "createdby": "Created By",
+      "createdon": "Created On",
+      "createdonbehalfby": "Created By (Delegate)",
+      "importsequencenumber": "Import Sequence Number",
+      "modifiedby": "Modified By",
+      "modifiedon": "Modified On",
+      "modifiedonbehalfby": "Modified By (Delegate)",
+      "overriddencreatedon": "Record Created On",
+      "owningbusinessunit": "Owning Business Unit",
+      "owningteam": "Not Selected",
+      "owninguser": "Bug Category",
+      "statecode": "Status",
+      "statuscode": "Status Reason",
+      "timezoneruleversionnumber": "Class C",
+      "utcconversiontimezonecode": "Weekdays",
+      "versionnumber": "PRes/P Rés",
+      "wywm_Course_HostingUnit_wywm_Unit": "Courses",
+      "wywm_Employment_HostingUnit_wywm_Unit": "Employments",
+      "wywm_excelid": "Excel ID",
+      "wywm_excelparentid": "Excel Parent ID",
+      "wywm_orderingcode": "Ordering Code",
+      "wywm_ParentUnit": "Parent Unit",
+      "wywm_Personnel_Unit_wywm_Unit": "Personnels",
+      "wywm_Position_Unit_wywm_Unit": "Positions",
+      "wywm_Tasking_HostingUnit_wywm_Unit": "Taskings",
+      "wywm_TrainingEvent_HostingUnit_wywm_Unit": "Training Events",
+      "wywm_unit_AsyncOperations": "System Jobs",
+      "wywm_unit_BulkDeleteFailures": "Bulk Delete Failures",
+      "wywm_unit_DuplicateBaseRecord": "Duplicate Records (wywm_unit_DuplicateBaseRecord)",
+      "wywm_unit_DuplicateMatchingRecord": "Duplicate Records (wywm_unit_DuplicateMatchingRecord)",
+      "wywm_unit_MailboxTrackingFolders": "Mailbox Auto Tracking Folders",
+      "wywm_Unit_ParentUnit_wywm_Unit": "Units",
+      "wywm_unit_PrincipalObjectAttributeAccesses": "Field Sharing",
+      "wywm_unit_ProcessSession": "Process Sessions",
+      "wywm_unit_SyncErrors": "Sync Errors",
+      "wywm_unit_Teams": "Teams",
+      "wywm_unitcode": "Unit Code",
+      "wywm_unitid": "Unit",
+      "wywm_unitname": "Unit Name",
+      "wywm_UserNotification_Unit_wywm_Unit": "UserNotifications",
+      "wywm_wywm_paysheet_HomeUnit_wywm_unit": "Paysheets"
+    },
+    "PreferredName": "Units",
+    "Type": "NativeCDSDataSourceInfo"
+  },
+  {
+    "DisplayName": "Units (Views)",
+    "Name": "_wywm_unit_views",
+    "RelatedEntityName": "Units",
+    "TrimmedViewName": true,
+    "Type": "ViewInfo",
+    "ViewInfoNameMapping": {
+      "377c1e19-6a9e-4726-bd33-7f0b3f9a95f7": "Inactive Units",
+      "4bcb4d49-8d83-ec11-8d20-000d3a84c476": "Unit Custom Lookup View",
+      "6f74fc28-f480-42e1-af93-4dbfad36718a": "Unit Lookup View",
+      "9a6e9c02-7ce5-4118-ba69-ed673ca92929": "Unit Associated View",
+      "a3cafa8e-6fe3-4daa-858a-56b69ee9dfdd": "Active Units",
+      "fe007b81-68e5-480c-87c9-1d71dbc43d50": "Unit Advanced Find View"
+    }
+  },
+  {
+    "DisplayName": "Status (Units)",
+    "Name": "wywm_unit_statecode",
+    "OptionSetInfoNameMapping": {
+      "0": "Active",
+      "1": "Inactive"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "statecode",
+        "OptionSetReferenceEntityName": "Units"
+      }
+    },
+    "OptionSetTypeKey": "StateType",
+    "RelatedColumnInvariantName": "statecode",
+    "RelatedEntityName": "Units",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Status Reason (Units)",
+    "Name": "wywm_unit_statuscode",
+    "OptionSetInfoNameMapping": {
+      "1": "Active",
+      "2": "Inactive"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "statuscode",
+        "OptionSetReferenceEntityName": "Units"
+      }
+    },
+    "OptionSetTypeKey": "StatusType",
+    "RelatedColumnInvariantName": "statuscode",
+    "RelatedEntityName": "Units",
+    "Type": "OptionSetInfo"
+  }
+]

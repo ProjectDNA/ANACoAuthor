@@ -1,0 +1,363 @@
+CivilQualificationScreen As screen:
+    Fill: =If(DarkMode,Dark4,White1)
+    OnVisible: =Set(BackScreen, PersonalInfoScreen);
+
+    MQ_OperationalQUal_AddBtn_2 As icon.Add:
+        Color: =RGBA(0, 0, 0, 1)
+        Height: =42
+        Icon: =Icon.Add
+        OnSelect: |-
+            =Navigate(DEP_MQ_Add_OccupationalQual);
+            NewForm(MilQual_Add_OccupationalQual_Form);
+        Visible: =false
+        Width: =42
+        X: =568
+        Y: =195
+        ZIndex: =5
+
+    CivilQual_Container As groupContainer.manualLayoutContainer:
+        Height: =App.Height
+        Width: =App.Width
+        ZIndex: =11
+
+        CivilQual_VertContainer As groupContainer.verticalAutoLayoutContainer:
+            Height: =Parent.Height
+            LayoutAlignItems: =LayoutAlignItems.Stretch
+            LayoutDirection: =LayoutDirection.Vertical
+            LayoutMode: =LayoutMode.Auto
+            LayoutOverflowY: =LayoutOverflow.Scroll
+            Width: =Parent.Width
+            ZIndex: =2
+
+            MilQual_MainHeader_2 As MainHeader:
+                LayoutMinHeight: =640
+                PersonalImage: =currPersonnelImage
+                PersonalInfoScreen: =PersonalInfoScreen
+
+            MilQual_MenuLowerHeader_2 As MenuLowerHeader:
+                BackScreen: |
+                    =PersonalInfoScreen
+                LayoutMinHeight: =640
+                LowerMenuTextLabel: =__localizer.Localize("ANA_PERS_PERSONAL_QUALIF", LangEn)
+                Y: =90
+                ZIndex: =2
+
+            Education_Tab As groupContainer.manualLayoutContainer:
+                AlignInContainer: =AlignInContainer.SetByContainer
+                FillPortions: =0
+                Height: =CivilQual_EducationHeader_1.Height
+                LayoutMinHeight: =112
+                LayoutMinWidth: =App.Width
+                ZIndex: =3
+
+                CivilQual_EducationHeader_1 As label:
+                    BorderColor: =RGBA(230, 230, 230, 1)
+                    Color: =RGBA(255, 255, 255, 1)
+                    Fill: =If(DarkMode,Dark2,Blue2)
+                    Font: =FontFamilyB
+                    FontWeight: =FontWeight.Semibold
+                    Height: =67
+                    PaddingLeft: =25
+                    Size: =CardTextFont
+                    Text: =__localizer.Localize("ANA_CIVILQUAL_EDUCATION", LangEn)
+                    Width: =640
+                    ZIndex: =1
+
+                CivilQual_EducationAdd_1 As icon.Add:
+                    Color: =RGBA(255, 255, 255, 1)
+                    Height: =40
+                    Icon: =Icon.Add
+                    OnSelect: |-
+                        =Navigate(PersonnelQualificationsEditScreen);
+                        NewForm(PQ_EditForm);
+                    Width: =40
+                    X: =570
+                    Y: =13
+                    ZIndex: =2
+
+            "Education_Gallery As gallery.'BrowseLayout_Vertical_ThreeTextVariant_ver4.0'":
+                AlignInContainer: =AlignInContainer.SetByContainer
+                Fill: =RGBA(255, 255, 255, 0)
+                Height: =67
+                Items: =Sort(Filter(Educations,Personnel.Personnel=currPersonnel.Personnel), 'End Date Year', Descending)
+                Layout: =Layout.Vertical
+                LayoutMinHeight: =287
+                LayoutMinWidth: =Parent.Width
+                NavigationStep: =0
+                ShowScrollbar: =false
+                TemplatePadding: =0
+                TemplateSize: =168
+                ZIndex: =4
+
+                Separator2_2 As rectangle:
+                    Fill: =If(DarkMode,White1,Blue2)
+                    Height: =1
+                    OnSelect: =Select(Parent)
+                    Width: =Parent.TemplateWidth
+                    Y: =Parent.TemplateHeight - 1
+                    ZIndex: =5
+
+                CivilQual_EducationName_1 As label:
+                    AutoHeight: =true
+                    Color: =If(DarkMode,White1,Black)
+                    Font: =FontFamilyB
+                    FontWeight: =FontWeight.Bold
+                    Height: =48
+                    OnSelect: =Select(Parent)
+                    PaddingBottom: =0
+                    PaddingLeft: =0
+                    PaddingRight: =0
+                    PaddingTop: =0
+                    Size: =CardTextFont
+                    Text: =ThisItem.'Institution Name'
+                    VerticalAlign: =VerticalAlign.Top
+                    Width: =501
+                    X: =25
+                    Y: =3
+                    ZIndex: =6
+
+                CivilQual_EducationDate_1 As label:
+                    Align: =Align.Right
+                    AutoHeight: =true
+                    Color: =If(DarkMode,DimGrey,Black)
+                    Font: =FontFamilyB
+                    Height: =31
+                    OnSelect: =Select(Parent)
+                    PaddingBottom: =0
+                    PaddingLeft: =0
+                    PaddingRight: =0
+                    PaddingTop: =0
+                    Size: =CardSmallTextFont
+                    Text: |
+                        =// Previous contractor designed the Education table with "Start Month", "Start Year", "End Month", "End Year"
+                        //ThisItem.'Start Date Month'&", "&ThisItem.'Start Date Year'&" - "&ThisItem.'End Date Month'&", "&ThisItem.'End Date Year'
+                        
+                        
+                        If(
+                            LangEn,
+                            Text(
+                                DateTimeValue(ThisItem.'Date From'),
+                                "mmmm yyyy"
+                            ) & " - " & Text(
+                                DateTimeValue(ThisItem.'Date To'),
+                                "mmmm yyyy"
+                            ),
+                            Text(
+                                Date(
+                                    Text(
+                                        DateTimeValue(ThisItem.'Date From'),
+                                        "yyyy"
+                                    ),
+                                    Text(
+                                        DateTimeValue(ThisItem.'Date From'),
+                                        "m"
+                                    ),
+                                    Text(
+                                        DateTimeValue(ThisItem.'Date From'),
+                                        "dd"
+                                    )
+                                ),
+                                "mmmm yyyy",
+                                "fr-FR"
+                            ) & " - " & Text(
+                                Date(
+                                    Text(
+                                        DateTimeValue(ThisItem.'Date To'),
+                                        "yyyy"
+                                    ),
+                                    Text(
+                                        DateTimeValue(ThisItem.'Date To'),
+                                        "m"
+                                    ),
+                                    Text(
+                                        DateTimeValue(ThisItem.'Date To'),
+                                        "dd"
+                                    )
+                                ),
+                                "mmmm yyyy",
+                                "fr-FR"
+                            )
+                        )
+                    VerticalAlign: =VerticalAlign.Top
+                    Width: =306
+                    X: =314
+                    Y: =125
+                    ZIndex: =9
+
+                Training_TrainingInfoLabel_3 As label:
+                    Color: =If(DarkMode,White1,Black)
+                    Height: =92
+                    OnSelect: =Select(Parent)
+                    Size: =18
+                    Text: |-
+                        =ThisItem.'Education Level'
+                        &Char(13)&
+                        If(
+                            Text(ThisItem.'Education Level') = "High School (École secondaire)",
+                            Blank(),
+                            Text(ThisItem.'Education Level') = "College (Cégep)",
+                            ThisItem.'Field Of Study',
+                            Text(ThisItem.'Education Level') = "University (Université)",
+                            ThisItem.DegreeTypes & ", " & ThisItem.'Field Of Study'
+                        )
+                    Width: =595
+                    Wrap: =false
+                    X: =25
+                    Y: =33
+                    ZIndex: =10
+
+            Experience_Tab As groupContainer.manualLayoutContainer:
+                AlignInContainer: =AlignInContainer.SetByContainer
+                FillPortions: =0
+                Height: =CivilQual_ExperienceHeader_1.Height
+                LayoutMinHeight: =112
+                LayoutMinWidth: =250
+                ZIndex: =5
+
+                CivilQual_ExperienceHeader_1 As label:
+                    BorderColor: =RGBA(230, 230, 230, 1)
+                    Color: =RGBA(255, 255, 255, 1)
+                    Fill: =If(DarkMode,Dark2,Blue2)
+                    Font: =FontFamilyB
+                    FontWeight: =FontWeight.Semibold
+                    Height: =67
+                    PaddingLeft: =25
+                    Size: =CardTextFont
+                    Text: =__localizer.Localize("ANA_CIVILQUAL_EXPERIENCE", LangEn)
+                    Width: =640
+                    Y: =
+                    ZIndex: =1
+
+                CivilQual_ExperienceAdd_1 As icon.Add:
+                    Color: =RGBA(255, 255, 255, 1)
+                    Height: =40
+                    Icon: =Icon.Add
+                    OnSelect: |-
+                        =Navigate(PersonnelExperienceEditScreen);
+                        NewForm(PE_EditForm);
+                    Width: =40
+                    X: =570
+                    Y: =13
+                    ZIndex: =2
+
+            "Experience_Gallery As gallery.'BrowseLayout_Vertical_ThreeTextVariant_ver4.0'":
+                AlignInContainer: =AlignInContainer.SetByContainer
+                Fill: =RGBA(255, 255, 255, 0)
+                Height: =(CountRows(Filter('Civilian Qualifications',Personnel.Personnel=currPersonnel.Personnel)) * (Experience_Gallery.TemplateHeight))
+                Items: =Sort(Filter('Civilian Qualifications',Personnel.Personnel=currPersonnel.Personnel), 'Date To', Descending)
+                Layout: =Layout.Vertical
+                LayoutMinHeight: =287
+                LayoutMinWidth: =App.Width
+                ShowScrollbar: =false
+                TemplatePadding: =0
+                TemplateSize: =168
+                ZIndex: =6
+
+                Separator4_2 As rectangle:
+                    Fill: =If(DarkMode,White1,Blue2)
+                    Height: =1
+                    OnSelect: =Select(Parent)
+                    Width: =Parent.TemplateWidth
+                    Y: =Parent.TemplateHeight - 1
+                    ZIndex: =5
+
+                CivilQual_ExpTitle_1 As label:
+                    AutoHeight: =true
+                    Color: =If(DarkMode,White1,Black)
+                    Font: =FontFamilyB
+                    FontWeight: =FontWeight.Bold
+                    Height: =31
+                    OnSelect: =Select(Parent)
+                    PaddingBottom: =0
+                    PaddingLeft: =0
+                    PaddingRight: =0
+                    PaddingTop: =0
+                    Size: =CardTextFont
+                    Text: =ThisItem.'Job Title'
+                    VerticalAlign: =VerticalAlign.Top
+                    Width: =571
+                    X: =25
+                    Y: =3
+                    ZIndex: =7
+
+                CivilQual_Dates As label:
+                    Align: =Align.Right
+                    AutoHeight: =true
+                    Color: =If(DarkMode,DimGrey,Black)
+                    Font: =FontFamilyB
+                    Height: =27
+                    OnSelect: =Select(Parent)
+                    PaddingBottom: =0
+                    PaddingLeft: =0
+                    PaddingRight: =0
+                    PaddingTop: =0
+                    Size: =CardSmallTextFont
+                    Text: |-
+                        =If(
+                            LangEn,
+                            Text(
+                                DateTimeValue(ThisItem.'Date From'),
+                                "mmmm yyyy"
+                            ) & " - " & Text(
+                                DateTimeValue(ThisItem.'Date To'),
+                                "mmmm yyyy"
+                            ),
+                            Text(
+                                Date(
+                                    Text(
+                                        DateTimeValue(ThisItem.'Date From'),
+                                        "yyyy"
+                                    ),
+                                    Text(
+                                        DateTimeValue(ThisItem.'Date From'),
+                                        "m"
+                                    ),
+                                    Text(
+                                        DateTimeValue(ThisItem.'Date From'),
+                                        "dd"
+                                    )
+                                ),
+                                "mmmm yyyy",
+                                "fr-FR"
+                            ) & " - " & Text(
+                                Date(
+                                    Text(
+                                        DateTimeValue(ThisItem.'Date To'),
+                                        "yyyy"
+                                    ),
+                                    Text(
+                                        DateTimeValue(ThisItem.'Date To'),
+                                        "m"
+                                    ),
+                                    Text(
+                                        DateTimeValue(ThisItem.'Date To'),
+                                        "dd"
+                                    )
+                                ),
+                                "mmmm yyyy",
+                                "fr-FR"
+                            )
+                        )
+                    VerticalAlign: =VerticalAlign.Top
+                    Width: =265
+                    X: =356
+                    Y: =125
+                    ZIndex: =10
+
+                Training_TrainingInfoLabel_4 As label:
+                    Color: =If(DarkMode,White1,Black)
+                    Height: =92
+                    OnSelect: =Select(Parent)
+                    Size: =18
+                    Text: |-
+                        =ThisItem.'Company Name'
+                        &Char(13)&
+                        ThisItem.'Job Field'
+                        &Char(13)&
+                        ThisItem.City
+                    Width: =615
+                    Wrap: =false
+                    X: =25
+                    Y: =33
+                    ZIndex: =11
+

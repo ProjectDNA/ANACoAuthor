@@ -1,0 +1,18 @@
+NotYetImplementedScreen As screen:
+    OnVisible: =
+
+    WIP_Message_NotYetImplemented As NotYetImplemented:
+        FeedbackScreen: =BugScreen
+        Height: =1136
+        ZIndex: =4
+
+    WIP_Message_MenuLowerHeader As MenuLowerHeader:
+        LowerMenuTextLabel: =If(LangEn, "Page Work in Progress", "Travaux en cours")
+        Y: =WIP_Message_MainHeader.Height
+        ZIndex: =5
+
+    WIP_Message_MainHeader As MainHeader:
+        PersonalImage: =currPersonnelImage
+        PersonalInfoScreen: =PersonalInfoScreen
+        ZIndex: =6
+

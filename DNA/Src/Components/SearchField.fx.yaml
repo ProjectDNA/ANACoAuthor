@@ -1,0 +1,32 @@
+SearchField As CanvasComponent:
+    Fill: =RGBA(0, 0, 0, 0)
+    Height: =64
+    hintText: ="Text"
+    TextOutput: =SearchFieldInput.Text
+    Width: =640
+    X: =0
+    Y: =0
+    ZIndex: =1
+
+    SearchFieldInput As text:
+        BorderColor: =Blue2
+        Color: =If(DarkMode,Dark2,White1)
+        Default: =""
+        Height: =Parent.Height-2
+        HintText: =Parent.hintText
+        RadiusBottomLeft: =2
+        RadiusBottomRight: =2
+        RadiusTopLeft: =2
+        RadiusTopRight: =2
+        Size: =21
+        Width: =638
+        X: =2
+        ZIndex: =1
+
+    SearchFieldIcon As icon.Search:
+        Color: =RGBA(204, 204, 204, 1)
+        Icon: =Icon.Search
+        Rotation: =90
+        X: =576
+        ZIndex: =2
+

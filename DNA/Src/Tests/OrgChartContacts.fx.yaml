@@ -1,0 +1,32 @@
+"'a538e0b4-ebf2-43ab-adb8-5894378bd026' As TestSuite":
+    Description: =""
+    DisplayName: ="OrgChartContacts"
+
+    "'29deca65-c7d9-4746-94bf-dfd6c7c97ed8' As TestCase":
+        Description: =""
+        DisplayName: ="Verify Outlook Link"
+
+        Step1 As TestStep:
+            Description: ="Select 'Dashboard_ButtonOrgChart'"
+            Screen: =DashboardScreen
+            Value: =Select(Debug_ButtonOrg)
+
+        Step2 As TestStep:
+            Description: ="Select 'Org_EmailIcon' in row 1 in 'Org_Gallery'"
+            Screen: =OrgScreen
+            Value: =Select(Org_Gallery, 1, Org_EmailIcon)
+
+    "'56d914ea-664a-4849-83de-82ece0544c02' As TestCase":
+        Description: =""
+        DisplayName: ="Verify Teams link"
+
+        Step1 As TestStep:
+            Description: ="Select 'Dashboard_ButtonOrgChart'"
+            Screen: =DashboardScreen
+            Value: =Select(Debug_ButtonOrg)
+
+        Step2 As TestStep:
+            Description: ="Select 'Org_TeamsIcon' in row 1 in 'Org_Gallery'"
+            Screen: =OrgScreen
+            Value: =Select(Org_Gallery, 1, Org_TeamsIcon)
+

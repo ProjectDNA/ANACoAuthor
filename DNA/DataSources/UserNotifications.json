@@ -1,0 +1,149 @@
+[
+  {
+    "CdsFCBContext": "{\"FileType\":true,\"ImageExternalStorage\":true}",
+    "EntitySetName": "wywm_usernotifications",
+    "IsHidden": false,
+    "IsSampleData": false,
+    "IsWritable": true,
+    "LogicalName": "wywm_usernotification",
+    "MaxGetRowsCount": 500,
+    "Name": "UserNotifications",
+    "NativeCDSDataSourceInfoNameMapping": {
+      "_ownerid_value": "Owner",
+      "createdby": "Created By",
+      "createdon": "Created On",
+      "createdonbehalfby": "Created By (Delegate)",
+      "importsequencenumber": "Import Sequence Number",
+      "modifiedby": "Modified By",
+      "modifiedon": "Modified On",
+      "modifiedonbehalfby": "Modified By (Delegate)",
+      "overriddencreatedon": "Record Created On",
+      "owningbusinessunit": "Owning Business Unit",
+      "owningteam": "Owning Team",
+      "owninguser": "Owning User",
+      "statecode": "Status",
+      "statuscode": "Status Reason",
+      "timezoneruleversionnumber": "Time Zone Rule Version Number",
+      "utcconversiontimezonecode": "UTC Conversion Time Zone Code",
+      "versionnumber": "Version Number",
+      "wywm_Course": "Course",
+      "wywm_deleted": "Deleted",
+      "wywm_details": "Details",
+      "wywm_event": "Event",
+      "wywm_eventstatus": "Event Status",
+      "wywm_name": "Name",
+      "wywm_Personnel": "Personnel",
+      "wywm_Tasking": "Tasking",
+      "wywm_TrainingEvent": "Training Event",
+      "wywm_type": "Type",
+      "wywm_Unit": "Unit",
+      "wywm_usernotification_AsyncOperations": "System Jobs",
+      "wywm_usernotification_BulkDeleteFailures": "Bulk Delete Failures",
+      "wywm_usernotification_DuplicateBaseRecord": "Duplicate Records (wywm_usernotification_DuplicateBaseRecord)",
+      "wywm_usernotification_DuplicateMatchingRecord": "Duplicate Records (wywm_usernotification_DuplicateMatchingRecord)",
+      "wywm_usernotification_MailboxTrackingFolders": "Mailbox Auto Tracking Folders",
+      "wywm_usernotification_PrincipalObjectAttributeAccesses": "Field Sharing",
+      "wywm_usernotification_ProcessSession": "Process Sessions",
+      "wywm_usernotification_SyncErrors": "Sync Errors",
+      "wywm_usernotification_Teams": "Teams",
+      "wywm_usernotificationid": "UserNotification"
+    },
+    "PreferredName": "UserNotifications",
+    "Type": "NativeCDSDataSourceInfo"
+  },
+  {
+    "DisplayName": "UserNotifications (Views)",
+    "Name": "_wywm_usernotification_views",
+    "RelatedEntityName": "UserNotifications",
+    "TrimmedViewName": true,
+    "Type": "ViewInfo",
+    "ViewInfoNameMapping": {
+      "27f94b7d-ad5a-4965-8c1f-48a76404ef7f": "UserNotification Associated View",
+      "491a870c-5fbb-4fbb-9811-8973190469dc": "Active UserNotifications",
+      "6d436681-23b1-ec11-983e-000d3a847f2d": "UserNotification Active Events",
+      "739837fc-9f64-4e5c-b658-ef6f2362c4f6": "Inactive UserNotifications",
+      "9c425b2b-9ff9-4892-a619-6d3c05ad5154": "UserNotification Lookup View",
+      "f2383243-17a2-4f68-a373-28539de77379": "UserNotification Advanced Find View"
+    }
+  },
+  {
+    "DisplayName": "Status (UserNotifications)",
+    "Name": "wywm_usernotification_statecode",
+    "OptionSetInfoNameMapping": {
+      "0": "Active",
+      "1": "Inactive"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "statecode",
+        "OptionSetReferenceEntityName": "UserNotifications"
+      }
+    },
+    "OptionSetTypeKey": "StateType",
+    "RelatedColumnInvariantName": "statecode",
+    "RelatedEntityName": "UserNotifications",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Status Reason (UserNotifications)",
+    "Name": "wywm_usernotification_statuscode",
+    "OptionSetInfoNameMapping": {
+      "1": "Active",
+      "2": "Inactive"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "statuscode",
+        "OptionSetReferenceEntityName": "UserNotifications"
+      }
+    },
+    "OptionSetTypeKey": "StatusType",
+    "RelatedColumnInvariantName": "statuscode",
+    "RelatedEntityName": "UserNotifications",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Deleted (UserNotifications)",
+    "Name": "wywm_usernotification_wywm_deleted",
+    "OptionSetInfoNameMapping": {
+      "0": "No",
+      "1": "Yes"
+    },
+    "OptionSetIsBooleanValued": true,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "wywm_deleted",
+        "OptionSetReferenceEntityName": "UserNotifications"
+      }
+    },
+    "OptionSetTypeKey": "BooleanType",
+    "RelatedColumnInvariantName": "wywm_deleted",
+    "RelatedEntityName": "UserNotifications",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Event Status (UserNotifications)",
+    "Name": "wywm_usernotification_wywm_eventstatus",
+    "OptionSetInfoNameMapping": {
+      "0": "No",
+      "1": "Yes"
+    },
+    "OptionSetIsBooleanValued": true,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "wywm_eventstatus",
+        "OptionSetReferenceEntityName": "UserNotifications"
+      }
+    },
+    "OptionSetTypeKey": "BooleanType",
+    "RelatedColumnInvariantName": "wywm_eventstatus",
+    "RelatedEntityName": "UserNotifications",
+    "Type": "OptionSetInfo"
+  }
+]

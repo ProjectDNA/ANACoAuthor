@@ -1,0 +1,295 @@
+AttendanceConfirmationScreen As screen:
+
+    AttendConfirm_localizer As Localizer_1:
+        Localize: |-
+            =/*
+                @author: ryan@werkncode.net
+                Usage: To use the localizer in your environment create a table with the following structure in the dataverse:
+            
+                LocalizationEnFr(
+                        (String) StringId, (String) En, (String) Fr, (Boolean) Flagged
+                )
+            
+                Then in your app, on the main/first screen create a custom component (called _localizer extending from Localizer here).
+            
+                To translate text use the following function call on the localizer component:
+            
+                _localizer.Localize("APP_SCREEN_STRING_ID", LangEn), this will return the English or the French Text
+            */
+            If(
+                IsLangEn = true,
+                //IF
+                First(
+                    Search(
+                        LocalizationEnFr,
+                        StringId,
+                        "wywm_stringid"
+                    )
+                ).En,
+                //ELSE
+                First(
+                    Search(
+                        LocalizationEnFr,
+                        StringId,
+                        "wywm_stringid"
+                    )
+                ).Fr
+            )
+        Visible: =false
+        ZIndex: =1
+
+    AttendConfirm_EventContainer As groupContainer.manualLayoutContainer:
+        Height: =1045
+        Width: =Parent.Width
+        Y: =91
+        ZIndex: =4
+
+        AttendConfirm_Container As groupContainer.verticalAutoLayoutContainer:
+            ContentLanguage: =
+            Height: =955
+            LayoutDirection: =LayoutDirection.Vertical
+            LayoutMode: =LayoutMode.Auto
+            Width: =640
+            Y: =90
+            ZIndex: =5
+
+            AttendConfirm_OPILabel As label:
+                Height: =70
+                LayoutMinHeight: =70
+                LayoutMinWidth: =560
+                Size: =30
+                Text: ="OPI"
+                Width: =560
+                ZIndex: =1
+
+            AttendConfirm_OPIName As label:
+                Height: =70
+                LayoutMinHeight: =70
+                LayoutMinWidth: =560
+                Size: =21
+                Text: |+
+                    =If(
+                        LangEn,
+                        LookUp(
+                            Personnels,
+                            Personnel = AttendOpiID
+                        ).'Current Rank'.'Description Abbreviation Eng' & " " & LookUp(
+                            Personnels,
+                            Personnel = AttendOpiID
+                        ).'Last Name' & ", " & LookUp(
+                            Personnels,
+                            Personnel = AttendOpiID
+                        ).'First Name',
+                        LookUp(
+                            Personnels,
+                            Personnel = AttendOpiID
+                        ).'Current Rank'.'Description Abbreviation FR' & " " & LookUp(
+                            Personnels,
+                            Personnel = AttendOpiID
+                        ).'Last Name' & ", " & LookUp(
+                            Personnels,
+                            Personnel = AttendOpiID
+                        ).'First Name'
+                    )
+                     
+                    
+                    
+                    
+                    
+                Width: =560
+                ZIndex: =2
+
+            AttendConfirm_AttendLabel As label:
+                Height: =70
+                LayoutMinHeight: =70
+                LayoutMinWidth: =560
+                Size: =21
+                Text: =If(LangEn,"Attendance","Présence")
+                Width: =560
+                ZIndex: =3
+
+            "AttendConfirm_Gallery As gallery.'BrowseLayout_Vertical_TwoTextOneImageVariant_ver4.0'":
+                Height: =625
+                Items: |-
+                    =Filter(
+                        LookUp('Training Events', 'Training Event' = AttendData.'Training Event').'Training Event Attendees',
+                        'Status (statecode)' = 'Status (Training Event Attendees)'.Active, 
+                        !IsBlank('Training Events')
+                    )
+                Layout: =Layout.Vertical
+                LayoutMinHeight: =287
+                LayoutMinWidth: =320
+                ShowNavigation: =true
+                ShowScrollbar: =false
+                TemplatePadding: =0
+                TemplateSize: =Min(160, Self.Height - 60)
+                ZIndex: =4
+
+                AttendConfirm_Name As label:
+                    Height: =46
+                    OnSelect: =Select(Parent)
+                    PaddingBottom: =0
+                    PaddingLeft: =0
+                    PaddingRight: =0
+                    PaddingTop: =0
+                    Text: =Concatenate(ThisItem.Personnel.'Current Rank'.'Description Abbreviation Eng' & " " & ThisItem.Personnel.'Last Name' & ", " & ThisItem.Personnel.'First Name' )
+                    VerticalAlign: =VerticalAlign.Top
+                    Width: =315
+                    Wrap: =false
+                    X: =127
+                    Y: =26
+                    ZIndex: =1
+
+                AttendConfirm_Email As label:
+                    Height: =28
+                    OnSelect: =Select(Parent)
+                    PaddingBottom: =0
+                    PaddingLeft: =0
+                    PaddingRight: =0
+                    PaddingTop: =0
+                    Text: =ThisItem.Personnel.'Military Email'
+                    VerticalAlign: =VerticalAlign.Top
+                    Width: =453
+                    X: =AttendConfirm_Name.X
+                    Y: =72
+                    ZIndex: =2
+
+                AttendConfirm_NextArrow As icon.ChevronRight:
+                    AccessibleLabel: =Self.Tooltip
+                    Height: =60
+                    Icon: =Icon.ChevronRight
+                    OnSelect: |-
+                        =Navigate(
+                            AttendeeDetailsScreen, 
+                            None
+                        );
+                        
+                        Set(CurrAttendee, LookUp(Personnels, Personnel = ThisItem.Personnel.Personnel))
+                    PaddingBottom: =10
+                    PaddingLeft: =10
+                    PaddingRight: =10
+                    PaddingTop: =10
+                    TabIndex: =0
+                    Tooltip: ="View item details"
+                    Width: =60
+                    X: =580
+                    Y: =35
+                    ZIndex: =3
+
+                AttendConfirm_Separator As rectangle:
+                    Height: =1
+                    OnSelect: =Select(Parent)
+                    Width: =Parent.TemplateWidth
+                    Y: =Parent.TemplateHeight - 1
+                    ZIndex: =4
+
+                AttendConfirm_Image_1 As image:
+                    Fill: =RGBA(0, 0, 0, 1)
+                    Height: =95
+                    Image: ='icons8-person-90'
+                    OnSelect: =Select(Parent)
+                    RadiusBottomLeft: =90
+                    RadiusBottomRight: =90
+                    RadiusTopLeft: =90
+                    RadiusTopRight: =90
+                    Width: =95
+                    X: =13
+                    Y: =17
+                    ZIndex: =5
+
+                AttendConfirm_Image As image:
+                    Height: =95
+                    Image: =ThisItem.Personnel.'Military Id Card Front'
+                    OnSelect: =Select(Parent)
+                    RadiusBottomLeft: =90
+                    RadiusBottomRight: =90
+                    RadiusTopLeft: =90
+                    RadiusTopRight: =90
+                    Width: =95
+                    X: =13
+                    Y: =17
+                    ZIndex: =6
+
+                AttendConfirm_Toggle As toggleSwitch:
+                    Default: =If(ThisItem.'Attended Training' = 'Attended Training'.Yes, true, false)
+                    DisabledBorderColor: =RGBA(56, 96, 178, 1)
+                    DisabledColor: |
+                        =RGBA(255, 255, 255, 1)
+                    DisplayMode: =
+                    Height: =43
+                    ShowLabel: =false
+                    Size: =21
+                    Width: =78
+                    X: =442
+                    Y: =26
+                    ZIndex: =7
+
+                AttendConfirm_Email_1 As label:
+                    Height: =28
+                    OnSelect: =Select(Parent)
+                    PaddingBottom: =0
+                    PaddingLeft: =0
+                    PaddingRight: =0
+                    PaddingTop: =0
+                    Text: =ThisItem.'Commit to Training Status'
+                    VerticalAlign: =VerticalAlign.Top
+                    Width: =453
+                    X: =127
+                    Y: =121
+                    ZIndex: =8
+
+            AttendConfirm_Rectangle As rectangle:
+                Fill: =RGBA(255, 255, 255, 1)
+                Height: =25
+                ZIndex: =5
+
+            AttendConfirm_ConfirmButton As button:
+                AlignInContainer: =AlignInContainer.Center
+                Height: =70
+                LayoutMinHeight: =70
+                LayoutMinWidth: =280
+                OnSelect: |-
+                    =ForAll(AttendConfirm_Gallery.AllItems,
+                        Patch('Training Event Attendees',
+                            ThisRecord,
+                            If(ThisRecord.AttendConfirm_Toggle.Value = true,
+                                { 'Attended Training': [@'Attended Training'].Yes },
+                                { 'Attended Training': [@'Attended Training'].No }
+                            )
+                        )
+                    );
+                    
+                    //refresh data source and refresh
+                    //Set(AttendOpiID, LookUp('Training Events', 'Training Event' = ThisItem.'Training Event').OPI.Personnel);
+                    //Set(AttendData,ThisItem)
+                Size: =24
+                Text: ="Confirm"
+                Width: =280
+                ZIndex: =6
+
+    AttendConfirm_OPIIcon As icon.Help:
+        Height: =34
+        Icon: =Icon.Help
+        OnSelect: |-
+            =Navigate(
+                OPIContactDetailsScreen, 
+                None
+            );
+        Width: =34
+        X: =91
+        Y: =199
+        ZIndex: =5
+
+    AttendConfirm_HelpIcon As icon.Help:
+        Height: =34
+        Icon: =Icon.Help
+        OnSelect: |
+            =Notify("Indicate members who have attended this event.  Status can be changed and updated at anytime.", NotificationType.Information); 
+        Width: =34
+        X: =171
+        Y: =342
+        ZIndex: =6
+
+    MainHeader_9 As MainHeader:
+        ZIndex: =8
+

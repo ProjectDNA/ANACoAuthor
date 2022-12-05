@@ -1,0 +1,647 @@
+App As appinfo:
+    BackEnabled: =false
+    OnStart: |+
+        =
+        /* 
+            Network calls for Set functions are blocking, therefore set the global styles first before any network calls!
+        */
+        Set(
+            EnableTestMode,
+            false
+        );
+        Set(
+            LoadingScreen,
+            true
+        );
+        Set(
+            showMenu,
+            false
+        );
+        
+        //TrainingList CourseList Visibility
+        Set(
+            TrainingList,
+            true
+        );
+        /*
+        Set(
+            CourseList,
+            false
+        );
+        */
+        //Tasking Employment Visibility
+        Set(
+            TaskList,
+            true
+        );
+        //side menu
+        // Theme settings
+        Set(
+            DarkMode,
+            false
+        );
+        
+        Set(
+            ExpiredRed,
+            ColorValue("#E71D36")
+        );
+        Set(
+            ExpiringYellow,
+            ColorValue("#FCBF49")
+        );
+        Set(
+            ValidGreen,
+            ColorValue("#008000")
+        );
+        Set(
+            Blue1,
+            ColorValue("#0f2c52")
+        );
+        Set(
+            Blue2,
+            ColorValue("#123968")
+        );
+        Set(
+            Blue3,
+            ColorValue("#20568c")
+        );
+        Set(
+            Yellow1,
+            ColorValue("#b8892c")
+        );
+        Set(
+            Gray1,
+            ColorValue("#e7e8e9")
+        );
+        Set(
+            White1,
+            ColorValue("#ffffff")
+        );
+        Set(
+            BackgroundColor,
+            ColorValue("#F7F7F7")
+        );
+        Set(
+            Dark1,
+            ColorValue("#121212")
+        );
+        Set(
+            Dark2,
+            ColorValue("#181818")
+        );
+        Set(
+            Dark3,
+            ColorValue("#404040")
+        );
+        Set(
+            Dark4,
+            ColorValue("#282828")
+        );
+        Set(
+            BackgroundColor,
+            ColorValue("#F7F7F7")
+        );
+        Set(
+            FontFamilyA,
+            Font.Lato
+        );
+        Set(
+            FontFamilyB,
+            Font.'Open Sans'
+        );
+        Set(
+            BackScreen,
+            PersonalInfoScreen
+        );
+        // Cards
+        Set(
+            CardSmallTextFont,
+            15
+        );
+        Set(
+            CardTextFont,
+            18
+        );
+        Set(
+            CardHeaderFont,
+            20
+        );
+        Set(
+            CardInfoHeaderFont,
+            22
+        );
+        Set(
+            CardMediumTextFont,
+            28
+        );
+        Set(
+            CardLargeTextFont,
+            60
+        );
+        // Buttons
+        Set(
+            ButtonBorderRadius,
+            20
+        );
+        Set(
+            ButtonBorderWidth,
+            2
+        );
+        //Set(ButtonBorderColor, GoldXX?);
+        Set(
+            ButtonFillColor,
+            Blue1
+        );
+        // Status Pill Colors
+        Set(
+            StandbyListGold,
+            ColorValue("#B8892C")
+        );
+        Set(
+            NotSelectedGrey,
+            ColorValue("#EEF4FC")
+        );
+        Set(
+            DeclinedRed,
+            ColorValue("#A52422")
+        );
+        Set(
+            AppliedGreen,
+            ColorValue("#082D0F")
+        );
+        Set(
+            NotifiedBlue,
+            ColorValue("#5390DF")
+        );
+        Set(
+            NominatedBlue,
+            ColorValue("#205DAC")
+        );
+        Set(
+            LoadedBlue,
+            ColorValue("#0F2C52")
+        );
+        // Global Variables
+        Set(
+            currUser,
+            User()
+        );
+        Set(
+            DataVerseUser,
+            LookUp(
+                Users,
+                'LocalizationEnFr (internalemailaddress)' = currUser.Email
+            )
+        );
+        Set(
+            DataVerseUserGuid,
+            DataVerseUser.User
+        );
+        Set(
+            currPersonnel,
+            LookUp(
+                Personnels,
+                'System User'.User = DataVerseUserGuid
+            )
+        );
+        // Personnel table
+        Set(
+            currPersonnelFirstName,
+            currPersonnel.'First Name'
+        );
+        Set(
+            currPersonnelLastName,
+            currPersonnel.'Last Name'
+        );
+        Set(
+            currPersonnelDOB,
+            currPersonnel.'Date of Birth'
+        );
+        Set(
+            currPersonnelDental,
+            currPersonnel.'Annual Dental'
+        );
+        Set(
+            currPersonnelImage,
+            LookUp(
+                Personnels,
+                'System User'.User = DataVerseUserGuid,
+                'Military Id Card Front'
+            )
+        );
+        Set(
+            currPersonnnelEmail,
+            currPersonnel.'Military Email'
+        );
+        //Localization
+        If(currPersonnel.'Preferred Language ' = 'Preferred Language '.English, Set(
+            LangEn,
+            true
+        ));
+        //pull from currPersonnel preferred lang
+        /*
+        Set(
+            AlertNumber,
+            CountRows(
+                Filter(
+                    UserNotifications,
+                    Personnel.Personnel = currPersonnel.Personnel && Not(Type = "hidden")
+                )
+            )
+        );
+        
+        Set( 
+            UserNotificationItems,
+            Filter(
+                UserNotifications,
+                Personnel.Personnel = currPersonnel.Personnel && Not(Type = "hidden") && 'Event Status' = 'Event Status (UserNotifications)'.Yes
+            )
+        );
+        */
+        
+        /*
+        // SideMenu Items for soldiers
+        ClearCollect(
+            SideMenuItems,
+            {     Label: __localizer.Localize(
+                    "ANA_MENU_HOME",
+                    LangEn
+                ),
+                Icon: Icon.Home,
+                ScreenNavigate: DashboardScreen,
+                Disabled: false,
+                ID: 1
+            },
+            {
+                Label: __localizer.Localize(
+                    "ANA_DASHBOARD_TRAINING",
+                    LangEn
+                ),
+                Icon: Icon.Search,
+                ScreenNavigate: TrainingScreen,
+                Disabled: false,
+                ID: 2
+            },
+            {
+                Label: __localizer.Localize(
+                    "ANA_DASHBOARD_TASKS",
+                    LangEn
+                ),
+                Icon: Icon.Search,
+                ScreenNavigate: TEScreen,
+                Disabled: false,
+                ID: 3
+            },
+            {
+                Label: Proper(
+                    __localizer.Localize(
+                        "ANA_SPLASH_LABEL_ORG_CHART",
+                        LangEn
+                    )
+                ),
+                Icon: Icon.People,
+                ScreenNavigate: OrgScreen,
+                Disabled: false,
+                ID: 4
+            },
+            {
+                Label: __localizer.Localize(
+                    "ANA_SPLASH_LABEL_PERS_FILE",
+                    LangEn
+                ),
+                Icon: Icon.Person,
+                ScreenNavigate: PersonalInfoScreen,
+                Disabled: false,
+                ID: 5
+            },
+            {
+                Label: __localizer.Localize(
+                    "ANA_SPLASH_LABEL_FILES_AND_DOCS",
+                    LangEn
+                ),
+                Icon: Icon.Document,
+                ScreenNavigate: FilesDocumentsScreen,
+                Disabled: false,
+                ID: 6
+            },
+            {
+                Label: __localizer.Localize(
+                    "ANA_SPLASH_LABEL_SCHEDUALE_APPOINTMENT",
+                    LangEn
+                ),
+                Icon: Icon.Document,
+                ScreenNavigate: NotYetImplementedScreen,
+                Disabled: true,
+                ID: 7
+            },
+            {
+                Label: __localizer.Localize(
+                    "ANA_SPLASH_LABEL_SUBMIT_ADMIN",
+                    LangEn
+                ),
+                Icon: Icon.Document,
+                ScreenNavigate: NotYetImplementedScreen,
+                Disabled: true,
+                ID: 8
+            },
+            {
+                Label: __localizer.Localize(
+                    "ANA_SPLASH_LABEL_PROF_DEV",
+                    LangEn
+                ),
+                Icon: Icon.Document,
+                ScreenNavigate: NotYetImplementedScreen,
+                Disabled: true,
+                ID: 9
+            },
+            {
+                Label: __localizer.Localize(
+                    "ANA_SPLASH_LABEL_TRAINING_PORTAL",
+                    LangEn
+                ),
+                Icon: Icon.Document,
+                ScreenNavigate: NotYetImplementedScreen,
+                Disabled: true,
+                ID: 10
+            },
+            {
+                Label: __localizer.Localize(
+                    "ANA_SPLASH_LABEL_POTENTIAL",
+                    LangEn
+                ),
+                Icon: Icon.Document,
+                ScreenNavigate: NotYetImplementedScreen,
+                Disabled: true,
+                ID: 11
+            }
+        );
+        */
+        /*
+        // SideMenu Items for approvers
+        ClearCollect(
+            SideMenuItemsApprover,
+            {
+                Label: __localizer.Localize(
+                    "ANA_MENU_HOME",
+                    LangEn
+                ),
+                Icon: Icon.Home,
+                ScreenNavigate: DashboardScreen,
+                Disabled: false,
+                ID: 1
+            },
+            {
+                Label: __localizer.Localize(
+                    "ANA_DASHBOARD_TRAINING",
+                    LangEn
+                ),
+                Icon: Icon.Search,
+                ScreenNavigate: TrainingScreen,
+                Disabled: false,
+                ID: 2
+            },
+            {
+                Label: __localizer.Localize(
+                    "ANA_DASHBOARD_TASKS",
+                    LangEn
+                ),
+                Icon: Icon.Search,
+                ScreenNavigate: TEScreen,
+                Disabled: false,
+                ID: 3
+            },
+            {
+                Label: Proper(
+                    __localizer.Localize(
+                        "ANA_SPLASH_LABEL_ORG_CHART",
+                        LangEn
+                    )
+                ),
+                Icon: Icon.People,
+                ScreenNavigate: OrgScreen,
+                Disabled: false,
+                ID: 4
+            },
+            {
+                Label: __localizer.Localize(
+                    "ANA_SPLASH_LABEL_PERS_FILE",
+                    LangEn
+                ),
+                Icon: Icon.Person,
+                ScreenNavigate: PersonalInfoScreen,
+                Disabled: false,
+                ID: 5
+            },
+            {
+                Label: __localizer.Localize(
+                    "ANA_SPLASH_LABEL_FILES_AND_DOCS",
+                    LangEn
+                ),
+                Icon: Icon.Document,
+                ScreenNavigate: FilesDocumentsScreen,
+                Disabled: false,
+                ID: 6
+            },
+            {
+                Label: If(LangEn = true,"Training Attendance","Présence des Entraînements"),
+                Icon: Icon.Search,
+                ScreenNavigate: TrainingEventAttendanceScreen,
+                Disabled: false,
+                ID: 12
+            },
+            {
+                Label: __localizer.Localize(
+                    "ANA_SPLASH_LABEL_SCHEDUALE_APPOINTMENT",
+                    LangEn
+                ),
+                Icon: Icon.Document,
+                ScreenNavigate: NotYetImplementedScreen,
+                Disabled: true,
+                ID: 7
+            },
+            {
+                Label: __localizer.Localize(
+                    "ANA_SPLASH_LABEL_SUBMIT_ADMIN",
+                    LangEn
+                ),
+                Icon: Icon.Document,
+                ScreenNavigate: NotYetImplementedScreen,
+                Disabled: true,
+                ID: 8
+            },
+            {
+                Label: __localizer.Localize(
+                    "ANA_SPLASH_LABEL_PROF_DEV",
+                    LangEn
+                ),
+                Icon: Icon.Document,
+                ScreenNavigate: NotYetImplementedScreen,
+                Disabled: true,
+                ID: 9
+            },
+            {
+                Label: __localizer.Localize(
+                    "ANA_SPLASH_LABEL_TRAINING_PORTAL",
+                    LangEn
+                ),
+                Icon: Icon.Document,
+                ScreenNavigate: NotYetImplementedScreen,
+                Disabled: true,
+                ID: 10
+            },
+            {
+                Label: __localizer.Localize(
+                    "ANA_SPLASH_LABEL_POTENTIAL",
+                    LangEn
+                ),
+                Icon: Icon.Document,
+                ScreenNavigate: NotYetImplementedScreen,
+                Disabled: true,
+                ID: 11
+            }
+        );
+        */
+        // DAG Table (DAG_ITEMS) & DAG_PILL_COLOR
+        Set(
+            DAG_ITEMS,
+            Filter(
+                'Departure Assistance Groups',
+                Personnel.Personnel = currPersonnel.Personnel
+            )
+        );
+        //), SortKey, If(SortVariable ,Descending, Ascending)));
+        // DAG_PILL_COLOR
+        Set(
+            DAG_PILL_COLOR,
+            If(
+                CountRows(
+                    Filter(
+                        DAG_ITEMS,
+                        'Is Valid' = RedYellowGreen.Expired
+                    )
+                ) > 0,
+                ExpiredRed,
+                If(
+                    CountRows(
+                        Filter(
+                            DAG_ITEMS,
+                            'Is Valid' = RedYellowGreen.Expiring
+                        )
+                    ) > 0,
+                    ExpiringYellow,
+                    ValidGreen
+                )
+            )
+        );
+        // IBTS Table (IBTS_ITEMS) & IBTS_PILL_COLOR
+        Set(
+            IBTS_QUALS,
+            currPersonnel.'Active Military Role'.'IBTS Qualifications'
+        );
+        Set(
+            IBTS_ITEMS,
+            Table(
+                {
+                    Value: If(
+                        LangEn,
+                        IBTS_QUALS.'Qualification Name',
+                        IBTS_QUALS.'Qualification Name FR'
+                    ),
+                    Expiration: IBTS_QUALS.'Is Valid'
+                }
+            )
+        );
+        // IBTS_PILL_COLOR
+        Set(
+            IBTS_PILL_COLOR,
+            If(
+                CountRows(
+                    Filter(
+                        IBTS_QUALS,
+                        'Is Valid' = RedYellowGreen.Expired
+                    )
+                ) > 0,
+                ExpiredRed,
+                If(
+                    CountRows(
+                        Filter(
+                            IBTS_QUALS,
+                            'Is Valid' = RedYellowGreen.Expiring
+                        )
+                    ) > 0,
+                    ExpiringYellow,
+                    ValidGreen
+                )
+            )
+        );
+        //implement color for bug column in SideMenu
+        //constant declarations
+        Set(
+            BASE_ENVIRON_URL,
+            First(
+                Filter(
+                    'Environment Variable Values',
+                    'Environment Variable Definition'.'Display Name' = "FILE_DOWNLOAD_URL"
+                )
+            ).Value
+        );
+        
+        //Collection for Button Navigation ( can add/remove new screens as needed)
+        
+         ClearCollect(
+          colAppLinks,
+            {
+                Name: "Training & Courses",
+                ScreenName: TrainingScreen
+            },
+            {
+                Name: "Taskings and Employments",
+                ScreenName: TEScreen
+            },
+        {
+                Name: "Unit Nominal Roll",
+                ScreenName: OrgScreen
+            },
+        {
+                Name: "Personal Info",
+                ScreenName: PersonalInfoScreen
+            },
+        {
+                Name: "Forms & References",
+                ScreenName: FilesDocumentsScreen
+            },
+        {
+                Name: "Training Attendance",
+                ScreenName: TrainingEventAttendanceScreen
+            },
+        {
+                Name: "Schedule Appointment",
+                ScreenName: NotYetImplementedScreen
+            },
+        {
+                Name: "Submit Administration",
+                ScreenName: NotYetImplementedScreen
+            },
+        {
+                Name: "Professional Development",
+                ScreenName: NotYetImplementedScreen
+            },
+        {
+                Name: "Training Portal",
+                ScreenName: NotYetImplementedScreen
+            },
+        {
+                Name: "Potential",
+                ScreenName: NotYetImplementedScreen
+            }
+        );
+        
+        Set(
+            LoadingScreen,
+            false
+        );
+        
+        
+        
+    StartScreen: =
+

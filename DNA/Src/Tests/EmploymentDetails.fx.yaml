@@ -1,0 +1,33 @@
+"'7ca8f0e8-83b3-4741-885d-b1412db3c99a' As TestSuite":
+    Description: =""
+    DisplayName: ="EmploymentDetails"
+
+    "'625e2688-2395-4a88-b9b1-69c6d5ae7d68' As TestCase":
+        Description: =""
+        DisplayName: ="Verify URL Functionality"
+
+        Step1 As TestStep:
+            Description: ="Select 'Dashboard_ButtonTask'"
+            Screen: =DashboardScreen
+            Value: =Select(Debug_ButtonTask)
+
+        Step2 As TestStep:
+            Description: ="Select 'TE_showEmploymentBtn'"
+            Screen: =TEScreen
+            Value: =Select(TE_showEmploymentBtn)
+
+        Step3 As TestStep:
+            Description: ="Select 'TE_employmentCard' in row 1 in 'TE_Employment_Gallery'"
+            Screen: =TEScreen
+            Value: =Select(TE_Employment_Gallery, 1, Button9)
+
+        Step4 As TestStep:
+            Description: ="Select 'TE_employmentCard' in row 1 in 'TE_Employment_Gallery'"
+            Screen: =TEScreen
+            Value: =Select(TE_Employment_Gallery, 1, Button9)
+
+        Step5 As TestStep:
+            Description: ="Select 'EmploymentDetails_CommitBtn'"
+            Screen: =EmploymentDetailsScreen
+            Value: =Select(EmploymentDetails_CommitBtn)
+

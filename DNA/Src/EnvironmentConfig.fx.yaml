@@ -1,0 +1,84 @@
+EnvironmentConfig As screen:
+    BackgroundImage: =
+    Fill: =RGBA(128, 128, 128, 1)
+
+    EnvConfGallery As gallery.galleryVertical:
+        Fill: =RGBA(0, 0, 0, 1)
+        Height: =924
+        Items: =Filter('Environment Variable Values', 'Environment Variable Values (Views)'.'Active Environment Variable Values')
+        Layout: =Layout.Vertical
+        ShowNavigation: =true
+        TemplateSize: =302
+        ZIndex: =1
+
+        EnvConfValue As label:
+            Color: =RGBA(255, 255, 255, 1)
+            Fill: =RGBA(0, 18, 107, 1)
+            Height: =96
+            OnSelect: =Select(Parent)
+            Size: =21
+            Text: =ThisItem.Value
+            Width: =630
+            Y: =76
+            ZIndex: =1
+
+        EnvConfBuild As button:
+            Fill: =RGBA(50, 86, 160, 1)
+            Height: =62
+            OnSelect: |-
+                =UpdateContext( 
+                    { 
+                        envConfFuncOutputText: 
+                        "First(Filter('Environment Variable Values','Environment Variable Definition'.'Display Name' = " 
+                        & 
+                        Char(34) & ThisItem.'Environment Variable Definition'.'Display Name' & Char(34) 
+                        & ")).Value"
+                    }
+                );
+                SetFocus(EnvConfFuncOutput);
+            Size: =24
+            Text: ="Build"
+            Width: =630
+            Y: =188
+            ZIndex: =2
+
+        EnvConfKey As label:
+            Color: =RGBA(255, 255, 255, 1)
+            Fill: =RGBA(54, 176, 75, 1)
+            Height: =76
+            OnSelect: =Select(Parent)
+            Size: =21
+            Text: =ThisItem.'Environment Variable Definition'.'Display Name'
+            Width: =630
+            ZIndex: =4
+
+        EnvConfDivider As rectangle:
+            Fill: =RGBA(152, 208, 70, 1)
+            Height: =2
+            OnSelect: =Select(Parent)
+            Width: =Parent.Width
+            Y: =266
+            ZIndex: =5
+
+    EnvConfFuncOutput As text:
+        Clear: =true
+        Default: =envConfFuncOutputText
+        Height: =107
+        HintText: ="Generated function..."
+        OnSelect: =
+        Size: =21
+        Width: =640
+        Y: =1029
+        ZIndex: =3
+
+    EnvConfFuncOutputLabel As label:
+        Align: =Align.Center
+        Color: =RGBA(255, 255, 255, 1)
+        Height: =70
+        Size: =21
+        Text: |-
+            ="Output:"
+        Width: =640
+        Y: =959
+        ZIndex: =4
+

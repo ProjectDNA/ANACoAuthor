@@ -1,0 +1,29 @@
+StatusLabel As CanvasComponent:
+    Fill: =RGBA(0, 0, 0, 0)
+    Height: =60
+    Status: ="Text"
+    Width: =142
+    X: =0
+    Y: =0
+    ZIndex: =1
+
+    StatusColor As rectangle:
+        Fill: |-
+            =Switch(Text(Parent.Status),
+                "Valid", Green,
+                "Expired", Red,
+                "Expiring", Yellow1,
+                Gray1
+            )
+        Height: =Parent.Height
+        Width: =Parent.Width
+        ZIndex: =1
+
+    StatusText As label:
+        Align: =Align.Center
+        Height: =Parent.Height
+        Size: =21
+        Text: =Parent.Status
+        Width: =Parent.Width
+        ZIndex: =2
+

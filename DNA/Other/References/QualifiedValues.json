@@ -1,0 +1,233 @@
+{
+  "QualifiedValues": [
+    {
+      "Kind": "default.cds_wywm_personnel_forms",
+      "Namespace": "Personnels (Forms)",
+      "Values": {
+        "Information": "b7d2b113-a067-40a1-b99e-f56274edbcb8"
+      }
+    },
+    {
+      "Kind": "default.cds_systemuser_forms",
+      "Namespace": "Users (Forms)",
+      "Values": {
+        "Application User": "d26924ef-4d80-46f7-ab1d-e6ae80a54ce8",
+        "Information": "094fb08a-77bb-49e0-b7ea-8dbddfd01294",
+        "User": "c2cd9e55-d4b4-4b55-9951-16ead79643e5",
+        "User form – Business": "c2413504-7eb2-4c59-a087-95d819866114",
+        "User Hierarchy Tile Form": "c68d6c09-d7a7-4959-8d0f-44b8cff9b452"
+      }
+    },
+    {
+      "Kind": "default.cds_wywm_education_forms",
+      "Namespace": "Educations (Forms)",
+      "Values": {
+        "Information": "01fce7a4-c3d8-42db-bedb-e4122bcd3b1f"
+      }
+    },
+    {
+      "Kind": "default.cds_wywm_trainingevent_forms",
+      "Namespace": "Training Events (Forms)",
+      "Values": {
+        "Information": "3d51a353-9580-4f52-838b-9e42ce2a1a6b"
+      }
+    },
+    {
+      "Kind": "default.cds_wywm_rank_forms",
+      "Namespace": "Ranks (Forms)",
+      "Values": {
+        "Information": "50c4d03f-7fbe-4122-b1b6-5372e324742b"
+      }
+    },
+    {
+      "Kind": "default.cds_wywm_promotion_forms",
+      "Namespace": "Promotions (Forms)",
+      "Values": {
+        "Information": "9f3e31a7-2591-47ea-9256-e6d91158c688"
+      }
+    },
+    {
+      "Kind": "default.cds_wywm_localizationenfr_forms",
+      "Namespace": "LocalizationEnFr (Forms)",
+      "Values": {
+        "Information": "7287c7d8-0ac6-4520-b95f-dd0c98f5a339"
+      }
+    },
+    {
+      "Kind": "default.cds_wywm_ibtsqualification_forms",
+      "Namespace": "IBTS Qualifications (Forms)",
+      "Values": {
+        "Information": "bfec12cb-15c0-46e1-b929-d2338e8b740c"
+      }
+    },
+    {
+      "Kind": "default.cds_wywm_militaryrole_forms",
+      "Namespace": "Military Roles (Forms)",
+      "Values": {
+        "Information": "24ad26dc-b236-4935-b468-cbca16345e7b"
+      }
+    },
+    {
+      "Kind": "default.cds_wywm_unit_forms",
+      "Namespace": "Units (Forms)",
+      "Values": {
+        "Information": "eda99297-7ba9-466d-8814-99bc278cc8b0"
+      }
+    },
+    {
+      "Kind": "default.cds_wywm_rolestemplate_forms",
+      "Namespace": "Roles Templates (Forms)",
+      "Values": {
+        "Information": "f875a05d-a74b-4f6c-9a5d-e1910d554dc1"
+      }
+    },
+    {
+      "Kind": "default.cds_wywm_mostrade_forms",
+      "Namespace": "MOS Trades (Forms)",
+      "Values": {
+        "Information": "5e3cedb4-b90e-4bba-8a29-f78690a50020"
+      }
+    },
+    {
+      "Kind": "default.cds_wywm_document_forms",
+      "Namespace": "Documents (Forms)",
+      "Values": {
+        "Information": "1fd1c111-43dd-4330-825e-931b77b1f9f7"
+      }
+    },
+    {
+      "Kind": "default.cds_wywm_occupationqualification_forms",
+      "Namespace": "Occupation Qualifications (Forms)",
+      "Values": {
+        "Information": "ab8c1955-5a1c-4b48-b80b-e4f9404f62f4"
+      }
+    },
+    {
+      "Kind": "default.cds_wywm_osqcourse_forms",
+      "Namespace": "OSQ Courses (Forms)",
+      "Values": {
+        "Information": "cd31f891-1b95-4dbb-8678-942a7efe23ea"
+      }
+    },
+    {
+      "Kind": "default.cds_wywm_traininghistory_forms",
+      "Namespace": "Training Histories (Forms)",
+      "Values": {
+        "Information": "d67fb06c-82db-4dde-8b55-edaeb7ef7036"
+      }
+    },
+    {
+      "Kind": "default.cds_wywm_hrmscourse_forms",
+      "Namespace": "HRMS Courses (Forms)",
+      "Values": {
+        "Information": "5434197f-fcf9-43c8-87e9-dcea37f87f2b"
+      }
+    },
+    {
+      "Kind": "default.cds_wywm_bugreport_forms",
+      "Namespace": "Bug Reports (Forms)",
+      "Values": {
+        "Information": "68647444-17da-47ce-a147-adf2fabeedfa"
+      }
+    },
+    {
+      "Kind": "default.cds_wywm_civilianqualifications_forms",
+      "Namespace": "Civilian Qualifications (Forms)",
+      "Values": {
+        "Information": "110a67e4-5475-415c-926a-f4a2890996e0"
+      }
+    },
+    {
+      "Kind": "default.cds_environmentvariablevalue_forms",
+      "Namespace": "Environment Variable Values (Forms)",
+      "Values": {
+        "Information": "f574a3ab-1060-43ee-a95f-9aa922b497db"
+      }
+    },
+    {
+      "Kind": "default.cds_environmentvariabledefinition_forms",
+      "Namespace": "Environment Variable Definitions (Forms)",
+      "Values": {
+        "Information": "3853733b-a351-455d-b686-d2d05027ba4d"
+      }
+    },
+    {
+      "Kind": "default.cds_wywm_trainingeventattendee_forms",
+      "Namespace": "Training Event Attendees (Forms)",
+      "Values": {
+        "Information": "4688cb33-4c6d-4b15-8d3c-f6949d157f41"
+      }
+    },
+    {
+      "Kind": "default.cds_wywm_course_forms",
+      "Namespace": "Courses (Forms)",
+      "Values": {
+        "Information": "40def0c3-75d7-47d8-a1a9-dc97accd86d6"
+      }
+    },
+    {
+      "Kind": "default.cds_wywm_courseapplication_forms",
+      "Namespace": "Course Applications (Forms)",
+      "Values": {
+        "Information": "f699fdcf-4be2-4bc8-b8b4-ff6a4074dcf4"
+      }
+    },
+    {
+      "Kind": "default.cds_wywm_usernotification_forms",
+      "Namespace": "UserNotifications (Forms)",
+      "Values": {
+        "Information": "dfd3dd2a-13c8-4f78-8c1f-f73cf36694a1"
+      }
+    },
+    {
+      "Kind": "default.cds_wywm_taskingapplication_forms",
+      "Namespace": "Tasking Applications (Forms)",
+      "Values": {
+        "Information": "5f1719ec-971e-4452-bcbd-df65bc0f0e0c"
+      }
+    },
+    {
+      "Kind": "default.cds_wywm_tasking_forms",
+      "Namespace": "Taskings (Forms)",
+      "Values": {
+        "Information": "9c6f21d4-d751-4bb1-97b9-fec704c48333"
+      }
+    },
+    {
+      "Kind": "default.cds_wywm_departureassistancegroup_forms",
+      "Namespace": "Departure Assistance Groups (Forms)",
+      "Values": {
+        "Information": "2d5b97b7-9a1c-4326-a670-dba3f9acf31a"
+      }
+    },
+    {
+      "Kind": "default.cds_wywm_dagstemplate_forms",
+      "Namespace": "DAGs Templates (Forms)",
+      "Values": {
+        "Information": "b2a741c8-7a9a-41d0-a8bb-e1585ddec35d"
+      }
+    },
+    {
+      "Kind": "default.cds_wywm_employment_forms",
+      "Namespace": "Employments (Forms)",
+      "Values": {
+        "Information": "9df845bb-3955-4647-b9bc-db24f39e1a75"
+      }
+    },
+    {
+      "Kind": "default.cds_wywm_pendingpersonaldetailschanges_forms",
+      "Namespace": "PendingPersonalDetailsChanges (Forms)",
+      "Values": {
+        "Information": "9225005e-f486-4c01-9a1b-9fa2a2217915"
+      }
+    },
+    {
+      "Kind": "default.cds_position_forms",
+      "Namespace": "Positions (Forms)",
+      "Values": {
+        "Position": "048291e0-6d27-4926-8c05-085985c23412",
+        "Position Hierarchy Tile Form": "a9969603-c28d-4a12-9d03-b9ed677a345a"
+      }
+    }
+  ]
+}

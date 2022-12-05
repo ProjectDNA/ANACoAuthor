@@ -1,0 +1,48 @@
+LoadingIndicator As CanvasComponent:
+    Fill: =RGBA(0, 0, 0, 0)
+    Height: =1333
+    OnReset: =
+    Width: =640
+    X: =0
+    Y: =0
+    ZIndex: =1
+
+    LoadingIndicatorBackground As rectangle:
+        Fill: =RGBA(0, 0, 0, 0.85)
+        Height: =Parent.Height
+        Visible: =DismissTimer.Value < 4999
+        Width: =640
+        ZIndex: =1
+
+    LoadingGif As image:
+        Height: =64
+        Image: =loading
+        Visible: =DismissTimer.Value < 4999
+        Width: =64
+        X: =Parent.Width/2-LoadingGif.Width/2
+        Y: =Parent.Height/2-LoadingGif.Height/2
+        ZIndex: =2
+
+    LoadingText As label:
+        Align: =Align.Center
+        Color: =RGBA(255, 255, 255, 1)
+        Font: =Font.Lato
+        Height: =70
+        Size: =24
+        Text: =__localizer.Localize("ANA_FILE_LOADING", LangEn)
+        Visible: =DismissTimer.Value < 4999
+        Width: =640
+        Y: =LoadingGif.Y - LoadingGif.Height
+        ZIndex: =3
+
+    DismissTimer As timer:
+        AutoPause: =false
+        AutoStart: =true
+        Duration: =5000
+        Height: =70
+        OnTimerEnd: =Set(_IsHidden, true)
+        OnTimerStart: =
+        Visible: =false
+        Width: =280
+        ZIndex: =4
+

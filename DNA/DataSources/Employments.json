@@ -1,0 +1,159 @@
+[
+  {
+    "CdsFCBContext": "{\"FileType\":true,\"ImageExternalStorage\":true}",
+    "EntitySetName": "wywm_employments",
+    "IsHidden": false,
+    "IsSampleData": false,
+    "IsWritable": true,
+    "LogicalName": "wywm_employment",
+    "MaxGetRowsCount": 500,
+    "Name": "Employments",
+    "NativeCDSDataSourceInfoNameMapping": {
+      "_ownerid_value": "Owner",
+      "createdby": "Created By",
+      "createdon": "Created On",
+      "createdonbehalfby": "Created By (Delegate)",
+      "importsequencenumber": "Import Sequence Number",
+      "modifiedby": "Modified By",
+      "modifiedon": "Modified On (modifiedon)",
+      "modifiedonbehalfby": "Modified By (Delegate)",
+      "overriddencreatedon": "Record Created On",
+      "owningbusinessunit": "Owning Business Unit",
+      "owningteam": "Modified On (owningteam)",
+      "owninguser": "Owning User",
+      "statecode": "Status",
+      "statuscode": "Status Reason",
+      "timezoneruleversionnumber": "Time Zone Rule Version Number",
+      "utcconversiontimezonecode": "UTC Conversion Time Zone Code",
+      "versionnumber": "Version Number",
+      "wywm_attachment1": "Attachment #1",
+      "wywm_attachment2": "Attachment #2",
+      "wywm_attachment3": "Attachment #3",
+      "wywm_description": "Description",
+      "wywm_employment_AsyncOperations": "System Jobs",
+      "wywm_employment_BulkDeleteFailures": "Bulk Delete Failures",
+      "wywm_employment_DuplicateBaseRecord": "Duplicate Records (wywm_employment_DuplicateBaseRecord)",
+      "wywm_employment_DuplicateMatchingRecord": "Duplicate Records (wywm_employment_DuplicateMatchingRecord)",
+      "wywm_employment_FileAttachments": "FileAttachments",
+      "wywm_employment_MailboxTrackingFolders": "Mailbox Auto Tracking Folders",
+      "wywm_employment_PrincipalObjectAttributeAccesses": "Field Sharing",
+      "wywm_employment_ProcessSession": "Process Sessions",
+      "wywm_employment_SyncErrors": "Sync Errors",
+      "wywm_employment_Teams": "Teams",
+      "wywm_Employment_wywm_Employment_wywm_MOST": "MOS Trades (wywm_Employment_wywm_Employment_wywm_MOST)",
+      "wywm_Employment_wywm_Employment_wywm_Rank": "Ranks (wywm_Employment_wywm_Employment_wywm_Rank)",
+      "wywm_Employment_wywm_MOSTrade_wywm_MOSTra": "MOS Trades (wywm_Employment_wywm_MOSTrade_wywm_MOSTra)",
+      "wywm_Employment_wywm_Rank_wywm_Rank": "Ranks (wywm_Employment_wywm_Rank_wywm_Rank)",
+      "wywm_employmentid": "Employment Name",
+      "wywm_employmentlanguage": "Employment Language",
+      "wywm_employmentlink": "Employment Link",
+      "wywm_employmentnamefr": "Employment Name FR",
+      "wywm_employmenttype": "Employment Type",
+      "wywm_enddate": "End Date",
+      "wywm_HostingUnit": "Hosting Unit",
+      "wywm_location": "Location",
+      "wywm_name": "Name",
+      "wywm_OPI": "OPI",
+      "wywm_prerequisites": "Prerequisites",
+      "wywm_startdate": "Start Date"
+    },
+    "PreferredName": "Employments",
+    "Type": "NativeCDSDataSourceInfo"
+  },
+  {
+    "DisplayName": "Employments (Views)",
+    "Name": "_wywm_employment_views",
+    "RelatedEntityName": "Employments",
+    "TrimmedViewName": true,
+    "Type": "ViewInfo",
+    "ViewInfoNameMapping": {
+      "166fab91-1614-4094-bc42-5fdec0f8d6c4": "Employment Associated View",
+      "683f73a8-f6bd-461b-80ba-e5beba20614a": "Employment Advanced Find View",
+      "684bb04b-c0f1-4299-b3ab-713c376d7e21": "Employment Lookup View",
+      "84044f5a-55dc-4042-a186-d05fd5c576f0": "Active Employments",
+      "b8fdfb51-cad3-4bdc-9ffd-170711360b44": "Inactive Employments"
+    }
+  },
+  {
+    "DisplayName": "Status (Employments)",
+    "Name": "wywm_employment_statecode",
+    "OptionSetInfoNameMapping": {
+      "0": "Active",
+      "1": "Inactive"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "statecode",
+        "OptionSetReferenceEntityName": "Employments"
+      }
+    },
+    "OptionSetTypeKey": "StateType",
+    "RelatedColumnInvariantName": "statecode",
+    "RelatedEntityName": "Employments",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Status Reason (Employments)",
+    "Name": "wywm_employment_statuscode",
+    "OptionSetInfoNameMapping": {
+      "1": "Active",
+      "2": "Inactive"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "statuscode",
+        "OptionSetReferenceEntityName": "Employments"
+      }
+    },
+    "OptionSetTypeKey": "StatusType",
+    "RelatedColumnInvariantName": "statuscode",
+    "RelatedEntityName": "Employments",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Language",
+    "Name": "wywm_language",
+    "OptionSetInfoNameMapping": {
+      "801200000": "English",
+      "801200001": "French",
+      "801200002": "Bilingual"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": true,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "wywm_employmentlanguage",
+        "OptionSetReferenceEntityName": "Employments"
+      }
+    },
+    "OptionSetTypeKey": "PicklistType",
+    "RelatedColumnInvariantName": "wywm_employmentlanguage",
+    "RelatedEntityName": "Employments",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Employment Type",
+    "Name": "wywm_type",
+    "OptionSetInfoNameMapping": {
+      "801200000": "Class A",
+      "801200001": "Class B",
+      "801200002": "Class C"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": true,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "wywm_employmenttype",
+        "OptionSetReferenceEntityName": "Employments"
+      }
+    },
+    "OptionSetTypeKey": "PicklistType",
+    "RelatedColumnInvariantName": "wywm_employmenttype",
+    "RelatedEntityName": "Employments",
+    "Type": "OptionSetInfo"
+  }
+]

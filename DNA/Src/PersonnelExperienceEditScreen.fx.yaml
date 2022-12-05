@@ -1,0 +1,899 @@
+"PersonnelExperienceEditScreen As screen.'phoneLayout_HeaderAndForm_ver3.0'":
+
+    PE_EditForm As form:
+        AcceptsFocus: =false
+        DataSource: ='Civilian Qualifications'
+        Height: =956
+        OnFailure: =Notify("An error occured, please try again.", NotificationType.Error)
+        OnSuccess: |-
+            =Set(BackPageVar, CivilQualificationScreen);
+            Navigate(FormOnSuccess, Transition.None, {BackPage: BackPageVar});
+        Width: =Parent.Width
+        Y: =PQ__MenuLowerHeader_1.Y+PQ__MenuLowerHeader_1.Height
+        ZIndex: =1
+
+        PE_City As typedDataCard.textualEditCard:
+            BorderStyle: =BorderStyle.Solid
+            DataField: ="cr5cd_city"
+            Default: =ThisItem.City
+            DisplayMode: =Parent.DisplayMode
+            DisplayName: ="City"
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =50
+            MaxLength: =DataSourceInfo([@'Civilian Qualifications'], DataSourceInfo.MaxLength, "cr5cd_city")
+            Required: =true
+            Update: =PE_CityValue.Text
+            Width: =640
+            X: =0
+            Y: =2
+            ZIndex: =1
+
+            PE_CityLabel As label:
+                AutoHeight: =true
+                Height: =48
+                Size: =21
+                Text: =__localizer.Localize("ANA_PERSEDIT_CITY", LangEn)
+                Width: =Parent.Width - 60
+                Wrap: =false
+                X: =30
+                Y: =10
+                ZIndex: =1
+
+            PE_CityValue As text:
+                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                Default: =Parent.Default
+                DelayOutput: =true
+                DisplayMode: =Parent.DisplayMode
+                Height: =70
+                MaxLength: =Parent.MaxLength
+                PaddingLeft: =5
+                RadiusBottomLeft: =0
+                RadiusBottomRight: =0
+                RadiusTopLeft: =0
+                RadiusTopRight: =0
+                Size: =21
+                Tooltip: =Parent.DisplayName
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =PE_CityLabel.Y + PE_CityLabel.Height + 5
+                ZIndex: =2
+
+            PE_CityErrorMessage As label:
+                AutoHeight: =true
+                Height: =10
+                Live: =Live.Assertive
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Size: =24
+                Text: =__localizer.Localize("ANA_PERSEDIT_CITY_REQUIRED", LangEn)
+                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =PE_CityValue.Y + PE_CityValue.Height
+                ZIndex: =3
+
+            PE_CityStar As label:
+                Align: =Align.Center
+                Height: =PE_CityLabel.Height
+                Size: =21
+                Text: ="*"
+                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                Width: =30
+                Wrap: =false
+                Y: =PE_CityLabel.Y
+                ZIndex: =4
+
+        PE_Personnel As typedDataCard.comboBoxEditCard:
+            BorderStyle: =BorderStyle.Solid
+            DataField: ="wywm_Personnel"
+            Default: =currPersonnel
+            DisplayMode: =Parent.DisplayMode
+            DisplayName: ="Personnel"
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =50
+            Required: =false
+            Update: =PE_PersonnelValue.Selected
+            Visible: =false
+            Width: =640
+            X: =0
+            Y: =6
+            ZIndex: =1
+
+            PE_PersonnelLabel As label:
+                AutoHeight: =true
+                Height: =48
+                Size: =21
+                Text: =Parent.DisplayName
+                Width: =Parent.Width - 60
+                Wrap: =false
+                X: =30
+                Y: =10
+                ZIndex: =1
+
+            PE_PersonnelValue As combobox:
+                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                DefaultSelectedItems: =Parent.Default
+                DisplayFields: =["wywm_name"]
+                DisplayMode: =Parent.DisplayMode
+                Height: =70
+                Items: =Choices([@'Civilian Qualifications'].wywm_Personnel)
+                PaddingLeft: =If(Self.DisplayMode = DisplayMode.Edit, 5, 0)
+                SearchFields: =["wywm_name"]
+                SearchItems: =Search(Choices([@'Civilian Qualifications'].wywm_Personnel),PE_PersonnelValue.SearchText,"wywm_name")
+                SelectMultiple: =false
+                Size: =21
+                Tooltip: =Parent.DisplayName
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =PE_PersonnelLabel.Y + PE_PersonnelLabel.Height + 5
+                ZIndex: =2
+
+            PE_PersonnelErrorMessage As label:
+                AutoHeight: =true
+                Height: =10
+                Live: =Live.Assertive
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Size: =24
+                Text: =Parent.Error
+                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =PE_PersonnelValue.Y + PE_PersonnelValue.Height
+                ZIndex: =3
+
+            PE_PersonnelStar As label:
+                Align: =Align.Center
+                Height: =PE_PersonnelLabel.Height
+                Size: =21
+                Text: ="*"
+                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                Width: =30
+                Wrap: =false
+                Y: =PE_PersonnelLabel.Y
+                ZIndex: =4
+
+        "'PE_Attachment#1' As typedDataCard.fileEditCard":
+            BorderStyle: =BorderStyle.Solid
+            DataField: ="cr5cd_attachment1"
+            Default: |-
+                =If(!IsBlank(ThisItem.'Attachment #1'.FileName), Table({DisplayName: ThisItem.'Attachment #1'.FileName, Value: ThisItem.'Attachment #1'.Value}), Blank())
+            DisplayMode: =Parent.DisplayMode
+            DisplayName: |-
+                ="Attachment #1"
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =50
+            Required: =true
+            Update: |-
+                ='PE_Attachment#1File'.Attachments
+            Width: =640
+            X: =0
+            Y: =7
+            ZIndex: =1
+
+            "'PE_Attachment#1Label' As label":
+                AutoHeight: =true
+                Height: =48
+                Size: =21
+                Text: |-
+                    =__localizer.Localize("ANA_PERSEDIT_ATTACHMENT", LangEn)&" #1"
+                Width: =Parent.Width - 60
+                Wrap: =false
+                X: =30
+                Y: =10
+                ZIndex: =1
+
+            "'PE_Attachment#1File' As attachments":
+                AddAttachmentText: =__localizer.Localize("ANA_PERSEDIT_UPLOAD_FILE", LangEn)
+                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                DisplayMode: =Parent.DisplayMode
+                Height: =170
+                IsInDataCard: =true
+                Items: =Parent.Default
+                MaxAttachments: =1
+                MaxAttachmentsText: =""
+                NoAttachmentsText: =__localizer.Localize("ANA_PERSEDIT_FILE_IS_REQUIRED", LangEn)
+                PaddingBottom: =5
+                PaddingLeft: =If(Self.DisplayMode = DisplayMode.Edit, 5, 0)
+                PaddingRight: =5
+                PaddingTop: =5
+                Size: =21
+                Tooltip: =Parent.DisplayName
+                Width: =Parent.Width - 60
+                X: =30
+                Y: |-
+                    ='PE_Attachment#1Label'.Y + 'PE_Attachment#1Label'.Height + 5
+                ZIndex: =2
+
+            "'PE_Attachment#1ErrorMessage' As label":
+                AutoHeight: =true
+                Height: =10
+                Live: =Live.Assertive
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Size: =24
+                Text: =__localizer.Localize("ANA_PERSEDIT_ATTACHMENT_REQUIRED", LangEn)
+                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                Width: =Parent.Width - 60
+                X: =30
+                Y: |-
+                    ='PE_Attachment#1File'.Y + 'PE_Attachment#1File'.Height
+                ZIndex: =3
+
+            "'PE_Attachment#1Star' As label":
+                Align: =Align.Center
+                Height: |-
+                    ='PE_Attachment#1Label'.Height
+                Size: =21
+                Text: ="*"
+                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                Width: =30
+                Wrap: =false
+                Y: |-
+                    ='PE_Attachment#1Label'.Y
+                ZIndex: =4
+
+        "'PE_Attachment#2' As typedDataCard.fileEditCard":
+            BorderStyle: =BorderStyle.Solid
+            DataField: ="cr5cd_attachment2"
+            Default: |-
+                =If(!IsBlank(ThisItem.'Attachment #2'.FileName), Table({DisplayName: ThisItem.'Attachment #2'.FileName, Value: ThisItem.'Attachment #2'.Value}), Blank())
+            DisplayMode: =Parent.DisplayMode
+            DisplayName: |-
+                ="Attachment #2"
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =50
+            Required: =false
+            Update: |-
+                ='PE_Attachment#2File'.Attachments
+            Width: =640
+            X: =0
+            Y: =8
+            ZIndex: =1
+
+            "'PE_Attachment#2Label' As label":
+                AutoHeight: =true
+                Height: =48
+                Size: =21
+                Text: |-
+                    =__localizer.Localize("ANA_PERSEDIT_ATTACHMENT", LangEn)&" #2"
+                Width: =Parent.Width - 60
+                Wrap: =false
+                X: =30
+                Y: =10
+                ZIndex: =1
+
+            "'PE_Attachment#2File' As attachments":
+                AddAttachmentText: =__localizer.Localize("ANA_PERSEDIT_UPLOAD_FILE", LangEn)
+                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                DisplayMode: =Parent.DisplayMode
+                Height: =170
+                IsInDataCard: =true
+                Items: =Parent.Default
+                MaxAttachments: =1
+                MaxAttachmentsText: =""
+                NoAttachmentsText: =__localizer.Localize("ANA_PERSEDIT_FILE_IS_REQUIRED", LangEn)
+                PaddingBottom: =5
+                PaddingLeft: =If(Self.DisplayMode = DisplayMode.Edit, 5, 0)
+                PaddingRight: =5
+                PaddingTop: =5
+                Size: =21
+                Tooltip: =Parent.DisplayName
+                Width: =Parent.Width - 60
+                X: =30
+                Y: |-
+                    ='PE_Attachment#2Label'.Y + 'PE_Attachment#2Label'.Height + 5
+                ZIndex: =2
+
+            "'PE_Attachment#2ErrorMessage' As label":
+                AutoHeight: =true
+                Height: =10
+                Live: =Live.Assertive
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Size: =24
+                Text: =Parent.Error
+                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                Width: =Parent.Width - 60
+                X: =30
+                Y: |-
+                    ='PE_Attachment#2File'.Y + 'PE_Attachment#2File'.Height
+                ZIndex: =3
+
+            "'PE_Attachment#2Star' As label":
+                Align: =Align.Center
+                Height: |-
+                    ='PE_Attachment#2Label'.Height
+                Size: =21
+                Text: ="*"
+                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                Width: =30
+                Wrap: =false
+                Y: |-
+                    ='PE_Attachment#2Label'.Y
+                ZIndex: =4
+
+        "'PE_Attachment#3' As typedDataCard.fileEditCard":
+            BorderStyle: =BorderStyle.Solid
+            DataField: ="cr5cd_attachment3"
+            Default: |-
+                =If(!IsBlank(ThisItem.'Attachment #3'.FileName), Table({DisplayName: ThisItem.'Attachment #3'.FileName, Value: ThisItem.'Attachment #3'.Value}), Blank())
+            DisplayMode: =Parent.DisplayMode
+            DisplayName: |-
+                ="Attachment #3"
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =50
+            Required: =false
+            Update: |-
+                ='PE_Attachment#3File'.Attachments
+            Width: =640
+            X: =0
+            Y: =9
+            ZIndex: =1
+
+            "'PE_Attachment#3Label' As label":
+                AutoHeight: =true
+                Height: =48
+                Size: =21
+                Text: |-
+                    =__localizer.Localize("ANA_PERSEDIT_ATTACHMENT", LangEn)&" #3"
+                Width: =Parent.Width - 60
+                Wrap: =false
+                X: =30
+                Y: =10
+                ZIndex: =1
+
+            "'PE_Attachment#3File' As attachments":
+                AddAttachmentText: =__localizer.Localize("ANA_PERSEDIT_UPLOAD_FILE", LangEn)
+                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                DisplayMode: =Parent.DisplayMode
+                Height: =170
+                IsInDataCard: =true
+                Items: =Parent.Default
+                MaxAttachments: =1
+                MaxAttachmentsText: =""
+                NoAttachmentsText: =__localizer.Localize("ANA_PERSEDIT_FILE_IS_REQUIRED", LangEn)
+                PaddingBottom: =5
+                PaddingLeft: =If(Self.DisplayMode = DisplayMode.Edit, 5, 0)
+                PaddingRight: =5
+                PaddingTop: =5
+                Size: =21
+                Tooltip: =Parent.DisplayName
+                Width: =Parent.Width - 60
+                X: =30
+                Y: |-
+                    ='PE_Attachment#3Label'.Y + 'PE_Attachment#3Label'.Height + 5
+                ZIndex: =2
+
+            "'PE_Attachment#3ErrorMessage' As label":
+                AutoHeight: =true
+                Height: =10
+                Live: =Live.Assertive
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Size: =24
+                Text: =Parent.Error
+                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                Width: =Parent.Width - 60
+                X: =30
+                Y: |-
+                    ='PE_Attachment#3File'.Y + 'PE_Attachment#3File'.Height
+                ZIndex: =3
+
+            "'PE_Attachment#3Star' As label":
+                Align: =Align.Center
+                Height: |-
+                    ='PE_Attachment#3Label'.Height
+                Size: =21
+                Text: ="*"
+                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                Width: =30
+                Wrap: =false
+                Y: |-
+                    ='PE_Attachment#3Label'.Y
+                ZIndex: =4
+
+        PE_JobTitle As typedDataCard.textualEditCard:
+            BorderStyle: =BorderStyle.Solid
+            DataField: ="wywm_jobtitle"
+            Default: =ThisItem.'Job Title'
+            DisplayMode: =Parent.DisplayMode
+            DisplayName: ="Job Title"
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =50
+            MaxLength: =DataSourceInfo([@'Civilian Qualifications'], DataSourceInfo.MaxLength, "wywm_jobtitle")
+            Required: =true
+            Update: =PE_JobTitleValue.Text
+            Width: =640
+            X: =0
+            Y: =0
+            ZIndex: =6
+
+            PE_JobTitleLabel As label:
+                AutoHeight: =true
+                Height: =48
+                Size: =21
+                Text: =__localizer.Localize("ANA_PERSEDIT_JOB_TITLE", LangEn)
+                Width: =Parent.Width - 60
+                Wrap: =false
+                X: =30
+                Y: =10
+                ZIndex: =1
+
+            PE_JobTitleValue As text:
+                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                Default: =Parent.Default
+                DelayOutput: =true
+                DisplayMode: =Parent.DisplayMode
+                Height: =70
+                MaxLength: =Parent.MaxLength
+                PaddingLeft: =5
+                RadiusBottomLeft: =0
+                RadiusBottomRight: =0
+                RadiusTopLeft: =0
+                RadiusTopRight: =0
+                Size: =21
+                Tooltip: =Parent.DisplayName
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =PE_JobTitleLabel.Y + PE_JobTitleLabel.Height + 5
+                ZIndex: =2
+
+            PE_JobTitleErrorMessage As label:
+                AutoHeight: =true
+                Height: =10
+                Live: =Live.Assertive
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Size: =24
+                Text: =__localizer.Localize("ANA_PERSEDIT_JOB_TITLE_REQUIRED", LangEn)
+                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =PE_JobTitleValue.Y + PE_JobTitleValue.Height
+                ZIndex: =3
+
+            PE_JobTitleStar As label:
+                Align: =Align.Center
+                Height: =PE_JobTitleLabel.Height
+                Size: =21
+                Text: ="*"
+                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                Width: =30
+                Wrap: =false
+                Y: =PE_JobTitleLabel.Y
+                ZIndex: =4
+
+        PE_CompanyName As typedDataCard.textualEditCard:
+            BorderStyle: =BorderStyle.Solid
+            DataField: ="wywm_companyname"
+            Default: =ThisItem.'Company Name'
+            DisplayMode: =Parent.DisplayMode
+            DisplayName: ="Company Name"
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =50
+            MaxLength: =DataSourceInfo([@'Civilian Qualifications'], DataSourceInfo.MaxLength, "wywm_companyname")
+            Required: =true
+            Update: =PE_CompanyNameValue.Text
+            Width: =640
+            X: =0
+            Y: =1
+            ZIndex: =6
+
+            PE_CompanyNameLabel As label:
+                AutoHeight: =true
+                Height: =48
+                Size: =21
+                Text: =__localizer.Localize("ANA_PERSEDIT_COMPANY_NAME", LangEn)
+                Width: =Parent.Width - 60
+                Wrap: =false
+                X: =30
+                Y: =10
+                ZIndex: =1
+
+            PE_CompanyNameValue As text:
+                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                Default: =Parent.Default
+                DelayOutput: =true
+                DisplayMode: =Parent.DisplayMode
+                Height: =70
+                MaxLength: =Parent.MaxLength
+                PaddingLeft: =5
+                RadiusBottomLeft: =0
+                RadiusBottomRight: =0
+                RadiusTopLeft: =0
+                RadiusTopRight: =0
+                Size: =21
+                Tooltip: =Parent.DisplayName
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =PE_CompanyNameLabel.Y + PE_CompanyNameLabel.Height + 5
+                ZIndex: =2
+
+            PE_CompanyNameErrorMessage As label:
+                AutoHeight: =true
+                Height: =10
+                Live: =Live.Assertive
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Size: =24
+                Text: =__localizer.Localize("ANA_PERSEDIT_COMPANY_NAME_REQUIRED", LangEn)
+                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =PE_CompanyNameValue.Y + PE_CompanyNameValue.Height
+                ZIndex: =3
+
+            PE_CompanyNameStar As label:
+                Align: =Align.Center
+                Height: =PE_CompanyNameLabel.Height
+                Size: =21
+                Text: ="*"
+                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                Width: =30
+                Wrap: =false
+                Y: =PE_CompanyNameLabel.Y
+                ZIndex: =4
+
+        PE_JobField As typedDataCard.comboBoxOptionSetSingleEditCard:
+            BorderStyle: =BorderStyle.Solid
+            DataField: ="wywm_jobfield"
+            Default: =ThisItem.'Job Field'
+            DisplayMode: =Parent.DisplayMode
+            DisplayName: ="Job Field"
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =50
+            Required: =true
+            Update: =PE_JobFieldValue.Selected.Value
+            Width: =640
+            X: =0
+            Y: =3
+            ZIndex: =6
+
+            PE_JobFieldLabel As label:
+                AutoHeight: =true
+                Height: =48
+                Size: =21
+                Text: =__localizer.Localize("ANA_PERSEDIT_JOB_FIELD", LangEn)
+                Width: =Parent.Width - 60
+                Wrap: =false
+                X: =30
+                Y: =10
+                ZIndex: =1
+
+            PE_JobFieldValue As combobox:
+                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                DefaultSelectedItems: =[Parent.Default]
+                DisplayFields: =["Value"]
+                DisplayMode: =Parent.DisplayMode
+                Height: =70
+                IsSearchable: =false
+                Items: =Choices('Job Field')
+                PaddingLeft: =If(Self.DisplayMode = DisplayMode.Edit, 5, 0)
+                SearchFields: =["Value"]
+                SearchItems: =[]
+                SelectMultiple: =false
+                Size: =21
+                Tooltip: =Parent.DisplayName
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =PE_JobFieldLabel.Y + PE_JobFieldLabel.Height + 5
+                ZIndex: =2
+
+            PE_JobFieldErrorMessage As label:
+                AutoHeight: =true
+                Height: =10
+                Live: =Live.Assertive
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Size: =24
+                Text: =__localizer.Localize("ANA_PERSEDIT_JOB_FIELD_REQUIRED", LangEn)
+                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =PE_JobFieldValue.Y + PE_JobFieldValue.Height
+                ZIndex: =3
+
+            PE_JobFieldStar As label:
+                Align: =Align.Center
+                Height: =PE_JobFieldLabel.Height
+                Size: =21
+                Text: ="*"
+                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                Width: =30
+                Wrap: =false
+                Y: =PE_JobFieldLabel.Y
+                ZIndex: =4
+
+        PE_DateFrom As typedDataCard.dateTimeEditCard:
+            BorderStyle: =BorderStyle.Solid
+            DataField: ="wywm_datefrom"
+            Default: =ThisItem.'Date From'
+            DisplayMode: =Parent.DisplayMode
+            DisplayName: ="Date From"
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =//__localizer.Localize("ANA_PERSEDIT_JOB_FIELD_REQUIRED", LangEn)
+            Required: =true
+            Update: =PE_DateFromDateValue.SelectedDate + Time(Value(PE_DateFromHourValue.Selected.Value), Value(PE_DateFromMinuteValue.Selected.Value), 0)
+            Width: =640
+            X: =0
+            Y: =4
+            ZIndex: =6
+
+            PE_DateFromLabel As label:
+                AutoHeight: =true
+                Height: =48
+                Size: =21
+                Text: =__localizer.Localize("ANA_PERSEDIT_DATE_FROM", LangEn)
+                Width: =Parent.Width - 60
+                Wrap: =false
+                X: =30
+                Y: =10
+                ZIndex: =1
+
+            PE_DateFromDateValue As datepicker:
+                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                DefaultDate: =Parent.Default
+                DisplayMode: =Parent.DisplayMode
+                EndYear: =Year(Today())+100
+                Height: =70
+                IsEditable: =true
+                PaddingBottom: =0
+                PaddingLeft: =If(Self.DisplayMode = DisplayMode.Edit, 5, 0)
+                Size: =24
+                StartYear: =1899
+                Tooltip: =Parent.DisplayName
+                Width: =580
+                X: =30
+                Y: =PE_DateFromLabel.Y + PE_DateFromLabel.Height + 5
+                ZIndex: =2
+
+            PE_DateFromHourValue As dropdown:
+                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                Default: =Text(Hour(Parent.Default),"00")
+                DisplayMode: =Parent.DisplayMode
+                Height: =PE_DateFromDateValue.Height
+                Items: =["00","01","02","03","04","05","06","07","08","09","10","11","12","13","14","15","16","17","18","19","20","21","22","23"]
+                PaddingBottom: =5
+                PaddingLeft: =If(Self.DisplayMode = DisplayMode.Edit, 5, 0)
+                PaddingRight: =5
+                PaddingTop: =5
+                Size: =21
+                Tooltip: =Parent.DisplayName
+                Visible: =false
+                Width: =PE_DateFromDateValue.Width / 2 - 10
+                X: =PE_DateFromDateValue.X + PE_DateFromDateValue.Width + 10
+                Y: =PE_DateFromDateValue.Y
+                ZIndex: =3
+
+            PE_DateFromSeparator As label:
+                Align: =Align.Center
+                FontWeight: =FontWeight.Bold
+                Height: =PE_DateFromHourValue.Height
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Size: =21
+                Text: |-
+                    =":"
+                Visible: =false
+                Width: =10
+                Wrap: =false
+                X: =PE_DateFromHourValue.X + PE_DateFromHourValue.Width
+                Y: =PE_DateFromHourValue.Y
+                ZIndex: =4
+
+            PE_DateFromMinuteValue As dropdown:
+                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                Default: =Text(Minute(Parent.Default),"00")
+                DisplayMode: =Parent.DisplayMode
+                Height: =PE_DateFromHourValue.Height
+                Items: =["00","01","02","03","04","05","06","07","08","09","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31","32","33","34","35","36","37","38","39","40","41","42","43","44","45","46","47","48","49","50","51","52","53","54","55","56","57","58","59"]
+                PaddingBottom: =5
+                PaddingLeft: =If(Self.DisplayMode = DisplayMode.Edit, 5, 0)
+                PaddingRight: =5
+                PaddingTop: =5
+                Size: =21
+                Tooltip: =Parent.DisplayName
+                Visible: =false
+                Width: =PE_DateFromHourValue.Width
+                X: =PE_DateFromHourValue.X + PE_DateFromHourValue.Width + PE_DateFromSeparator.Width
+                Y: =PE_DateFromHourValue.Y
+                ZIndex: =5
+
+            PE_DateFromErrorMessage As label:
+                AutoHeight: =true
+                Height: =10
+                Live: =Live.Assertive
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Size: =24
+                Text: =__localizer.Localize("ANA_PERSEDIT_DATE_FROM_REQUIRED", LangEn)
+                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =PE_DateFromHourValue.Y + PE_DateFromHourValue.Height
+                ZIndex: =6
+
+            PE_DateFromStar As label:
+                Align: =Align.Center
+                Height: =PE_DateFromLabel.Height
+                Size: =21
+                Text: ="*"
+                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                Width: =30
+                Wrap: =false
+                Y: =PE_DateFromLabel.Y
+                ZIndex: =7
+
+        PE_DateTo As typedDataCard.dateTimeEditCard:
+            BorderStyle: =BorderStyle.Solid
+            DataField: ="wywm_dateto"
+            Default: =ThisItem.'Date To'
+            DisplayMode: =Parent.DisplayMode
+            DisplayName: ="Date To"
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =50
+            Required: =true
+            Update: =PE_DateToDateValue.SelectedDate + Time(Value(PE_DateToHourValue.Selected.Value), Value(PE_DateToMinuteValue.Selected.Value), 0)
+            Width: =640
+            X: =0
+            Y: =5
+            ZIndex: =6
+
+            PE_DateToLabel As label:
+                AutoHeight: =true
+                Height: =48
+                Size: =21
+                Text: =__localizer.Localize("ANA_PERSEDIT_DATE_TO", LangEn)
+                Width: =Parent.Width - 60
+                Wrap: =false
+                X: =30
+                Y: =10
+                ZIndex: =1
+
+            PE_DateToDateValue As datepicker:
+                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                DefaultDate: =Parent.Default
+                DisplayMode: =Parent.DisplayMode
+                EndYear: =Year(Today())+100
+                Height: =70
+                IsEditable: =true
+                PaddingBottom: =0
+                PaddingLeft: =If(Self.DisplayMode = DisplayMode.Edit, 5, 0)
+                Size: =24
+                StartYear: =1899
+                Tooltip: =Parent.DisplayName
+                Width: =580
+                X: =30
+                Y: =PE_DateToLabel.Y + PE_DateToLabel.Height + 5
+                ZIndex: =2
+
+            PE_DateToHourValue As dropdown:
+                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                Default: =Text(Hour(Parent.Default),"00")
+                DisplayMode: =Parent.DisplayMode
+                Height: =PE_DateToDateValue.Height
+                Items: =["00","01","02","03","04","05","06","07","08","09","10","11","12","13","14","15","16","17","18","19","20","21","22","23"]
+                PaddingBottom: =5
+                PaddingLeft: =If(Self.DisplayMode = DisplayMode.Edit, 5, 0)
+                PaddingRight: =5
+                PaddingTop: =5
+                Size: =21
+                Tooltip: =Parent.DisplayName
+                Visible: =false
+                Width: =PE_DateToDateValue.Width / 2 - 10
+                X: =PE_DateToDateValue.X + PE_DateToDateValue.Width + 10
+                Y: =PE_DateToDateValue.Y
+                ZIndex: =3
+
+            PE_DateToSeparator As label:
+                Align: =Align.Center
+                FontWeight: =FontWeight.Bold
+                Height: =PE_DateToHourValue.Height
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Size: =21
+                Text: |-
+                    =":"
+                Visible: =false
+                Width: =10
+                Wrap: =false
+                X: =PE_DateToHourValue.X + PE_DateToHourValue.Width
+                Y: =PE_DateToHourValue.Y
+                ZIndex: =4
+
+            PE_DateToMinuteValue As dropdown:
+                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                Default: =Text(Minute(Parent.Default),"00")
+                DisplayMode: =Parent.DisplayMode
+                Height: =PE_DateToHourValue.Height
+                Items: =["00","01","02","03","04","05","06","07","08","09","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31","32","33","34","35","36","37","38","39","40","41","42","43","44","45","46","47","48","49","50","51","52","53","54","55","56","57","58","59"]
+                PaddingBottom: =5
+                PaddingLeft: =If(Self.DisplayMode = DisplayMode.Edit, 5, 0)
+                PaddingRight: =5
+                PaddingTop: =5
+                Size: =21
+                Tooltip: =Parent.DisplayName
+                Visible: =false
+                Width: =PE_DateToHourValue.Width
+                X: =PE_DateToHourValue.X + PE_DateToHourValue.Width + PE_DateToSeparator.Width
+                Y: =PE_DateToHourValue.Y
+                ZIndex: =5
+
+            PE_DateToErrorMessage As label:
+                AutoHeight: =true
+                Height: =10
+                Live: =Live.Assertive
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Size: =24
+                Text: =__localizer.Localize("ANA_PERSEDIT_DATE_TO_REQUIRED", LangEn)
+                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =PE_DateToHourValue.Y + PE_DateToHourValue.Height
+                ZIndex: =6
+
+            PE_DateToStar As label:
+                Align: =Align.Center
+                Height: =PE_DateToLabel.Height
+                Size: =21
+                Text: ="*"
+                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                Width: =30
+                Wrap: =false
+                Y: =PE_DateToLabel.Y
+                ZIndex: =7
+
+    PQ_MainHeader_1 As MainHeader:
+        PersonalImage: =currPersonnelImage
+        PersonalInfoScreen: =PersonalInfoScreen
+        ZIndex: =2
+
+    PQ__MenuLowerHeader_1 As MenuLowerHeader:
+        LowerMenuTextLabel: =__localizer.Localize("ANA_PERSEDIT_ADD_DETAILS", LangEn)
+        Y: =PQ_MainHeader_1.Height
+        ZIndex: =3
+
+    PQ_Submit_1 As icon.Check:
+        AccessibleLabel: =Self.Tooltip
+        Height: =88
+        Icon: =Icon.Check
+        OnSelect: |-
+            =SubmitForm(PE_EditForm);
+            Refresh('Civilian Qualifications');
+        PaddingBottom: =22
+        PaddingLeft: =22
+        PaddingRight: =22
+        PaddingTop: =22
+        TabIndex: =0
+        Tooltip: ="Submit item"
+        Width: =88
+        X: =Parent.Width - Self.Width
+        Y: =91
+        ZIndex: =4
+

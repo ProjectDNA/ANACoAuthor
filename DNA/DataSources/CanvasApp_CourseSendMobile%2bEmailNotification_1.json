@@ -1,0 +1,9 @@
+[
+  {
+    "AddinConnectorId": "9b950f05-b051-43cc-8465-f82ec30375b4",
+    "AddinId": "6d1f157d-95bf-406d-b65d-cfd3240f724e",
+    "Name": "CanvasApp_CourseSendMobile+EmailNotification_1",
+    "ServiceKind": "AddinWadl",
+    "Type": "ServiceInfo"
+  }
+]

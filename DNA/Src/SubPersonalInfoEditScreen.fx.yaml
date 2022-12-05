@@ -1,0 +1,751 @@
+"SubPersonalInfoEditScreen As screen.'phoneLayout_HeaderAndForm_ver3.0'":
+    OnVisible: |-
+        =Refresh(PendingPersonalDetailsChanges);
+        
+        Set(
+            PendingRecordBlank,
+            IsBlank(
+                LookUp(
+                    PendingPersonalDetailsChanges,
+                    OwningPersonnelRecord.Personnel = currPersonnel.Personnel
+                )
+            )
+        )
+
+    SPIE_MenuLowerHeader_1 As MenuLowerHeader:
+        BackScreen: =SubPersonalInfoScreen
+        LowerMenuTextLabel: =__localizer.Localize("ANA_CONTACT_PERSONAL_INFO", LangEn)
+        Y: =90
+
+    SPIE_Form_1 As form:
+        AcceptsFocus: =false
+        DataSource: =Personnels
+        Height: =956
+        Item: =currPersonnel
+        OnFailure: =
+        OnSuccess: |-
+            =Navigate(FormOnSuccess);
+            // Refresh datasource
+            Refresh(Personnels);
+            // set the variable again (currPersonnel is used for EditForm2.Item)
+            Set(currPersonnel,LookUp(Personnels,'System User'.User=DataVerseUserGuid));
+        Width: =Parent.Width
+        Y: =180
+        ZIndex: =2
+
+        "'spieAddress 1 : Street_1' As typedDataCard.textualEditCard":
+            BorderStyle: =BorderStyle.Solid
+            DataField: ="wywm_address1street1"
+            Default: |-
+                =ThisItem.'Address 1 : Street 1'
+            DisplayMode: =Parent.DisplayMode
+            DisplayName: |-
+                ="Address 1 : Street 1"
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =50
+            MaxLength: =DataSourceInfo([@Personnels], DataSourceInfo.MaxLength, "wywm_address1street1")
+            Required: =true
+            Update: |-
+                ='spieAddress1:StreetDataCardValue_1'.Text
+            Width: =640
+            X: =0
+            Y: =1
+            ZIndex: =1
+
+            "'spieAddress1:StreetLabel_1' As label":
+                AutoHeight: =true
+                Height: =48
+                Size: =21
+                Text: =__localizer.Localize("ANA_PERSINFO_EDIT_STREET", LangEn)
+                Width: =Parent.Width - 60
+                Wrap: =false
+                X: =30
+                Y: =10
+                ZIndex: =1
+
+            "'spieAddress1:StreetDataCardValue_1' As text":
+                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                Default: =Parent.Default
+                DelayOutput: =true
+                DisplayMode: =Parent.DisplayMode
+                Height: =70
+                MaxLength: =Parent.MaxLength
+                PaddingLeft: =5
+                RadiusBottomLeft: =0
+                RadiusBottomRight: =0
+                RadiusTopLeft: =0
+                RadiusTopRight: =0
+                Size: =21
+                Tooltip: =Parent.DisplayName
+                Width: =Parent.Width - 60
+                X: =30
+                Y: |-
+                    ='spieAddress1:StreetLabel_1'.Y + 'spieAddress1:StreetLabel_1'.Height + 5
+                ZIndex: =2
+
+            "'spieAddress1:StreetErrorMessage_1' As label":
+                AutoHeight: =true
+                Height: =10
+                Live: =Live.Assertive
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Size: =24
+                Text: =__localizer.Localize("ANA_PERSINFO_EDIT_STREET_REQUIRED", LangEn)
+                Visible: =false
+                Width: =Parent.Width - 60
+                X: =30
+                Y: |-
+                    ='spieAddress1:StreetDataCardValue_1'.Y + 'spieAddress1:StreetDataCardValue_1'.Height
+                ZIndex: =3
+
+            "'spieAddress1:StreetStar_1' As label":
+                Align: =Align.Center
+                Height: |-
+                    ='spieAddress1:StreetLabel_1'.Height
+                Size: =21
+                Text: ="*"
+                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                Width: =30
+                Wrap: =false
+                Y: |-
+                    ='spieAddress1:StreetLabel_1'.Y
+                ZIndex: =4
+
+        "'spieAddress 1 : City_1' As typedDataCard.textualEditCard":
+            BorderStyle: =BorderStyle.Solid
+            DataField: ="wywm_address1city"
+            Default: |-
+                =ThisItem.'Address 1 : City'
+            DisplayMode: =Parent.DisplayMode
+            DisplayName: |-
+                ="Address 1 : City"
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =50
+            MaxLength: =DataSourceInfo([@Personnels], DataSourceInfo.MaxLength, "wywm_address1city")
+            Required: =true
+            Update: |-
+                ='spieAddress1:CityDataCardValue_1'.Text
+            Width: =640
+            X: =0
+            Y: =2
+            ZIndex: =1
+
+            "'spieAddress1:CityLabel_1' As label":
+                AutoHeight: =true
+                Height: =48
+                Size: =21
+                Text: =__localizer.Localize("ANA_PERSINFO_EDIT_CITY", LangEn)
+                Width: =Parent.Width - 60
+                Wrap: =false
+                X: =30
+                Y: =10
+                ZIndex: =1
+
+            "'spieAddress1:CityDataCardValue_1' As text":
+                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                Default: =Parent.Default
+                DelayOutput: =true
+                DisplayMode: =Parent.DisplayMode
+                Height: =70
+                MaxLength: =Parent.MaxLength
+                PaddingLeft: =5
+                RadiusBottomLeft: =0
+                RadiusBottomRight: =0
+                RadiusTopLeft: =0
+                RadiusTopRight: =0
+                Size: =21
+                Tooltip: =Parent.DisplayName
+                Width: =Parent.Width - 60
+                X: =30
+                Y: |-
+                    ='spieAddress1:CityLabel_1'.Y + 'spieAddress1:CityLabel_1'.Height + 5
+                ZIndex: =2
+
+            "'spieAddress1:CityErrorMessage_1' As label":
+                AutoHeight: =true
+                Height: =10
+                Live: =Live.Assertive
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Size: =24
+                Text: =__localizer.Localize("ANA_PERSINFO_EDIT_CITY_REQUIRED", LangEn)
+                Visible: =false
+                Width: =Parent.Width - 60
+                X: =30
+                Y: |-
+                    ='spieAddress1:CityDataCardValue_1'.Y + 'spieAddress1:CityDataCardValue_1'.Height
+                ZIndex: =3
+
+            "'spieAddress1:CityStar_1' As label":
+                Align: =Align.Center
+                Height: |-
+                    ='spieAddress1:CityLabel_1'.Height
+                Size: =21
+                Text: ="*"
+                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                Width: =30
+                Wrap: =false
+                Y: |-
+                    ='spieAddress1:CityLabel_1'.Y
+                ZIndex: =4
+
+        "'spieAddress 1 : Country_1' As typedDataCard.textualEditCard":
+            BorderStyle: =BorderStyle.Solid
+            DataField: ="wywm_address1country"
+            Default: |-
+                =ThisItem.'Address 1 : Country'
+            DisplayMode: =Parent.DisplayMode
+            DisplayName: |-
+                ="Address 1 : Country"
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =50
+            MaxLength: =DataSourceInfo([@Personnels], DataSourceInfo.MaxLength, "wywm_address1country")
+            Required: =true
+            Update: |-
+                ='spieAddress1:CountryDataCardValue_1'.Text
+            Width: =640
+            X: =0
+            Y: =3
+            ZIndex: =1
+
+            "'spieAddress1:CountryLabel_1' As label":
+                AutoHeight: =true
+                Height: =48
+                Size: =21
+                Text: =__localizer.Localize("ANA_PERSINFO_EDIT_COUNTRY", LangEn)
+                Width: =Parent.Width - 60
+                Wrap: =false
+                X: =30
+                Y: =10
+                ZIndex: =1
+
+            "'spieAddress1:CountryDataCardValue_1' As text":
+                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                Default: =Parent.Default
+                DelayOutput: =true
+                DisplayMode: =Parent.DisplayMode
+                Height: =70
+                MaxLength: =Parent.MaxLength
+                PaddingLeft: =5
+                RadiusBottomLeft: =0
+                RadiusBottomRight: =0
+                RadiusTopLeft: =0
+                RadiusTopRight: =0
+                Size: =21
+                Tooltip: =Parent.DisplayName
+                Width: =Parent.Width - 60
+                X: =30
+                Y: |-
+                    ='spieAddress1:CountryLabel_1'.Y + 'spieAddress1:CountryLabel_1'.Height + 5
+                ZIndex: =2
+
+            "'spieAddress1:CountryErrorMessage_1' As label":
+                AutoHeight: =true
+                Height: =10
+                Live: =Live.Assertive
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Size: =24
+                Text: =__localizer.Localize("ANA_PERSINFO_EDIT_COUNTRY_REQUIRED", LangEn)
+                Visible: =false
+                Width: =Parent.Width - 60
+                X: =30
+                Y: |-
+                    ='spieAddress1:CountryDataCardValue_1'.Y + 'spieAddress1:CountryDataCardValue_1'.Height
+                ZIndex: =3
+
+            "'spieAddress1:CountryStar_1' As label":
+                Align: =Align.Center
+                Height: |-
+                    ='spieAddress1:CountryLabel_1'.Height
+                Size: =21
+                Text: ="*"
+                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                Width: =30
+                Wrap: =false
+                Y: |-
+                    ='spieAddress1:CountryLabel_1'.Y
+                ZIndex: =4
+
+        "'spieAddress 1 : Province_1' As typedDataCard.textualEditCard":
+            BorderStyle: =BorderStyle.Solid
+            DataField: ="wywm_address1province"
+            Default: |-
+                =ThisItem.'Address 1 : Province '
+            DisplayMode: =Parent.DisplayMode
+            DisplayName: |-
+                ="Address 1 : Province "
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =50
+            MaxLength: =DataSourceInfo([@Personnels], DataSourceInfo.MaxLength, "wywm_address1province")
+            Required: =true
+            Update: |-
+                ='spieAddress1:ProvinceDataCardValue_1'.Text
+            Width: =640
+            X: =0
+            Y: =4
+            ZIndex: =1
+
+            "'spieAddress1:ProvinceLabel_1' As label":
+                AutoHeight: =true
+                Height: =48
+                Size: =21
+                Text: =Parent.DisplayName
+                Width: =Parent.Width - 60
+                Wrap: =false
+                X: =30
+                Y: =10
+                ZIndex: =1
+
+            "'spieAddress1:ProvinceDataCardValue_1' As text":
+                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                Default: =Parent.Default
+                DelayOutput: =true
+                DisplayMode: =Parent.DisplayMode
+                Height: =70
+                MaxLength: =Parent.MaxLength
+                PaddingLeft: =5
+                RadiusBottomLeft: =0
+                RadiusBottomRight: =0
+                RadiusTopLeft: =0
+                RadiusTopRight: =0
+                Size: =21
+                Tooltip: =Parent.DisplayName
+                Width: =Parent.Width - 60
+                X: =30
+                Y: |-
+                    ='spieAddress1:ProvinceLabel_1'.Y + 'spieAddress1:ProvinceLabel_1'.Height + 5
+                ZIndex: =2
+
+            "'spieAddress1:ProvinceErrorMessage_1' As label":
+                AutoHeight: =true
+                Height: =10
+                Live: =Live.Assertive
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Size: =24
+                Text: =__localizer.Localize("ANA_PERSINFO_EDIT_PROVINCE_REQUIRED", LangEn)
+                Visible: =false
+                Width: =Parent.Width - 60
+                X: =30
+                Y: |-
+                    ='spieAddress1:ProvinceDataCardValue_1'.Y + 'spieAddress1:ProvinceDataCardValue_1'.Height
+                ZIndex: =3
+
+            "'spieAddress1:ProvinceStar_1' As label":
+                Align: =Align.Center
+                Height: |-
+                    ='spieAddress1:ProvinceLabel_1'.Height
+                Size: =21
+                Text: ="*"
+                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                Width: =30
+                Wrap: =false
+                Y: |-
+                    ='spieAddress1:ProvinceLabel_1'.Y
+                ZIndex: =4
+
+        "'spieAddress 1 : Postal Code_1' As typedDataCard.textualEditCard":
+            BorderStyle: =BorderStyle.Solid
+            DataField: ="wywm_address1postalcode"
+            Default: |-
+                =ThisItem.'Address 1 : Postal Code'
+            DisplayMode: =Parent.DisplayMode
+            DisplayName: |-
+                ="Address 1 : Postal Code"
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =50
+            MaxLength: =DataSourceInfo([@Personnels], DataSourceInfo.MaxLength, "wywm_address1postalcode")
+            Required: =true
+            Update: |-
+                ='spieAddress1:PostalCodeDataCardValue_1'.Text
+            Width: =640
+            X: =0
+            Y: =5
+            ZIndex: =1
+
+            "'spieAddress1:PostalCodeLabel_1' As label":
+                AutoHeight: =true
+                Height: =48
+                Size: =21
+                Text: =__localizer.Localize("ANA_PERSINFO_EDIT_POSTAL_CODE", LangEn)
+                Width: =Parent.Width - 60
+                Wrap: =false
+                X: =30
+                Y: =10
+                ZIndex: =1
+
+            "'spieAddress1:PostalCodeDataCardValue_1' As text":
+                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                Default: =Parent.Default
+                DelayOutput: =true
+                DisplayMode: =Parent.DisplayMode
+                Height: =70
+                MaxLength: =Parent.MaxLength
+                PaddingLeft: =5
+                RadiusBottomLeft: =0
+                RadiusBottomRight: =0
+                RadiusTopLeft: =0
+                RadiusTopRight: =0
+                Size: =21
+                Tooltip: =Parent.DisplayName
+                Width: =Parent.Width - 60
+                X: =30
+                Y: |-
+                    ='spieAddress1:PostalCodeLabel_1'.Y + 'spieAddress1:PostalCodeLabel_1'.Height + 5
+                ZIndex: =2
+
+            "'spieAddress1:PostalCodeErrorMessage_1' As label":
+                AutoHeight: =true
+                Height: =10
+                Live: =Live.Assertive
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Size: =24
+                Text: =__localizer.Localize("ANA_PERSINFO_EDIT_POSTAL_CODE_REQUIRED", LangEn)
+                Visible: =false
+                Width: =Parent.Width - 60
+                X: =30
+                Y: |-
+                    ='spieAddress1:PostalCodeDataCardValue_1'.Y + 'spieAddress1:PostalCodeDataCardValue_1'.Height
+                ZIndex: =3
+
+            "'spieAddress1:PostalCodeStar_1' As label":
+                Align: =Align.Center
+                Height: |-
+                    ='spieAddress1:PostalCodeLabel_1'.Height
+                Size: =21
+                Text: ="*"
+                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                Width: =30
+                Wrap: =false
+                Y: |-
+                    ='spieAddress1:PostalCodeLabel_1'.Y
+                ZIndex: =4
+
+        spieReligion_1 As typedDataCard.textualEditCard:
+            BorderStyle: =BorderStyle.Solid
+            DataField: ="wywm_religion"
+            Default: =ThisItem.Religion
+            DisplayMode: =Parent.DisplayMode
+            DisplayName: ="Religion"
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =50
+            MaxLength: =DataSourceInfo([@Personnels], DataSourceInfo.MaxLength, "wywm_religion")
+            Required: =false
+            Update: =spieReligionDataCardValue_1.Text
+            Width: =640
+            X: =0
+            Y: =6
+            ZIndex: =1
+
+            spieReligionLabel_1 As label:
+                AutoHeight: =true
+                Height: =48
+                Size: =21
+                Text: =Parent.DisplayName
+                Width: =Parent.Width - 60
+                Wrap: =false
+                X: =30
+                Y: =10
+                ZIndex: =1
+
+            spieReligionDataCardValue_1 As text:
+                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                Default: =Parent.Default
+                DelayOutput: =true
+                DisplayMode: =Parent.DisplayMode
+                Height: =70
+                MaxLength: =Parent.MaxLength
+                PaddingLeft: =5
+                RadiusBottomLeft: =0
+                RadiusBottomRight: =0
+                RadiusTopLeft: =0
+                RadiusTopRight: =0
+                Size: =21
+                Tooltip: =Parent.DisplayName
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =spieReligionLabel_1.Y + spieReligionLabel_1.Height + 5
+                ZIndex: =2
+
+            spieReligionErrorMessage_1 As label:
+                AutoHeight: =true
+                Height: =10
+                Live: =Live.Assertive
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Size: =24
+                Text: =Parent.Error
+                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =spieReligionDataCardValue_1.Y + spieReligionDataCardValue_1.Height
+                ZIndex: =3
+
+            spieReligionStar_1 As label:
+                Align: =Align.Center
+                Height: =spieReligionLabel_1.Height
+                Size: =21
+                Text: ="*"
+                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                Width: =30
+                Wrap: =false
+                Y: =spieReligionLabel_1.Y
+                ZIndex: =4
+
+        "'Job Field_DataCard1' As typedDataCard.comboBoxOptionSetSingleEditCard":
+            BorderStyle: =BorderStyle.Solid
+            DataField: ="wywm_jobfield"
+            Default: =ThisItem.'Job Field'
+            DisplayMode: =Parent.DisplayMode
+            DisplayName: =DataSourceInfo([@Personnels],DataSourceInfo.DisplayName,"wywm_jobfield")
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =50
+            Required: =false
+            Update: =DataCardValue1.Selected.Value
+            Width: =640
+            X: =0
+            Y: =7
+            ZIndex: =1
+
+            DataCardKey1 As label:
+                AutoHeight: =true
+                Height: =48
+                Size: =21
+                Text: =Parent.DisplayName
+                Width: =Parent.Width - 60
+                Wrap: =false
+                X: =30
+                Y: =10
+                ZIndex: =1
+
+            DataCardValue1 As combobox:
+                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                DefaultSelectedItems: =[Parent.Default]
+                DisplayFields: =["Value"]
+                DisplayMode: =Parent.DisplayMode
+                Height: =70
+                IsSearchable: =false
+                Items: =Choices('Job Field')
+                PaddingLeft: =If(Self.DisplayMode = DisplayMode.Edit, 5, 0)
+                SearchFields: =["Value"]
+                SearchItems: =[]
+                SelectMultiple: =false
+                Size: =21
+                Tooltip: =Parent.DisplayName
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =DataCardKey1.Y + DataCardKey1.Height + 5
+                ZIndex: =2
+
+            ErrorMessage1 As label:
+                AutoHeight: =true
+                Height: =10
+                Live: =Live.Assertive
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Size: =24
+                Text: =Parent.Error
+                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =DataCardValue1.Y + DataCardValue1.Height
+                ZIndex: =3
+
+            StarVisible1 As label:
+                Align: =Align.Center
+                Height: =DataCardKey1.Height
+                Size: =21
+                Text: ="*"
+                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                Width: =30
+                Wrap: =false
+                Y: =DataCardKey1.Y
+                ZIndex: =4
+
+        spieMobilePhone_1 As typedDataCard.textualEditCard:
+            BorderStyle: =BorderStyle.Solid
+            DataField: ="wywm_mobilephonenumber"
+            Default: =ThisItem.'Mobile Phone Number'
+            DisplayMode: =Parent.DisplayMode
+            DisplayName: ="Mobile Phone Number"
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =50
+            MaxLength: =DataSourceInfo([@Personnels], DataSourceInfo.MaxLength, "wywm_mobilephonenumber")
+            Required: =true
+            Update: =spieMobilePhoneDataCardValue_1.Text
+            Width: =640
+            X: =0
+            Y: =0
+            ZIndex: =6
+
+            spieMobilePhoneLabel_1 As label:
+                AutoHeight: =true
+                Height: =48
+                Size: =21
+                Text: =__localizer.Localize("ANA_CONTACT_MOBILE_NUMB", LangEn)
+                Width: =Parent.Width - 60
+                Wrap: =false
+                X: =30
+                Y: =10
+                ZIndex: =1
+
+            spieMobilePhoneDataCardValue_1 As text:
+                BorderColor: =If(IsBlank(Parent.Error), Parent.BorderColor, Color.Red)
+                Default: =Parent.Default
+                DelayOutput: =true
+                DisplayMode: =Parent.DisplayMode
+                Height: =70
+                MaxLength: =Parent.MaxLength
+                PaddingLeft: =5
+                RadiusBottomLeft: =0
+                RadiusBottomRight: =0
+                RadiusTopLeft: =0
+                RadiusTopRight: =0
+                Size: =21
+                Tooltip: =Parent.DisplayName
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =spieMobilePhoneLabel_1.Y + spieMobilePhoneLabel_1.Height + 5
+                ZIndex: =2
+
+            spieMobilePhoneErrorMessage_1 As label:
+                AutoHeight: =true
+                Height: =10
+                Live: =Live.Assertive
+                PaddingBottom: =0
+                PaddingLeft: =0
+                PaddingRight: =0
+                PaddingTop: =0
+                Size: =24
+                Text: =Parent.Error
+                Visible: =Parent.DisplayMode=DisplayMode.Edit
+                Width: =Parent.Width - 60
+                X: =30
+                Y: =spieMobilePhoneDataCardValue_1.Y + spieMobilePhoneDataCardValue_1.Height
+                ZIndex: =3
+
+            spieMobilePhoneStar_1 As label:
+                Align: =Align.Center
+                Height: =spieMobilePhoneLabel_1.Height
+                Size: =21
+                Text: ="*"
+                Visible: =And(Parent.Required, Parent.DisplayMode=DisplayMode.Edit)
+                Width: =30
+                Wrap: =false
+                Y: =spieMobilePhoneLabel_1.Y
+                ZIndex: =4
+
+    SPIE_MainHeader_1 As MainHeader:
+        PersonalImage: =currPersonnelImage
+        PersonalInfoScreen: =PersonalInfoScreen
+        ZIndex: =3
+
+    SPIE_Submit_1 As icon.Check:
+        AccessibleLabel: =Self.Tooltip
+        Height: =88
+        Icon: =Icon.Check
+        OnSelect: |-
+            =/*
+            If(
+                //if the record for that user doesnt exist at all
+                PendingRecordBlank,
+                //create a new record
+                Patch(
+                    PendingPersonalDetailsChanges,
+                    Defaults(PendingPersonalDetailsChanges),
+                    If(
+                        currPersonnel.'Civilian Email' <> spieCivilianEmailDataCardValue_1.Text,
+                        {CurrentCivilianEmail: currPersonnel.'Civilian Email'},
+                        {PendingCivilianEmail: spieCivilianEmailDataCardValue_1.Text}
+                    ),
+                    {PendingPersonalDetailsApprovedStatus: [@ApproveDeny].'Not Reviewed'},
+                    {
+                        OwningPersonnelRecord: LookUp(
+                            Personnels,
+                            Personnel = currPersonnel.Personnel
+                        )
+                    }
+                ),
+                //if the record exist but no pending emails 
+                IsBlank(
+                    LookUp(
+                        PendingPersonalDetailsChanges,
+                        OwningPersonnelRecord.Personnel = currPersonnel.Personnel
+                    ).PendingCivilianEmail
+                ),
+                //add new value for pending and current email
+                Patch(
+                    PendingPersonalDetailsChanges,
+                    LookUp(
+                        PendingPersonalDetailsChanges,
+                        OwningPersonnelRecord.Personnel = currPersonnel.Personnel
+                    ),
+                    {CurrentCivilianEmail: currPersonnel.'Civilian Email'},
+                    {PendingCivilianEmail: spieCivilianEmailDataCardValue_1.Text},
+                    {PendingPersonalDetailsApprovedStatus: [@ApproveDeny].'Not Reviewed'},
+                    {
+                        OwningPersonnelRecord: LookUp(
+                            Personnels,
+                            Personnel = currPersonnel.Personnel
+                        )
+                    }
+                ),
+                //if the record and the pending plus current email exist, change the value for pending and current email
+                Patch(
+                    PendingPersonalDetailsChanges,
+                    LookUp(
+                        PendingPersonalDetailsChanges,
+                        OwningPersonnelRecord.Personnel = currPersonnel.Personnel
+                    ),
+                    {PendingCivilianEmail: spieCivilianEmailDataCardValue_1.Text},
+                    {PendingPersonalDetailsApprovedStatus: [@ApproveDeny].'Not Reviewed'},
+                    {
+                        OwningPersonnelRecord: LookUp(
+                            Personnels,
+                            Personnel = currPersonnel.Personnel
+                        )
+                    }
+                )
+            );
+            
+            */
+            SubmitForm(SPIE_Form_1);
+            //Set(firethechanges, true)
+            //UpdateContext({firethechanges: true})
+        PaddingBottom: =22
+        PaddingLeft: =22
+        PaddingRight: =22
+        PaddingTop: =22
+        TabIndex: =0
+        Tooltip: ="Submit item"
+        Width: =88
+        X: =Parent.Width - Self.Width
+        Y: =90
+        ZIndex: =4
+
+    Button3 As button:
+        Height: =70
+        Size: =24
+        Text: ="Button"
+        Visible: =
+        Width: =280
+        X: =256
+        Y: =238
+        ZIndex: =7
+

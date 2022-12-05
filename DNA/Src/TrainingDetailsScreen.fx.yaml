@@ -1,0 +1,1038 @@
+TrainingDetailsScreen As screen:
+    Fill: =If(DarkMode,Dark3,White1)
+    OnVisible: =
+
+    TrainingDetails_CommitBtn As button:
+        DisplayMode: |
+            =
+            If( // Declined or Accepted (disabled), else - Notified - (Edit)
+                UserCommitStatus =  'Commit to Training Status'.Declined || UserCommitStatus = 'Commit to Training Status'.Accepted,
+                DisplayMode.Disabled,
+                DisplayMode.Edit
+            )
+        Fill: =Green
+        Height: =53
+        OnSelect: |+
+            =
+                // If Accepted, (check allow voulntary withdrawl) withdrawl, 
+            If(
+                // Condition (Notified -> Accepted)
+                (LookUp(
+                    'Training Event Attendees',
+                    'Training Event'.'Training Event' = EventData.wywm_TrainingEvent.'Training Event' && Personnel.Personnel = currPersonnel.Personnel
+                ).'Commit to Training Status' = [@'Commit to Training Status'].Notified),
+                // If Block
+                // Change status to accepted
+            
+            
+                Patch(
+                    'Training Event Attendees',
+                    LookUp(
+                        'Training Event Attendees',
+                        'Training Event'.'Training Event' = EventData.wywm_TrainingEvent.'Training Event' && Personnel.Personnel = currPersonnel.Personnel
+                    ),
+                    {'Commit to Training Status': 'Commit to Training Status'.Accepted}
+                );
+            
+                Patch(
+                    UserNotifications,
+                    LookUp(
+                        UserNotifications,
+                        'Training Event'.'Training Event' = EventData.wywm_TrainingEvent.'Training Event' && Personnel.Personnel = currPersonnel.Personnel
+                    ),
+                    {Deleted: 'Deleted (UserNotifications)'.Yes}
+                );
+            
+                /*
+            
+                    RemoveIf(
+                    UserNotifications,
+                    'Training Event'.'Training Event' = EventData.wywm_TrainingEvent.'Training Event' && Personnel.Personnel = currPersonnel.Personnel
+                );
+                */
+            
+                /*
+                UpdateIf(UserNotifications,
+                wywm_TrainingEvent.'Training Event' = EventData.wywm_TrainingEvent.'Training Event' && wywm_Personnel.Personnel = currPersonnel.Personnel,
+                {wywm_type: "hidden"}
+                );
+                */
+            
+                Set(
+                    UserCommitStatus,
+                    'Commit to Training Status'.Accepted
+                );
+                /*
+                RemoveIf(
+                    UserNotifications,
+                    'Training Event'.'Training Event' = EventData.wywm_TrainingEvent.'Training Event'
+                );
+                */
+                
+                
+                Navigate(
+                    TrainingSuccessScreen,
+                    ScreenTransition.CoverRight
+                );
+                
+            /*    
+                    // Trigger Power Automate Flow (set param: isAccepted - true)
+            'CanvasApp_SendMobile+EmailConfirmation_1'.Run(
+                        EventData.wywm_TrainingEvent.'Training Event Name',
+                    EventData.wywm_TrainingEvent.Location,
+                    Text(EventData.wywm_TrainingEvent.'Start Date' & " - " & EventData.wywm_TrainingEvent.'End Date'),
+                    EventData.wywm_TrainingEvent.'Start Date',
+                    EventData.wywm_TrainingEvent.'End Date',
+                    EventData.wywm_TrainingEvent.'Training Type',
+                    EventData.wywm_TrainingEvent.Description,
+                    EventData.wywm_TrainingEvent.'Training Objectives',
+                    EventData.wywm_TrainingEvent.'OPI CALCULATED',
+                    EventData.wywm_TrainingEvent.'OPI EMAIL',
+                    currPersonnnelEmail,
+                    true
+                );
+                
+            */
+            
+            );
+            Refresh('Course Applications');
+            Refresh('Training Event Attendees');
+            
+        RadiusBottomLeft: =15
+        RadiusBottomRight: =15
+        RadiusTopLeft: =15
+        RadiusTopRight: =15
+        Size: =20
+        Text: |-
+            =If(
+                LangEn = true,
+                // True 
+                Switch(
+                    UserCommitStatus, //Notified, Accepted, Declined
+                    'Commit to Training Status'.Notified,
+                    "Accept",
+                    'Commit to Training Status'.Accepted,
+                    "Commited",
+                    'Commit to Training Status'.Declined,
+                    "Declined"
+                ),
+                // French
+                If(
+                    // Male
+                    currPersonnel.Gender = [@Gender].Male,
+                    Switch(
+                        UserCommitStatus,
+                        'Commit to Training Status'.Notified,
+                        "Accepter",
+                        'Commit to Training Status'.Accepted,
+                        "Engagé",
+                        'Commit to Training Status'.Declined,
+                        "Refusé"
+                    ),
+                    // Female
+                    Switch(
+                        UserCommitStatus,
+                        'Commit to Training Status'.Notified,
+                        "Accepter",
+                        'Commit to Training Status'.Accepted,
+                        "Engagée",
+                        'Commit to Training Status'.Declined,
+                        "Refusé"
+                    )
+                )
+            )
+        Width: =159
+        X: =427
+        Y: =210
+        ZIndex: =1
+
+    TrainingDetails_DeclineBtn As button:
+        BorderThickness: =0
+        DisplayMode: |
+            =If(EventData.wywm_TrainingEvent.'Allow Voluntary Withdrawal' = 'A Yes or No boolean'.'4', DisplayMode.Edit, DisplayMode.Disabled)
+        Fill: =DeclinedRed
+        Height: =53
+        OnSelect: |
+            =
+                If(
+                // If block (status == Declined) -> Accept    
+                UserCommitStatus = 'Commit to Training Status'.Declined,
+                Patch(
+                    'Training Event Attendees',
+                    LookUp(
+                        'Training Event Attendees',
+                        'Training Event'.'Training Event' = EventData.wywm_TrainingEvent.'Training Event' && Personnel.Personnel = currPersonnel.Personnel
+                    ),
+                    {'Commit to Training Status': 'Commit to Training Status'.Accepted}
+                );
+                Set(
+                    UserCommitStatus,
+                    'Commit to Training Status'.Accepted
+                );
+                    Patch(
+                    UserNotifications,
+                    LookUp(
+                        UserNotifications,
+                        'Training Event'.'Training Event' = EventData.wywm_TrainingEvent.'Training Event' && Personnel.Personnel = currPersonnel.Personnel
+                    ),
+                    {Deleted: 'Deleted (UserNotifications)'.Yes}
+                );
+                
+                Navigate(
+                    TrainingSuccessScreen,
+                    ScreenTransition.CoverRight
+                );
+             /*       // Trigger Power Automate Flow (set param: isAccepted - true)
+            'CanvasApp_SendMobile+EmailConfirmation_1'.Run(
+                    EventData.wywm_TrainingEvent.'Training Event Name',
+                    EventData.wywm_TrainingEvent.Location,
+                    Text(EventData.wywm_TrainingEvent.'Start Date' & " - " & EventData.wywm_TrainingEvent.'End Date'),
+                    EventData.wywm_TrainingEvent.'Start Date',
+                    EventData.wywm_TrainingEvent.'End Date',
+                    EventData.wywm_TrainingEvent.'Training Type',
+                    EventData.wywm_TrainingEvent.Description,
+                    EventData.wywm_TrainingEvent.'Training Objectives',
+                    LookUp(
+                        Personnels,
+                        Personnel = TrainingOpiID
+                    ).'Current Rank'.'Description Abbreviation Eng' & " " & LookUp(
+                        Personnels,
+                        Personnel = TrainingOpiID
+                    ).'Last Name',
+                    LookUp(
+                        Personnels,
+                        Personnel = TrainingOpiID
+                    ).'Military Email',
+                    currPersonnnelEmail,
+                    true
+                );
+            */
+                ,
+                
+                // Else Block (status == Accepted) -> reject flow
+                Set(declineModal, true);
+            );
+        RadiusBottomLeft: =15
+        RadiusBottomRight: =15
+        RadiusTopLeft: =15
+        RadiusTopRight: =15
+        Size: =20
+        Text: |-
+            =If(
+                LangEn = true,
+                // True
+                Switch(
+                    UserCommitStatus,
+                    'Commit to Training Status'.Notified, // Notified -> Decline
+                    "Decline",
+                    'Commit to Training Status'.Accepted, // Accepted -> Decline
+                    "Decline",
+                    'Commit to Training Status'.Declined, // Declined -> Re-commit
+                    "Re-commit"
+                ),
+                // French
+                Switch(
+                    UserCommitStatus,
+                    'Commit to Training Status'.Notified,
+                    "Refuser",
+                    'Commit to Training Status'.Accepted,
+                    "Refuser",
+                    'Commit to Training Status'.Declined,
+                    "Réinscrire"
+                )
+            )
+        Visible: =If(EventData.wywm_TrainingEvent.'Allow Voluntary Withdrawal' = 'A Yes or No boolean'.'4', true, false)
+        Width: =159
+        X: =427
+        Y: =289
+        ZIndex: =2
+
+    TrainingDetails_InfoCard As TrainingInfoCard:
+        EndDate: |-
+            =Text( DateTimeValue( EventData.wywm_TrainingEvent.'End Date' ), "yyyy/mm/dd @ hh:mm")
+        Location: =EventData.wywm_TrainingEvent.Location
+        OPIContact: |+
+            =LookUp('Training Events', 'Training Event' = EventData.wywm_TrainingEvent.'Training Event').OPI.'Mobile Phone Number'
+            
+        OPIEmail: |-
+            =//LookUp('Training Events', 'Training Event' = EventData.wywm_TrainingEvent.'Training Event').OPI.'Military Email'
+            EventData.wywm_TrainingEvent.'OPI EMAIL'
+        OPIName: |-
+            =If(
+                LangEn,
+                EventData.wywm_TrainingEvent.'OPI CALCULATED',
+                EventData.wywm_TrainingEvent.'OPI CALCULATED FR'
+            )
+        StartDate: |-
+            =Text( DateTimeValue( EventData.wywm_TrainingEvent.'Start Date' ), "yyyy/mm/dd @ hh:mm")
+        Type: |-
+            =Switch(EventData.wywm_TrainingEvent.'Training Type',
+                [@'Training Type'].Course, __localizer.Localize("ANA_TRAINING_COURSE", LangEn),
+                [@'Training Type'].Weekend, __localizer.Localize("ANA_TRAINING_WEEKEND", LangEn),
+                [@'Training Type'].Weekly, __localizer.Localize("ANA_TRAINING_WEEKLY", LangEn)
+            )
+        X: =38
+        Y: =354
+        ZIndex: =3
+
+    TrainingDetails_MainHeader As MainHeader:
+        PersonalImage: =currPersonnelImage
+        PersonalInfoScreen: =PersonalInfoScreen
+        ZIndex: =4
+
+    TrainingDetails_MenuLowerHeader As MenuLowerHeader:
+        BackScreen: =TrainingScreen
+        LowerMenuTextLabel: =If(EventData.wywm_TrainingEvent.'Training Event Name' = "Weekly Unit Parade" && LangEn = false, "Entraînement du mardi", EventData.wywm_TrainingEvent.'Training Event Name')
+        Y: =TrainingDetails_MainHeader.Height
+        ZIndex: =5
+
+    TrainingDetails_EventName As label:
+        Color: =Yellow1
+        FontWeight: =FontWeight.Semibold
+        Height: =144
+        Size: =33
+        Text: |
+            =//If(EventData.wywm_TrainingEvent.'Training Event Name' = "Weekly Unit Parade" && LangEn = false, "Entraînement du mardi", EventData.wywm_TrainingEvent.'Training Event Name')
+            
+            If(
+                LangEn,
+                EventData.wywm_TrainingEvent.'Training Event Name',
+                LookUp('Training Events', EventData.wywm_TrainingEvent.'Training Event' = 'Training Event').'Training Event Name Fr' 
+            )
+        VerticalAlign: =VerticalAlign.Top
+        Width: =361
+        X: =43
+        Y: =210
+        ZIndex: =6
+
+    TrainingDetails_CommitedSoldiers As label:
+        FontWeight: =FontWeight.Semibold
+        Height: =70
+        Size: =18
+        Text: =
+        Width: =344
+        X: =190
+        Y: =1057
+        ZIndex: =7
+
+    TrainingDetails_SolidersNumber As label:
+        Align: =Align.Center
+        FontWeight: =FontWeight.Semibold
+        Height: =44
+        Size: =18
+        Text: |-
+            =//check how many people, 0 or more
+            If(EventData.wywm_TrainingEvent.'Number of Members Accepted' = 0,
+                "",
+                EventData.wywm_TrainingEvent.'Number of Members Accepted'
+            ) 
+            //add a space
+            & " " 
+            //add the number of accepted localized text (soldier/soldiers)
+            & If(
+                EventData.wywm_TrainingEvent.'Number of Members Accepted' = 1,
+                __localizer.Localize("ANA_TRAINING_DETAIL_SOLDIER_COMMITED", LangEn),
+                __localizer.Localize("ANA_TRAINING_DETAIL_SOLDIERS_COMMITED", LangEn)
+            )
+        Visible: =false
+        Width: =Parent.Width
+        Y: =956
+        ZIndex: =16
+
+    TrainingDetail_BackgroundDimmer As rectangle:
+        Fill: =RGBA(0, 0, 0, 0.5)    
+        Height: =Parent.Height
+        Visible: =showImg
+        Width: =Parent.Width
+        ZIndex: =18
+
+    TrainingDetails_PdfViewer As pdfViewer:
+        BorderColor: =RGBA(0, 0, 0, 1)
+        Document: |-
+            =//EventData.wywm_TrainingEvent.'Attachment #1'.Value
+            DocVar
+        Fill: =RGBA(0, 0, 0, 0.5)
+        Height: =1046
+        Visible: =showPdf
+        Y: =90
+        ZIndex: =33
+
+    TrainingDetails_ImageViewer As image:
+        Height: =1136
+        Image: |-
+            =EventData.wywm_TrainingEvent.'Attachment #1'.Value
+        Visible: |
+            =showImg
+        Width: =640
+        ZIndex: =34
+
+    TrainingDetails_AttachmentCancel As icon.Add:
+        Color: =RGBA(255, 0, 0, 1)
+        Height: =52
+        Icon: =Icon.CancelBadge
+        OnSelect: |-
+            =Set(showImg, false);
+            Set(showPdf, false);
+            Set(showAttachmentCancel, false)
+        Visible: =showAttachmentCancel
+        Width: =52
+        X: =21
+        Y: =111
+        ZIndex: =35
+
+    TrainingDetail_Attach3 As group:
+        Height: =5
+        Width: =5
+        X: =20
+        Y: =20
+        ZIndex: =37
+
+        TrainingDetail_Attach3Download As icon.Save:
+            Color: =RGBA(0, 0, 0, 1)
+            Height: =30
+            Icon: =Icon.Download
+            OnSelect: |-
+                =
+                Download(BASE_ENVIRON_URL & "wywm_trainingevents("&EventData.wywm_TrainingEvent.'Training Event'&")/wywm_attachment3/$value");
+                Launch(BASE_ENVIRON_URL & "wywm_trainingevents("&EventData.wywm_TrainingEvent.'Training Event'&")/wywm_attachment3/$value");
+                //dff3e810-0352-ec11-8f8e-000d3ae88643
+            Visible: |
+                =If(Not(EventData.wywm_TrainingEvent.'Attachment #3'.Value = Blank()) && showAttachments, true, false)
+            Width: =40
+            X: =536
+            Y: =1003
+            ZIndex: =30
+
+        TrainingDetail_Attach3Btn As button:
+            Align: =Align.Left
+            Color: =RGBA(0, 0, 0, 1)
+            DisabledColor: =RGBA(0, 0, 0, 0)
+            Fill: =Transparent
+            FontWeight: =FontWeight.Normal
+            Height: =48
+            HoverBorderColor: =RGBA(0, 0, 0, 0)
+            HoverColor: =RGBA(0, 0, 0, 1)
+            HoverFill: =Transparent
+            OnSelect: |-
+                =If(
+                    EndsWith(
+                        Lower(EventData.wywm_TrainingEvent.'Attachment #3'.FileName),
+                        ".png"
+                    ) || EndsWith(
+                        Lower(EventData.wywm_TrainingEvent.'Attachment #3'.FileName),
+                        ".jpg"
+                    ) || EndsWith(
+                        Lower(EventData.wywm_TrainingEvent.'Attachment #3'.FileName),
+                        ".jpeg"
+                    ),
+                    Set(
+                        showImg,
+                        !showImg
+                    );
+                    Set(
+                        showAttachmentCancel,
+                        !showAttachmentCancel
+                    );
+                    ,
+                    // pdf or docx (nested if)
+                    If(
+                        EndsWith(
+                            Lower(EventData.wywm_TrainingEvent.'Attachment #3'.FileName),
+                            ".pdf"
+                        ),
+                        Set(DocVar, EventData.wywm_TrainingEvent.'Attachment #3'.Value);
+                        Set(
+                            showPdf,
+                            !showPdf
+                        );
+                        Set(
+                            showAttachmentCancel,
+                            !showAttachmentCancel
+                        );
+                        ,
+                    // not an image && not a pdf
+                        false
+                    );
+                    
+                )
+            PressedBorderColor: =
+            PressedColor: =
+            Size: =7
+            Text: |-
+                =EventData.wywm_TrainingEvent.'Attachment #2'.FileName
+            VerticalAlign: =VerticalAlign.Top
+            Visible: |
+                =If(Not(EventData.wywm_TrainingEvent.'Attachment #3'.Value = Blank()) && showAttachments, true, false)
+            Width: =469
+            X: =64
+            Y: =997
+            ZIndex: =31
+
+    TrainingDetails_DebugButtonGroup As group:
+        Height: =5
+        Width: =5
+        X: =40
+        Y: =40
+        ZIndex: =41
+
+        TrainingDetails_DebugPersInfo As button:
+            Height: =70
+            OnSelect: =Navigate(PersonalInfoScreen)
+            Size: =24
+            Text: ="Button"
+            Visible: =false
+            Width: =75
+            X: =565
+            Y: =92
+            ZIndex: =36
+
+        TrainingDetails_DebugMesseng As button:
+            Height: =70
+            OnSelect: |-
+                =Launch("msteams://")
+            Size: =24
+            Text: ="Button"
+            Visible: =false
+            Width: =75
+            X: =490
+            Y: =92
+            ZIndex: =37
+
+        TrainingDetails_DebugNotif As button:
+            Height: =70
+            OnSelect: =Navigate(NotificationScreen)
+            Size: =24
+            Text: ="Button"
+            Visible: =false
+            Width: =75
+            X: =415
+            Y: =92
+            ZIndex: =38
+
+        TrainingDetails_DebugMenu As button:
+            Height: =70
+            OnSelect: =Navigate(DashboardScreen)
+            Size: =24
+            Text: ="Button"
+            Visible: =false
+            Width: =75
+            X: =266
+            Y: =92
+            ZIndex: =39
+
+    TrainingDetail_Attach2 As group:
+        Height: =5
+        Width: =5
+        X: =20
+        Y: =20
+        ZIndex: =42
+
+        TrainingDetail_Attach2Download As icon.Save:
+            Color: =RGBA(0, 0, 0, 1)
+            Height: =30
+            Icon: =Icon.Download
+            OnSelect: |-
+                =
+                Download(BASE_ENVIRON_URL & "wywm_trainingevents("&EventData.wywm_TrainingEvent.'Training Event'&")/wywm_attachment2/$value");
+                Launch(BASE_ENVIRON_URL & "wywm_trainingevents("&EventData.wywm_TrainingEvent.'Training Event'&")/wywm_attachment2/$value");
+                //dff3e810-0352-ec11-8f8e-000d3ae88643
+            Visible: |
+                =If(Not(EventData.wywm_TrainingEvent.'Attachment #2'.Value = Blank()) && showAttachments, true, false)
+            Width: =40
+            X: =537
+            Y: =948
+            ZIndex: =25
+
+        TrainingDetail_Attach2Btn As button:
+            Align: =Align.Left
+            Color: =RGBA(0, 0, 0, 1)
+            DisabledColor: =RGBA(0, 0, 0, 0)
+            Fill: =Transparent
+            FontWeight: =FontWeight.Normal
+            Height: =48
+            HoverBorderColor: =RGBA(0, 0, 0, 0)
+            HoverColor: =RGBA(0, 0, 0, 1)
+            HoverFill: =Transparent
+            OnSelect: |-
+                =If(
+                    EndsWith(
+                        Lower(EventData.wywm_TrainingEvent.'Attachment #2'.FileName),
+                        ".png"
+                    ) || EndsWith(
+                        Lower(EventData.wywm_TrainingEvent.'Attachment #2'.FileName),
+                        ".jpg"
+                    ) || EndsWith(
+                        Lower(EventData.wywm_TrainingEvent.'Attachment #2'.FileName),
+                        ".jpeg"
+                    ),
+                    Set(
+                        showImg,
+                        !showImg
+                    );
+                    Set(
+                        showAttachmentCancel,
+                        !showAttachmentCancel
+                    );
+                    ,
+                    // pdf or docx (nested if)
+                    If(
+                        EndsWith(
+                            Lower(EventData.wywm_TrainingEvent.'Attachment #2'.FileName),
+                            ".pdf"
+                        ),
+                        Set(DocVar, EventData.wywm_TrainingEvent.'Attachment #2'.Value);
+                        Set(
+                            showPdf,
+                            !showPdf
+                        );
+                        Set(
+                            showAttachmentCancel,
+                            !showAttachmentCancel
+                        );
+                        ,
+                    // not an image && not a pdf
+                        false
+                    );
+                    
+                )
+            PressedBorderColor: =
+            PressedColor: =
+            Size: =7
+            Text: |-
+                =EventData.wywm_TrainingEvent.'Attachment #2'.FileName
+            VerticalAlign: =VerticalAlign.Top
+            Visible: |
+                =If(Not(EventData.wywm_TrainingEvent.'Attachment #2'.Value = Blank()) && showAttachments, true, false)
+            Width: =469
+            X: =65
+            Y: =942
+            ZIndex: =26
+
+    TrainingDetail_Attach1 As group:
+        Height: =5
+        Width: =5
+        X: =40
+        Y: =40
+        ZIndex: =43
+
+        TrainingDetail_Attach1Download As icon.Save:
+            Color: =RGBA(0, 0, 0, 1)
+            Height: =30
+            Icon: =Icon.Download
+            OnSelect: |-
+                =
+                //Download(BASE_ENVIRON_URL & "wywm_trainingevents("&EventData.wywm_TrainingEvent.'Training Event'&")/wywm_attachment/$value");
+                //Launch(BASE_ENVIRON_URL & "wywm_trainingevents("&EventData.wywm_TrainingEvent.'Training Event'&")/wywm_attachment/$value");
+                // BASE_ENVIRON_URL wywm,_trainingEvents(unique_id)/attachment_column_name/$value
+                //dff3e810-0352-ec11-8f8e-000d3ae88643
+                //https://orgdc1bb12f.crm3.dynamics.com/
+                Download("https://orgdc1bb12f.crm3.dynamics.com/" & "wywm_trainingevents("&EventData.wywm_TrainingEvent.'Training Event'&")/wywm_attachment/$value");
+            Visible: |
+                =If(Not(EventData.wywm_TrainingEvent.'Attachment #1'.Value = Blank()) && showAttachments, true, false)
+            Width: =40
+            X: =537
+            Y: =892
+            ZIndex: =19
+
+        TrainingDetail_Attach1Btn As button:
+            Align: =Align.Left
+            Color: =RGBA(0, 0, 0, 1)
+            DisabledColor: =RGBA(0, 0, 0, 0)
+            Fill: =Transparent
+            FontWeight: =FontWeight.Normal
+            Height: =48
+            HoverBorderColor: =RGBA(0, 0, 0, 0)
+            HoverColor: =RGBA(0, 0, 0, 1)
+            HoverFill: =Transparent
+            OnSelect: |-
+                =If(
+                    EndsWith(
+                        Lower(EventData.wywm_TrainingEvent.'Attachment #1'.FileName),
+                        ".png"
+                    ) || EndsWith(
+                        Lower(EventData.wywm_TrainingEvent.'Attachment #1'.FileName),
+                        ".jpg"
+                    ) || EndsWith(
+                        Lower(EventData.wywm_TrainingEvent.'Attachment #1'.FileName),
+                        ".jpeg"
+                    ),
+                    Set(
+                        showImg,
+                        !showImg
+                    );
+                    Set(
+                        showAttachmentCancel,
+                        !showAttachmentCancel
+                    );
+                    ,
+                    // pdf or docx (nested if)
+                    If(
+                        EndsWith(
+                            Lower(EventData.wywm_TrainingEvent.'Attachment #1'.FileName),
+                            ".pdf"
+                        ),
+                        Set(DocVar, EventData.wywm_TrainingEvent.'Attachment #1'.Value);
+                        Set(
+                            showPdf,
+                            !showPdf
+                        );
+                        Set(
+                            showAttachmentCancel,
+                            !showAttachmentCancel
+                        );
+                        ,
+                    // not an image && not a pdf
+                        false
+                    );
+                    
+                )
+            PressedBorderColor: =
+            PressedColor: =
+            Size: =7
+            Text: |
+                =//EventData.wywm_TrainingEvent.'Attachment #1'.Value
+                //EventData.wywm_TrainingEvent.wywm_attachment.FileName
+                EventData.wywm_TrainingEvent.'Attachment #1'.FileName
+            VerticalAlign: =VerticalAlign.Top
+            Visible: |
+                =If(Not(EventData.wywm_TrainingEvent.'Attachment #1'.Value = Blank()) && showAttachments, true, false)
+            Width: =469
+            X: =65
+            Y: =886
+            ZIndex: =20
+
+    TrainingDetails_DeclineModalGrp As group:
+        Height: =5
+        Width: =5
+        X: =40
+        Y: =40
+        ZIndex: =53
+
+        TrainingDetails_DeclineBackground As rectangle:
+            Fill: =RGBA(0, 0, 0, 0.6)
+            Height: =1136
+            OnSelect: =Set(declineModal, false)
+            Visible: =declineModal
+            Width: =640
+            ZIndex: =21
+
+        TrainingDetails_DeclineModal As rectangle:
+            BorderColor: =RGBA(255, 255, 255, 1)
+            Fill: =RGBA(255, 255, 255, 1)
+            Height: =357
+            Visible: =declineModal
+            Width: =596
+            X: =22
+            Y: =374
+            ZIndex: =22
+
+        TrainingDetails_DeclineModalTitle As label:
+            Font: =Font.Lato
+            FontWeight: =FontWeight.Bold
+            Height: =60
+            PaddingLeft: =20
+            Size: =17
+            Text: ="Confirmation"
+            Visible: =declineModal
+            Width: =594
+            X: =21
+            Y: =374
+            ZIndex: =23
+
+        TrainingDetails_DeclineModalInput As text:
+            BorderThickness: =1
+            Default: =""
+            Font: =Font.Lato
+            Height: =136
+            HintText: ="Description..."
+            Mode: =TextMode.MultiLine
+            PaddingTop: =15
+            RadiusBottomLeft: =0
+            RadiusBottomRight: =0
+            RadiusTopLeft: =0
+            RadiusTopRight: =0
+            Size: =16
+            Visible: =declineModal
+            Width: =560
+            X: =38
+            Y: =513
+            ZIndex: =24
+
+        TrainingDetails_DeclineModalDivider As rectangle:
+            BorderColor: =RGBA(255, 255, 255, 1)
+            Fill: =RGBA(0, 0, 0, 1)
+            Height: =1
+            Visible: =declineModal
+            Width: =596
+            X: =22
+            Y: =433
+            ZIndex: =27
+
+        TrainingDetails_DeclineModalMsg As label:
+            Font: =Font.Lato
+            Height: =67
+            PaddingLeft: =20
+            Size: =17
+            Text: =__localizer.Localize("ANA_DECLINE_REASON", LangEn)
+            Visible: =declineModal
+            Width: =594
+            X: =22
+            Y: =440
+            ZIndex: =28
+
+        TrainingDetails_DeclineSubmit As button:
+            Fill: =Blue3
+            Font: =Font.Lato
+            Height: =46
+            OnSelect: |-
+                =If(
+                    // If description box is filled, we want to set to Declined
+                    !IsBlank(TrainingDetails_DeclineModalInput.Text),
+                    Patch(
+                        'Training Event Attendees',
+                        LookUp(
+                            'Training Event Attendees',
+                            'Training Event'.'Training Event' = EventData.wywm_TrainingEvent.'Training Event' && Personnel.Personnel = currPersonnel.Personnel
+                        ),
+                        {'Commit to Training Status': 'Commit to Training Status'.Declined},
+                        {'Decline Reason': TrainingDetails_DeclineModalInput.Text}
+                    );
+                    Set(
+                        UserCommitStatus,
+                        'Commit to Training Status'.Declined
+                    );
+                
+                        Patch(
+                        UserNotifications,
+                        LookUp(
+                            UserNotifications,
+                            'Training Event'.'Training Event' = EventData.wywm_TrainingEvent.'Training Event' && Personnel.Personnel = currPersonnel.Personnel
+                        ),
+                        {Deleted: 'Deleted (UserNotifications)'.Yes}
+                    );
+                
+                
+                    /*    // Trigger Power Automate Flow (set param: isAccepted - true)
+                'CanvasApp_SendMobile+EmailConfirmation_1'.Run(
+                        EventData.wywm_TrainingEvent.'Training Event Name',
+                        EventData.wywm_TrainingEvent.Location,
+                        Text(EventData.wywm_TrainingEvent.'Start Date' & " - " & EventData.wywm_TrainingEvent.'End Date'),
+                        EventData.wywm_TrainingEvent.'Start Date',
+                        EventData.wywm_TrainingEvent.'End Date',
+                        EventData.wywm_TrainingEvent.'Training Type',
+                        EventData.wywm_TrainingEvent.Description,
+                        EventData.wywm_TrainingEvent.'Training Objectives',
+                        LookUp(
+                            Personnels,
+                            Personnel = TrainingOpiID
+                        ).'Current Rank'.'Description Abbreviation Eng' & " " & LookUp(
+                            Personnels,
+                            Personnel = TrainingOpiID
+                        ).'Last Name',
+                        LookUp(
+                            Personnels,
+                            Personnel = TrainingOpiID
+                        ).'Military Email',
+                        currPersonnnelEmail,
+                        false
+                    );*/
+                    Navigate(DeclineScreen);
+                    Set(
+                        declineModal,
+                        false
+                    );
+                    Reset(TrainingDetails_DeclineModalInput);,
+                    Notify( __localizer.Localize("ANA_SHORT_DECLINE", LangEn), NotificationType.Warning, 4000 )
+                    
+                )
+            RadiusBottomLeft: =5
+            RadiusBottomRight: =5
+            RadiusTopLeft: =5
+            RadiusTopRight: =5
+            Size: =16
+            Text: =__localizer.Localize("ANA_BUG_SUBMIT", LangEn)
+            Visible: =declineModal
+            Width: =159
+            X: =441
+            Y: =669
+            ZIndex: =29
+
+        TrainingDetails_DeclineCancel As button:
+            Fill: =RGBA(128, 128, 128, 1)
+            Font: =Font.Lato
+            FontWeight: =FontWeight.Normal
+            Height: =46
+            OnSelect: =Set(declineModal, false)
+            RadiusBottomLeft: =5
+            RadiusBottomRight: =5
+            RadiusTopLeft: =5
+            RadiusTopRight: =5
+            Size: =16
+            Text: =__localizer.Localize("ANA_DECLINE_CANCEL", LangEn)
+            Visible: =declineModal
+            Width: =130
+            X: =297
+            Y: =669
+            ZIndex: =32
+
+    TrainingDetails_Attachments As group:
+        Height: =5
+        Width: =5
+        X: =1
+        Y: =-541
+        ZIndex: =66
+
+        TrainingDetails_AttachmentsLabel As label:
+            BorderColor: =RGBA(230, 230, 230, 1)
+            BorderThickness: =2
+            Color: =If(DarkMode,White1,Black)
+            Fill: =If(DarkMode,Dark2,White1)
+            Font: =FontFamilyB
+            FontWeight: =FontWeight.Semibold
+            Height: =70
+            PaddingLeft: =20
+            Size: =CardTextFont
+            Text: =__localizer.Localize("ANA_TRAINING_DETAIL_ATTACHMENTS", LangEn)
+            Width: =560
+            X: =41
+            Y: =TrainingDetails_ObjectivesBox.Y + TrainingDetails_ObjectivesBox.Height
+            ZIndex: =14
+
+        TrainingDetails_AttachmentsIcon As icon.Add:
+            Color: =Yellow1
+            Fill: =If(DarkMode,Dark2,White1)
+            Height: =42
+            Icon: =Icon.ChevronDown
+            OnSelect: |
+                =Set(showAttachments, !showAttachments);
+                If(showOrders=true, Set(showOrders, false), Set(showOrders, false));
+                If(showTraining=true, Set(showTraining, false), Set(showTraining, false));
+            Width: =42
+            X: =535
+            Y: =TrainingDetails_AttachmentsLabel.Y+15
+            ZIndex: =15
+
+        TrainingDetails_AttachmentsBox As label:
+            BorderColor: =RGBA(230, 230, 230, 1)
+            BorderThickness: =2
+            Color: =If(DarkMode,White1,Black)
+            Fill: =If(DarkMode,Dark2,White1)
+            FontWeight: =FontWeight.Semibold
+            Height: =186
+            PaddingLeft: =20
+            Size: =18
+            Text: =""
+            Visible: =showAttachments
+            Width: =560
+            X: =41
+            Y: =TrainingDetails_AttachmentsLabel.Y+ TrainingDetails_AttachmentsLabel.Height
+            ZIndex: =17
+
+    TrainingDetails_Orders As group:
+        Height: =5
+        Width: =5
+        X: =1
+        Y: =-541
+        ZIndex: =68
+
+        TrainingDetails_OrdersLabels As label:
+            BorderColor: =RGBA(230, 230, 230, 1)
+            BorderThickness: =2
+            Color: =If(DarkMode,White1,Black)
+            Fill: =If(DarkMode,Dark2,White1)
+            Font: =FontFamilyB
+            FontWeight: =FontWeight.Semibold
+            Height: =70
+            PaddingLeft: =20
+            Size: =CardTextFont
+            Text: =__localizer.Localize("ANA_TRAINING_DETAIL_ORDERS_INSTRUCTIONS", LangEn)
+            Width: =560
+            X: =41
+            Y: =661
+            ZIndex: =8
+
+        TrainingDetails_OrdesrIcon As icon.Add:
+            Color: =Yellow1
+            Fill: =If(DarkMode,Dark2,White1)
+            Height: =42
+            Icon: =Icon.ChevronDown
+            OnSelect: |-
+                =Set(showOrders, !showOrders);
+                If(showTraining=true, Set(showTraining, false), Set(showTraining, false));
+                If(showAttachments=true, Set(showAttachments, false), Set(showAttachments, false));
+            Width: =42
+            X: =535
+            Y: =TrainingDetails_OrdersLabels.Y+15
+            ZIndex: =10
+
+        TrainingDetails_OrdersBox As label:
+            BorderColor: =RGBA(230, 230, 230, 1)
+            BorderThickness: =2
+            Color: =If(DarkMode,White1,Black)
+            Fill: =If(DarkMode,Dark2,White1)
+            Height: =If(showOrders, 180, 0)
+            PaddingLeft: =20
+            PaddingTop: =20
+            Size: =18
+            Text: =EventData.wywm_TrainingEvent.Description
+            VerticalAlign: =VerticalAlign.Top
+            Visible: =showOrders
+            Width: =560
+            X: =41
+            Y: =731
+            ZIndex: =12
+
+    TrainingDetails_Objectives As group:
+        Height: =5
+        Width: =5
+        X: =1
+        Y: =-541
+        ZIndex: =70
+
+        TrainingDetails_ObjectivesLabel As label:
+            BorderColor: =RGBA(230, 230, 230, 1)
+            BorderThickness: =2
+            Color: =If(DarkMode,White1,Black)
+            Fill: =If(DarkMode,Dark2,White1)
+            Font: =FontFamilyB
+            FontWeight: =FontWeight.Semibold
+            Height: =70
+            PaddingLeft: =20
+            Size: =CardTextFont
+            Text: =__localizer.Localize("ANA_DETAIL_TRAINING_TRAINING_OBJECTIVES", LangEn)
+            Width: =560
+            X: =41
+            Y: =TrainingDetails_OrdersBox.Y+TrainingDetails_OrdersBox.Height
+            ZIndex: =9
+
+        TrainingDetails_ObjectivesIcon As icon.Add:
+            Color: =Yellow1
+            Fill: =If(DarkMode,Dark2,White1)
+            Height: =42
+            Icon: =Icon.ChevronDown
+            OnSelect: |-
+                =Set(showTraining, !showTraining);
+                If(showOrders=true, Set(showOrders, false), Set(showOrders, false));
+                If(showAttachments=true, Set(showAttachments, false), Set(showAttachments, false));
+            Width: =42
+            X: =535
+            Y: =TrainingDetails_ObjectivesLabel.Y+15
+            ZIndex: =11
+
+        TrainingDetails_ObjectivesBox As label:
+            BorderColor: =RGBA(230, 230, 230, 1)
+            BorderThickness: =2
+            Color: =If(DarkMode,White1,Black)
+            Fill: =If(DarkMode,Dark2,White1)
+            Height: =If(showTraining,185,0)
+            PaddingLeft: =20
+            PaddingTop: =20
+            Size: =18
+            Text: =EventData.wywm_TrainingEvent.'Training Objectives'
+            VerticalAlign: =VerticalAlign.Top
+            Visible: =showTraining
+            Width: =560
+            X: =41
+            Y: =TrainingDetails_ObjectivesLabel.Y + TrainingDetails_ObjectivesLabel.Height
+            ZIndex: =13
+

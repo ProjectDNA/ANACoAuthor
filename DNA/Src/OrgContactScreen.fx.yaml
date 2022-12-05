@@ -1,0 +1,112 @@
+"OrgContactScreen As screen.'phoneLayout_FluidGridWithHeaderPageLayout_ver3.0'":
+
+    OrgContact_StickyIconBackground As rectangle:
+        Fill: =RGBA(230, 230, 230, 1)
+        Height: =253
+        Width: =106
+        X: =534
+        Y: =180
+        ZIndex: =1
+
+    OrgContact_ScrollableComp As fluidGrid.fluidGridWithBlankCard:
+        BorderThickness: =0
+        Height: =954
+        Width: =Parent.Width
+        Y: =180
+        ZIndex: =2
+
+        OrgContact_DataCard As dataCard:
+            BorderColor: =RGBA(0, 0, 0, 1)
+            BorderStyle: =BorderStyle.Solid
+            BorderThickness: =0
+            DisplayMode: =DisplayMode.Edit
+            Fill: =RGBA(0, 0, 0, 0)
+            Height: =1216
+            Width: =Parent.Width
+            X: =0
+            Y: =0
+            ZIndex: =1
+
+            OrgContact_Comp As ContactInfo:
+                activeMilitaryRole: =If(LangEn, LookUp('Military Roles', Personnel.Personnel = currPersonnel.Personnel).Role.wywm_roleeng, LookUp('Military Roles', Personnel.Personnel = currPersonnel.Personnel).Role.wywm_rolefr)
+                address1: |-
+                    =Org_Gallery.Selected.'Address 1 : Street 1'&", "&Org_Gallery.Selected.'Address 1 : City'&", "&Org_Gallery.Selected.'Address 1 : Province '&", "&Org_Gallery.Selected.'Address 1 : Country'
+                code: =Org_Gallery.Selected.'MOS Trade'.'MOS Trade Code'
+                comp: =Org_Gallery.Selected.'MOS Component'
+                currRank: |-
+                    =If(LangEn, 
+                        Org_Gallery.Selected.'Current Rank'.wywm_descrshort_eng,
+                        Org_Gallery.Selected.'Current Rank'.wywm_descrshort_fr
+                    )
+                dob: =//OrgScreen_Gallery.Selected.'Date of Birth'
+                gender: =Org_Gallery.Selected.Gender
+                joinDate: =Org_Gallery.Selected.'Join Date'
+                mobilePhoneNumber: =Org_Gallery.Selected.'Mobile Phone Number'
+                name: =Org_Gallery.Selected.'First Name'&" "&Org_Gallery.Selected.'Last Name'
+                prefLanguage: |-
+                    =If(
+                        LangEn,
+                        Text(Org_Gallery.Selected.'Preferred Language '),
+                        If(
+                            Org_Gallery.Selected.'Preferred Language ' = [@'Preferred Language '].English,
+                            "Anglais",
+                            "Français"
+                        )
+                    )
+                securityClearance: =Org_Gallery.Selected.'Security Clearance Level'
+                serviceNumber: =Org_Gallery.Selected.'Service Number'
+                trade: =If(LangEn, Org_Gallery.Selected.'MOS Trade'.wywm_mostradename, Org_Gallery.Selected.'MOS Trade'.cr5cd_mostradenamefr)
+                type: |
+                    =If(
+                        LangEn,
+                        Text(currPersonnel.'Officer/NCM'),
+                        // Else (French)
+                        If(
+                            currPersonnel.'Officer/NCM' = [@'Officer/NCM'].'Officer/Officier',
+                            "Officier",
+                            "MR"
+                        )
+                    )
+                unit: =Org_Gallery.Selected.Unit.'Unit Name'
+
+    OrgContact_MenuLowerHeader As MenuLowerHeader:
+        LowerMenuTextLabel: =__localizer.Localize("ANA_CONTACT_CONTACT_INFO", LangEn)
+        Y: =90
+        ZIndex: =3
+
+    OrgContact_MainHeader As MainHeader:
+        PersonalImage: =currPersonnel.'Military Id Card Front'
+        PersonalInfoScreen: =PersonalInfoScreen
+        ZIndex: =4
+
+    OrgContact_Teams As image:
+        Height: =48
+        Image: =teams_logo
+        OnSelect: |-
+            =Launch("https://teams.microsoft.com/l/chat/0/0?users=" & Org_Gallery.Selected.'Military Email')
+        Width: =48
+        X: =557
+        Y: =208
+        ZIndex: =5
+
+    OrgContact_Email As image:
+        Height: =48
+        Image: =outlook_logo
+        OnSelect: |-
+            =Launch("mailto:" & Org_Gallery.Selected.'Military Email' & "?subject=ANA%202Div&body=Hi%2C%20your%20message%20body%20would%20go%20here.");
+        Width: =48
+        X: =557
+        Y: =285
+        ZIndex: =6
+
+    OrgContact_Phone As icon.Add:
+        Color: =Blue2  
+        Height: =48
+        Icon: =Icon.Phone
+        OnSelect: |-
+            =Launch("tel:" & Org_Gallery.Selected.'Mobile Phone Number');
+        Width: =48
+        X: =557
+        Y: =360
+        ZIndex: =7
+

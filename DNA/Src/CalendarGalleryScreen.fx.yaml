@@ -1,0 +1,405 @@
+"CalendarGalleryScreen As screen.'phoneLayout_Calendar_ver3.0'":
+    OnVisible: |-
+        =If(IsEmpty(DateRange),
+        Collect(
+            DateRange,
+            AddColumns(
+                FirstN(
+                    [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29],
+                    1),
+                "Day",
+                    "Day " & (Value + 1),
+                "Date",
+                    DateAdd(Today(), Value, Days)
+            )
+        )
+        )
+
+    Calendar_Container_1 As groupContainer.manualLayoutContainer:
+        Height: =App.Height
+        Width: =App.Width
+        ZIndex: =19
+
+        dropdownCalendarSelection1_1 As dropdown:
+            Default: =_myCalendar.DisplayName
+            Height: =60
+            Items: =Office365Outlook.CalendarGetTables().value
+            OnChange: =Select(dropdownCalendarSelection1_1)
+            OnSelect: |+
+                =If(IsBlank(_userDomain),         
+                	UpdateContext({_showLoading: true});         
+                	Set(_userDomain, Right(User().Email, Len(User().Email) - Find("@", User().Email)));         
+                	Set(_dateSelected, Today());         
+                	Set(_firstDayOfMonth, DateAdd(Today(), 1 - Day(Today()), Days));         
+                	Set(_firstDayInView, DateAdd(_firstDayOfMonth, -(Weekday(_firstDayOfMonth) - 2 + 1), Days));         
+                	Set(_lastDayOfMonth, DateAdd(DateAdd(_firstDayOfMonth, 1, Months), -1, Days))         
+                );         
+                Set(_calendarVisible1, false);         
+                UpdateContext({_showLoading: true});         
+                Set(_myCalendar, Self.Selected);         
+                Set(_minDate, DateAdd(_firstDayOfMonth, -(Weekday(_firstDayOfMonth) - 2 + 1), Days));         
+                Set(_maxDate, DateAdd(DateAdd(_firstDayOfMonth, -(Weekday(_firstDayOfMonth) - 2 + 1), Days), 40, Days));         
+                ClearCollect(MyCalendarEvents, Office365Outlook.GetEventsCalendarViewV2(_myCalendar.Name, Text(_minDate, UTC), Text(_maxDate, UTC)).value);         
+                UpdateContext({_showLoading: false});         
+                Set(_calendarVisible1, true)
+                
+            Size: =21
+            Tooltip: ="Select a calendar"
+            Width: =470
+            X: =95
+            Y: =205
+            ZIndex: =2
+
+        CalendarEventsGallery1_1 As gallery.CalendarEventsGallery:
+            AccessibleLabel: ="Calendar events for selected day"
+            BorderThickness: =0.5
+            Height: =642
+            Items: |+
+                =/*Shows events only on selected date*/
+                SortByColumns(Filter(MyCalendarEvents, Text(Start, DateTimeFormat.ShortDate) in DateRange.Date), "Start")
+                
+                
+            Layout: =Layout.Vertical
+            ShowScrollbar: =false
+            TemplatePadding: =0
+            TemplateSize: =105
+            Visible: =_calendarVisible1
+            Width: =Parent.Width
+            Y: =493
+            ZIndex: =11
+
+            Title3_1 As label:
+                BorderColor: =Self.Color
+                BorderStyle: =//BorderStyle.Solid
+                FocusedBorderColor: =//Self.BorderColor
+                FontWeight: =FontWeight.Semibold
+                Height: =39
+                OnSelect: =
+                Size: =19 * CalendarEventsGallery1_1.TemplateHeight / 105
+                TabIndex: =0
+                Text: =ThisItem.Subject
+                Tooltip: =ThisItem.Subject
+                VerticalAlign: =Middle
+                Width: =598
+                Wrap: =false
+                X: =32
+                Y: =CalendarEventsGallery1_1.TemplateHeight / 4 - Self.Height / 2 + 5
+                ZIndex: =1
+
+            Body1_1 As label:
+                FocusedBorderThickness: =2
+                FontWeight: =FontWeight.Semibold
+                Height: =Title3_1.Height
+                OnSelect: =Select(Title3_1)
+                Size: =17 * CalendarEventsGallery1_1.TemplateHeight / 105
+                Text: =Text(ThisItem.Start, DateTimeFormat.ShortTime)
+                VerticalAlign: =Middle
+                Width: =110
+                Wrap: =false
+                X: =142
+                Y: =60
+                ZIndex: =2
+
+            Separator1_1 As rectangle:
+                Height: =1
+                OnSelect: =Select(Parent)
+                Width: =Parent.TemplateWidth
+                Y: =Parent.TemplateHeight - 1
+                ZIndex: =3
+
+            Body1_2 As label:
+                FocusedBorderThickness: =2
+                FontWeight: =FontWeight.Semibold
+                Height: =Title3_1.Height
+                OnSelect: =Select(Title3_1)
+                Size: =17 * CalendarEventsGallery1_1.TemplateHeight / 105
+                Text: =Text(ThisItem.Start, "dd/mm/yy")
+                VerticalAlign: =Middle
+                Width: =110
+                Wrap: =false
+                X: =32
+                Y: =60
+                ZIndex: =4
+
+            Label6 As label:
+                Align: =Align.Right
+                Color: =RGBA(152, 208, 70, 1)
+                Fill: =RGBA(255, 255, 255, 1)
+                FontWeight: =FontWeight.Bold
+                Height: =46
+                OnSelect: =Select(Parent)
+                PaddingBottom: =0
+                Size: =21
+                Text: =If(LangEn, "Upcoming", "À venir")
+                Visible: =If(ThisItem.Start >= Today(), true)
+                Width: =202
+                X: =408
+                Y: =53
+                ZIndex: =5
+
+            Rectangle1_1 As rectangle:
+                BorderStyle: =//BorderStyle.Solid
+                BorderThickness: =If(ThisItem.Id = _selectedCalendarEvent.Id, 2, 0)
+                Fill: =If(ThisItem.Start >= Today(), RGBA(0, 0, 0, 0), RGBA(241, 244, 249, 0.5))
+                Height: =Parent.TemplateHeight
+                HoverFill: =//RGBA(0,0,0,0)
+                OnSelect: |-
+                    =//Select(Title3_1)
+                    Navigate(
+                        CalendarEventScreen,
+                        ScreenTransition.UnCover,
+                        ThisItem
+                    );
+                    Set(
+                        _selectedCalendarEvent,
+                        ThisItem
+                    )
+                TabIndex: =0
+                Width: =Parent.TemplateWidth
+                ZIndex: =6
+
+        iconEmptyState1_1 As icon.CalendarBlank:
+            DisplayMode: =DisplayMode.View
+            Icon: =Icon.CalendarBlank
+            Visible: =IsBlank(_userDomain)
+            X: =Parent.Width/2 - Self.Width/2
+            Y: =LblEmptyState1_1.Y - Self.Height
+            ZIndex: =12
+
+        LblEmptyState1_1 As label:
+            Align: =Align.Center
+            DisplayMode: =DisplayMode.View
+            Height: =150
+            Size: =21
+            Text: =If(LangEn, "Select a calendar ", "Sélectionnez un calendrier")
+            Visible: =IsBlank(_userDomain)
+            Width: =450
+            X: =Parent.Width / 2 - Self.Width / 2
+            Y: =Parent.Height / 2 - Self.Height / 2
+            ZIndex: =13
+
+        LblNoEvents1_1 As label:
+            Align: =Align.Center
+            DisplayMode: =DisplayMode.View
+            Height: =64
+            Size: =21
+            Text: =If(_showLoading, If(LangEn, "Loading events...", "Chargement des événements..."), If(LangEn,"No events scheduled", "Aucun événement prévu"))
+            Visible: =Or(_showLoading, CountRows(CalendarEventsGallery1_1.AllItems) = 0 && _calendarVisible)
+            Width: =CalendarEventsGallery1_1.Width
+            Wrap: =false
+            X: =CalendarEventsGallery1_1.X
+            Y: =CalendarEventsGallery1_1.Y + CalendarEventsGallery1_1.Height/2 - Self.Height/2
+            ZIndex: =14
+
+        Calendar_MenuLowerHeader_1 As MenuLowerHeader:
+            LowerMenuTextLabel: =If(LangEn, "Calendar", "Calendrier")
+            Y: =90
+            ZIndex: =15
+
+        Calendar_MainHeader_1 As MainHeader:
+            PersonalImage: =currPersonnelImage
+            PersonalInfoScreen: =PersonalInfoScreen
+            ZIndex: =16
+
+        Dropdown2 As dropdown:
+            Height: =70
+            Items: =If(LangEn, ["Today", "This Week", "Next Week", "This Month", "Next Month", "Next 60 Days", "Next 90 Days"], ["Aujourd'hui", "Cette Semaine", "Prochaine Semaine", "Ce Mois-ci", "Mois Prochain", "60 Prochains Jours", "90 Prochains Jours"])
+            OnChange: |
+                =Select(Dropdown2)
+            OnSelect: |+
+                =If(LangEn,
+                    Switch(Self.SelectedText.Value,
+                    "Today",
+                    ClearCollect(
+                        DateRange,
+                        AddColumns(
+                            FirstN(
+                                [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30],
+                                1),
+                            "Day",
+                                "Day " & (Value + 1),
+                            "Date",
+                                DateAdd(Today(), Value, Days)
+                        )
+                    ),
+                    "This Week",
+                    ClearCollect(
+                        DateRange,
+                        AddColumns(
+                            FirstN(
+                                [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30],
+                                DateDiff(DateAdd(Today(), -1 * (Weekday(Today(), Monday) - 1), Days), DateAdd(Today(), 7 - Weekday(Today(), Monday), Days)) + 1),
+                            "Day",
+                                "Day " & (Value + 1),
+                            "Date",
+                                DateAdd(DateAdd(Today(), -1 * (Weekday(Today(), Monday) - 1), Days), Value, Days)
+                        )
+                    ),
+                    "Next Week",
+                    ClearCollect(
+                        DateRange,
+                        AddColumns(
+                            FirstN(
+                                [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30],
+                                DateDiff(DateAdd(Today(), 8 - Weekday(Today(), Monday), Days), DateAdd(DateAdd(Today(), 8 - Weekday(Today(), Monday), Days), 7 - Weekday(DateAdd(Today(), 8 - Weekday(Today(), Monday), Days), Monday), Days)) + 1),
+                            "Day",
+                                "Day " & (Value + 1),
+                            "Date",
+                                DateAdd(DateAdd(Today(), 8 - Weekday(Today(), Monday), Days), Value, Days)
+                        )
+                    ),
+                    "This Month",
+                    ClearCollect(
+                        DateRange,
+                        AddColumns(
+                            FirstN(
+                                [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30],
+                                DateDiff(Date(Year(Now()), Month(Now()), 1), DateAdd(DateAdd(Date(Year(Today()), Month(Today()), 1), 1,Months), -1,Days), Days) + 1),
+                            "Day",
+                                "Day " & (Value + 1),
+                            "Date",
+                                DateAdd(Date(Year(Now()), Month(Now()), 1), Value, Days)
+                        )
+                    ),
+                    "Next Month",
+                    ClearCollect(
+                        DateRange,
+                        AddColumns(
+                            FirstN(
+                                [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30],
+                                DateDiff(DateAdd(Date(Year(Now()),Month(Now()), 1), 1, Months), DateAdd(DateAdd(Date(Year(Today()), Month(Today()), 1), 2,Months), -1,Days), Days) + 1),
+                            "Day",
+                                "Day " & (Value + 1),
+                            "Date",
+                                DateAdd(DateAdd(Date(Year(Now()),Month(Now()), 1), 1, Months), Value, Days)
+                        )
+                    ),
+                    "Next 60 Days",
+                    ClearCollect(
+                        DateRange,
+                        AddColumns(
+                            FirstN(
+                                [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30],
+                                60),
+                            "Day",
+                                "Day " & (Value + 1),
+                            "Date",
+                                DateAdd(Today(), Value, Days)
+                        )
+                    ),
+                    "Next 90 Days",
+                    ClearCollect(
+                        DateRange,
+                        AddColumns(
+                            FirstN(
+                                [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30],
+                                90),
+                            "Day",
+                                "Day " & (Value + 1),
+                            "Date",
+                                DateAdd(Today(), Value, Days)
+                        )
+                    )
+                    ),
+                
+                    Switch(Self.SelectedText.Value,
+                    "Aujourd'hui",
+                    ClearCollect(
+                        DateRange,
+                        AddColumns(
+                            FirstN(
+                                [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30],
+                                1),
+                            "Day",
+                                "Day " & (Value + 1),
+                            "Date",
+                                DateAdd(Today(), Value, Days)
+                        )
+                    ),
+                    "Cette Semaine",
+                    ClearCollect(
+                        DateRange,
+                        AddColumns(
+                            FirstN(
+                                [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30],
+                                DateDiff(DateAdd(Today(), -1 * (Weekday(Today(), Monday) - 1), Days), DateAdd(Today(), 7 - Weekday(Today(), Monday), Days)) + 1),
+                            "Day",
+                                "Day " & (Value + 1),
+                            "Date",
+                                DateAdd(DateAdd(Today(), -1 * (Weekday(Today(), Monday) - 1), Days), Value, Days)
+                        )
+                    ),
+                    "Prochaine Semaine",
+                    ClearCollect(
+                        DateRange,
+                        AddColumns(
+                            FirstN(
+                                [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30],
+                                DateDiff(DateAdd(Today(), 8 - Weekday(Today(), Monday), Days), DateAdd(DateAdd(Today(), 8 - Weekday(Today(), Monday), Days), 7 - Weekday(DateAdd(Today(), 8 - Weekday(Today(), Monday), Days), Monday), Days)) + 1),
+                            "Day",
+                                "Day " & (Value + 1),
+                            "Date",
+                                DateAdd(DateAdd(Today(), 8 - Weekday(Today(), Monday), Days), Value, Days)
+                        )
+                    ),
+                    "Ce Mois-ci",
+                    ClearCollect(
+                        DateRange,
+                        AddColumns(
+                            FirstN(
+                                [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30],
+                                DateDiff(Date(Year(Now()), Month(Now()), 1), DateAdd(DateAdd(Date(Year(Today()), Month(Today()), 1), 1,Months), -1,Days), Days) + 1),
+                            "Day",
+                                "Day " & (Value + 1),
+                            "Date",
+                                DateAdd(Date(Year(Now()), Month(Now()), 1), Value, Days)
+                        )
+                    ),
+                    "Mois Prochain",
+                    ClearCollect(
+                        DateRange,
+                        AddColumns(
+                            FirstN(
+                                [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30],
+                                DateDiff(DateAdd(Date(Year(Now()),Month(Now()), 1), 1, Months), DateAdd(DateAdd(Date(Year(Today()), Month(Today()), 1), 2,Months), -1,Days), Days) + 1),
+                            "Day",
+                                "Day " & (Value + 1),
+                            "Date",
+                                DateAdd(DateAdd(Date(Year(Now()),Month(Now()), 1), 1, Months), Value, Days)
+                        )
+                    ),
+                    "60 Prochains Jours",
+                    ClearCollect(
+                        DateRange,
+                        AddColumns(
+                            FirstN(
+                                [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30],
+                                60),
+                            "Day",
+                                "Day " & (Value + 1),
+                            "Date",
+                                DateAdd(Today(), Value, Days)
+                        )
+                    ),
+                    "90 Prochains Jours",
+                    ClearCollect(
+                        DateRange,
+                        AddColumns(
+                            FirstN(
+                                [0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20,21,22,23,24,25,26,27,28,29,30],
+                                90),
+                            "Day",
+                                "Day " & (Value + 1),
+                            "Date",
+                                DateAdd(Today(), Value, Days)
+                        )
+                    )
+                    )
+                )
+                
+            Size: =21
+            Width: =575
+            X: =42
+            Y: =282
+            ZIndex: =25
+

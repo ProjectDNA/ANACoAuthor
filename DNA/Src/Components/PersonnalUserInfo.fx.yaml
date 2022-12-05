@@ -1,0 +1,228 @@
+PersonnalUserInfo As CanvasComponent:
+    WeekendParticipation(WeekendParticipationColor As Color):
+        WeekendParticipationColor:
+            Default: =RGBA(0, 0, 0, 1)
+        ThisProperty:
+            Default: ="2/2 [100%]"
+    ActiveColor: =RGBA(0, 0, 0, 1)
+    AnnuelFormation: ="Dossier de formation annuelle (2021/2022)"
+    DAG_StatusPillColor: =RGBA(0, 0, 0, 1)
+    DagScreen: =App.ActiveScreen
+    Fill: =If(DarkMode,Dark3,White1)
+    FirstName: =currPersonnel.'First Name'
+    Height: =520
+    IBTS_StatusPillColor: =RGBA(0, 0, 0, 1)
+    IBTSScreen: =App.ActiveScreen
+    LastName: =currPersonnel.'Last Name'
+    NavigateToPersonnelDetail: =App.ActiveScreen
+    OpSoldierScreen: =App.ActiveScreen
+    PersonnelImage: =LookUp(Personnels, 'System User'.User=DataVerseUserGuid, 'Military Id Card Front')
+    Rank: |-
+        =If(LangEn = true, 
+            currPersonnel.'Current Rank'.wywm_descrshort_eng,
+            currPersonnel.'Current Rank'.wywm_descrshort_fr)
+    SN: =currPersonnel.'Service Number'
+    Status: ="Active"
+    Unit: ="CGG"
+    WeekendColor: =RGBA(0, 0, 0, 1)
+    WeekendFormation: ="Participation formation week-end"
+    WeeklyColor: =RGBA(0, 0, 0, 1)
+    WeeklyFormation: ="Participation formation semaine"
+    WeeklyParticipation: ="2/10 [20%]"
+    Width: =640
+    X: =0
+    Y: =0
+    ZIndex: =1
+
+    PersUserInfoSepar As rectangle:
+        Height: =2
+        Width: =Parent.Width
+        Y: =286
+        ZIndex: =1
+
+    PersUserInfoProfPic As image:
+        BorderColor: =RGBA(255, 255, 255, 1)
+        BorderThickness: =6
+        Height: =145
+        Image: =Parent.PersonnelImage
+        RadiusBottomLeft: =90
+        RadiusBottomRight: =90
+        RadiusTopLeft: =90
+        RadiusTopRight: =90
+        Width: =145
+        X: =14
+        Y: =29
+        ZIndex: =2
+
+    PersUserInfoQR As image:
+        Height: =204
+        Image: =dndqrcode
+        Visible: =false
+        Width: =204
+        X: =436
+        ZIndex: =3
+
+    PersUserInfoRankLastN As label:
+        Color: =If(DarkMode,White,Black)
+        Font: =FontFamilyB
+        FontWeight: =FontWeight.Bold
+        Height: =50
+        Size: =CardInfoHeaderFont
+        Text: =Parent.Rank & " " & Parent.LastName
+        Width: =265
+        X: =171
+        Y: =14
+        ZIndex: =4
+
+    PersUserInfoName As label:
+        Color: =If(DarkMode,White,Black)
+        Font: =FontFamilyB
+        FontWeight: =FontWeight.Semibold
+        Height: =33
+        Size: =CardHeaderFont
+        Text: =Parent.FirstName
+        Width: =232
+        X: =171
+        Y: =64
+        ZIndex: =5
+
+    PersUserInfoSN As label:
+        Color: =If(DarkMode,White,Black)
+        Font: =FontFamilyB
+        FontWeight: =FontWeight.Semibold
+        Height: =32
+        Size: =CardHeaderFont
+        Text: =Parent.SN
+        Width: =169
+        X: =171
+        Y: =97
+        ZIndex: =6
+
+    PersUserInfoUnit As label:
+        Color: =If(DarkMode,White,Black)
+        Font: =FontFamilyB
+        FontWeight: =FontWeight.Semibold
+        Height: =97
+        PaddingBottom: =0
+        PaddingTop: =0
+        Size: =CardHeaderFont
+        Text: =Parent.Unit
+        VerticalAlign: =VerticalAlign.Top
+        Width: =216
+        X: =171
+        Y: =126
+        ZIndex: =7
+
+    PersUserInfoAnnuelForm As label:
+        Align: =Align.Center
+        Color: =If(DarkMode,White,Black)
+        Font: =FontFamilyB
+        FontWeight: =FontWeight.Bold
+        Height: =61
+        Size: =22
+        Text: =Parent.AnnuelFormation
+        Width: =640
+        Y: =296
+        ZIndex: =10
+
+    PersUserInfoPartWeek As label:
+        Color: =If(DarkMode,White,Black)
+        Font: =FontFamilyB
+        FontWeight: =FontWeight.Bold
+        Height: =53
+        Size: =CardTextFont
+        Text: =Parent.WeeklyFormation
+        Width: =436
+        X: =37
+        Y: =366
+        ZIndex: =11
+
+    PersUserInfoPartWeekend As label:
+        Color: =If(DarkMode,White,Black)
+        Font: =FontFamilyB
+        FontWeight: =FontWeight.Bold
+        Height: =101
+        Size: =CardTextFont
+        Text: =Parent.WeekendFormation
+        VerticalAlign: =VerticalAlign.Top
+        Width: =420
+        X: =37
+        Y: =419
+        ZIndex: =12
+
+    PersUserInfoWeekValue As label:
+        Color: =If(DarkMode,White,Black)
+        Font: =FontFamilyB
+        FontWeight: =FontWeight.Bold
+        Height: =53
+        OnSelect: =Navigate(Parent.NavigateToPersonnelDetail, CoverRight)
+        Size: =CardTextFont
+        Text: =Parent.WeeklyParticipation
+        Width: =143
+        X: =473
+        Y: =366
+        ZIndex: =13
+
+    PersUserInfoPartWeekendValue As label:
+        Color: =If(DarkMode,White,Black)
+        Font: =FontFamilyB
+        FontWeight: =FontWeight.Bold
+        Height: =53
+        Size: =CardTextFont
+        Text: =Parent.WeekendParticipation
+        Width: =143
+        X: =473
+        Y: =414
+        ZIndex: =14
+
+    PersonnalUserInfoDagPill As button:
+        Fill: |-
+            =//ExpiringYellow
+            PersonnalUserInfo.DAG_StatusPillColor
+        Height: =35
+        OnSelect: =Navigate(Parent.DagScreen, ScreenTransition.CoverRight)
+        Size: =CardSmallTextFont
+        Text: =__localizer.Localize("ANA_SPLASH_LABEL_DAG", LangEn)
+        Width: =130
+        X: =125
+        Y: =237
+        ZIndex: =15
+
+    PersonnalUserInfoActivePill As button:
+        Fill: |
+            =PersonnalUserInfo.ActiveColor
+        Height: =35
+        Size: =CardSmallTextFont
+        Text: =Parent.Status
+        Width: =95
+        X: =15
+        Y: =237
+        ZIndex: =16
+
+    PersonnalUserInfoIBTSPill As button:
+        Fill: |-
+            =//ExpiredRed
+            PersonnalUserInfo.IBTS_StatusPillColor
+        Height: =35
+        OnSelect: =Navigate(Parent.IBTSScreen, ScreenTransition.CoverRight)
+        Size: =CardSmallTextFont
+        Text: =__localizer.Localize("ANA_SPLASH_LABEL_IBTS", LangEn)
+        Width: =150
+        X: =270
+        Y: =237
+        ZIndex: =17
+
+    PersonnalUserInfoOpPill As button:
+        DisplayMode: |-
+            =//DisplayMode.Edit
+            Disabled
+        Fill: =ExpiredRed
+        Height: =35
+        OnSelect: =Navigate(Parent.OpSoldierScreen, ScreenTransition.CoverRight)
+        Size: =CardSmallTextFont
+        Text: =Proper(__localizer.Localize("ANA_PERS_OPERATIONAL_SOLDIER_AB", LangEn))
+        Width: =Parent.Width - 450
+        X: =435
+        Y: =237
+        ZIndex: =18
+

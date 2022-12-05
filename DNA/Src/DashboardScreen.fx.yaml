@@ -1,0 +1,387 @@
+DashboardScreen As screen:
+    BackgroundImage: ='2Div_AppBackground'
+    Fill: =RGBA(0, 0, 0, 0)
+    ImagePosition: =ImagePosition.Fill
+    OnHidden: =
+    OnVisible: |-
+        =Set(DataVerseUser,LookUp(Users,'LocalizationEnFr (internalemailaddress)'=currUser.Email));
+        Set(DataVerseUserGuid,DataVerseUser.User);
+        
+        Concurrent(
+        Refresh(UserNotifications),
+        Refresh('Training Event Attendees'),
+        Refresh('Course Applications'),
+        Refresh('Tasking Applications')
+        );
+        
+        /*
+        Set( 
+            UserNotificationItems,
+            Filter(
+                UserNotifications,
+                Personnel.Personnel = currPersonnel.Personnel && Not(Type = "hidden") && 'Event Status' = 'Event Status (UserNotifications)'.Yes
+            )
+        );
+        */
+        
+        Set( 
+            UserNotificationItems,
+            Filter(
+                UserNotifications,
+                Personnel.Personnel = currPersonnel.Personnel && 'Deleted (UserNotifications)'.No && 'Event Status' = 'Event Status (UserNotifications)'.Yes
+            )
+        );
+
+    __localizer As Localizer_2:
+        Localize: |-
+            =/*
+                @author: ryan@werkncode.net
+                Usage: To use the localizer in your environment create a table with the following structure in the dataverse:
+            
+                LocalizationEnFr(
+                        (String) StringId, (String) En, (String) Fr, (Boolean) Flagged
+                )
+            
+                Then in your app, on the main/first screen create a custom component (called _localizer extending from Localizer here).
+            
+                To translate text use the following function call on the localizer component:
+            
+                _localizer.Localize("APP_SCREEN_STRING_ID", LangEn), this will return the English or the French Text
+            */
+            If(
+                IsLangEn = true,
+                //IF
+                First(
+                    Search(
+                        LocalizationEnFr,
+                        StringId,
+                        "wywm_stringid"
+                    )
+                ).En,
+                //ELSE
+                First(
+                    Search(
+                        LocalizationEnFr,
+                        StringId,
+                        "wywm_stringid"
+                    )
+                ).Fr
+            )
+        Visible: =false
+        ZIndex: =8
+
+    Dashboard_Container As groupContainer.manualLayoutContainer:
+        Height: =App.Height
+        Width: =App.Width
+        ZIndex: =9
+
+        Welcome_Container As groupContainer.verticalAutoLayoutContainer:
+            Height: =Parent.Height - 90
+            LayoutDirection: =LayoutDirection.Vertical
+            LayoutJustifyContent: =LayoutJustifyContent.Center
+            LayoutMode: =LayoutMode.Auto
+            Width: =Dashboard_Container.Width
+            Y: =90
+            ZIndex: =1
+
+            Dashboard_Welcome As label:
+                Color: =White
+                FillPortions: =1
+                Font: =FontFamilyA
+                FontWeight: =FontWeight.Semibold
+                Height: =100
+                LayoutMinHeight: =60
+                LayoutMinWidth: =560
+                PaddingLeft: =28
+                Size: |
+                    =60
+                Text: |-
+                    =//Proper(__localizer.Localize("ANA_SPLASH_WELCOME", LangEn))
+                    Proper(
+                        __localizer.Localize
+                        (
+                            "ANA_SPLASH_WELCOME",
+                            LangEn
+                        )
+                    ) & Char(13) & 
+                    If(LangEn, 
+                        currPersonnel.'Current Rank'.'Description Abbreviation Eng',
+                        currPersonnel.'Current Rank'.'Description Abbreviation FR'
+                    )
+                     & Char(13) & currPersonnel.'Last Name'
+                Width: =640
+                X: =
+                ZIndex: =1
+
+            Spacer As groupContainer.manualLayoutContainer:
+                AlignInContainer: =AlignInContainer.SetByContainer
+                FillPortions: =0
+                Height: =250
+                LayoutMinHeight: =112
+                LayoutMinWidth: =250
+                Width: =Parent.Width
+                ZIndex: =4
+
+            Button_Container As groupContainer.verticalAutoLayoutContainer:
+                AlignInContainer: =AlignInContainer.SetByContainer
+                Height: =604
+                LayoutGap: =10
+                LayoutJustifyContent: =LayoutJustifyContent.Center
+                LayoutMinHeight: =112
+                LayoutMinWidth: =250
+                LayoutMode: =LayoutMode.Auto
+                LayoutOverflowY: =LayoutOverflow.Scroll
+                LayoutWrap: =true
+                Width: =App.Width
+                Y: =141
+                ZIndex: =5
+
+                "'Training & Courses_Button' As customButtonComponent":
+                    appName: ="Training & Courses"
+                    FontSize: =16
+                    LayoutMinHeight: =640
+                    LayoutMinWidth: =640
+
+                "'Taskings and Employments_Button' As customButtonComponent":
+                    appName: ="Taskings and Employments"
+                    FontSize: =16
+                    LayoutMinHeight: =640
+                    LayoutMinWidth: =640
+                    ZIndex: =2
+
+                "'Unit Nominal Roll' As customButtonComponent":
+                    appName: ="Unit Nominal Roll"
+                    FontSize: =16
+                    LayoutMinHeight: =640
+                    LayoutMinWidth: =640
+                    ZIndex: =3
+
+                "'Personal Info_Button' As customButtonComponent":
+                    appName: ="Personal Info"
+                    FontSize: =16
+                    LayoutMinHeight: =640
+                    LayoutMinWidth: =640
+                    ZIndex: =4
+
+                "'Forms & References_Button' As customButtonComponent":
+                    appName: ="Forms & References"
+                    FontSize: =16
+                    LayoutMinHeight: =640
+                    LayoutMinWidth: =640
+                    ZIndex: =5
+
+                "'Training Attendance_Button' As customButtonComponent":
+                    appName: ="Training Attendance"
+                    FontSize: =16
+                    LayoutMinHeight: =640
+                    LayoutMinWidth: =640
+                    Visible: =false
+                    ZIndex: =6
+
+                "'Schedule Appointment_Button' As customButtonComponent":
+                    appName: ="Schedule Appointment"
+                    FontSize: =16
+                    LayoutMinHeight: =640
+                    LayoutMinWidth: =640
+                    Visible: =false
+                    ZIndex: =7
+
+                "'Submit Administration_Button' As customButtonComponent":
+                    appName: ="Submit Administration"
+                    FontSize: =16
+                    LayoutMinHeight: =640
+                    LayoutMinWidth: =640
+                    Visible: =false
+                    ZIndex: =8
+
+                "'Professional Development_Button' As customButtonComponent":
+                    appName: ="Professional Development"
+                    FontSize: =16
+                    LayoutMinHeight: =640
+                    LayoutMinWidth: =640
+                    Visible: =false
+                    ZIndex: =9
+
+                "'Training Portal_Button' As customButtonComponent":
+                    appName: ="Training Portal"
+                    FontSize: =16
+                    LayoutMinHeight: =640
+                    LayoutMinWidth: =640
+                    Visible: =false
+                    ZIndex: =10
+
+                Potential_Button As customButtonComponent:
+                    appName: ="Potential"
+                    FontSize: =16
+                    LayoutMinHeight: =640
+                    LayoutMinWidth: =640
+                    Visible: =false
+                    ZIndex: =11
+
+        Dashboard_MainHeader As MainHeader:
+            PersonalInfoScreen: =PersonalInfoScreen
+            Width: =App.Width
+            ZIndex: =9
+
+    LoadingScreen_Container As groupContainer.manualLayoutContainer:
+        Height: =App.Height
+        Visible: |
+            =LoadingScreen
+        Width: =App.Width
+        ZIndex: =10
+
+        Dashboard_2DivAppBackground_1 As image:
+            Height: =1136
+            Image: ='2Div_AppBackground'
+            ImagePosition: =ImagePosition.Fill
+            Width: =Parent.Width
+            ZIndex: =1
+
+        Container21 As groupContainer.horizontalAutoLayoutContainer:
+            Height: =Parent.Height
+            LayoutAlignItems: =LayoutAlignItems.Center
+            LayoutDirection: =LayoutDirection.Vertical
+            LayoutGap: =150
+            LayoutJustifyContent: =LayoutJustifyContent.Center
+            LayoutMode: =LayoutMode.Auto
+            Width: =Parent.Width
+            ZIndex: =2
+
+            Dashboard_LoadingProjectDnaFR_1 As label:
+                Align: =Align.Center
+                BorderColor: =RGBA(255, 255, 255, 1)
+                Color: =White1
+                Fill: =RGBA(18, 57, 104, 0.5)
+                FontWeight: =FontWeight.Bold
+                Height: =183
+                LayoutMinHeight: =70
+                LayoutMinWidth: =560
+                Size: =50
+                Text: ="Projet DNA / Project DNA"
+                Width: =500
+                Y: =42
+                ZIndex: =1
+
+            Dashboard_LoadingLoading_1 As label:
+                Align: =Align.Center
+                Color: =RGBA(255, 255, 255, 1)
+                Height: =99
+                LayoutMinHeight: =70
+                LayoutMinWidth: =560
+                Size: =21
+                Text: =If(LangEn, "Loading...", "Chargement en cours...")
+                Width: =500
+                Y: =126
+                ZIndex: =2
+
+            Dashboard_LoadingGif_1 As image:
+                Height: =90
+                Image: =loading
+                LayoutMinHeight: =320
+                LayoutMinWidth: =320
+                Width: =90
+                X: =
+                Y: =175
+                ZIndex: =3
+
+            Dashboard_LoadingGovernmentOfCanada_1 As label:
+                Align: =Align.Center
+                Color: =RGBA(255, 255, 255, 1)
+                Fill: =RGBA(18, 57, 104, 0.5)
+                FontWeight: =FontWeight.Lighter
+                Height: =99
+                LayoutMinHeight: =70
+                LayoutMinWidth: =560
+                Size: =21
+                Text: |-
+                    ="Gouvernement du Canada
+                    Government of Canada"
+                Width: =500
+                Y: =126
+                ZIndex: =4
+
+    Dashboard_DebugButtonGroup As group:
+        Height: =5
+        Width: =5
+        X: =40
+        Y: =40
+        ZIndex: =11
+
+        Debug_PersonalInfo_2 As button:
+            Height: =70
+            OnSelect: =Navigate(PersonalInfoScreen)
+            Size: =24
+            Text: ="Button"
+            Visible: =false
+            Width: =75
+            X: =412
+            Y: =108
+            ZIndex: =1
+
+        Debug_Messenger_2 As button:
+            Height: =70
+            OnSelect: |-
+                =Launch("msteams://")
+            Size: =24
+            Text: ="Button"
+            Visible: =false
+            Width: =75
+            X: =377
+            Y: =108
+            ZIndex: =2
+
+        Debug_Notification_2 As button:
+            Height: =70
+            OnSelect: =Navigate(NotificationScreen)
+            Size: =24
+            Text: ="Button"
+            Visible: =false
+            Width: =75
+            X: =302
+            Y: =108
+            ZIndex: =3
+
+        Debug_MainMenu_2 As button:
+            Height: =70
+            OnSelect: =Navigate(DashboardScreen)
+            Size: =24
+            Text: ="Button"
+            Visible: =false
+            Width: =75
+            X: =153
+            Y: =108
+            ZIndex: =4
+
+        Debug_TrainingMenu_2 As button:
+            Height: =70
+            OnSelect: =Navigate(TrainingScreen)
+            Size: =24
+            Text: ="Button"
+            Visible: =false
+            Width: =75
+            X: =228
+            Y: =108
+            ZIndex: =5
+
+        Debug_ButtonTask As button:
+            Height: =70
+            OnSelect: =Navigate(TEScreen)
+            Size: =24
+            Text: ="Button"
+            Visible: =false
+            Width: =75
+            X: =487
+            Y: =108
+            ZIndex: =6
+
+        Debug_ButtonOrg As button:
+            Height: =70
+            OnSelect: =Navigate(OrgScreen)
+            Size: =24
+            Text: ="Button"
+            Visible: =false
+            Width: =75
+            X: =78
+            Y: =108
+            ZIndex: =7
+

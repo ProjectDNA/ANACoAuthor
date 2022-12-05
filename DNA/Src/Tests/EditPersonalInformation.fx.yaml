@@ -1,0 +1,33 @@
+"'8dcade18-bb92-4f1c-b124-167a1d44f7bf' As TestSuite":
+    Description: =""
+    DisplayName: ="EditPersonalInformation"
+
+    "'90dbffc7-a1bb-4b2e-b360-492beb67e9c6' As TestCase":
+        Description: =""
+        DisplayName: ="Change City Of Residence"
+
+        Step1 As TestStep:
+            Description: ="Select 'Dashboard_ButtonPersInfo'"
+            Screen: =DashboardScreen
+            Value: =Select(Debug_PersonalInfo_2)
+
+        Step5 As TestStep:
+            Description: ="Navigate to Personal Detail Screen"
+            Value: =Select(Debug__PersonalInfo)
+
+        Step3 As TestStep:
+            Description: ="Select 'spieMobilePhoneDataCardValue'"
+            Screen: =OrgContactScreen
+            Value: =Select(Debug_EditPI_1)
+
+        Step2 As TestStep:
+            Description: ="SetProperty, change City of Residence"
+            Screen: =FormOnSuccess
+            Value: |-
+                =SetProperty('spieAddress1:CityDataCardValue_1'.Text, If('spieAddress1:CityDataCardValue_1'.Text = "Montreal", "Quebec City", "Montreal"))
+
+        Step4 As TestStep:
+            Description: ="Select 'SPIE_Submit'"
+            Screen: =FormOnSuccess
+            Value: =Select(SPIE_Submit_1)
+

@@ -1,0 +1,918 @@
+SubPersonalInfoScreen As screen:
+    Fill: =If(DarkMode,Dark3,White1)
+    OnVisible: =
+
+    Info_Container As groupContainer.manualLayoutContainer:
+        Height: =App.Height
+        Width: =App.Width
+        ZIndex: =11
+
+        sectionlistContainer As groupContainer.verticalAutoLayoutContainer:
+            Height: =956
+            LayoutAlignItems: =LayoutAlignItems.Stretch
+            LayoutDirection: =LayoutDirection.Vertical
+            LayoutJustifyContent: =LayoutJustifyContent.SpaceBetween
+            LayoutMode: =LayoutMode.Auto
+            LayoutOverflowY: =LayoutOverflow.Scroll
+            Width: =Parent.Width
+            Y: |
+                =180
+            ZIndex: =1
+
+            PI_InformationPersGrp_Header_2 As label:
+                BorderColor: =RGBA(230, 230, 230, 1)
+                Color: =RGBA(255, 255, 255, 1)
+                Fill: =If(DarkMode,Dark2,Blue2)
+                Font: =FontFamilyB
+                FontWeight: =FontWeight.Semibold
+                Height: =64
+                LayoutMinHeight: =70
+                LayoutMinWidth: =560
+                PaddingLeft: =25
+                Size: =CardTextFont
+                Text: =__localizer.Localize("ANA_CONTACT_PERSONAL_INFO", LangEn)
+                Width: =640
+                ZIndex: =1
+
+            Container4 As groupContainer.horizontalAutoLayoutContainer:
+                AlignInContainer: =AlignInContainer.SetByContainer
+                Height: =62
+                LayoutAlignItems: =LayoutAlignItems.Stretch
+                LayoutJustifyContent: =LayoutJustifyContent.SpaceBetween
+                LayoutMinHeight: =112
+                LayoutMinWidth: =250
+                LayoutMode: =LayoutMode.Auto
+                Width: =Parent.Width
+                ZIndex: =2
+
+                PI_Name_2 As label:
+                    AlignInContainer: =AlignInContainer.Center
+                    Color: =If(DarkMode,White1,Black)
+                    FontWeight: =FontWeight.Semibold
+                    Height: =60
+                    LayoutMinHeight: =70
+                    LayoutMinWidth: =560
+                    Size: =18
+                    Text: |
+                        =__localizer.Localize("ANA_CONTACT_NAME", LangEn)&":"
+                    Width: =(sectionlistContainer.Width/2)
+                    X: =25
+                    Y: =64
+                    ZIndex: =1
+
+                PI_NameValue_2 As label:
+                    Align: =Align.Right
+                    AlignInContainer: =AlignInContainer.Center
+                    Color: =If(DarkMode,White1,Black)
+                    Height: =60
+                    LayoutMinHeight: =70
+                    LayoutMinWidth: =560
+                    PaddingRight: =20
+                    Size: =18
+                    Text: =currPersonnel.'First Name'&" "&currPersonnel.'Last Name'
+                    Width: =(sectionlistContainer.Width/2)
+                    X: =176
+                    Y: =64
+                    ZIndex: =2
+
+            Container5 As groupContainer.horizontalAutoLayoutContainer:
+                AlignInContainer: =AlignInContainer.SetByContainer
+                Height: =62
+                LayoutAlignItems: =LayoutAlignItems.Stretch
+                LayoutJustifyContent: =LayoutJustifyContent.SpaceBetween
+                LayoutMinHeight: =112
+                LayoutMinWidth: =250
+                LayoutMode: =LayoutMode.Auto
+                Width: =Parent.Width
+                ZIndex: =3
+
+                PI_Dob_2 As label:
+                    AlignInContainer: =AlignInContainer.Center
+                    Color: =If(DarkMode,White1,Black)
+                    FontWeight: =FontWeight.Semibold
+                    Height: =60
+                    LayoutMinHeight: =70
+                    LayoutMinWidth: =560
+                    Size: =18
+                    Text: |-
+                        =__localizer.Localize("ANA_CONTACT_DOB", LangEn)&":"
+                    Width: =(sectionlistContainer.Width/2)
+                    X: =25
+                    Y: =119
+                    ZIndex: =1
+
+                PI_DobValue_2 As label:
+                    Align: =Align.Right
+                    AlignInContainer: =AlignInContainer.Center
+                    Color: =If(DarkMode,White1,Black)
+                    Height: =60
+                    LayoutMinHeight: =70
+                    LayoutMinWidth: =560
+                    PaddingRight: =20
+                    Size: =18
+                    Text: =Text(DateTimeValue(currPersonnel.'Date of Birth'), "yyyy/mm/dd")
+                    Width: =(sectionlistContainer.Width/2)
+                    X: =176
+                    Y: =119
+                    ZIndex: =2
+
+            Container7 As groupContainer.horizontalAutoLayoutContainer:
+                AlignInContainer: =AlignInContainer.SetByContainer
+                Height: =62
+                LayoutAlignItems: =LayoutAlignItems.Stretch
+                LayoutJustifyContent: =LayoutJustifyContent.SpaceBetween
+                LayoutMinHeight: =112
+                LayoutMinWidth: =250
+                LayoutMode: =LayoutMode.Auto
+                Width: =(sectionlistContainer.Width/2)
+                ZIndex: =4
+
+                PI_PrefLang_2 As label:
+                    AlignInContainer: =AlignInContainer.Center
+                    Color: =If(DarkMode,White1,Black)
+                    FillPortions: =1
+                    FontWeight: =FontWeight.Semibold
+                    Height: =60
+                    LayoutMinHeight: =70
+                    LayoutMinWidth: =300
+                    Size: =18
+                    Text: |-
+                        =__localizer.Localize("ANA_CONTACT_PREF_LANG", LangEn)&":"
+                    Width: =(sectionlistContainer.Width/2)
+                    X: =25
+                    Y: =174
+                    ZIndex: =1
+
+                PI_PrefLangValue_2 As label:
+                    Align: =Align.Right
+                    AlignInContainer: =AlignInContainer.Center
+                    Color: =If(DarkMode,White1,Black)
+                    Height: =60
+                    LayoutMinHeight: =70
+                    LayoutMinWidth: =560
+                    PaddingRight: =20
+                    Size: =18
+                    Text: |
+                        =//If(LangEn, If(currPersonnel.'Preferred Language ' = [@'Preferred Language '].English, "English", "French"), If(currPersonnel.'Preferred Language ' = [@'Preferred Language '].English, "Anglais", "Français"))
+                        
+                        If(LangEn, If(LookUp(Personnels, Personnel = currPersonnel.Personnel).'Preferred Language ' = [@'Preferred Language '].English, "English", "French") , If(LookUp(Personnels, Personnel = currPersonnel.Personnel).'Preferred Language ' = [@'Preferred Language '].English, "Anglais", "Français"))
+                    Width: =(sectionlistContainer.Width/2)
+                    X: =331
+                    Y: =174
+                    ZIndex: =2
+
+            Container8 As groupContainer.horizontalAutoLayoutContainer:
+                AlignInContainer: =AlignInContainer.SetByContainer
+                Height: =62
+                LayoutAlignItems: =LayoutAlignItems.Stretch
+                LayoutJustifyContent: =LayoutJustifyContent.SpaceBetween
+                LayoutMinHeight: =112
+                LayoutMinWidth: =250
+                LayoutMode: =LayoutMode.Auto
+                Width: =Parent.Width
+                ZIndex: =5
+
+                PI_SecClr_2 As label:
+                    AlignInContainer: =AlignInContainer.Center
+                    Color: =If(DarkMode,White1,Black)
+                    FontWeight: =FontWeight.Semibold
+                    Height: =60
+                    LayoutMinHeight: =70
+                    LayoutMinWidth: =560
+                    Size: =18
+                    Text: |-
+                        =__localizer.Localize("ANA_DAG_LABEL_CLEARANCE_LEVEL", LangEn)&":"
+                    Width: |
+                        =(sectionlistContainer.Width/2)
+                    X: =25
+                    Y: =234
+                    ZIndex: =1
+
+                PI_SecClrValue_2 As label:
+                    Align: =Align.Right
+                    AlignInContainer: =AlignInContainer.Center
+                    Color: =If(DarkMode,White1,Black)
+                    Height: =64
+                    LayoutMinHeight: =70
+                    LayoutMinWidth: =560
+                    PaddingRight: =20
+                    Size: =18
+                    Text: =currPersonnel.'Security Clearance Level'
+                    VerticalAlign: =VerticalAlign.Top
+                    Width: |
+                        =(sectionlistContainer.Width/2)
+                    X: =331
+                    Y: =9
+                    ZIndex: =2
+
+            PI_InformationMilitaryGrpHeader_2 As label:
+                BorderColor: =RGBA(230, 230, 230, 1)
+                Color: =RGBA(255, 255, 255, 1)
+                Fill: =If(DarkMode,Dark2,Blue2)
+                Font: =FontFamilyB
+                FontWeight: =FontWeight.Semibold
+                Height: =67
+                LayoutMinHeight: =70
+                LayoutMinWidth: =560
+                PaddingLeft: =25
+                Size: =CardTextFont
+                Text: =__localizer.Localize("ANA_CONTACT_MILITARY_INFO", LangEn)
+                Width: =640
+                Y: =// PI_InformationPersGrpInfoCard.Y+ PI_InformationPersGrpInfoCard.Height
+                ZIndex: =7
+
+            Container4_3 As groupContainer.horizontalAutoLayoutContainer:
+                AlignInContainer: =AlignInContainer.SetByContainer
+                Height: =62
+                LayoutAlignItems: =LayoutAlignItems.Stretch
+                LayoutJustifyContent: =LayoutJustifyContent.SpaceBetween
+                LayoutMinHeight: =112
+                LayoutMinWidth: =250
+                LayoutMode: =LayoutMode.Auto
+                Width: =Parent.Width
+                ZIndex: =8
+
+                PI_CurrRank_2 As label:
+                    AlignInContainer: =AlignInContainer.Center
+                    Color: =If(DarkMode,White1,Black)
+                    FontWeight: =FontWeight.Semibold
+                    Height: =60
+                    LayoutMinHeight: =60
+                    LayoutMinWidth: =560
+                    Size: =18
+                    Text: |-
+                        =__localizer.Localize("ANA_CONTACT_CURRENT_RANK", LangEn)&":"
+                    Width: =(sectionlistContainer.Width/2)
+                    X: =25
+                    Y: =371
+                    ZIndex: =1
+
+                PI_CurrRankValue_2 As label:
+                    Align: =Align.Right
+                    AlignInContainer: =AlignInContainer.Center
+                    Color: =If(DarkMode,White1,Black)
+                    Height: =53
+                    LayoutMinHeight: =60
+                    LayoutMinWidth: =560
+                    PaddingRight: =20
+                    Size: =18
+                    Text: |-
+                        =//currPersonnel.'Current Rank'.'Description Abbreviation Eng'
+                        If(
+                            LangEn,
+                            currPersonnel.'Current Rank'.'Description Abbreviation Eng',
+                            currPersonnel.'Current Rank'.'Description Abbreviation FR'
+                        )
+                    Width: =(sectionlistContainer.Width/2)
+                    X: =275
+                    Y: =1
+                    ZIndex: =2
+
+            Container4_1 As groupContainer.horizontalAutoLayoutContainer:
+                AlignInContainer: =AlignInContainer.SetByContainer
+                Height: =62
+                LayoutAlignItems: =LayoutAlignItems.Stretch
+                LayoutJustifyContent: =LayoutJustifyContent.SpaceBetween
+                LayoutMinHeight: =112
+                LayoutMinWidth: =250
+                LayoutMode: =LayoutMode.Auto
+                Width: =Parent.Width
+                ZIndex: =9
+
+                PI_Unit_2 As label:
+                    AlignInContainer: =AlignInContainer.Center
+                    Color: =If(DarkMode,White1,Black)
+                    FontWeight: =FontWeight.Semibold
+                    Height: =60
+                    LayoutMinHeight: =60
+                    LayoutMinWidth: =560
+                    Size: =18
+                    Text: |-
+                        =__localizer.Localize("ANA_CONTACT_UNIT", LangEn)&":"
+                    Width: =(sectionlistContainer.Width/2)
+                    X: =25
+                    Y: =431
+                    ZIndex: =1
+
+                PI_UnitValue_2 As label:
+                    Align: =Align.Right
+                    AlignInContainer: =AlignInContainer.Center
+                    Color: =If(DarkMode,White1,Black)
+                    Height: =64
+                    LayoutMinHeight: =60
+                    LayoutMinWidth: =560
+                    PaddingRight: =20
+                    Size: =18
+                    Text: =currPersonnel.Unit.'Unit Name'
+                    Width: =(sectionlistContainer.Width/2)
+                    X: =275
+                    Y: =431
+                    ZIndex: =2
+
+            Container5_1 As groupContainer.horizontalAutoLayoutContainer:
+                AlignInContainer: =AlignInContainer.SetByContainer
+                Height: =62
+                LayoutAlignItems: =LayoutAlignItems.Stretch
+                LayoutJustifyContent: =LayoutJustifyContent.SpaceBetween
+                LayoutMinHeight: =112
+                LayoutMinWidth: =250
+                LayoutMode: =LayoutMode.Auto
+                Width: =Parent.Width
+                ZIndex: =10
+
+                PI_ServNum_2 As label:
+                    AlignInContainer: =AlignInContainer.Center
+                    Color: =If(DarkMode,White1,Black)
+                    FontWeight: =FontWeight.Semibold
+                    Height: =60
+                    LayoutMinHeight: =60
+                    LayoutMinWidth: =560
+                    Size: =18
+                    Text: |-
+                        =__localizer.Localize("ANA_CONTACT_SERVICE_NUMB", LangEn)&":"
+                    Width: =(sectionlistContainer.Width/2)
+                    X: =25
+                    Y: =491
+                    ZIndex: =1
+
+                PI_ServNumValue_2 As label:
+                    Align: =Align.Right
+                    AlignInContainer: =AlignInContainer.Center
+                    Color: =If(DarkMode,White1,Black)
+                    Height: =60
+                    LayoutMinHeight: =60
+                    LayoutMinWidth: =560
+                    PaddingRight: =20
+                    Size: =18
+                    Text: =currPersonnel.'Service Number'
+                    Width: =(sectionlistContainer.Width/2)
+                    X: =275
+                    Y: =491
+                    ZIndex: =2
+
+            Container7_1 As groupContainer.horizontalAutoLayoutContainer:
+                AlignInContainer: =AlignInContainer.SetByContainer
+                Height: =112
+                LayoutAlignItems: =LayoutAlignItems.Stretch
+                LayoutJustifyContent: =LayoutJustifyContent.SpaceBetween
+                LayoutMinHeight: =112
+                LayoutMinWidth: =250
+                LayoutMode: =LayoutMode.Auto
+                Width: =Parent.Width
+                ZIndex: =11
+
+                PI_ActiveRole_2 As label:
+                    AlignInContainer: =AlignInContainer.Center
+                    Color: =If(DarkMode,White1,Black)
+                    FontWeight: =FontWeight.Semibold
+                    Height: =60
+                    LayoutMinHeight: =60
+                    LayoutMinWidth: =560
+                    Size: =18
+                    Text: |-
+                        =__localizer.Localize("ANA_CONTACT_ACTIVE_MILITARY_ROLE", LangEn)&":"
+                    Width: =(sectionlistContainer.Width/2)
+                    X: =25
+                    Y: =551
+                    ZIndex: =1
+
+                PI_ActiveRoleValue_2 As label:
+                    Align: =Align.Right
+                    AlignInContainer: =AlignInContainer.Center
+                    Color: =If(DarkMode,White1,Black)
+                    Height: =60
+                    LayoutMinHeight: =60
+                    LayoutMinWidth: =560
+                    PaddingRight: =20
+                    Size: =18
+                    Text: |-
+                        =//If(LangEn, LookUp('Military Roles', Personnel.Personnel = currPersonnel.Personnel).Role.wywm_roleeng, LookUp('Military Roles', Personnel.Personnel = currPersonnel.Personnel).Role.wywm_rolefr)
+                        
+                        //LookUp(Personnels, Personnel = currPersonnel.Personnel).'Active Military Role'.'Role Fr'
+                        
+                        If(LangEn, LookUp(Personnels, Personnel = currPersonnel.Personnel).'Active Military Role'.'Role En' ,LookUp(Personnels, Personnel = currPersonnel.Personnel).'Active Military Role'.'Role Fr')
+                    Width: =(sectionlistContainer.Width/2)
+                    X: =275
+                    Y: =551
+                    ZIndex: =2
+
+            Container8_1 As groupContainer.horizontalAutoLayoutContainer:
+                AlignInContainer: =AlignInContainer.SetByContainer
+                Height: =62
+                LayoutAlignItems: =LayoutAlignItems.Stretch
+                LayoutJustifyContent: =LayoutJustifyContent.SpaceBetween
+                LayoutMinHeight: =112
+                LayoutMinWidth: =250
+                LayoutMode: =LayoutMode.Auto
+                Width: =Parent.Width
+                ZIndex: =12
+
+                PI_JoinDate_2 As label:
+                    AlignInContainer: =AlignInContainer.Center
+                    Color: =If(DarkMode,White1,Black)
+                    FontWeight: =FontWeight.Semibold
+                    Height: =60
+                    LayoutMinHeight: =70
+                    LayoutMinWidth: =560
+                    Size: =18
+                    Text: |-
+                        =__localizer.Localize("ANA_CONTACT_JOIN_DATE", LangEn)&":"
+                    Width: =(sectionlistContainer.Width/2)
+                    X: =25
+                    Y: =611
+                    ZIndex: =1
+
+                PI_JoinDateValue_2 As label:
+                    Align: =Align.Right
+                    AlignInContainer: =AlignInContainer.Center
+                    Color: =If(DarkMode,White1,Black)
+                    Height: =60
+                    LayoutMinHeight: =70
+                    LayoutMinWidth: =560
+                    PaddingRight: =20
+                    Size: =18
+                    Text: =currPersonnel.'Join Date'
+                    Width: =(sectionlistContainer.Width/2)
+                    X: =275
+                    Y: =611
+                    ZIndex: =2
+
+            PI_ContactGrpHeader_2 As label:
+                BorderColor: =RGBA(230, 230, 230, 1)
+                Color: =RGBA(255, 255, 255, 1)
+                Fill: =If(DarkMode,Dark2,Blue2)
+                Font: =FontFamilyB
+                FontWeight: =FontWeight.Semibold
+                Height: =67
+                LayoutMinHeight: =70
+                LayoutMinWidth: =560
+                PaddingLeft: =25
+                Size: =CardTextFont
+                Text: =__localizer.Localize("ANA_CONTACT_CONTACT_INFO", LangEn)
+                Width: =640
+                Y: =//Container8_1.Y+Container8_1.Height
+                ZIndex: =13
+
+            Container4_2 As groupContainer.horizontalAutoLayoutContainer:
+                AlignInContainer: =AlignInContainer.SetByContainer
+                Height: =62
+                LayoutAlignItems: =LayoutAlignItems.Stretch
+                LayoutJustifyContent: =LayoutJustifyContent.SpaceBetween
+                LayoutMinHeight: =112
+                LayoutMinWidth: =250
+                LayoutMode: =LayoutMode.Auto
+                Width: =Parent.Width
+                ZIndex: =14
+
+                PI_Adress_2 As label:
+                    AlignInContainer: =AlignInContainer.Center
+                    Color: =If(DarkMode,White1,Black)
+                    FontWeight: =FontWeight.Semibold
+                    Height: =80
+                    LayoutMinHeight: =60
+                    LayoutMinWidth: =560
+                    Size: =18
+                    Text: |-
+                        =__localizer.Localize("ANA_CONTACT_ADDRESS", LangEn)&":"
+                    Width: |
+                        =(sectionlistContainer.Width/2)
+                    X: =25
+                    Y: =738
+                    ZIndex: =1
+
+                PI_AdressValue_2 As label:
+                    Align: =Align.Right
+                    AlignInContainer: =AlignInContainer.Center
+                    Color: =If(DarkMode,White1,Black)
+                    Height: =80
+                    LayoutMinHeight: =60
+                    LayoutMinWidth: =560
+                    LineHeight: =1.5
+                    PaddingRight: =20
+                    Size: =18
+                    Text: |
+                        =currPersonnel.'Address 1 : Street 1'&", "&currPersonnel.'Address 1 : City'&", "&currPersonnel.'Address 1 : Province '&", "&currPersonnel.'Address 1 : Country'
+                    Width: |
+                        =(sectionlistContainer.Width/2)
+                    X: =134
+                    Y: =738
+                    ZIndex: =2
+
+            Container5_2 As groupContainer.horizontalAutoLayoutContainer:
+                AlignInContainer: =AlignInContainer.SetByContainer
+                Height: =62
+                LayoutAlignItems: =LayoutAlignItems.Stretch
+                LayoutJustifyContent: =LayoutJustifyContent.SpaceBetween
+                LayoutMinHeight: =112
+                LayoutMinWidth: =250
+                LayoutMode: =LayoutMode.Auto
+                Width: =Parent.Width
+                ZIndex: =15
+
+                PI_Number_2 As label:
+                    AlignInContainer: =AlignInContainer.Center
+                    Color: =If(DarkMode,White1,Black)
+                    FontWeight: =FontWeight.Semibold
+                    Height: =80
+                    LayoutMinHeight: =60
+                    LayoutMinWidth: =560
+                    Size: =18
+                    Text: |-
+                        =__localizer.Localize("ANA_CONTACT_MOBILE_NUMB", LangEn)&":"
+                    Width: |
+                        =(sectionlistContainer.Width/2)
+                    X: =25
+                    Y: =818
+                    ZIndex: =1
+
+                PI_NumberValue_2 As label:
+                    Align: =Align.Right
+                    AlignInContainer: =AlignInContainer.Center
+                    Color: =If(DarkMode,White1,Black)
+                    Height: =80
+                    LayoutMinHeight: =60
+                    LayoutMinWidth: =560
+                    PaddingRight: =20
+                    Size: =18
+                    Text: =currPersonnel.'Mobile Phone Number'
+                    Width: |
+                        =(sectionlistContainer.Width/2)
+                    X: =230
+                    Y: =818
+                    ZIndex: =2
+
+            Container7_2 As groupContainer.horizontalAutoLayoutContainer:
+                AlignInContainer: =AlignInContainer.SetByContainer
+                Height: =62
+                LayoutAlignItems: =LayoutAlignItems.Stretch
+                LayoutJustifyContent: =LayoutJustifyContent.SpaceBetween
+                LayoutMinHeight: =112
+                LayoutMinWidth: =250
+                LayoutMode: =LayoutMode.Auto
+                Width: =Parent.Width
+                ZIndex: =16
+
+                PI_EmContact_2 As label:
+                    AlignInContainer: =AlignInContainer.Center
+                    Color: =If(DarkMode,White1,Black)
+                    FontWeight: =FontWeight.Semibold
+                    Height: =80
+                    LayoutMinHeight: =60
+                    LayoutMinWidth: =560
+                    Size: =18
+                    Text: |-
+                        =__localizer.Localize("ANA_CONTACT_EMERGENCY_NAME", LangEn)&":"
+                    Width: =(sectionlistContainer.Width/2)
+                    X: =25
+                    Y: =908
+                    ZIndex: =1
+
+                PI_EmContactValue_2 As label:
+                    Align: =Align.Right
+                    AlignInContainer: =AlignInContainer.Center
+                    Color: =If(DarkMode,White1,Black)
+                    Height: =80
+                    LayoutMinHeight: =60
+                    LayoutMinWidth: =560
+                    PaddingRight: =20
+                    Size: =18
+                    Text: =If(IsBlank(currPersonnel.'Emergency Contact Name'), "-", currPersonnel.'Emergency Contact Name')
+                    Width: =(sectionlistContainer.Width/2)
+                    X: =230
+                    Y: =908
+                    ZIndex: =2
+
+            Container8_2 As groupContainer.horizontalAutoLayoutContainer:
+                AlignInContainer: =AlignInContainer.SetByContainer
+                Height: =62
+                LayoutAlignItems: =LayoutAlignItems.Stretch
+                LayoutJustifyContent: =LayoutJustifyContent.SpaceBetween
+                LayoutMinHeight: =112
+                LayoutMinWidth: =250
+                LayoutMode: =LayoutMode.Auto
+                Width: =Parent.Width
+                ZIndex: =17
+
+                PI_EmContactNum_2 As label:
+                    AlignInContainer: =AlignInContainer.Center
+                    Color: =If(DarkMode,White1,Black)
+                    FontWeight: =FontWeight.Semibold
+                    Height: =120
+                    LayoutMinHeight: =60
+                    LayoutMinWidth: =560
+                    Size: =18
+                    Text: |-
+                        =__localizer.Localize("ANA_CONTACT_EMERGENCY_NUMB", LangEn)&":"
+                    Width: |
+                        =(sectionlistContainer.Width/2)
+                    X: =25
+                    Y: =988
+                    ZIndex: =1
+
+                PI_EmContactNumValue_2 As label:
+                    Align: =Align.Right
+                    AlignInContainer: =AlignInContainer.Center
+                    Color: =If(DarkMode,White1,Black)
+                    Height: =120
+                    LayoutMinHeight: =60
+                    LayoutMinWidth: =560
+                    PaddingRight: =20
+                    Size: =18
+                    Text: =If(IsBlank(currPersonnel.'Emergency Contact Phone Number'), "-", currPersonnel.'Emergency Contact Phone Number')
+                    Width: |
+                        =(sectionlistContainer.Width/2)
+                    X: =230
+                    Y: =988
+                    ZIndex: =2
+
+            PI_InformationMosGrpHeader_2 As label:
+                BorderColor: =RGBA(230, 230, 230, 1)
+                Color: =RGBA(255, 255, 255, 1)
+                Fill: =If(DarkMode,Dark2,Blue2)
+                Font: =FontFamilyB
+                FontWeight: =FontWeight.Semibold
+                Height: =67
+                LayoutMinHeight: =70
+                LayoutMinWidth: =560
+                PaddingLeft: =25
+                Size: =CardTextFont
+                Text: =__localizer.Localize("ANA_CONTACT_MILITARY_OCC_SPEC", LangEn)
+                Width: =640
+                Y: =//Container8_2.Y+Container8_2.Height
+                ZIndex: =18
+
+            Container8_3 As groupContainer.horizontalAutoLayoutContainer:
+                AlignInContainer: =AlignInContainer.SetByContainer
+                Height: =62
+                LayoutAlignItems: =LayoutAlignItems.Stretch
+                LayoutJustifyContent: =LayoutJustifyContent.SpaceBetween
+                LayoutMinHeight: =112
+                LayoutMinWidth: =250
+                LayoutMode: =LayoutMode.Auto
+                Width: =Parent.Width
+                ZIndex: =19
+
+                PI_Type_1 As label:
+                    AlignInContainer: =AlignInContainer.Center
+                    Color: =If(DarkMode,White1,Black)
+                    FontWeight: =FontWeight.Semibold
+                    Height: =64
+                    LayoutMinHeight: =70
+                    LayoutMinWidth: =560
+                    Size: =18
+                    Text: |-
+                        ="Type:"
+                    Width: =(sectionlistContainer.Width/2)
+                    X: =25
+                    Y: =1170
+                    ZIndex: =1
+
+                PI_TypeValue_1 As label:
+                    Align: =Align.Right
+                    AlignInContainer: =AlignInContainer.Center
+                    Color: =If(DarkMode,White1,Black)
+                    Height: =64
+                    LayoutMinHeight: =70
+                    LayoutMinWidth: =560
+                    PaddingRight: =20
+                    Size: =18
+                    Text: |-
+                        =If(
+                            LangEn,
+                            Text(currPersonnel.'Officer/NCM'),
+                            // Else (French)
+                            If(
+                                currPersonnel.'Officer/NCM' = [@'Officer/NCM'].'Officer/Officier',
+                                "Officier",
+                                "MR"
+                            )
+                        )
+                    Width: =(sectionlistContainer.Width/2)
+                    X: =121
+                    Y: =1106
+                    ZIndex: =2
+
+            Container5_3 As groupContainer.horizontalAutoLayoutContainer:
+                AlignInContainer: =AlignInContainer.SetByContainer
+                Height: =62
+                LayoutAlignItems: =LayoutAlignItems.Stretch
+                LayoutJustifyContent: =LayoutJustifyContent.SpaceBetween
+                LayoutMinHeight: =112
+                LayoutMinWidth: =250
+                LayoutMode: =LayoutMode.Auto
+                Width: =Parent.Width
+                ZIndex: =20
+
+                PI_Trade_1 As label:
+                    AlignInContainer: =AlignInContainer.Center
+                    Color: =If(DarkMode,White1,Black)
+                    FontWeight: =FontWeight.Semibold
+                    Height: =64
+                    LayoutMinHeight: =70
+                    LayoutMinWidth: =560
+                    Size: =18
+                    Text: |-
+                        =__localizer.Localize("ANA_CONTACT_TRADE", LangEn)&":"
+                    Width: =(sectionlistContainer.Width/2)
+                    X: =25
+                    Y: =64
+                    ZIndex: =1
+
+                PI_TradeValue_1 As label:
+                    Align: =Align.Right
+                    AlignInContainer: =AlignInContainer.Center
+                    Color: =If(DarkMode,White1,Black)
+                    Height: =64
+                    LayoutMinHeight: =70
+                    LayoutMinWidth: =560
+                    PaddingRight: =20
+                    Size: =18
+                    Text: =If(LangEn, currPersonnel.'MOS Trade'.wywm_mostradename, currPersonnel.'MOS Trade'.cr5cd_mostradenamefr)
+                    Width: =(sectionlistContainer.Width/2)
+                    X: =121
+                    Y: =64
+                    ZIndex: =2
+
+            Container4_4 As groupContainer.horizontalAutoLayoutContainer:
+                AlignInContainer: =AlignInContainer.SetByContainer
+                Height: =62
+                LayoutAlignItems: =LayoutAlignItems.Stretch
+                LayoutJustifyContent: =LayoutJustifyContent.SpaceBetween
+                LayoutMinHeight: =112
+                LayoutMinWidth: =250
+                LayoutMode: =LayoutMode.Auto
+                Width: =Parent.Width
+                ZIndex: =21
+
+                PI_Comp_1 As label:
+                    AlignInContainer: =AlignInContainer.Center
+                    Color: =If(DarkMode,White1,Black)
+                    FontWeight: =FontWeight.Semibold
+                    Height: =64
+                    LayoutMinHeight: =70
+                    LayoutMinWidth: =560
+                    Size: =18
+                    Text: |-
+                        =__localizer.Localize("ANA_CONTACT_COMP", LangEn)&":"
+                    Width: =(sectionlistContainer.Width/2)
+                    X: =25
+                    Y: =128
+                    ZIndex: =5
+
+                PI_CompValue_1 As label:
+                    Align: =Align.Right
+                    AlignInContainer: =AlignInContainer.Center
+                    Color: =If(DarkMode,White1,Black)
+                    Height: =64
+                    LayoutMinHeight: =70
+                    LayoutMinWidth: =560
+                    PaddingRight: =20
+                    Size: =18
+                    Text: =currPersonnel.'MOS Component'
+                    Width: =(sectionlistContainer.Width/2)
+                    X: =121
+                    Y: =128
+                    ZIndex: =10
+
+            Container7_3 As groupContainer.horizontalAutoLayoutContainer:
+                AlignInContainer: =AlignInContainer.SetByContainer
+                Height: =62
+                LayoutAlignItems: =LayoutAlignItems.Stretch
+                LayoutJustifyContent: =LayoutJustifyContent.SpaceBetween
+                LayoutMinHeight: =112
+                LayoutMinWidth: =250
+                LayoutMode: =LayoutMode.Auto
+                Width: =Parent.Width
+                ZIndex: =22
+
+                PI_Code_1 As label:
+                    AlignInContainer: =AlignInContainer.Center
+                    Color: =If(DarkMode,White1,Black)
+                    FontWeight: =FontWeight.Semibold
+                    Height: =64
+                    LayoutMinHeight: =70
+                    LayoutMinWidth: =560
+                    Size: =18
+                    Text: |-
+                        ="Code:"
+                    Width: =(sectionlistContainer.Width/2)
+                    X: =25
+                    Y: =192
+                    ZIndex: =1
+
+                PI_CodeValue_1 As label:
+                    Align: =Align.Right
+                    AlignInContainer: =AlignInContainer.Center
+                    Color: =If(DarkMode,White1,Black)
+                    Height: =64
+                    LayoutMinHeight: =70
+                    LayoutMinWidth: =560
+                    PaddingRight: =20
+                    Size: =18
+                    Text: =currPersonnel.'MOS Trade'.'MOS Trade Code'
+                    Width: =(sectionlistContainer.Width/2)
+                    X: =96
+                    Y: =192
+                    ZIndex: =2
+
+        PI_MainHeader_1 As MainHeader:
+            PersonalImage: =currPersonnelImage
+            PersonalInfoScreen: =PersonalInfoScreen
+            ZIndex: =2
+
+        PI_MenuLowerHeader_1 As MenuLowerHeader:
+            BackScreen: =PersonalInfoScreen
+            LowerMenuTextLabel: =__localizer.Localize("ANA_CONTACT_PERSONAL_INFO", LangEn)
+            Y: =90
+            ZIndex: =3
+
+        PI_EditBtn_1 As icon.Add:
+            Color: =RGBA(255, 255, 255, 1)
+            Height: =44
+            Icon: =Icon.AddDocument
+            OnSelect: |-
+                =//EditForm(SPIE_FormContainer);
+                Navigate(SubPersonalInfoEditScreen);
+            Width: =44
+            X: =568
+            Y: =113
+            ZIndex: =4
+
+        PI_TestNavigateButtonXXXX_1 As button:
+            Height: =70
+            OnSelect: |-
+                =//EditForm(SPIE_FormContainer);
+                Navigate(SubPersonalInfoEditScreen);
+            Size: =24
+            Text: ="Edit"
+            Visible: =EnableTestMode
+            Width: =108
+            X: =284
+            Y: =40
+            ZIndex: =5
+
+        Dashboard_DebugButtonGroup_2 As group:
+            Height: =5
+            Width: =5
+            X: =-226
+            Y: =-60
+            ZIndex: =12
+
+            Debug_PersonalInfo_6 As button:
+                Height: =70
+                OnSelect: =Navigate(PersonalInfoScreen)
+                Size: =24
+                Text: ="Button"
+                Visible: =false
+                Width: =75
+                X: =339
+                Y: =194
+                ZIndex: =7
+
+            Debug_Messenger_6 As button:
+                Height: =70
+                OnSelect: |-
+                    =Launch("msteams://")
+                Size: =24
+                Text: ="Button"
+                Visible: =false
+                Width: =75
+                X: =264
+                Y: =194
+                ZIndex: =8
+
+            Debug_Notification_6 As button:
+                Height: =70
+                OnSelect: =Navigate(NotificationScreen)
+                Size: =24
+                Text: ="Button"
+                Visible: =false
+                Width: =75
+                X: =189
+                Y: =194
+                ZIndex: =9
+
+            Debug_MainMenu_6 As button:
+                Height: =70
+                OnSelect: =Navigate(DashboardScreen)
+                Size: =24
+                Text: ="Button"
+                Visible: =false
+                Width: =75
+                X: =40
+                Y: =194
+                ZIndex: =10
+
+            Debug_EditPI_1 As button:
+                Height: =70
+                OnSelect: |-
+                    =//EditForm(SPIE_FormContainer);
+                    Navigate(SubPersonalInfoEditScreen);
+                Size: =24
+                Text: ="Button"
+                Visible: =false
+                Width: =280
+                X: =40
+                Y: =264
+                ZIndex: =11
+

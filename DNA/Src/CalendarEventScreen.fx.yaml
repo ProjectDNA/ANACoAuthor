@@ -1,0 +1,62 @@
+"CalendarEventScreen As screen.'phoneLayout_Calendar_ver3.0'":
+    OnVisible: =
+
+    Calendar_Container_2 As groupContainer.manualLayoutContainer:
+        Height: =App.Height
+        Width: =App.Width
+        ZIndex: =19
+
+        Calendar_MenuLowerHeader_2 As MenuLowerHeader:
+            LowerMenuTextLabel: =If(LangEn, "Calendar", "Calendrier")
+            Y: =90
+            ZIndex: =15
+
+        Calendar_MainHeader_2 As MainHeader:
+            PersonalImage: =currPersonnelImage
+            PersonalInfoScreen: =PersonalInfoScreen
+            ZIndex: =16
+
+        Label7 As label:
+            Align: =Align.Center
+            FontWeight: =FontWeight.Bold
+            Height: =256
+            Size: =30
+            Text: =_selectedCalendarEvent.Subject
+            Width: =640
+            Y: =180
+            ZIndex: =17
+
+        Label8 As label:
+            Align: =Align.Center
+            FontWeight: =FontWeight.Semibold
+            Height: =72
+            Size: =21
+            Text: |-
+                ="Start Date:" & "        " & Text(_selectedCalendarEvent.Start, "dd/mm/yy") & "   " & Text(_selectedCalendarEvent.Start, DateTimeFormat.ShortTime)
+            Width: =640
+            Y: =640
+            ZIndex: =18
+
+        Label8_1 As label:
+            Align: =Align.Center
+            FontWeight: =FontWeight.Semibold
+            Height: =70
+            Size: =21
+            Text: |-
+                ="End Date:" & "          " & Text(_selectedCalendarEvent.End, "dd/mm/yy") & "   " & Text(_selectedCalendarEvent.End, DateTimeFormat.ShortTime)
+            Width: =640
+            Y: =712
+            ZIndex: =19
+
+        Label8_2 As label:
+            Align: =Align.Center
+            FontWeight: =FontWeight.Semibold
+            Height: =202
+            Size: =21
+            Text: |-
+                ="Location:" & "          " & _selectedCalendarEvent.Location
+            Visible: =!IsBlank(_selectedCalendarEvent.Location)
+            Width: =640
+            Y: =881
+            ZIndex: =20
+

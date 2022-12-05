@@ -1,0 +1,50 @@
+MilitaryQualifications As CanvasComponent:
+    date_expired: ="Text"
+    date_issued: ="Text"
+    expired: ="Text"
+    Fill: =RGBA(0, 0, 0, 0)
+    Height: =120
+    issued: ="Text"
+    MilitaryQual: ="Text"
+    Width: =640
+    X: =0
+    Y: =0
+    ZIndex: =1
+
+    MilQual As label:
+        Font: =FontFamilyB
+        FontWeight: =FontWeight.Bold
+        Height: =70
+        Size: =CardInfoHeaderFont
+        Text: =Parent.MilitaryQual
+        Width: =640
+        Y: =3
+        ZIndex: =4
+
+    MilQualIssued As label:
+        Font: =FontFamilyB
+        FontWeight: =FontWeight.Semibold
+        Height: =31
+        Size: =CardSmallTextFont
+        Text: =__localizer.Localize("ANA_MILITARY_QUALIF_ISSUED", LangEn)
+        Width: =83
+        Y: =73
+        ZIndex: =5
+
+    DateIssued As label:
+        Font: =FontFamilyB
+        FontWeight: =FontWeight.Semibold
+        Height: =31
+        Size: =CardSmallTextFont
+        Text: =Parent.date_issued
+        Width: =168
+        X: =69
+        Y: =73
+        ZIndex: =7
+
+    MilitaryQualificationsRectangle As rectangle:
+        Height: =2
+        Width: =640
+        Y: =118
+        ZIndex: =9
+

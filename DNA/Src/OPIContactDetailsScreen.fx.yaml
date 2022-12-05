@@ -1,0 +1,230 @@
+OPIContactDetailsScreen As screen:
+
+    TEAttendOPI_localizer As Localizer_1:
+        Localize: |-
+            =/*
+                @author: ryan@werkncode.net
+                Usage: To use the localizer in your environment create a table with the following structure in the dataverse:
+            
+                LocalizationEnFr(
+                        (String) StringId, (String) En, (String) Fr, (Boolean) Flagged
+                )
+            
+                Then in your app, on the main/first screen create a custom component (called _localizer extending from Localizer here).
+            
+                To translate text use the following function call on the localizer component:
+            
+                _localizer.Localize("APP_SCREEN_STRING_ID", LangEn), this will return the English or the French Text
+            */
+            If(
+                IsLangEn = true,
+                //IF
+                First(
+                    Search(
+                        LocalizationEnFr,
+                        StringId,
+                        "wywm_stringid"
+                    )
+                ).En,
+                //ELSE
+                First(
+                    Search(
+                        LocalizationEnFr,
+                        StringId,
+                        "wywm_stringid"
+                    )
+                ).Fr
+            )
+        Visible: =false
+        ZIndex: =1
+
+    TEAttendOPI__EventContainer As groupContainer.manualLayoutContainer:
+        Height: =1045
+        Width: =Parent.Width
+        Y: =91
+        ZIndex: =4
+
+        TEAttendOPI_Container As groupContainer.verticalAutoLayoutContainer:
+            Height: =952
+            LayoutAlignItems: =LayoutAlignItems.Stretch
+            LayoutDirection: =LayoutDirection.Vertical
+            LayoutMode: =LayoutMode.Auto
+            LayoutOverflowY: =LayoutOverflow.Scroll
+            Width: =640
+            Y: =90
+            ZIndex: =3
+
+            TEAttendOPI_OPILabel As label:
+                Height: =70
+                LayoutMinHeight: =70
+                LayoutMinWidth: =560
+                Size: =26
+                Text: ="OPI"
+                Width: =560
+                ZIndex: =1
+
+            TEAttendOPI_OPINameLabel As label:
+                Height: =70
+                LayoutMinHeight: =70
+                LayoutMinWidth: =560
+                Size: =21
+                Text: =AttendData.'OPI Name'
+                Width: =560
+                ZIndex: =2
+
+            TEAttendOPI_OPIEmailLabel As label:
+                Height: =70
+                LayoutMinHeight: =70
+                LayoutMinWidth: =560
+                Size: =26
+                Text: ="Email"
+                Width: =560
+                ZIndex: =3
+
+            TEAttendOPI_EmailContainer As groupContainer.verticalAutoLayoutContainer:
+                AlignInContainer: =AlignInContainer.SetByContainer
+                Height: =225
+                LayoutMinHeight: =112
+                LayoutMinWidth: =250
+                LayoutMode: =LayoutMode.Auto
+                ZIndex: =4
+
+                Label15 As label:
+                    Height: =70
+                    LayoutMinHeight: =70
+                    LayoutMinWidth: =560
+                    Size: =21
+                    Text: =AttendData.'OPI EMAIL'
+                    Width: =500
+                    ZIndex: =1
+
+                Icon9 As icon.Mail:
+                    Icon: =Icon.Mail
+                    ZIndex: =2
+
+            TEAttendOPI_DetailsLabel As label:
+                Height: =70
+                LayoutMinHeight: =70
+                LayoutMinWidth: =560
+                Size: =30
+                Text: ="Details"
+                Width: =560
+                ZIndex: =5
+
+            TEAttendOPI_UnitLabel As label:
+                Height: =70
+                LayoutMinHeight: =70
+                LayoutMinWidth: =560
+                Size: =26
+                Text: ="Unit"
+                Width: =560
+                ZIndex: =6
+
+            TEAttendOPI_UnitNameLabel As label:
+                Height: =70
+                LayoutMinHeight: =70
+                LayoutMinWidth: =560
+                Size: =21
+                Text: ="34 CBG"
+                Width: =560
+                ZIndex: =7
+
+            TEAttendOPI_AttendConfimerLabel As label:
+                Height: =70
+                LayoutMinHeight: =70
+                LayoutMinWidth: =560
+                Size: =26
+                Text: ="Attendance Confirmer"
+                Width: =560
+                ZIndex: =8
+
+            TEAttendOPI_AttendConformerNameLabel As label:
+                Height: =70
+                LayoutMinHeight: =70
+                LayoutMinWidth: =560
+                Size: =21
+                Text: =//need name lookup for Confirmers (could be a gallery so it can take as many as needed.)
+                Width: =560
+                ZIndex: =9
+
+            TEAttendOPI_AttendConfirmLabel As label:
+                Height: =70
+                LayoutMinHeight: =70
+                LayoutMinWidth: =560
+                Size: =26
+                Text: ="Email"
+                Width: =560
+                ZIndex: =10
+
+            TEAttendOPI_AttendConfitmEmailContainer As groupContainer.verticalAutoLayoutContainer:
+                AlignInContainer: =AlignInContainer.SetByContainer
+                Height: =225
+                LayoutMinHeight: =112
+                LayoutMinWidth: =250
+                LayoutMode: =LayoutMode.Auto
+                ZIndex: =11
+
+                TEAttendOPI_AttendConfirmEmailTitleLabel As label:
+                    Height: =70
+                    LayoutMinHeight: =70
+                    LayoutMinWidth: =560
+                    Size: =21
+                    Text: ="example@defence.gc.ca" //need confirmer email lookup
+                    Width: =500
+                    ZIndex: =1
+
+                TEAttendOPI_AttendConfirmEmailLabel As icon.Mail:
+                    Icon: =Icon.Mail
+                    ZIndex: =2
+
+            TEAttendOPI_2ICLabel As label:
+                Height: =70
+                LayoutMinHeight: =70
+                LayoutMinWidth: =560
+                Size: =26
+                Text: ="2IC"
+                Width: =560
+                ZIndex: =12
+
+            TEAttendOPI_2ICNameLabel As label:
+                Height: =70
+                LayoutMinHeight: =70
+                LayoutMinWidth: =560
+                Size: =21
+                Text: =//need 2IC name lookup
+                Width: =560
+                ZIndex: =13
+
+            TEAttendOPI_2ICEmailLabel As label:
+                Height: =70
+                LayoutMinHeight: =70
+                LayoutMinWidth: =560
+                Size: =26
+                Text: ="Email"
+                Width: =560
+                ZIndex: =14
+
+            TEAttendOPI_2ICEmailContainer As groupContainer.verticalAutoLayoutContainer:
+                AlignInContainer: =AlignInContainer.SetByContainer
+                Height: =225
+                LayoutMinHeight: =112
+                LayoutMinWidth: =250
+                LayoutMode: =LayoutMode.Auto
+                ZIndex: =15
+
+                TEAttendOPI_2ICEmailTitleLabel As label:
+                    Height: =70
+                    LayoutMinHeight: =70
+                    LayoutMinWidth: =560
+                    Size: =21
+                    Text: ="example@defence.gc.ca" //need 2IC email lookup
+                    Width: =500
+                    ZIndex: =1
+
+                TEAttendOPI_2ICEmailIcon As icon.Mail:
+                    Icon: =Icon.Mail
+                    ZIndex: =2
+
+    MainHeader_7 As MainHeader:
+        ZIndex: =6
+

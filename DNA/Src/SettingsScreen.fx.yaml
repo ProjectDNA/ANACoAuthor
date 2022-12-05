@@ -1,0 +1,662 @@
+SettingsScreen As screen:
+    Fill: =If(DarkMode,Dark3,White1)
+
+    Settings_Container As groupContainer.manualLayoutContainer:
+        Height: =App.Height
+        Width: =App.Width
+        ZIndex: =3
+
+        SettingsList_Container As groupContainer.verticalAutoLayoutContainer:
+            Height: =App.Height - 180
+            LayoutDirection: =LayoutDirection.Vertical
+            LayoutGap: =40
+            LayoutMode: =LayoutMode.Auto
+            LayoutOverflowY: =LayoutOverflow.Scroll
+            Width: =Parent.Width
+            Y: =180
+            ZIndex: =1
+
+            lbl_AccessibilitySettings As label:
+                Align: =Align.Center
+                AlignInContainer: =AlignInContainer.Center
+                Color: =White1
+                Fill: =If(DarkMode,Dark2,Blue2)
+                FontWeight: =FontWeight.Bold
+                Height: =70
+                LayoutMinHeight: =70
+                LayoutMinWidth: =Parent.Width
+                Size: =21
+                Text: |
+                    =If(LangEn,"Accessibility Settings", "Paramètres d'Accessibilité")
+                Width: =Parent.Width
+                ZIndex: =1
+
+            lbl_NightMode As label:
+                AlignInContainer: =AlignInContainer.Start
+                Color: =If(DarkMode,White1,Black)
+                Height: =70
+                LayoutMinHeight: =70
+                LayoutMinWidth: =560
+                Size: =21
+                Text: |-
+                    =If(
+                        LangEn,
+                        "Night Mode
+                    ",
+                        "Mode Nuit"
+                    )
+                Width: =560
+                ZIndex: =2
+
+            NightMode_Toggle As toggleSwitch:
+                AlignInContainer: =AlignInContainer.Start
+                Color: =If(DarkMode,White1,Black)
+                Default: =DarkMode
+                DisplayMode: =
+                Height: =50
+                LayoutMinHeight: =49
+                LayoutMinWidth: =154
+                OnChange: |+
+                    =
+                    
+                    
+                    
+                OnSelect: |
+                    =If(
+                        DarkMode,
+                            Set(
+                                 DarkMode,
+                                 false),
+                            Set(
+                                DarkMode,
+                                true)
+                    )
+                ShowLabel: =false
+                Size: =21
+                TrueFill: =If(DarkMode,Dark2,Blue3)
+                Width: =154
+                X: =40
+                Y: =40
+                ZIndex: =3
+
+            lbl_LangSettings As label:
+                Align: =Align.Center
+                AlignInContainer: =AlignInContainer.Center
+                Color: =White1
+                Fill: =If(DarkMode,Dark2,Blue2)
+                FontWeight: =FontWeight.Bold
+                Height: =70
+                LayoutMinHeight: =70
+                LayoutMinWidth: =Parent.Width
+                Size: =21
+                Text: =If(LangEn,"Language Settings", "Paramètres de Langue")
+                Width: =Parent.Width
+                ZIndex: =4
+
+            lbl_LangSettingsDesc As label:
+                AlignInContainer: =AlignInContainer.Start
+                Color: =If(DarkMode,White1,Black)
+                Height: =70
+                LayoutMinHeight: =70
+                LayoutMinWidth: =560
+                Size: =21
+                Text: =__localizer.Localize("ANA_CONTACT_PREF_LANG", LangEn)
+                Width: =560
+                ZIndex: =5
+
+            Lang_DropDown As dropdown:
+                AlignInContainer: =AlignInContainer.Center
+                ChevronBackground: =If(DarkMode,Dark2,Blue3)
+                ChevronFill: =White1
+                Color: =If(DarkMode,White1,Black)
+                Default: =//currPersonnel.'Preferred Language '
+                Fill: =If(DarkMode,Dark4,Gray1)
+                Height: =70
+                Items: |-
+                    =//Choices([@'Preferred Language '])
+                    If(LangEn, ["English", "French"], ["Anglais", "Français"])
+                LayoutMinHeight: =70
+                LayoutMinWidth: =575
+                Size: =21
+                Width: =575
+                ZIndex: =6
+
+            lbl_NotifSettings As label:
+                Align: =Align.Center
+                AlignInContainer: =AlignInContainer.Center
+                Color: =White1
+                Fill: =If(DarkMode,Dark2,Blue2)
+                FontWeight: =FontWeight.Bold
+                Height: =70
+                LayoutMinHeight: =70
+                LayoutMinWidth: =Parent.Width
+                Size: =21
+                Text: =If(LangEn,"Notification Settings", "Paramètres de Notification")
+                Width: =Parent.Width
+                ZIndex: =7
+
+            Notifications_TELabel_1 As label:
+                AlignInContainer: =AlignInContainer.Start
+                Color: =If(DarkMode,White1,Black)
+                FontWeight: =FontWeight.Semibold
+                Height: =78
+                LayoutMinHeight: =70
+                LayoutMinWidth: =560
+                Size: =21
+                Text: =__localizer.Localize("ANA_NOTIFICATIONS_SETTINGS_TE", LangEn)
+                Width: =408
+                X: =3
+                Y: =16
+                ZIndex: =8
+
+            Notifications_TEInfo_1 As label:
+                AlignInContainer: =AlignInContainer.Start
+                Color: =If(DarkMode,White1,Black)
+                FontWeight: =FontWeight.Semibold
+                Height: =86
+                LayoutMinHeight: =70
+                LayoutMinWidth: =560
+                PaddingRight: =15
+                Size: =15
+                Text: =__localizer.Localize("ANA_NOTIFICATIONS_TE", LangEn)
+                Width: =637
+                X: =3
+                Y: =136
+                ZIndex: =9
+
+            Toggle_TE_1 As toggleSwitch:
+                AlignInContainer: =AlignInContainer.Start
+                Color: =If(DarkMode,White1,Black)
+                Default: |-
+                    =If(
+                    currPersonnel.'Employment Status' = 'Employment Status'.'Class A',
+                    false,
+                    currPersonnel.'Hide Training Events Notifications' = 'Yes/No'.No,
+                    false,
+                    currPersonnel.'Hide Training Events Notifications' = 'Yes/No'.Yes,
+                    true,
+                    IsBlank(currPersonnel.'Hide Training Events Notifications'),
+                    false
+                    )
+                DisplayMode: =If(currPersonnel.'Employment Status' = 'Employment Status'.'Class A', DisplayMode.Disabled)
+                Height: =50
+                LayoutMinHeight: =49
+                LayoutMinWidth: =154
+                ShowLabel: =false
+                Size: =21
+                TrueFill: =If(DarkMode,Dark2,Blue3)
+                Width: =154
+                X: =40
+                Y: =40
+                ZIndex: =10
+
+            Notifications_CoursesLabel_1 As label:
+                AlignInContainer: =AlignInContainer.Start
+                Color: =If(DarkMode,White1,Black)
+                FontWeight: =FontWeight.Semibold
+                Height: =78
+                LayoutMinHeight: =70
+                LayoutMinWidth: =560
+                Size: =21
+                Text: =__localizer.Localize("ANA_NOTIFICATIONS_SETTINGS_COURSES", LangEn)
+                Width: =408
+                Y: =28
+                ZIndex: =11
+
+            Notifications_CoursesInfo_1 As label:
+                AlignInContainer: =AlignInContainer.Start
+                Color: =If(DarkMode,White1,Black)
+                FontWeight: =FontWeight.Semibold
+                Height: =86
+                LayoutMinHeight: =70
+                LayoutMinWidth: =560
+                Size: =15
+                Text: =__localizer.Localize("ANA_NOTIFICATIONS_COURSE", LangEn)
+                Width: =637
+                Y: =125
+                ZIndex: =12
+
+            Toggle_Course_1 As toggleSwitch:
+                AlignInContainer: =AlignInContainer.Start
+                Color: =If(DarkMode,White1,Black)
+                Default: |+
+                    =If(
+                    currPersonnel.'Hide Courses Notifications' = 'Yes/No'.No,
+                    false,
+                    currPersonnel.'Hide Courses Notifications' = 'Yes/No'.Yes,
+                    true,
+                    IsBlank(currPersonnel.'Hide Courses Notifications'),
+                    false
+                    )
+                    
+                Height: =50
+                LayoutMinHeight: =49
+                LayoutMinWidth: =154
+                ShowLabel: =false
+                Size: =21
+                TrueFill: =If(DarkMode,Dark2,Blue3)
+                Width: =154
+                X: =20
+                Y: =20
+                ZIndex: =13
+
+            Notifications_TaskingLabel_1 As label:
+                AlignInContainer: =AlignInContainer.Start
+                Color: =If(DarkMode,White1,Black)
+                FontWeight: =FontWeight.Semibold
+                Height: =78
+                LayoutMinHeight: =70
+                LayoutMinWidth: =560
+                Size: =21
+                Text: =__localizer.Localize("ANA_NOTIFICATIONS_SETTINGS_TASKINGS", LangEn)
+                Width: =408
+                X: =3
+                Y: =24
+                ZIndex: =14
+
+            Notifications_TaskingInfo_1 As label:
+                AlignInContainer: =AlignInContainer.Start
+                Color: =If(DarkMode,White1,Black)
+                FontWeight: =FontWeight.Semibold
+                Height: =86
+                LayoutMinHeight: =70
+                LayoutMinWidth: =560
+                Size: =15
+                Text: =__localizer.Localize("ANA_NOTIFICATIONS_TASKING", LangEn)
+                Width: =637
+                X: =3
+                Y: =129
+                ZIndex: =15
+
+            Toggle_Tasking_1 As toggleSwitch:
+                AlignInContainer: =AlignInContainer.Start
+                Color: =If(DarkMode,White1,Black)
+                Default: |-
+                    =If(
+                    currPersonnel.'Hide Taskings Notifications' = 'Yes/No'.No,
+                    false,
+                    currPersonnel.'Hide Taskings Notifications' = 'Yes/No'.Yes,
+                    true,
+                    IsBlank(currPersonnel.'Hide Taskings Notifications'),
+                    false
+                    )
+                Height: =50
+                LayoutMinHeight: =49
+                LayoutMinWidth: =154
+                ShowLabel: =false
+                Size: =21
+                TrueFill: =If(DarkMode,Dark2,Blue3)
+                Width: =154
+                X: =40
+                Y: =40
+                ZIndex: =16
+
+            Reminder_Title As label:
+                Align: =Align.Center
+                AlignInContainer: =AlignInContainer.Stretch
+                Color: =White1
+                Fill: =If(DarkMode,Dark2,Blue2)
+                FontWeight: =FontWeight.Bold
+                Height: =70
+                LayoutMinHeight: =70
+                LayoutMinWidth: =Parent.Width
+                Size: =21
+                Text: ="Reminder Settings"
+                Visible: =false
+                Width: =Parent.Width
+                ZIndex: =17
+
+            lbl_AllReminders As label:
+                AlignInContainer: =AlignInContainer.Start
+                Color: =If(DarkMode,White1,Black)
+                FontWeight: =FontWeight.Semibold
+                Height: =70
+                LayoutMinHeight: =70
+                LayoutMinWidth: =560
+                PaddingTop: =20
+                Size: =22
+                Text: ="Email Reminders"
+                Visible: =false
+                Width: =560
+                ZIndex: =18
+
+            lbl_AllRemindersDesc As label:
+                AlignInContainer: =AlignInContainer.Start
+                Color: =If(DarkMode,White1,Black)
+                Height: =70
+                LayoutMinHeight: =70
+                LayoutMinWidth: =560
+                Size: =21
+                Text: ="Turn all email reminders on/off"
+                Visible: =false
+                Width: =560
+                ZIndex: =19
+
+            All_Reminder_Toggle As toggleSwitch:
+                AlignInContainer: =AlignInContainer.Start
+                Color: =If(DarkMode,White1,Black)
+                Height: =50
+                LayoutMinHeight: =49
+                LayoutMinWidth: =154
+                OnSelect: |-
+                    =UpdateContext({OffToggle: !OffToggle})
+                ShowLabel: =false
+                Size: =21
+                TrueFill: =If(DarkMode,Dark2,Blue3)
+                Visible: =false
+                Width: =154
+                ZIndex: =20
+
+            lbl_TEReminder As label:
+                AlignInContainer: =AlignInContainer.Start
+                Color: =If(DarkMode,White1,Black)
+                FontWeight: =FontWeight.Semibold
+                Height: =70
+                LayoutMinHeight: =70
+                LayoutMinWidth: =560
+                PaddingTop: =20
+                Size: =22
+                Text: ="Training Event Reminders"
+                Visible: =false
+                Width: =560
+                ZIndex: =21
+
+            lbl_TEReminderDesc As label:
+                AlignInContainer: =AlignInContainer.Start
+                Color: =If(DarkMode,White1,Black)
+                Height: =70
+                LayoutMinHeight: =70
+                LayoutMinWidth: =560
+                Size: =21
+                Text: ="Turn Training Event reminders on/off"
+                Visible: =false
+                Width: =560
+                ZIndex: =22
+
+            TEReminder_Toggle As toggleSwitch:
+                AlignInContainer: =AlignInContainer.Start
+                Color: =If(DarkMode,White1,Black)
+                Default: =OffToggle
+                Height: =50
+                LayoutMinHeight: =49
+                LayoutMinWidth: =154
+                ShowLabel: =false
+                Size: =21
+                TrueFill: =If(DarkMode,Dark2,Blue3)
+                Visible: =false
+                Width: =154
+                ZIndex: =23
+
+            lbl_CourseReminder As label:
+                AlignInContainer: =AlignInContainer.Start
+                Color: =If(DarkMode,White1,Black)
+                FontWeight: =FontWeight.Semibold
+                Height: =70
+                LayoutMinHeight: =70
+                LayoutMinWidth: =560
+                PaddingTop: =20
+                Size: =22
+                Text: ="Course Reminders"
+                Visible: =false
+                Width: =560
+                ZIndex: =24
+
+            lbl_CourseReminderDesc As label:
+                AlignInContainer: =AlignInContainer.Start
+                Color: =If(DarkMode,White1,Black)
+                Height: =70
+                LayoutMinHeight: =70
+                LayoutMinWidth: =560
+                Size: =21
+                Text: ="Turn Course reminders on/off"
+                Visible: =false
+                Width: =560
+                ZIndex: =25
+
+            CourseReminder_Toggle As toggleSwitch:
+                AlignInContainer: =AlignInContainer.Start
+                Color: =If(DarkMode,White1,Black)
+                Default: =OffToggle
+                Height: =50
+                LayoutMinHeight: =49
+                LayoutMinWidth: =154
+                ShowLabel: =false
+                Size: =21
+                TrueFill: =If(DarkMode,Dark2,Blue3)
+                Visible: =false
+                Width: =154
+                ZIndex: =26
+
+            lbl_TaskingReminder As label:
+                AlignInContainer: =AlignInContainer.Start
+                Color: =If(DarkMode,White1,Black)
+                FontWeight: =FontWeight.Semibold
+                Height: =70
+                LayoutMinHeight: =70
+                LayoutMinWidth: =560
+                PaddingTop: =20
+                Size: =22
+                Text: ="Tasking Reminders"
+                Visible: =false
+                Width: =560
+                ZIndex: =27
+
+            lbl_TaskingReminderDesc As label:
+                AlignInContainer: =AlignInContainer.Start
+                Color: =If(DarkMode,White1,Black)
+                Height: =70
+                LayoutMinHeight: =70
+                LayoutMinWidth: =560
+                Size: =21
+                Text: ="Turn Tasking reminders on/off"
+                Visible: =false
+                Width: =560
+                ZIndex: =28
+
+            TaskingReminder_Toggle As toggleSwitch:
+                AlignInContainer: =AlignInContainer.Start
+                Color: =If(DarkMode,White1,Black)
+                Default: =OffToggle
+                Height: =50
+                LayoutMinHeight: =49
+                LayoutMinWidth: =154
+                ShowLabel: =false
+                Size: =21
+                TrueFill: =If(DarkMode,Dark2,Blue3)
+                Visible: =false
+                Width: =154
+                ZIndex: =29
+
+            lbl_EmployReminder As label:
+                AlignInContainer: =AlignInContainer.Start
+                Color: =If(DarkMode,White1,Black)
+                FontWeight: =FontWeight.Semibold
+                Height: =70
+                LayoutMinHeight: =70
+                LayoutMinWidth: =560
+                PaddingTop: =20
+                Size: =22
+                Text: ="Employment Reminders"
+                Visible: =false
+                Width: =560
+                ZIndex: =30
+
+            lbl_EmployReminderDesc As label:
+                AlignInContainer: =AlignInContainer.Start
+                Color: =If(DarkMode,White1,Black)
+                Height: =70
+                LayoutMinHeight: =70
+                LayoutMinWidth: =560
+                Size: =21
+                Text: ="Turn Employment reminders on/off"
+                Visible: =false
+                Width: =560
+                ZIndex: =31
+
+            EmployReminder_Toggle As toggleSwitch:
+                AlignInContainer: =AlignInContainer.Start
+                Color: =If(DarkMode,White1,Black)
+                Default: =OffToggle
+                Height: =50
+                LayoutMinHeight: =49
+                LayoutMinWidth: =154
+                ShowLabel: =false
+                Size: =21
+                TrueFill: =If(DarkMode,Dark2,Blue3)
+                Visible: =false
+                Width: =154
+                ZIndex: =32
+
+            lbl_DaybeforeReminder As label:
+                AlignInContainer: =AlignInContainer.Start
+                Color: =If(DarkMode,White1,Black)
+                FontWeight: =FontWeight.Semibold
+                Height: =70
+                LayoutMinHeight: =70
+                LayoutMinWidth: =560
+                PaddingTop: =20
+                Size: =22
+                Text: ="Day(s) before Reminder"
+                Visible: =false
+                Width: =560
+                ZIndex: =33
+
+            lbl_DaybeforeReminderDesc As label:
+                AlignInContainer: =AlignInContainer.Start
+                Color: =If(DarkMode,White1,Black)
+                Height: =70
+                LayoutMinHeight: =70
+                LayoutMinWidth: =560
+                Size: =21
+                Text: ="Set amount of days before start of event."
+                Visible: =false
+                Width: =560
+                ZIndex: =34
+
+            DayBefore_Container As groupContainer.horizontalAutoLayoutContainer:
+                FillPortions: =0
+                Height: =150
+                LayoutMinHeight: =112
+                LayoutMinWidth: =Parent.Width
+                LayoutMode: =LayoutMode.Auto
+                Visible: =false
+                ZIndex: =35
+
+                DayBefore_Input As text:
+                    Align: =Align.Center
+                    AlignInContainer: =AlignInContainer.Center
+                    Default: ="3"
+                    Format: =TextFormat.Number
+                    Height: =70
+                    LayoutMinHeight: =70
+                    LayoutMinWidth: =560
+                    PaddingLeft: =5
+                    Size: =21
+                    Width: |+
+                        =80
+                        
+                    ZIndex: =1
+
+                lbl_DayBeforeDesc As label:
+                    AlignInContainer: =AlignInContainer.Center
+                    AutoHeight: =true
+                    Color: =If(DarkMode,White1,Black)
+                    Height: =70
+                    LayoutMinHeight: =70
+                    LayoutMinWidth: =560
+                    Size: =21
+                    Text: ="Day(s) before reminder"
+                    Width: =Parent.Width/2
+                    ZIndex: =2
+
+            Setting_ConfirmButton_1 As button:
+                AlignInContainer: =AlignInContainer.Center
+                Fill: =Yellow1
+                Height: =70
+                LayoutMinHeight: =70
+                LayoutMinWidth: =280
+                OnSelect: |+
+                    =Patch(
+                        Personnels,
+                        LookUp(
+                            Personnels,
+                            Personnel = currPersonnel.Personnel
+                        ),
+                        //Language Preference
+                        If(Lang_DropDown.SelectedText.Value = "English"|| Lang_DropDown.SelectedText.Value = "Anglais",
+                            {'Preferred Language ': [@'Preferred Language '].English},
+                            {'Preferred Language ': [@'Preferred Language '].French}  
+                        ),
+                        //course notifications
+                        If(
+                            !Toggle_Course_1.Value,
+                            {'Hide Courses Notifications': [@'Yes/No'].No},
+                            {'Hide Courses Notifications': [@'Yes/No'].Yes}
+                        ),
+                        //training events notification
+                        If(
+                            !Toggle_TE_1.Value,
+                            {'Hide Training Events Notifications': [@'Yes/No'].No},
+                            {'Hide Training Events Notifications': [@'Yes/No'].Yes}
+                        ),
+                        //tasking notifications
+                        If(
+                            !Toggle_Tasking_1.Value,
+                            {'Hide Taskings Notifications': [@'Yes/No'].No},
+                            {'Hide Taskings Notifications': [@'Yes/No'].Yes}
+                        ),
+                        If(
+                            !TEReminder_Toggle.Value,
+                            {Reminder_TrainingEvent: false},
+                            {Reminder_TrainingEvent: true}
+                        ),
+                        If(
+                            !CourseReminder_Toggle.Value,
+                            {Reminder_Course: false},
+                            {Reminder_Course: true}
+                            ),
+                        If(
+                            !TaskingReminder_Toggle.Value,
+                            {Reminder_Tasking: false},
+                            {Reminder_Tasking: true}
+                            ),
+                        If(
+                            !EmployReminder_Toggle.Value,
+                            {Reminder_Employment: false},
+                            {Reminder_Employment: true}
+                            )
+                    );
+                    
+                    If(Lang_DropDown.SelectedText.Value = "English" || Lang_DropDown.SelectedText.Value = "Anglais",
+                             Set(LangEn, true),
+                             Set(LangEn, false)
+                    );
+                    
+                    Refresh(Personnels)
+                    
+                Size: =24
+                Text: =__localizer.Localize("ANA_NOTIFICATIONS_SETTINGS_CONFIRM", LangEn)
+                Width: =280
+                X: =186
+                Y: =102
+                ZIndex: =36
+
+        MenuLowerHeader_3 As MenuLowerHeader:
+            BackScreen: =DashboardScreen
+            LowerMenuTextLabel: =If(LangEn,"Settings", "Paramètres")
+            Y: =90
+            ZIndex: =2
+
+        MainHeader_11 As MainHeader:
+            ZIndex: =3
+
+    Button2 As button:
+        Fill: =If(DarkMode,Dark3,Blue1)
+        Height: =54
+        OnSelect: =Navigate(BugScreen)
+        Text: ="Bug Report"
+        Width: =140
+        X: =456
+        Y: =108
+        ZIndex: =4
+

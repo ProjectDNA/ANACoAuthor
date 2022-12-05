@@ -1,0 +1,114 @@
+customButtonComponent As CanvasComponent:
+    appName: ="Text"
+    Fill: =RGBA(0, 0, 0, 0)
+    FontSize: =100
+    Height: =124
+    Width: =258
+    X: =0
+    Y: =0
+    ZIndex: =1
+
+    Component_Background As button:
+        Align: =Align.Left
+        BorderColor: =RGBA(255, 255, 255, 1)
+        BorderThickness: =3
+        Fill: =If(DarkMode,Dark4,Blue2)
+        Font: =Font.Lato
+        FontWeight: =FontWeight.Lighter
+        Height: =(Parent.Height-6)
+        PaddingBottom: =0
+        PaddingLeft: =0
+        PaddingRight: =6
+        PaddingTop: =0
+        RadiusBottomLeft: =5
+        RadiusBottomRight: =5
+        RadiusTopLeft: =5
+        RadiusTopRight: =5
+        Size: =26
+        Text: =""
+        Width: =(Parent.Width-6)
+        X: =3
+        Y: =3
+        ZIndex: =1
+
+    app_lbl As label:
+        Align: =Align.Center
+        Color: =RGBA(255, 255, 255, 1)
+        Height: =Parent.Height
+        PaddingBottom: =10
+        PaddingRight: =10
+        PaddingTop: =10
+        Size: =Parent.FontSize
+        Text: |+
+            =Switch(
+            customButtonComponent.appName,
+            "Training & Courses", __localizer.Localize("ANA_DASHBOARD_TRAINING", LangEn),
+            "Taskings and Employments", __localizer.Localize("ANA_DASHBOARD_TASK", LangEn),
+            "Unit Nominal Roll",If(LangEn,"Unit Nominal Roll","Liste nominative d'unité"),
+            "Personal Info", __localizer.Localize("ANA_SPLASH_LABEL_PERS_FILE", LangEn),
+            "Forms & References",__localizer.Localize("ANA_SPLASH_LABEL_FILES_AND_DOCS",LangEn),
+            "Training Attendance",If(LangEn,"Training Attendance","Présence des Entraînements"),
+            "Schedule Appointment",__localizer.Localize("ANA_SPLASH_LABEL_SCHEDUALE_APPOINTMENT",LangEn),
+            "Submit Administration",__localizer.Localize("ANA_SPLASH_LABEL_SUBMIT_ADMIN",LangEn),
+            "Professional Development",__localizer.Localize("ANA_SPLASH_LABEL_PROF_DEV",LangEn),
+            "Training Portal",__localizer.Localize("ANA_SPLASH_LABEL_TRAINING_PORTAL",LangEn),
+            "Potential",__localizer.Localize("ANA_SPLASH_LABEL_POTENTIAL",LangEn)
+            )
+            
+        Width: =177
+        X: =77
+        ZIndex: =3
+
+    Button_Icon As icon.Add:
+        Color: =RGBA(255, 191, 0, 1)
+        Icon: |-
+            =Switch(
+                customButtonComponent.appName,
+                "Training & Courses",Icon.Journal,
+                "Taskings and Employments",Icon.Pin,
+                "Unit Nominal Roll",Icon.People,
+                "Personal Info",Icon.Person,
+                "Forms & References",Icon.Folder,
+                "Training Attendance",Icon.Check,
+                "Schedule Appointment",Icon.Check,
+                "Submit Administration",Icon.Check,
+                "Professional Development",Icon.Check,
+                "Training Portal",Icon.Check,
+                "Potential",Icon.Check
+            )
+        X: =13
+        Y: =27
+        ZIndex: =4
+
+    Icon_Label_Button As button:
+        Align: =Align.Left
+        BorderColor: =RGBA(255, 255, 255, 1)
+        BorderThickness: =0
+        Color: =
+        DisabledBorderColor: =RGBA(0, 0, 0, 0)
+        DisabledColor: =RGBA(0, 0, 0, 0)
+        DisabledFill: =RGBA(0, 0, 0, 0)
+        Fill: =RGBA(0, 0, 0, 0)
+        Font: =Font.Lato
+        FontWeight: =FontWeight.Lighter
+        Height: |
+            =Component_Background.Height
+        HoverColor: =RGBA(0, 0, 0, 0)
+        HoverFill: =ColorFade(RGBA(18, 57, 104, 0.4), -20%)
+        OnSelect: =Navigate(LookUp(colAppLinks,Name = Parent.appName,ScreenName))
+        PaddingBottom: =0
+        PaddingLeft: =0
+        PaddingRight: =6
+        PaddingTop: =0
+        RadiusBottomLeft: =5
+        RadiusBottomRight: =5
+        RadiusTopLeft: =5
+        RadiusTopRight: =5
+        Size: =26
+        Text: =
+        Width: |
+            =Component_Background.Width
+        X: =Component_Background.X
+        Y: =Component_Background.Y
+        ZIndex: =5
+

@@ -1,0 +1,92 @@
+HelpScreen As screen:
+
+    Help_Icon As icon.Add:
+        Color: =Blue3
+        Height: =132
+        Icon: =Icon.Help
+        Width: =132
+        X: =Parent.Width/2 - Self.Width/2
+        Y: =272
+        ZIndex: =1
+
+    HelpScreen_ButtonLinks As groupContainer.horizontalAutoLayoutContainer:
+        Height: =283
+        LayoutAlignItems: =LayoutAlignItems.Center
+        LayoutGap: =20
+        LayoutJustifyContent: =LayoutJustifyContent.Center
+        LayoutMode: =LayoutMode.Auto
+        Width: =640
+        Y: =690
+        ZIndex: =2
+
+        HelpScreen_FAQLink As LinkIconButton:
+            Height: =220 
+            Icon: ="help"
+            LayoutMinHeight: =640
+            LayoutMinWidth: =640
+            Link: |-
+                ="https://docs.microsoft.com/en-us/power-automate/frequently-asked-questions"
+            Text: ="FAQ"
+            Width: =180
+            X: =23
+            Y: =721
+
+        HelpScreen_ORLink As LinkIconButton:
+            Height: =220 
+            Icon: ="mail"
+            LayoutMinHeight: =640
+            LayoutMinWidth: =640
+            Link: |-
+                ="Launch(""mailto:2div-dev@withyouwithme.com?subject=ANA%202Div%20Help%20Request&body=Hi%2C%20your%20message%20body%20would%20go%20here."");"
+            Text: =__localizer.Localize("ANA_HELP_EMAIL_OR", LangEn)
+            Width: =180
+            X: =233
+            Y: =721
+            ZIndex: =2
+
+        HelpScreen_COCLink As LinkIconButton:
+            Height: =220 
+            Icon: ="mail"
+            LayoutMinHeight: =640
+            LayoutMinWidth: =640
+            Link: |-
+                ="Launch(""mailto:2div-dev@withyouwithme.com?subject=ANA%202Div%20Help%20Request&body=Hi%2C%20your%20message%20body%20would%20go%20here."");"
+            Text: =__localizer.Localize("ANA_HELP_EMAIL_COC", LangEn)
+            Width: =180
+            X: =440
+            Y: =721
+            ZIndex: =3
+
+    HelpScreen_MenuLowerHeader As MenuLowerHeader:
+        BackScreen: =DashboardScreen
+        LowerMenuTextLabel: =__localizer.Localize("ANA_HELP_TITLE", LangEn)
+        Y: =Help_MainHeader.Height + Help_MainHeader.Y
+        ZIndex: =3
+
+    HelpScreen_TitleLabel As label:
+        Align: =Align.Center
+        Font: =FontFamilyB
+        FontWeight: =FontWeight.Bold
+        Height: =94
+        Size: |-
+            =//CardInfoHeaderFont
+            30
+        Text: =__localizer.Localize("ANA_HELP_TITLE", LangEn)
+        Width: =Parent.Width
+        Y: =481
+        ZIndex: =4
+
+    HelpScreen_SideMenu As SideMenu:
+        BugScreen: =BugScreen
+        Height: =60
+        NavigateToHelpScreen: =HelpScreen
+        SetMenuHeight: =Parent.Height
+        Width: =640
+        ZIndex: =5
+
+    Help_MainHeader As MainHeader:
+        PersonalImage: =currPersonnelImage
+        PersonalInfoScreen: |
+            =PersonalInfoScreen
+        ZIndex: =6
+

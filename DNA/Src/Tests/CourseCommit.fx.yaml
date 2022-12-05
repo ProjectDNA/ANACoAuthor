@@ -1,0 +1,39 @@
+"'9656217a-b81c-49a3-addb-72b181a0a15b' As TestSuite":
+    Description: =""
+    DisplayName: ="CourseCommit"
+
+    "'302191c5-2c2f-4411-8523-68bc3223905a' As TestCase":
+        Description: =""
+        DisplayName: ="Confirm Course"
+
+        Step1 As TestStep:
+            Description: ="Select 'Dashboard_ButtonTraining'"
+            Screen: =DashboardScreen
+            Value: |
+                =Select(Debug_TrainingMenu_2)
+
+        Step2 As TestStep:
+            Description: ="Select 'Training_ShowCoursesListBtn'"
+            Screen: =TrainingScreen
+            Value: =Select(Training_ShowCoursesListBtn)
+
+        Step3 As TestStep:
+            Description: ="Select 'Training_CourseCard' in row 2 in 'Training_CourseGallery'"
+            Screen: =TrainingScreen
+            Value: =Select(Training_CourseGallery, 2, Training_CourseDetailsButton)
+
+        Step4 As TestStep:
+            Description: ="Select 'Training_CourseCard' in row 2 in 'Training_CourseGallery'"
+            Screen: =TrainingScreen
+            Value: =Select(Training_CourseGallery, 2, Training_CourseDetailsButton)
+
+        Step5 As TestStep:
+            Description: ="Select 'CourseDetails_apply'"
+            Screen: =CourseDetailsScreen
+            Value: =Select(CourseDetails_Apply)
+
+        Step6 As TestStep:
+            Description: ="Select 'decline_submit_3'"
+            Screen: =CourseDetailsScreen
+            Value: =Select(CourseDetails_AttSubmit)
+

@@ -1,0 +1,37 @@
+{
+  "ComponentAllowCustomization": true,
+  "ComponentChangedSinceFileImport": true,
+  "ComponentManifest": {
+    "AllowAccessToGlobals": true,
+    "AllowCustomization": true,
+    "Description": "",
+    "Name": "SearchField_1",
+    "TemplateGuid": "8a47fe3e46864cb4ac4a48cf56d8441e"
+  },
+  "ComponentType": "CanvasComponent",
+  "CustomGroupControlTemplateName": "",
+  "CustomProperties": [
+    {
+      "Category": 0,
+      "DisplayName": "TextOutput",
+      "Hidden": true,
+      "Name": "TextOutput",
+      "PropertyDataTypeKey": "String",
+      "Tooltip": "text of the search",
+      "Type": "{\"Version\":\"1.326\",\"Type\":{\"Name\":\"Root\",\"Kind\":\"String\",\"EnumString\":\"\",\"Type\":[]}}"
+    }
+  ],
+  "FirstParty": true,
+  "Id": "http://microsoft.com/appmagic/Component",
+  "IsComponentLocked": false,
+  "IsComponentTemplate": true,
+  "IsCustomGroupControlTemplate": false,
+  "IsPcfControl": false,
+  "IsPremiumPcfControl": false,
+  "IsWidgetTemplate": false,
+  "LastModifiedTimestamp": "638058497004684989",
+  "Name": "8a47fe3e46864cb4ac4a48cf56d8441e",
+  "OverridableProperties": {},
+  "TemplateOriginalName": "b9b6d1df98504477917ce5020d63b12b",
+  "Version": "637745949698851846"
+}

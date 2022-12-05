@@ -1,0 +1,124 @@
+[
+  {
+    "CdsFCBContext": "{\"FileType\":true,\"ImageExternalStorage\":true}",
+    "EntitySetName": "wywm_taskings",
+    "IsHidden": false,
+    "IsSampleData": false,
+    "IsWritable": true,
+    "LogicalName": "wywm_tasking",
+    "MaxGetRowsCount": 500,
+    "Name": "Taskings",
+    "NativeCDSDataSourceInfoNameMapping": {
+      "_ownerid_value": "Owner",
+      "bpf_wywm_tasking_wywm_taskingflow": "Tasking  Flow",
+      "createdby": "Created By",
+      "createdon": "Created On",
+      "createdonbehalfby": "Created By (Delegate)",
+      "importsequencenumber": "Import Sequence Number",
+      "modifiedby": "Modified By",
+      "modifiedon": "Modified On",
+      "modifiedonbehalfby": "Modified By (Delegate)",
+      "overriddencreatedon": "Record Created On",
+      "owningbusinessunit": "Owning Business Unit",
+      "owningteam": "Address",
+      "owninguser": "Azure Deleted On",
+      "processid": "Address 2: Telephone 1",
+      "stageid": "Outgoing Email Delivery Method",
+      "statecode": "Status",
+      "statuscode": "Status Reason",
+      "timezoneruleversionnumber": "Main Phone",
+      "traversedpath": "Default Queue",
+      "utcconversiontimezonecode": "Address 1: County",
+      "versionnumber": "Address 2: Telephone 2",
+      "wywm_attachment1": "Attachment #1",
+      "wywm_attachment2": "Attachment #2",
+      "wywm_attachment3": "Attachment #3",
+      "wywm_description": "Description",
+      "wywm_enddate": "End Date",
+      "wywm_finalapplicationdate": "Final Application Date",
+      "wywm_HostingUnit": "Hosting Unit",
+      "wywm_location": "Location",
+      "wywm_name": "Name",
+      "wywm_OPI": "OPI",
+      "wywm_opicalculated": "OPI CALCULATED",
+      "wywm_opicalculatedfr": "OPI CALCULATED FR",
+      "wywm_opiemail": "OPI EMAIL",
+      "wywm_prerequisites": "Prerequisites",
+      "wywm_startdate": "Start Date",
+      "wywm_tasking_AsyncOperations": "System Jobs",
+      "wywm_tasking_BulkDeleteFailures": "Bulk Delete Failures",
+      "wywm_tasking_DuplicateBaseRecord": "Duplicate Records (wywm_tasking_DuplicateBaseRecord)",
+      "wywm_tasking_DuplicateMatchingRecord": "Duplicate Records (wywm_tasking_DuplicateMatchingRecord)",
+      "wywm_tasking_FileAttachments": "FileAttachments",
+      "wywm_tasking_MailboxTrackingFolders": "Mailbox Auto Tracking Folders",
+      "wywm_tasking_PrincipalObjectAttributeAccesses": "Field Sharing",
+      "wywm_tasking_ProcessSession": "Process Sessions",
+      "wywm_tasking_SyncErrors": "Sync Errors",
+      "wywm_tasking_Teams": "Teams",
+      "wywm_Tasking_wywm_HRMSCourse_wywm_HRMSCou": "HRMS Courses",
+      "wywm_Tasking_wywm_MOSTrade_m_2_m": "MOS Trades",
+      "wywm_Tasking_wywm_OSQCourse_wywm_OSQCours": "OSQ Courses",
+      "wywm_Tasking_wywm_Rank_m2m": "Ranks",
+      "wywm_Tasking_wywm_Tasking_wywm_TaskingApp": "Tasking Applications",
+      "wywm_taskingid": "Tasking",
+      "wywm_tasknamefr": "Task Name Fr",
+      "wywm_UserNotification_Tasking_wywm_Taskin": "UserNotifications"
+    },
+    "PreferredName": "Taskings",
+    "Type": "NativeCDSDataSourceInfo"
+  },
+  {
+    "DisplayName": "Taskings (Views)",
+    "Name": "_wywm_tasking_views",
+    "RelatedEntityName": "Taskings",
+    "TrimmedViewName": true,
+    "Type": "ViewInfo",
+    "ViewInfoNameMapping": {
+      "1e4f63ff-ceac-437c-a01d-41eb587bfb77": "Active Taskings",
+      "2149ab5f-4d97-4114-8326-aa6c7a2fc424": "Inactive Taskings",
+      "2fd41eab-8032-485a-8ac8-8b8e018747be": "Tasking Lookup View",
+      "870d18c2-ab94-47ad-a873-904c5dbad935": "Tasking Associated View",
+      "96df2540-f86c-4d27-b16c-a50458f2490d": "Tasking Advanced Find View"
+    }
+  },
+  {
+    "DisplayName": "Status (Taskings)",
+    "Name": "wywm_tasking_statecode",
+    "OptionSetInfoNameMapping": {
+      "0": "Active",
+      "1": "Inactive"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "statecode",
+        "OptionSetReferenceEntityName": "Taskings"
+      }
+    },
+    "OptionSetTypeKey": "StateType",
+    "RelatedColumnInvariantName": "statecode",
+    "RelatedEntityName": "Taskings",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Status Reason (Taskings)",
+    "Name": "wywm_tasking_statuscode",
+    "OptionSetInfoNameMapping": {
+      "1": "Active",
+      "2": "Inactive"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "statuscode",
+        "OptionSetReferenceEntityName": "Taskings"
+      }
+    },
+    "OptionSetTypeKey": "StatusType",
+    "RelatedColumnInvariantName": "statuscode",
+    "RelatedEntityName": "Taskings",
+    "Type": "OptionSetInfo"
+  }
+]

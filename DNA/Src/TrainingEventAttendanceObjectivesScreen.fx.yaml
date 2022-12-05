@@ -1,0 +1,138 @@
+TrainingEventAttendanceObjectivesScreen As screen:
+
+    TEAttendObj_localizer As Localizer_1:
+        Localize: |-
+            =/*
+                @author: ryan@werkncode.net
+                Usage: To use the localizer in your environment create a table with the following structure in the dataverse:
+            
+                LocalizationEnFr(
+                        (String) StringId, (String) En, (String) Fr, (Boolean) Flagged
+                )
+            
+                Then in your app, on the main/first screen create a custom component (called _localizer extending from Localizer here).
+            
+                To translate text use the following function call on the localizer component:
+            
+                _localizer.Localize("APP_SCREEN_STRING_ID", LangEn), this will return the English or the French Text
+            */
+            If(
+                IsLangEn = true,
+                //IF
+                First(
+                    Search(
+                        LocalizationEnFr,
+                        StringId,
+                        "wywm_stringid"
+                    )
+                ).En,
+                //ELSE
+                First(
+                    Search(
+                        LocalizationEnFr,
+                        StringId,
+                        "wywm_stringid"
+                    )
+                ).Fr
+            )
+        Visible: =false
+        ZIndex: =1
+
+    TEAttendObj_EventContainer_3 As groupContainer.manualLayoutContainer:
+        Height: =1046
+        Width: =Parent.Width
+        Y: =90
+        ZIndex: =4
+
+        TEAttendObj_ButtonContainer As groupContainer.verticalAutoLayoutContainer:
+            Height: =96
+            LayoutAlignItems: =LayoutAlignItems.Center
+            LayoutJustifyContent: =LayoutJustifyContent.Center
+            LayoutMode: =LayoutMode.Auto
+            LayoutOverflowY: =LayoutOverflow.Scroll
+            Width: =Parent.Width
+            Y: =90
+            ZIndex: =1
+
+            TEAttendObj_DetailsButton As button:
+                Height: =70
+                LayoutMinHeight: =70
+                LayoutMinWidth: =140
+                OnSelect: =Navigate(TrainingEventAttendanceDetailsScreen, Fade);
+                Size: =24
+                Text: ="Details"
+                ZIndex: =1
+
+            TEAttendObj_ObjButton As button:
+                Fill: =RGBA(166, 166, 166, 1)
+                Height: =70
+                LayoutMinHeight: =70
+                LayoutMinWidth: =140
+                Size: =20
+                Text: ="Objectives"
+                ZIndex: =2
+
+            TEAttendObj_DocButton As button:
+                Height: =70
+                LayoutMinHeight: =70
+                LayoutMinWidth: =140
+                OnSelect: |-
+                    =Navigate(
+                        TrainingEventAttendanceDocumentsScreen, 
+                        None
+                    );
+                Size: =20
+                Text: ="Documents"
+                ZIndex: =3
+
+            TEAttendObj_SettingsButton As button:
+                Height: =70
+                LayoutMinHeight: =70
+                LayoutMinWidth: =140
+                OnSelect: |-
+                    =Navigate(
+                        TrainingEventAttendanceSettingsScreen, 
+                        None
+                    );
+                Size: =If(LangEn, 20, 19)
+                Text: =If(LangEn, "Settings","Paramètres")
+                ZIndex: =4
+
+        TEAttendObj_Container As groupContainer.verticalAutoLayoutContainer:
+            Height: =820
+            LayoutAlignItems: =LayoutAlignItems.Stretch
+            LayoutDirection: =LayoutDirection.Vertical
+            LayoutJustifyContent: =LayoutJustifyContent.Center
+            LayoutMode: =LayoutMode.Auto
+            Width: =640
+            Y: =186
+            ZIndex: =3
+
+            TrainingDetails_OrdersBox_1 As label:
+                BorderColor: =RGBA(0, 0, 0, 1)
+                BorderThickness: =2
+                Fill: =RGBA(255, 255, 255, 1)
+                FillPortions: =1
+                Height: =
+                LayoutMinHeight: =70
+                LayoutMinWidth: =560
+                PaddingLeft: =20
+                PaddingTop: =20
+                Size: =18
+                Text: |
+                    =
+                    Text(AttendData.'Training Event Name')
+                    &
+                    ":
+                    
+                    " &
+                    If(IsBlank(AttendData.'Training Objectives'), "No recorded Objectives", AttendData.'Training Objectives')
+                VerticalAlign: =VerticalAlign.Top
+                Width: =560
+                X: =41
+                Y: =70
+                ZIndex: =1
+
+    MainHeader_5 As MainHeader:
+        ZIndex: =7
+

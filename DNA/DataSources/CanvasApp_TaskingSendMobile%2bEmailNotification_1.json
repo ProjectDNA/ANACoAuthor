@@ -1,0 +1,9 @@
+[
+  {
+    "AddinConnectorId": "8e8562d7-c9b3-479f-b13d-5f85508cb96e",
+    "AddinId": "6d1f157d-95bf-406d-b65d-cfd3240f724e",
+    "Name": "CanvasApp_TaskingSendMobile+EmailNotification_1",
+    "ServiceKind": "AddinWadl",
+    "Type": "ServiceInfo"
+  }
+]

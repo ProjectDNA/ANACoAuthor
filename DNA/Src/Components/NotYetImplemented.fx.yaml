@@ -1,0 +1,84 @@
+NotYetImplemented As CanvasComponent:
+    FeedbackScreen: =App.ActiveScreen
+    Fill: =
+    Height: =1333
+    Width: =640
+    X: =0
+    Y: =0
+    ZIndex: =1
+
+    NotYetImplemented_BackGroundImage As image:
+        Height: =1333
+        Image: ='2Div_AppBackground'
+        ImagePosition: =ImagePosition.Fill
+        Width: =640
+        ZIndex: =1
+
+    NotYetImplemented_TextBackground As rectangle:
+        Fill: =RGBA(0, 0, 0, 0.84)
+        Height: =542
+        Width: =640
+        Y: =384
+        ZIndex: =2
+
+    NotYet_Message As group:
+        Height: =5
+        Width: =5
+        X: =40
+        Y: =40
+        ZIndex: =7
+
+        NotYetImplemented_ComingSoonLabel As label:
+            Align: =Align.Center
+            Color: =RGBA(255, 255, 255, 1)
+            Font: =FontFamilyB
+            Height: =131
+            OnSelect: =Navigate(Parent.FeedbackScreen, ScreenTransition.CoverRight)
+            PaddingLeft: =10
+            PaddingTop: =10
+            Size: =CardInfoHeaderFont
+            Text: =__localizer.Localize("ANA_ERROR_NOT_YET_IMPL", LangEn)
+            Width: =516
+            X: =68
+            Y: =423
+            ZIndex: =3
+
+        NotYetImplemented_ThanksLbl As label:
+            Align: =Align.Center
+            Color: =RGBA(255, 255, 255, 1)
+            Font: =FontFamilyB
+            Height: =146
+            OnSelect: =Navigate(Parent.FeedbackScreen, ScreenTransition.CoverRight)
+            PaddingLeft: =10
+            PaddingTop: =10
+            Size: =CardInfoHeaderFont
+            Text: =__localizer.Localize("ANA_ERROR_THANKS_MESSAGE", LangEn)
+            Width: =516
+            X: =62
+            Y: =528
+            ZIndex: =4
+
+        FeedBackIcon As icon.Bug:
+            Color: =Yellow1
+            Height: =128
+            Icon: =Icon.Help
+            OnSelect: =Navigate(Parent.FeedbackScreen, ScreenTransition.CoverRight)
+            Width: =128
+            X: =256
+            Y: =674
+            ZIndex: =5
+
+        NotYet_MessageLbl As label:
+            Align: =Align.Center
+            Color: =Yellow1
+            Font: =FontFamilyB
+            FontWeight: =FontWeight.Bold
+            Height: =85
+            OnSelect: =Navigate(Parent.FeedbackScreen, ScreenTransition.CoverRight)
+            Size: =CardMediumTextFont
+            Text: =__localizer.Localize("ANA_NOT_YET_FEEDBACK", LangEn)
+            Underline: =true
+            Width: =640
+            Y: =802
+            ZIndex: =6
+

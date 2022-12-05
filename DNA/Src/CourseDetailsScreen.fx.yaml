@@ -1,0 +1,1196 @@
+CourseDetailsScreen As screen:
+    Fill: =BackgroundColor
+    OnVisible: =
+
+    WithdrawApplication_Button As button:
+        Fill: =Blue2
+        Height: =53
+        OnSelect: =Set(showWithdawlModal, !showWithdawlModal) 
+        Size: =16
+        Text: |+
+            =If(CourseCommitStatus = 'Application Status'.Applied, __localizer.Localize("ANA_COURSE_WITHRAW_APPLICATION", LangEn), "")
+            
+        Visible: =If(CourseCommitStatus ='Application Status'.Applied, true)
+        Width: =280
+        X: =305
+        Y: =1026
+        ZIndex: =1
+
+    PdfViewer1 As pdfViewer:
+        BorderColor: =RGBA(0, 0, 0, 1)
+        Document: =DocVar
+        Fill: =RGBA(0, 0, 0, 0.5)
+        Height: =1136
+        Visible: =showPdf
+        ZIndex: =2
+
+    CourseDetails_CourseInfoCard As CourseInfoCard:
+        ApplicationDate: |+
+            =Text(DateTimeValue(CourseData.'Final Application Date'), "yyyy/mm/dd @ hh:mm")
+            
+            
+        EndDate: |-
+            =Text(DateTimeValue(CourseData.'End Date'), "yyyy/mm/dd @ hh:mm")
+        Location: =CourseData.Location
+        OPIContact: |
+            =LookUp(Courses, Course = CourseData.Course).OPI.'Mobile Phone Number'
+        OPIEmail: =CourseData.'OPI EMAIL'
+        OPIName: |-
+            =If(
+                LangEn,
+                CourseData.'OPI CALCULATED',
+                CourseData.'OPI CALCULATED FR'
+            )
+            
+            /*
+            If(
+                LangEn,
+                LookUp(
+                    Personnels,
+                    Personnel = CourseOpiId
+                ).'Current Rank'.wywm_descrshort_eng & " " & LookUp(
+                    Personnels,
+                    Personnel = CourseOpiId
+                ).'Last Name',
+                LookUp(
+                    Personnels,
+                    Personnel = CourseOpiId
+                ).'Current Rank'.wywm_descrshort_fr & " " & LookUp(
+                    Personnels,
+                    Personnel = CourseOpiId
+                ).'Last Name'
+            )
+            */
+        OPIUnit: |-
+            =
+            LookUp(
+                Courses,
+                Course = CourseData.Course
+            ).'Hosting Unit'.'Unit Name'
+        StartDate: |-
+            =Text(DateTimeValue(CourseData.'Start Date'), "yyyy/mm/dd @ hh:mm")
+        TrainingDays: =CourseData.'Training Days'
+        TrainingDuration: |-
+            =LookUp(
+                Courses,
+                Course = CourseData.Course
+            ).'Course Duration (days)'
+        X: =40
+        Y: =305
+        ZIndex: =3
+
+    CourseDetails_EventName As label:
+        FontWeight: =FontWeight.Semibold
+        Height: =125
+        LineHeight: =1
+        PaddingTop: =20
+        Size: =33
+        Text: |
+            =If(
+                LangEn,
+                CourseData.'Course Name',
+                CourseData.'Course Name FR'
+            )
+        VerticalAlign: =VerticalAlign.Top
+        Width: =398
+        X: =38
+        Y: =180
+        ZIndex: =4
+
+    CourseDetails_Apply As button:
+        DisplayMode: |-
+            =//If (CourseCommitStatus = 'Application Status'.'Not Interested' || CourseCommitStatus = 'Application Status'.Applied, DisplayMode.Disabled, DisplayMode.Edit)
+            If(CourseCommitStatus ='Application Status'.'Not Interested' || IsBlank(CourseCommitStatus), DisplayMode.Edit, DisplayMode.Disabled)
+            
+            //IsBlank(CourseCommitStatus)
+        Fill: |-
+            =Switch(
+                CourseCommitStatus,
+                Blank(),
+                Blue2,
+                'Application Status'.Applied,
+                Green,
+                'Application Status'.Nominated,
+                Blue1,
+                'Application Status'.'Not Selected',
+                Black,
+                'Application Status'.'Standby List',
+                StandbyListGold,
+                'Application Status'.Loaded,
+                LoadedBlue,
+                'Application Status'.'Not Interested',
+                Blue2
+            )
+        Height: =53
+        OnSelect: =Set(showAttestation, !showAttestation)
+        PaddingBottom: =0
+        PaddingLeft: =0
+        PaddingRight: =0
+        PaddingTop: =0
+        RadiusBottomLeft: =15
+        RadiusBottomRight: =15
+        RadiusTopLeft: =15
+        RadiusTopRight: =15
+        Text: |-
+            =If(
+                LangEn = true,
+                // True
+                Switch(
+                    CourseCommitStatus,
+                    'Application Status'.Hidden,
+                    "Apply",
+                    Blank(),
+                    "Apply",
+                    'Application Status'.Applied,
+                    "Applied",
+                    'Application Status'.Nominated,
+                    "Nominated",
+                    'Application Status'.'Not Selected',
+                    "Not Selected",
+                    'Application Status'.'Standby List',
+                    "Standby List",
+                    'Application Status'.Loaded,
+                    "Loaded",
+                    'Application Status'.'Not Interested',
+                    "Reapply"
+                ),
+                // French
+                If(
+                    // Male
+                    currPersonnel.Gender = [@Gender].'801200000',
+                    Switch(
+                        CourseCommitStatus,
+                        'Application Status'.Hidden,
+                        "Appliquer",
+                        Blank(),
+                        "Appliquer",
+                        'Application Status'.Applied,
+                        "Demande faite",
+                        'Application Status'.Nominated,
+                        "Nominé",
+                        'Application Status'.'Not Selected',
+                        "Non séléctionné",
+                        'Application Status'.'Standby List',
+                        "Liste d'attente",
+                        'Application Status'.Loaded,
+                        "Inscrit",
+                        'Application Status'.'Not Interested',
+                        "Réinscrire"
+                    ),
+                    // Female
+                    Switch(
+                        CourseCommitStatus,
+                        'Application Status'.Hidden,
+                        "Appliquer",
+                        Blank(),
+                        "Appliquer",
+                        'Application Status'.Applied,
+                        "Demande faite",
+                        'Application Status'.Nominated,
+                        "Nominée",
+                        'Application Status'.'Not Selected',
+                        "Non séléctionnée",
+                        'Application Status'.'Standby List',
+                        "Liste d'attente",
+                        'Application Status'.Loaded,
+                        "Inscrite",
+                        'Application Status'.'Not Interested',
+                        "Réinscrire"
+                    )
+                )
+            )
+        Width: =185
+        X: =427
+        Y: =229
+        ZIndex: =5
+
+    CourseImageViewer As image:
+        Height: =1136
+        Image: |-
+            =//EventData.'Training Event'.'Attachment #1'.Value
+        Visible: =showImg
+        Width: =640
+        ZIndex: =6
+
+    CourseDetails_FinalAppDateText As label:
+        Align: =Align.Center
+        DisplayMode: |-
+            =//DisplayMode.Edit
+            If(CourseData.'Final Application Date' >=Now(), DisplayMode.Edit, DisplayMode.Disabled)
+            //If(CourseCommitStatus ='Application Status'.Applied && CourseData.Course.'Final Application Date' >=Now() , true)
+        FontWeight: =FontWeight.Semibold
+        Height: =54
+        Size: =18
+        Text: |-
+            =//"(Available until " & Text(DateTimeValue(CourseData.Course.'Final Application Date'), "yyyy, mm, dd") & ")"
+            "("&__localizer.Localize("ANA_COURSE_AVAILABLE_UNTIL", LangEn)&" " & Text(DateTimeValue(CourseData.'Final Application Date'), "yyyy, mm, dd") & ")"
+            //__localizer.Localize("ANA_COURSE_AVAILABLE_UNTIL", LangEn)
+        Visible: |-
+            =If(CourseCommitStatus ='Application Status'.Applied, true)
+            //If(CourseCommitStatus ='Application Status'.Applied && CourseData.Course.'Final Application Date' >=Now() , true)
+        Width: =398
+        X: =242
+        Y: =1079
+        ZIndex: =9
+
+    CourseDetails_ShowAttestationModal As group:
+        Height: =5
+        Width: =5
+        X: =60
+        Y: =60
+        ZIndex: =17
+
+        CourseDetails_AttBackground As rectangle:
+            Fill: =RGBA(0, 0, 0, 0.6)
+            Height: =1136
+            OnSelect: =Set(showAttestation, false)
+            Visible: =showAttestation
+            Width: =640
+            ZIndex: =28
+
+        CourseDetails_AttModal As rectangle:
+            BorderColor: =RGBA(255, 255, 255, 1)
+            Fill: =RGBA(255, 255, 255, 1)
+            Height: =358
+            Visible: =showAttestation
+            Width: =600
+            X: =21
+            Y: =313
+            ZIndex: =29
+
+        CourseDetails_AttCancel As button:
+            Fill: =RGBA(128, 128, 128, 1)
+            Font: =Font.Lato
+            FontWeight: =FontWeight.Normal
+            Height: =45
+            OnSelect: =Set(showAttestation, false)
+            RadiusBottomLeft: =5
+            RadiusBottomRight: =5
+            RadiusTopLeft: =5
+            RadiusTopRight: =5
+            Size: =16
+            Text: =__localizer.Localize("ANA_DECLINE_CANCEL", LangEn)
+            Visible: =showAttestation
+            Width: =130
+            X: =339
+            Y: =610
+            ZIndex: =30
+
+        CourseDetails_AttSubmit As button:
+            Fill: =Blue3
+            Font: =Font.Lato
+            Height: =45
+            OnSelect: |
+                =/*If(
+                    // Condition (Notified -> Accepted)
+                    (LookUp(
+                        'Training Event Attendees',
+                        'Training Event'.'Training Event' = EventData.wywm_TrainingEvent.'Training Event' && Personnel.Personnel = currPersonnel.Personnel
+                    ).'Commit to Training Status' = [@'Commit to Training Status'].Notified),
+                    // If Block
+                    // Change status to accepted
+                Patch(
+                        'Course Applications',
+                        LookUp(
+                            'Course Applications',
+                            Course.wywm_courseid = CourseData.wywm_courseid && Personnel.Personnel = currPersonnel.Personnel
+                        ),
+                        {'Application Status': 'Application Status'.'Not Interested'}
+                    );
+                    Patch(
+                        'Training Event Attendees',
+                        LookUp(
+                            'Training Event Attendees',
+                            'Training Event'.'Training Event' = EventData.wywm_TrainingEvent.'Training Event' && Personnel.Personnel = currPersonnel.Personnel
+                        ),
+                        {'Commit to Training Status': 'Commit to Training Status'.Accepted}
+                    );*/
+                If(
+                    IsBlank(
+                       LookUp(
+                            'Course Applications',
+                            Course.wywm_courseid = CourseData.wywm_courseid && Personnel.Personnel = currPersonnel.Personnel
+                        )
+                    ),
+                    Patch(
+                        'Course Applications',
+                        Defaults('Course Applications'),
+                        {
+                            'Application Status': 'Application Status'.Applied,
+                            Course: CourseData,
+                            Personnel: currPersonnel
+                        }
+                    ),
+                    Patch(
+                        'Course Applications',
+                        LookUp(
+                            'Course Applications',
+                            Course.wywm_courseid = CourseData.wywm_courseid && Personnel.Personnel = currPersonnel.Personnel
+                        ),
+                        {'Application Status': 'Application Status'.Applied}
+                    )
+                );
+                /*
+                    // Add new field to Course Application
+                Patch(
+                    'Course Applications',
+                    Defaults('Course Applications'),
+                    {
+                        'Application Status': 'Application Status'.Applied,
+                        Course: CourseData,
+                        Personnel: currPersonnel
+                    }
+                );*/
+                // If invited initially, need to hide the notification
+                /*
+                Patch(
+                    UserNotifications,
+                    LookUp(
+                        UserNotifications,
+                        wywm_usernotificationid = NotificationId && wywm_Personnel.Personnel = currPersonnel.Personnel && wywm_Course.wywm_courseid = CourseData.wywm_courseid
+                    ),
+                    {wywm_type: "hidden"}
+                );
+                */
+                
+                Patch(
+                        UserNotifications,
+                        LookUp(
+                            UserNotifications,
+                            Personnel.Personnel = currPersonnel.Personnel && Course.Course = CourseData.Course
+                        ),
+                        {Deleted: 'Deleted (UserNotifications)'.Yes}
+                    );
+                
+                /*
+                RemoveIf(
+                    UserNotifications,
+                    Personnel.Personnel = currPersonnel.Personnel && Course.Course = CourseData.Course
+                );
+                */
+                
+                Set(
+                    CourseCommitStatus,
+                    'Application Status'.Applied
+                );
+                Set(
+                    showAttestation,
+                    false
+                );
+                
+                /*
+                // Trigger the email + mobile Notification flow for course
+                'CanvasApp_CourseSendMobile+EmailNotification_1'.Run(
+                    true,
+                    CourseData.'Course Name',
+                    CourseData.'Start Date',
+                    CourseData.'End Date',
+                    CourseData.'Final Application Date',
+                    CourseData.'Training Days',
+                    CourseData.'Course Duration (days)',
+                    CourseData.'OPI CALCULATED',
+                    CourseData.'OPI EMAIL',
+                    CourseData.'Hosting Unit'.'Unit Name',
+                    LookUp(
+                        Personnels,
+                        Personnel = currPersonnel.Personnel
+                    ).'Military Email'
+                );
+                */
+                /*
+                Remove(
+                    UserNotifications,
+                    LookUp(
+                        UserNotifications,
+                        Course.Course = CourseData.wywm_courseid && Personnel.Personnel = currPersonnel.Personnel
+                    )
+                );
+                */
+                Navigate(
+                    CourseSuccessScreen,
+                    ScreenTransition.CoverRight
+                );
+                Refresh('Course Applications');
+                Refresh('Training Event Attendees');
+                Refresh(UserNotificationItems);
+            RadiusBottomLeft: =5
+            RadiusBottomRight: =5
+            RadiusTopLeft: =5
+            RadiusTopRight: =5
+            Size: =16
+            Text: =__localizer.Localize("ANA_BUG_SUBMIT", LangEn)
+            Visible: =showAttestation
+            Width: =130
+            X: =478
+            Y: =609
+            ZIndex: =31
+
+        CourseDetails_AttFinalAppDate As label:
+            Height: =106
+            Size: =16
+            Text: =__localizer.Localize("ANA_COURSE_CONFIRM4", LangEn)
+            Visible: =showAttestation
+            Width: =582
+            X: =39
+            Y: =429
+            ZIndex: =32
+
+        CourseDetails_AttAvail As label:
+            Height: =89
+            Size: =16
+            Text: =__localizer.Localize("ANA_COURSE_CONFIRM3", LangEn)
+            Visible: =showAttestation
+            Width: =580
+            X: =40
+            Y: =515
+            ZIndex: =33
+
+        CourseDetails_AttPrerequ As label:
+            Height: =85
+            Size: =16
+            Text: =__localizer.Localize("ANA_COURSE_CONFIRM2", LangEn)
+            Visible: =showAttestation
+            Width: =578
+            X: =40
+            Y: =374
+            ZIndex: =34
+
+        CourseDetails_AttConfirm As label:
+            FontWeight: =FontWeight.Semibold
+            Height: =80
+            Size: =18
+            Text: =__localizer.Localize("ANA_COURSE_CONFIRM1", LangEn)
+            Visible: =showAttestation
+            Width: =576
+            X: =33
+            Y: =324
+            ZIndex: =35
+
+    CourseDetails_WidhtdrawOption As label:
+        Align: =Align.Center
+        DisplayMode: =If(CourseData.'Final Application Date' >=Now(), DisplayMode.Edit, DisplayMode.Disabled)
+        FontWeight: =FontWeight.Semibold
+        Height: =55
+        OnSelect: =Set(showWithdawlModal, !showWithdawlModal) 
+        Size: =21
+        Text: |+
+            =If(CourseCommitStatus = 'Application Status'.Applied, __localizer.Localize("ANA_COURSE_WITHRAW_APPLICATION", LangEn), "")
+            
+        Underline: =true
+        Visible: |-
+            =false
+            //If(CourseCommitStatus ='Application Status'.Applied, true)
+        Width: =398
+        X: =242
+        Y: =1018
+        ZIndex: =19
+
+    CourseDetails_ModalDetails As label:
+        Height: =157
+        LineHeight: =1.8
+        PaddingTop: =0
+        Size: =16
+        Text: =If(LangEn, "You are about to withdaw from this course. Please confirm by clicking on submit...", "Vous êtes sur le point de vous retirer de ce cours. Veuillez confirmer en cliquant sur soumettre...")
+        VerticalAlign: =VerticalAlign.Top
+        Visible: =showWithdawlModal
+        Width: =570
+        X: =38
+        Y: =426
+        ZIndex: =27
+
+    CourseDetails_ActionRequred As group:
+        Height: =5
+        Width: =5
+        X: =80
+        Y: =-663
+        ZIndex: =33
+
+        CourseDetails_NominationRect As rectangle:
+            BorderColor: =RGBA(230, 230, 230, 1)
+            BorderThickness: =1
+            Fill: =RGBA(255, 255, 255, 1)
+            Height: =144
+            Visible: |
+                =If(
+                    CourseCommitStatus = 'Application Status'.Nominated || CourseCommitStatus = 'Application Status'.Loaded,
+                    true
+                )
+            Width: =560
+            X: =40
+            Y: =950
+            ZIndex: =10
+
+        CourseDetails_ActionReq As label:
+            Align: =Align.Center
+            FontWeight: =FontWeight.Semibold
+            Height: =56
+            Size: =20
+            Text: =If(LangEn, "Action Required.", "Action Requise.")
+            Visible: |
+                =If(
+                    CourseCommitStatus = 'Application Status'.Nominated || CourseCommitStatus = 'Application Status'.Loaded,
+                    true
+                )
+            Width: =560
+            X: =40
+            Y: =962
+            ZIndex: =11
+
+        CourseDetails_Confirm As label:
+            Align: =Align.Center
+            Height: =78
+            Size: =18
+            Text: =If(LangEn, "Confirm next steps with Chain of Command.", "Confirmez les prochaines étapes avec votre chaîne de commandement.")
+            Visible: |
+                =If(
+                    CourseCommitStatus = 'Application Status'.Nominated || CourseCommitStatus = 'Application Status'.Loaded,
+                    true
+                )
+            Width: =560
+            X: =40
+            Y: =1012
+            ZIndex: =12
+
+    CourseDetails_DescriptionsDropdown As group:
+        Height: =5
+        Width: =5
+        X: =80
+        Y: =-663
+        ZIndex: =35
+
+        CourseDetails_DescriptionHeader As label:
+            BorderColor: =RGBA(230, 230, 230, 1)
+            BorderThickness: =2
+            Fill: =RGBA(255, 255, 255, 1)
+            Font: =FontFamilyB
+            FontWeight: =FontWeight.Semibold
+            Height: =70
+            PaddingLeft: =20
+            Size: =CardTextFont
+            Text: ="Description"
+            Width: =560
+            X: =40
+            Y: =743
+            ZIndex: =7
+
+        CourseDetails_DescriptionIcon As icon.Add:
+            Color: =Yellow1
+            Height: =42
+            Icon: =Icon.ChevronDown
+            OnSelect: |-
+                =Set(showDescription, !showDescription);
+                Set(showReq, false);
+                Set(showAttachments, false);
+            Width: =42
+            X: =538
+            Y: =758
+            ZIndex: =8
+
+        CourseDetails_DescriptionBox As label:
+            BorderColor: =RGBA(230, 230, 230, 1)
+            BorderThickness: =2
+            DisplayMode: =DisplayMode.View
+            Fill: =RGBA(255, 255, 255, 1)
+            Height: =If(showDescription, 160, 0)
+            Overflow: =Overflow.Scroll
+            PaddingLeft: =20
+            PaddingTop: =10
+            Size: =12
+            Text: =CourseData.Description
+            VerticalAlign: =VerticalAlign.Top
+            Visible: =showDescription
+            Width: =560
+            X: =40
+            Y: =813
+            ZIndex: =13
+
+    CourseDetails_AttachDropdown As group:
+        Height: =5
+        Width: =5
+        X: =80
+        Y: =-663
+        ZIndex: =36
+
+        CourseDetails_AttachmentsLabel As label:
+            BorderColor: =RGBA(230, 230, 230, 1)
+            BorderThickness: =2
+            Fill: =RGBA(255, 255, 255, 1)
+            Font: =FontFamilyB
+            FontWeight: =FontWeight.Semibold
+            Height: =70
+            PaddingLeft: =20
+            Size: =CardTextFont
+            Text: =__localizer.Localize("ANA_TRAINING_DETAIL_ATTACHMENTS", LangEn)
+            Width: =560
+            X: =40
+            Y: =CourseDetails_PrereqBox.Y + CourseDetails_PrereqBox.Height
+            ZIndex: =17
+
+        CourseDetails_AttachmentsIcon As icon.Add:
+            Color: =Yellow1
+            Height: =42
+            Icon: =Icon.ChevronDown
+            OnSelect: |
+                =Set(showAttachments, !showAttachments);
+                If(showDescription=true, Set(showDescription, false));
+                If(showReq=true, Set(showReq, false));
+            Width: =42
+            X: =538
+            Y: =CourseDetails_AttachmentsLabel.Y+15
+            ZIndex: =18
+
+        CourseDetails_AttachmentsBox As label:
+            BorderColor: =RGBA(230, 230, 230, 1)
+            BorderThickness: =2
+            Fill: =RGBA(255, 255, 255, 1)
+            FontWeight: =FontWeight.Semibold
+            Height: =169
+            PaddingLeft: =20
+            Size: =18
+            Text: =""
+            Visible: =showAttachments
+            Width: =560
+            X: =40
+            Y: =CourseDetails_AttachmentsLabel.Y+ CourseDetails_AttachmentsLabel.Height
+            ZIndex: =20
+
+    CourseDetails_PrereqsDropdown As group:
+        Height: =5
+        Width: =5
+        X: =80
+        Y: =-663
+        ZIndex: =37
+
+        CourseDetails_PrereqHeader As label:
+            BorderColor: =RGBA(230, 230, 230, 1)
+            BorderThickness: =2
+            Fill: =RGBA(255, 255, 255, 1)
+            Font: =FontFamilyB
+            FontWeight: =FontWeight.Semibold
+            Height: =70
+            PaddingLeft: =20
+            Size: =CardTextFont
+            Text: =__localizer.Localize("ANA_DETAIL_PREREQUISITES", LangEn)
+            Width: =560
+            X: =40
+            Y: =CourseDetails_DescriptionBox.Y+CourseDetails_DescriptionBox.Height
+            ZIndex: =14
+
+        CourseDetails_Arrow As icon.Add:
+            Color: =Yellow1
+            Height: =42
+            Icon: =Icon.ChevronDown
+            OnSelect: |-
+                =Set(showReq, !showReq);
+                If(showDescription, Set(showDescription, false));
+                Set(showAttachments, false);
+            Width: =42
+            X: =538
+            Y: =CourseDetails_PrereqHeader.Y + 15
+            ZIndex: =15
+
+        CourseDetails_PrereqBox As label:
+            BorderColor: =RGBA(230, 230, 230, 1)
+            BorderThickness: =2
+            Fill: =RGBA(255, 255, 255, 1)
+            Height: =If(showReq, 160, 0)
+            Overflow: =Overflow.Scroll
+            PaddingLeft: =20
+            PaddingTop: =20
+            Size: =12
+            Text: =CourseData.Prerequisites
+            VerticalAlign: =VerticalAlign.Top
+            Visible: |
+                =showReq
+            Width: =560
+            X: =40
+            Y: =CourseDetails_PrereqHeader.Y+CourseDetails_PrereqHeader.Height
+            ZIndex: =16
+
+    CourseDetails_ShowWithdrawlModal As group:
+        Height: =5
+        Width: =5
+        X: =60
+        Y: =60
+        ZIndex: =40
+
+        CourseDetails_WithdrawBackground As rectangle:
+            Fill: =RGBA(0, 0, 0, 0.6)
+            Height: =1136
+            OnSelect: =Set(showWithdawlModal, false)
+            Visible: =showWithdawlModal
+            Width: =640
+            ZIndex: =21
+
+        CourseDetails_WithdrawModal As rectangle:
+            BorderColor: =RGBA(255, 255, 255, 1)
+            Fill: =RGBA(255, 255, 255, 1)
+            Height: =357
+            Visible: =showWithdawlModal
+            Width: =596
+            X: =22
+            Y: =360
+            ZIndex: =22
+
+        CourseDetails_WithdrawTitle As label:
+            Font: =Font.Lato
+            FontWeight: =FontWeight.Bold
+            Height: =60
+            PaddingLeft: =20
+            Size: =17
+            Text: ="Confirmation"
+            Visible: =showWithdawlModal
+            Width: =594
+            X: =24
+            Y: =360
+            ZIndex: =23
+
+        CourseDetails_WithdrawDivider As rectangle:
+            BorderColor: =RGBA(255, 255, 255, 1)
+            Fill: =RGBA(0, 0, 0, 1)
+            Height: =1
+            Visible: =showWithdawlModal
+            Width: =596
+            X: =22
+            Y: =416
+            ZIndex: =24
+
+        CourseDetails_WithdrawSubmit As button:
+            Fill: =Blue3
+            Font: =Font.Lato
+            Height: =46
+            OnSelect: |
+                =
+                    If(
+                    LookUp(
+                        Courses,
+                        wywm_courseid = CourseData.wywm_courseid
+                    ).wywm_finalapplicationdate >= Now(),
+                    Patch(
+                        'Course Applications',
+                        LookUp(
+                            'Course Applications',
+                            Course.wywm_courseid = CourseData.wywm_courseid && Personnel.Personnel = currPersonnel.Personnel
+                        ),
+                        {'Application Status': 'Application Status'.'Not Interested'}
+                    );
+                    Set(
+                        CourseCommitStatus,
+                        'Application Status'.'Not Interested'
+                    )
+                );
+                
+                Patch(
+                        UserNotifications,
+                        LookUp(
+                            UserNotifications,
+                            Personnel.Personnel = currPersonnel.Personnel && Course.Course = CourseData.Course
+                        ),
+                        {Deleted: 'Deleted (UserNotifications)'.Yes}
+                    );
+                
+                /*
+                'CanvasApp_CourseSendMobile+EmailNotification_1'.Run(
+                    false,
+                    CourseData.'Course Name',
+                    CourseData.'Start Date',
+                    CourseData.'End Date',
+                    CourseData.'Final Application Date',
+                    CourseData.'Training Days',
+                    CourseData.'Course Duration (days)',
+                    CourseData.'OPI CALCULATED',
+                    CourseData.'OPI EMAIL',
+                    CourseData.'Hosting Unit'.'Unit Name',
+                    LookUp(
+                        Personnels,
+                        Personnel = currPersonnel.Personnel
+                    ).'Military Email'
+                );
+                */
+                Set(
+                    showWithdawlModal,
+                    false
+                );
+            RadiusBottomLeft: =5
+            RadiusBottomRight: =5
+            RadiusTopLeft: =5
+            RadiusTopRight: =5
+            Size: =16
+            Text: =__localizer.Localize("ANA_BUG_SUBMIT", LangEn)
+            Visible: =showWithdawlModal
+            Width: =159
+            X: =445
+            Y: =659
+            ZIndex: =25
+
+        CourseDetails_WithdrawlCancel As button:
+            Fill: =RGBA(128, 128, 128, 1)
+            Font: =Font.Lato
+            FontWeight: =FontWeight.Normal
+            Height: =46
+            OnSelect: =Set(showWithdawlModal, false)
+            RadiusBottomLeft: =5
+            RadiusBottomRight: =5
+            RadiusTopLeft: =5
+            RadiusTopRight: =5
+            Size: =16
+            Text: =__localizer.Localize("ANA_DECLINE_CANCEL", LangEn)
+            Visible: =showWithdawlModal
+            Width: =130
+            X: =305
+            Y: =659
+            ZIndex: =26
+
+    Course_Attach1 As group:
+        Height: =5
+        Width: =5
+        X: =40
+        Y: =40
+        ZIndex: =41
+
+        Course_Attach1Btn As button:
+            Align: =Align.Left
+            Color: =RGBA(0, 0, 0, 1)
+            DisabledColor: =RGBA(0, 0, 0, 0)
+            Fill: =Transparent
+            FontWeight: =FontWeight.Normal
+            Height: =48
+            HoverBorderColor: =RGBA(0, 0, 0, 0)
+            HoverColor: =RGBA(0, 0, 0, 1)
+            HoverFill: =Transparent
+            Italic: =true
+            OnSelect: |-
+                =If(
+                    EndsWith(
+                        Lower(CourseData.'Attachment #1'.FileName),
+                        ".png"
+                    ) || EndsWith(
+                        Lower(CourseData.'Attachment #1'.FileName),
+                        ".jpg"
+                    ) || EndsWith(
+                        Lower(CourseData.'Attachment #1'.FileName),
+                        ".jpeg"
+                    ),
+                    // Set the Image variable to the file
+                    Set(ImgVar, CourseData.'Attachment #1'.Value);
+                    // Show the Image Viewer
+                    Set(
+                        showImg,
+                        !showImg
+                    );
+                    // Show Image Viewer Exit Button
+                    Set(
+                        showAttachmentCancel,
+                        !showAttachmentCancel
+                    );
+                    ,
+                    // pdf or docx (nested if)
+                    If(
+                        EndsWith(
+                            Lower(CourseData.'Attachment #1'.FileName),
+                            ".pdf"
+                        ),
+                        // Set the DocVar to the file
+                        Set(DocVar, CourseData.'Attachment #1'.Value);
+                        // Show PDF Viewer
+                        Set(
+                            showPdf,
+                            !showPdf
+                        );
+                        Set(
+                            showAttachmentCancel,
+                            !showAttachmentCancel
+                        );
+                        ,
+                    // not an image && not a pdf
+                        false
+                    );
+                    
+                )
+                
+                /*
+                If(
+                        EndsWith(
+                            Lower(CourseData.'Attachment #1'.FileName),
+                            ".pdf"
+                        ),
+                        // Set the DocVar to the file
+                        Set(DocVar, CourseData.'Attachment #1'.Value);
+                        // Show PDF Viewer
+                        Set(
+                            showPdf,
+                            !showPdf
+                        );
+                        Set(
+                            showAttachmentCancel,
+                            !showAttachmentCancel
+                        );
+                        ,
+                    // not an image && not a pdf
+                        false
+                    );
+                */
+            PressedBorderColor: =
+            PressedColor: =
+            Size: =12
+            Text: |
+                =CourseData.'Attachment #1'.FileName
+            Visible: |
+                =If(Not(CourseData.'Attachment #1'.Value = Blank()) && showAttachments, true, false)
+            Width: =469
+            X: =64
+            Y: =966
+            ZIndex: =36
+
+        Course_Attach1Download As icon.Save:
+            Color: =RGBA(0, 0, 0, 1)
+            Height: =30
+            Icon: =Icon.Download
+            OnSelect: |
+                =Download(BASE_ENVIRON_URL & "wywm_courses("&CourseData.Course&")/wywm_attachment1/$value");
+                Launch(BASE_ENVIRON_URL & "wywm_courses("&CourseData.Course&")/wywm_attachment1/$value");
+            Visible: |-
+                =If(Not(CourseData.'Attachment #1'.Value = Blank()) && showAttachments, true, false)
+                //If(Not(EventData.wywm_TrainingEvent.'Attachment #1'.Value = Blank()) && showAttachments, true, false)
+                //If(Not(CourseData.'Attachment #1'.Value = Blank()) && showAttachments, true, false)
+            Width: =40
+            X: =536
+            Y: =972
+            ZIndex: =37
+
+    PdfViewer1_1 As pdfViewer:
+        BorderColor: =RGBA(0, 0, 0, 1)
+        DisplayMode: =DisplayMode.View
+        Document: =DocVar
+        Fill: =RGBA(0, 0, 0, 0.5)
+        Height: =1136
+        PaddingTop: =180
+        Visible: =showPdf
+        ZIndex: =44
+
+    Course_ImageViewer As group:
+        Height: =5
+        Width: =5
+        X: =60
+        Y: =60
+        ZIndex: =44
+
+        Course_ImageBackground As rectangle:
+            Fill: =RGBA(0, 0, 0, 0.5)
+            Height: =1136
+            Visible: =showImg
+            Width: =640
+            ZIndex: =42
+
+        Course_Image As image:
+            Height: =565
+            Image: =ImgVar
+            Visible: =showImg
+            Width: =640
+            Y: =282
+            ZIndex: =43
+
+    Course_HideAttachmentBtn As icon.CancelBadge:
+        Color: =RGBA(255, 255, 255, 1)
+        Icon: =Icon.CancelBadge
+        OnSelect: |-
+            =Set(showPdf, false);
+            Set(showImg, false);
+        Visible: =If(showPdf || showImg, true, false)
+        X: =14
+        Y: =103
+        ZIndex: =45
+
+    CourseDetails_MenuLowerHeader As MenuLowerHeader:
+        Y: =CourseDetails_MainHeader.Height
+        ZIndex: =46
+
+    Course_Attach2 As group:
+        Height: =5
+        Width: =5
+        X: =20
+        Y: =20
+        ZIndex: =46
+
+        Course_Attach2Btn As button:
+            Align: =Align.Left
+            Color: =RGBA(0, 0, 0, 1)
+            DisabledColor: =RGBA(0, 0, 0, 0)
+            Fill: =Transparent
+            FontWeight: =FontWeight.Normal
+            Height: =48
+            HoverBorderColor: =RGBA(0, 0, 0, 0)
+            HoverColor: =RGBA(0, 0, 0, 1)
+            HoverFill: =Transparent
+            Italic: =true
+            OnSelect: |-
+                =If(
+                    EndsWith(
+                        Lower(CourseData.'Attachment #2'.FileName),
+                        ".png"
+                    ) || EndsWith(
+                        Lower(CourseData.'Attachment #2'.FileName),
+                        ".jpg"
+                    ) || EndsWith(
+                        Lower(CourseData.'Attachment #2'.FileName),
+                        ".jpeg"
+                    ),
+                    // Set the Image variable to the file
+                    Set(ImgVar, CourseData.'Attachment #2'.Value);
+                    // Show the Image Viewer
+                    Set(
+                        showImg,
+                        !showImg
+                    );
+                    // Show Image Viewer Exit Button
+                    Set(
+                        showAttachmentCancel,
+                        !showAttachmentCancel
+                    );
+                    ,
+                    // pdf or docx (nested if)
+                    If(
+                        EndsWith(
+                            Lower(CourseData.'Attachment #2'.FileName),
+                            ".pdf"
+                        ),
+                        // Set the DocVar to the file
+                        Set(DocVar, CourseData.'Attachment #2'.Value);
+                        // Show PDF Viewer
+                        Set(
+                            showPdf,
+                            !showPdf
+                        );
+                        Set(
+                            showAttachmentCancel,
+                            !showAttachmentCancel
+                        );
+                        ,
+                    // not an image && not a pdf
+                        false
+                    );
+                    
+                )
+            PressedBorderColor: =
+            PressedColor: =
+            Size: =12
+            Text: |
+                =CourseData.'Attachment #2'.FileName
+            Visible: |
+                =If(Not(CourseData.'Attachment #2'.Value = Blank()) && showAttachments, true, false)
+            Width: =469
+            X: =65
+            Y: =1012
+            ZIndex: =38
+
+        Course_Attach2Download As icon.Save:
+            Color: =RGBA(0, 0, 0, 1)
+            Height: =30
+            Icon: =Icon.Download
+            OnSelect: |
+                =
+                Download(BASE_ENVIRON_URL & "wywm_courses("&CourseData.Course&")/wywm_attachment2/$value");
+                Launch(BASE_ENVIRON_URL & "wywm_courses("&CourseData.Course&")/wywm_attachment2/$value");
+            Visible: |
+                =If(Not(CourseData.'Attachment #2'.Value = Blank()) && showAttachments, true, false)
+            Width: =40
+            X: =537
+            Y: =1018
+            ZIndex: =39
+
+    CourseDetails_MainHeader As MainHeader:
+        ZIndex: =47
+
+    Course_Attach3 As group:
+        Height: =5
+        Width: =5
+        X: =20
+        Y: =20
+        ZIndex: =48
+
+        Course_Attach3Btn As button:
+            Align: =Align.Left
+            Color: =RGBA(0, 0, 0, 1)
+            DisabledColor: =RGBA(0, 0, 0, 0)
+            Fill: =Transparent
+            FontWeight: =FontWeight.Normal
+            Height: =48
+            HoverBorderColor: =RGBA(0, 0, 0, 0)
+            HoverColor: =RGBA(0, 0, 0, 1)
+            HoverFill: =Transparent
+            Italic: =true
+            OnSelect: |-
+                =If(
+                    EndsWith(
+                        Lower(CourseData.' Attachment #3'.FileName),
+                        ".png"
+                    ) || EndsWith(
+                        Lower(CourseData.' Attachment #3'.FileName),
+                        ".jpg"
+                    ) || EndsWith(
+                        Lower(CourseData.' Attachment #3'.FileName),
+                        ".jpeg"
+                    ),
+                    // Set the Image variable to the file
+                    Set(ImgVar, CourseData.' Attachment #3'.Value);
+                    // Show the Image Viewer
+                    Set(
+                        showImg,
+                        !showImg
+                    );
+                    // Show Image Viewer Exit Button
+                    Set(
+                        showAttachmentCancel,
+                        !showAttachmentCancel
+                    );
+                    ,
+                    // pdf or docx (nested if)
+                    If(
+                        EndsWith(
+                            Lower(CourseData.' Attachment #3'.FileName),
+                            ".pdf"
+                        ),
+                        // Set the DocVar to the file
+                        Set(DocVar, CourseData.' Attachment #3'.Value);
+                        // Show PDF Viewer
+                        Set(
+                            showPdf,
+                            !showPdf
+                        );
+                        Set(
+                            showAttachmentCancel,
+                            !showAttachmentCancel
+                        );
+                        ,
+                    // not an image && not a pdf
+                        false
+                    );
+                    
+                )
+            PressedBorderColor: =
+            PressedColor: =
+            Size: =12
+            Text: |
+                =CourseData.'Attachment #2'.FileName
+            Visible: |
+                =If(Not(CourseData.' Attachment #3'.Value = Blank()) && showAttachments, true, false)
+            Width: =469
+            X: =65
+            Y: =1060
+            ZIndex: =40
+
+        Course_Attach3Download As icon.Save:
+            Color: =RGBA(0, 0, 0, 1)
+            Height: =30
+            Icon: =Icon.Download
+            OnSelect: |
+                =
+                Download(BASE_ENVIRON_URL & "wywm_courses("&CourseData.Course&")/wywm_attachment3/$value");
+                Launch(BASE_ENVIRON_URL & "wywm_courses("&CourseData.Course&")/wywm_attachment3/$value");
+            Visible: |
+                =If(Not(CourseData.' Attachment #3'.Value = Blank()) && showAttachments, true, false)
+            Width: =40
+            X: =537
+            Y: =1066
+            ZIndex: =41
+

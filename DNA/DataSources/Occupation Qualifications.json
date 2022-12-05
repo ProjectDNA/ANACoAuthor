@@ -1,0 +1,101 @@
+[
+  {
+    "CdsFCBContext": "{\"FileType\":true,\"ImageExternalStorage\":true}",
+    "EntitySetName": "wywm_occupationqualifications",
+    "IsHidden": false,
+    "IsSampleData": false,
+    "IsWritable": true,
+    "LogicalName": "wywm_occupationqualification",
+    "MaxGetRowsCount": 500,
+    "Name": "Occupation Qualifications",
+    "NativeCDSDataSourceInfoNameMapping": {
+      "_ownerid_value": "Owner",
+      "createdby": "Created By",
+      "createdon": "Created On",
+      "createdonbehalfby": "Created By (Delegate)",
+      "importsequencenumber": "Import Sequence Number",
+      "modifiedby": "Modified By",
+      "modifiedon": "Modified On",
+      "modifiedonbehalfby": "Modified By (Delegate)",
+      "overriddencreatedon": "Record Created On",
+      "owningbusinessunit": "Owning Business Unit",
+      "owningteam": "Owning Team",
+      "owninguser": "Owning User",
+      "statecode": "Status",
+      "statuscode": "Status Reason",
+      "timezoneruleversionnumber": "Time Zone Rule Version Number",
+      "utcconversiontimezonecode": "UTC Conversion Time Zone Code",
+      "versionnumber": "Version Number",
+      "wywm_effectivedate": "Effective Date",
+      "wywm_name": "Name",
+      "wywm_occupationqualification_AsyncOperations": "System Jobs",
+      "wywm_occupationqualification_BulkDeleteFailures": "Bulk Delete Failures",
+      "wywm_occupationqualification_DuplicateBaseRecord": "Duplicate Records (wywm_occupationqualification_DuplicateBaseRecord)",
+      "wywm_occupationqualification_DuplicateMatchingRecord": "Duplicate Records (wywm_occupationqualification_DuplicateMatchingRecord)",
+      "wywm_occupationqualification_MailboxTrackingFolders": "Mailbox Auto Tracking Folders",
+      "wywm_occupationqualification_PrincipalObjectAttributeAccesses": "Field Sharing",
+      "wywm_occupationqualification_ProcessSession": "Process Sessions",
+      "wywm_occupationqualification_SyncErrors": "Sync Errors",
+      "wywm_occupationqualification_Teams": "Teams",
+      "wywm_occupationqualificationid": "Occupation Qualification",
+      "wywm_OSQCourse": "OSQ Course",
+      "wywm_Personnel": "Personnel"
+    },
+    "PreferredName": "Occupation Qualifications",
+    "Type": "NativeCDSDataSourceInfo"
+  },
+  {
+    "DisplayName": "Occupation Qualifications (Views)",
+    "Name": "_wywm_occupationqualification_views",
+    "RelatedEntityName": "Occupation Qualifications",
+    "TrimmedViewName": true,
+    "Type": "ViewInfo",
+    "ViewInfoNameMapping": {
+      "01b31474-acf5-4c1c-bb91-fce961e18e59": "Active Occupation Qualifications",
+      "13bf61ae-a613-495c-ad28-adfe2ce5170a": "Occupation Qualification Lookup View",
+      "2489f11e-d6d7-4577-ad1e-a99a6b8a4885": "Occupation Qualification Advanced Find View",
+      "2eee826a-900c-419a-b997-24b4555cf99c": "Inactive Occupation Qualifications",
+      "3960502a-85a0-4fe2-ab98-1d59e736afb6": "Occupation Qualification Associated View"
+    }
+  },
+  {
+    "DisplayName": "Status (Occupation Qualifications)",
+    "Name": "wywm_occupationqualification_statecode",
+    "OptionSetInfoNameMapping": {
+      "0": "Active",
+      "1": "Inactive"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "statecode",
+        "OptionSetReferenceEntityName": "Occupation Qualifications"
+      }
+    },
+    "OptionSetTypeKey": "StateType",
+    "RelatedColumnInvariantName": "statecode",
+    "RelatedEntityName": "Occupation Qualifications",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Status Reason (Occupation Qualifications)",
+    "Name": "wywm_occupationqualification_statuscode",
+    "OptionSetInfoNameMapping": {
+      "1": "Active",
+      "2": "Inactive"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "statuscode",
+        "OptionSetReferenceEntityName": "Occupation Qualifications"
+      }
+    },
+    "OptionSetTypeKey": "StatusType",
+    "RelatedColumnInvariantName": "statuscode",
+    "RelatedEntityName": "Occupation Qualifications",
+    "Type": "OptionSetInfo"
+  }
+]

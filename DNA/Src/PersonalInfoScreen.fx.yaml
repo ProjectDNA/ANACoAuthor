@@ -1,0 +1,325 @@
+PersonalInfoScreen As screen:
+    Fill: =If(DarkMode,Dark2,White1)
+    OnVisible: |-
+        =Set(
+            WeekendTotal,
+            CountRows(
+                Filter(
+                    'Training Event Attendees',
+                    'Training Event Attendees (Views)'.'My Weekend Participation',
+                    Personnel.Personnel = currPersonnel.Personnel
+                ).'Training Event Attendee'
+            )
+        );
+        Set(
+            WeekendParticipation,
+            CountRows(
+                Filter(
+                    'Training Event Attendees',
+                    'Training Event Attendees (Views)'.'My Weekend Participation',
+                    Personnel.Personnel = currPersonnel.Personnel,
+                    'Attended Training' = [@'Attended Training'].Yes
+                ).'Training Event Attendee'
+            )
+        );
+        Set(
+            PercentageWeekend,
+            If(
+                WeekendParticipation = 0,
+                0,
+                Round(
+                    WeekendParticipation * 100 / WeekendTotal,
+                    1
+                )
+            )
+        );
+        Set(
+            WeeklyTotal,
+            CountRows(
+                Filter(
+                    'Training Event Attendees',
+                    'Training Event Attendees (Views)'.'My Weekly Participation',
+                    Personnel.Personnel = currPersonnel.Personnel
+                ).'Training Event Attendee'
+            )
+        );
+        Set(
+            WeeklyParticipation,
+            CountRows(
+                Filter(
+                    'Training Event Attendees',
+                    'Training Event Attendees (Views)'.'My Weekly Participation',
+                    Personnel.Personnel = currPersonnel.Personnel,
+                    'Attended Training' = [@'Attended Training'].Yes
+                ).'Training Event Attendee'
+            )
+        );
+        Set(
+            PercentageWeekly,
+            If(
+                WeeklyParticipation = 0,
+                0,
+                Round(
+                    WeeklyParticipation * 100 / WeeklyTotal,
+                    1
+                )
+            )
+        );
+
+    PersonalInfo_Container As groupContainer.manualLayoutContainer:
+        Height: =App.Height
+        Width: =App.Width
+        ZIndex: =21
+
+        PersonalInfo_MenuLowerHeader As MenuLowerHeader:
+            BackScreen: =DashboardScreen
+            LowerMenuTextLabel: =__localizer.Localize("ANA_SPLASH_LABEL_PERS_FILE", LangEn)
+            Y: =PersonalInfo_MainHeader.Height + PersonalInfo_MainHeader.Y
+
+        PersonalInfo_MilQual As ButtonStyle:
+            ButtonIcon: ="ArrowRight"
+            ButtonStyleText: =__localizer.Localize("ANA_PERS_MILITARY_QUALIF", LangEn)
+            NavigateTo: =MilitaryQualificationsScreen
+            Y: =930
+            ZIndex: =2
+
+        PersonalInfo_CivilQual As ButtonStyle:
+            ButtonIcon: ="ArrowRight"
+            ButtonStyleText: =__localizer.Localize("ANA_PERS_PERSONAL_QUALIF", LangEn)
+            NavigateTo: =CivilQualificationScreen
+            Visible: =false
+            Y: =990
+            ZIndex: =3
+
+        PersonalInfo_Ibts As ButtonStyle:
+            ButtonIcon: ="ArrowRight"
+            ButtonStyleText: =__localizer.Localize("ANA_SPLASH_LABEL_IBTS", LangEn)
+            NavigateTo: =IBTSScreen
+            Y: =750
+            ZIndex: =4
+
+        PersonalInfo_DAG As ButtonStyle:
+            ButtonIcon: ="ArrowRight"
+            ButtonStyleText: =__localizer.Localize("ANA_SPLASH_LABEL_DAG", LangEn)
+            NavigateTo: =DAGScreen
+            Y: =810
+            ZIndex: =5
+
+        PersonalInfo_Details As PersonnalUserInfo:
+            ActiveColor: |-
+                =If(
+                    PercentageWeekly = 0 && PercentageWeekend = 0,
+                    ColorValue("#b3b3b3"),
+                    PercentageWeekly < 60 || PercentageWeekend < 60,
+                    ExpiredRed,
+                    PercentageWeekly < 80 || PercentageWeekend < 80,
+                    ExpiringYellow,
+                    PercentageWeekly <= 100 || PercentageWeekend <= 100,
+                    ValidGreen
+                )
+            AnnuelFormation: =(__localizer.Localize("ANA_PERS_ANNUAL_TRAINING", LangEn)) & " (" & Year(Now()) & ")"
+            DAG_StatusPillColor: =DAG_PILL_COLOR
+            DagScreen: =DAGScreen
+            FirstName: =currPersonnelFirstName
+            IBTS_StatusPillColor: =IBTS_PILL_COLOR
+            IBTSScreen: =IBTSScreen
+            LastName: =currPersonnelLastName
+            NavigateToPersonnelDetail: =
+            OpSoldierScreen: =OperationalSoldierScreen
+            Status: =Proper(__localizer.Localize("ANA_PERS_ACTIVE", LangEn))
+            Unit: =currPersonnel.Unit.'Unit Name'
+            WeekendColor: |-
+                =If(
+                    PercentageWeekend = 0,
+                    ColorValue("#b3b3b3"),
+                    PercentageWeekend < 60,
+                    ExpiredRed,
+                    PercentageWeekend < 80,
+                    ExpiringYellow,
+                    PercentageWeekend <= 100,
+                    ValidGreen
+                )
+            WeekendFormation: =__localizer.Localize("ANA_PERS_WEEKEND_TRAINING", LangEn)
+            WeekendParticipation: =WeekendParticipation & "/" & WeekendTotal &  If(WeekendTotal= 0 , Blank()," [" & PercentageWeekend & "%]" ) 
+            WeeklyColor: |-
+                =If(
+                    PercentageWeekly = 0,
+                    ColorValue("#b3b3b3"),
+                    PercentageWeekly < 60,
+                    ExpiredRed,
+                    PercentageWeekly < 80,
+                    ExpiringYellow,
+                    PercentageWeekly <= 100,
+                    ValidGreen
+                )
+            WeeklyFormation: =__localizer.Localize("ANA_PERS_WEEKLY_TRAINING", LangEn)
+            WeeklyParticipation: =WeeklyParticipation & "/" & WeeklyTotal &  If(WeeklyTotal= 0 , Blank()," [" & PercentageWeekly & "%]" ) 
+            Y: =180
+            ZIndex: =6
+
+        PersonalInfo_OpSoldier As ButtonStyle:
+            ButtonIcon: ="ArrowRight"
+            ButtonStyleText: =__localizer.Localize("ANA_PERS_OPERATIONAL_SOLDIER", LangEn)
+            NavigateTo: =OperationalSoldierScreen
+            Y: =870
+            ZIndex: =7
+
+        PersonalInfo_PersonalInfo As ButtonStyle:
+            ButtonIcon: ="ArrowRight"
+            ButtonStyleText: =__localizer.Localize("ANA_CONTACT_PERSONAL_INFO", LangEn)
+            NavigateTo: =SubPersonalInfoScreen
+            Y: =690
+            ZIndex: =8
+
+        PersonalInfo_MainHeader As MainHeader:
+            PersonalImage: =currPersonnelImage
+            ZIndex: =9
+
+        PersonalInfo_DebugButtonGroup As group:
+            Height: =5
+            Width: =5
+            X: =40
+            Y: =40
+            ZIndex: =20
+
+            Debug_PersonalInfo_5 As button:
+                Height: =70
+                OnSelect: =Navigate(PersonalInfoScreen)
+                Size: =24
+                Text: ="Button"
+                Visible: |+
+                    =false
+                    
+                    
+                Width: =75
+                X: =565
+                Y: =132
+                ZIndex: =10
+
+            Debug_Messenger_5 As button:
+                Height: =70
+                OnSelect: |-
+                    =Launch("msteams://")
+                Size: =24
+                Text: ="Button"
+                Visible: |+
+                    =false
+                    
+                    
+                Width: =75
+                X: =490
+                Y: =132
+                ZIndex: =11
+
+            Debug_Notification_5 As button:
+                Height: =70
+                OnSelect: =Navigate(NotificationScreen)
+                Size: =24
+                Text: ="Button"
+                Visible: |+
+                    =false
+                    
+                    
+                Width: =75
+                X: =415
+                Y: =132
+                ZIndex: =12
+
+            Debug_MainMenu_5 As button:
+                Height: =70
+                OnSelect: =Navigate(DashboardScreen)
+                Size: =24
+                Text: ="Button"
+                Visible: |+
+                    =false
+                    
+                    
+                Width: =75
+                X: =266
+                Y: =132
+                ZIndex: =13
+
+            Debug__PersonalInfo As button:
+                Height: =70
+                OnSelect: =Navigate(SubPersonalInfoScreen)
+                Size: =24
+                Text: ="Button"
+                Visible: |+
+                    =false
+                    
+                    
+                Width: =280
+                X: =266
+                Y: =220
+                ZIndex: =14
+
+            Debug_IBTS As button:
+                Height: =70
+                OnSelect: =Navigate(IBTSScreen)
+                Size: =24
+                Text: ="Button"
+                Visible: |+
+                    =false
+                    
+                    
+                Width: =280
+                X: =266
+                Y: =290
+                ZIndex: =15
+
+            Debug__DAGScreen As button:
+                Height: =70
+                OnSelect: =Navigate(DAGScreen)
+                Size: =24
+                Text: ="Button"
+                Visible: |+
+                    =false
+                    
+                    
+                Width: =280
+                X: =266
+                Y: =360
+                ZIndex: =16
+
+            Debug__OperationalSoldier As button:
+                Height: =70
+                OnSelect: =Navigate(OperationalSoldierScreen)
+                Size: =24
+                Text: ="Button"
+                Visible: |+
+                    =false
+                    
+                    
+                Width: =280
+                X: =266
+                Y: =425
+                ZIndex: =17
+
+            Debug__MilQual As button:
+                Height: =70
+                OnSelect: =Navigate(MilitaryQualificationsScreen)
+                Size: =24
+                Text: ="Button"
+                Visible: |+
+                    =false
+                    
+                    
+                Width: =280
+                X: =266
+                Y: =495
+                ZIndex: =18
+
+            Debug__CivilQuals As button:
+                Height: =70
+                OnSelect: =Navigate(CivilQualificationScreen)
+                Size: =24
+                Text: ="Button"
+                Visible: |+
+                    =false
+                    
+                    
+                Width: =280
+                X: =266
+                Y: =560
+                ZIndex: =19
+

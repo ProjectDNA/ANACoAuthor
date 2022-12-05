@@ -1,0 +1,151 @@
+AttendeeDetailsScreen As screen:
+
+    AttendDetails__localizer As Localizer_1:
+        Localize: |-
+            =/*
+                @author: ryan@werkncode.net
+                Usage: To use the localizer in your environment create a table with the following structure in the dataverse:
+            
+                LocalizationEnFr(
+                        (String) StringId, (String) En, (String) Fr, (Boolean) Flagged
+                )
+            
+                Then in your app, on the main/first screen create a custom component (called _localizer extending from Localizer here).
+            
+                To translate text use the following function call on the localizer component:
+            
+                _localizer.Localize("APP_SCREEN_STRING_ID", LangEn), this will return the English or the French Text
+            */
+            If(
+                IsLangEn = true,
+                //IF
+                First(
+                    Search(
+                        LocalizationEnFr,
+                        StringId,
+                        "wywm_stringid"
+                    )
+                ).En,
+                //ELSE
+                First(
+                    Search(
+                        LocalizationEnFr,
+                        StringId,
+                        "wywm_stringid"
+                    )
+                ).Fr
+            )
+        Visible: =false
+        ZIndex: =1
+
+    AttendDetails_EventContainer As groupContainer.manualLayoutContainer:
+        Height: =1045
+        Width: =Parent.Width
+        Y: =91
+        ZIndex: =4
+
+        AttendDetails_Container As groupContainer.verticalAutoLayoutContainer:
+            Height: =952
+            LayoutAlignItems: =LayoutAlignItems.Stretch
+            LayoutDirection: =LayoutDirection.Vertical
+            LayoutMode: =LayoutMode.Auto
+            LayoutOverflowY: =LayoutOverflow.Scroll
+            Width: =640
+            Y: =90
+            ZIndex: =3
+
+            AttendDetails_NameLabel As label:
+                Height: =70
+                LayoutMinHeight: =70
+                LayoutMinWidth: =560
+                Size: =26
+                Text: ="Attendee Name"
+                Width: =560
+                ZIndex: =1
+
+            AttendDetails_Name As label:
+                Height: =70
+                LayoutMinHeight: =70
+                LayoutMinWidth: =560
+                Size: =21
+                Text: |-
+                    =If(
+                        LangEn,
+                        LookUp(
+                            Personnels,
+                            Personnel = CurrAttendee.Personnel
+                        ).'Current Rank'.'Description Abbreviation Eng' & " " & LookUp(
+                            Personnels,
+                            Personnel = CurrAttendee.Personnel
+                        ).'Last Name' & ", " & LookUp(
+                            Personnels,
+                            Personnel = CurrAttendee.Personnel
+                        ).'First Name',
+                        LookUp(
+                            Personnels,
+                            Personnel = CurrAttendee.Personnel
+                        ).'Current Rank'.'Description Abbreviation FR' & " " & LookUp(
+                            Personnels,
+                            Personnel = CurrAttendee.Personnel
+                        ).'Last Name' & ", " & LookUp(
+                            Personnels,
+                            Personnel = CurrAttendee.Personnel
+                        ).'First Name'
+                    )
+                Width: =560
+                ZIndex: =2
+
+            AttendDetails_DetailsLabel As label:
+                Height: =70
+                LayoutMinHeight: =70
+                LayoutMinWidth: =560
+                Size: =30
+                Text: ="Details"
+                Width: =560
+                ZIndex: =3
+
+            AttendDetails_EmailLabel As label:
+                Height: =70
+                LayoutMinHeight: =70
+                LayoutMinWidth: =560
+                Size: =26
+                Text: ="Email"
+                Width: =560
+                ZIndex: =4
+
+            AttendDetails_Email As label:
+                Height: =70
+                LayoutMinHeight: =70
+                LayoutMinWidth: =560
+                Size: =21
+                Text: =CurrAttendee.'Military Email'
+                Width: =500
+                ZIndex: =5
+
+            AttendDetails_UnitLabel As label:
+                Height: =70
+                LayoutMinHeight: =70
+                LayoutMinWidth: =560
+                Size: =26
+                Text: ="Unit"
+                Width: =560
+                ZIndex: =6
+
+            AttendDetails_Unit As label:
+                Height: =70
+                LayoutMinHeight: =70
+                LayoutMinWidth: =560
+                Size: =21
+                Text: =CurrAttendee.Unit.'Unit Name'
+                Width: =560
+                ZIndex: =7
+
+        AttendDetails_EmailIcon As icon.Mail:
+            Icon: =Icon.Mail
+            X: =533
+            Y: =372
+            ZIndex: =5
+
+    MainHeader_8 As MainHeader:
+        ZIndex: =6
+

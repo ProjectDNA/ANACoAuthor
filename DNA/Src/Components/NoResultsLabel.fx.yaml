@@ -1,0 +1,32 @@
+NoResultsLabel As CanvasComponent:
+    Fill: =RGBA(0, 0, 0, 0)
+    Height: =640
+    Width: =640
+    X: =0
+    Y: =0
+    ZIndex: =1
+
+    NoResultsLabelRectangle As rectangle:
+        Fill: =RGBA(255, 255, 255, 1)
+        Height: =Parent.Height
+        Width: =Parent.Width
+        ZIndex: =1
+
+    NoResultsLabelNotFound As label:
+        Align: =Align.Center
+        Height: =70
+        Size: =21
+        Text: =Proper(__localizer.Localize("ANA_FILE_AND_DOC_NOT_FOUND", LangEn))
+        Width: =640
+        Y: =396
+        ZIndex: =2
+
+    NoResultsLabelCheckSpel As label:
+        Align: =Align.Center
+        Height: =70
+        Size: =16
+        Text: =__localizer.Localize("ANA_FILE_AND_DOC_KEYWORD_MSG", LangEn)
+        Width: =640
+        Y: =448
+        ZIndex: =3
+

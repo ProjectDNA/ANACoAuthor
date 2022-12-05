@@ -1,0 +1,68 @@
+Localizer As CanvasComponent:
+    Localize(StringId As String, IsLangEn As Boolean):
+        StringId:
+            Default: ="Text"
+        IsLangEn:
+            Default: =true
+        ThisProperty:
+            Default: |-
+                =/*
+                    @author: ryan@werkncode.net
+                    Usage: To use the localizer in your environment create a table with the following structure in the dataverse:
+                
+                    LocalizationEnFr(
+                            (String) StringId, (String) En, (String) Fr, (Boolean) Flagged
+                    )
+                
+                    Then in your app, on the main/first screen create a custom component (called _localizer extending from Localizer here).
+                
+                    To translate text use the following function call on the localizer component:
+                
+                    _localizer.Localize("APP_SCREEN_STRING_ID", LangEn), this will return the English or the French Text
+                */
+                If(
+                    IsLangEn = true,
+                    //IF
+                    First(
+                        Search(
+                            LocalizationEnFr,
+                            StringId,
+                            "wywm_stringid"
+                        )
+                    ).En,
+                    //ELSE
+                    First(
+                        Search(
+                            LocalizationEnFr,
+                            StringId,
+                            "wywm_stringid"
+                        )
+                    ).Fr
+                )
+    Fill: =RGBA(0, 0, 0, 0)
+    Height: =50
+    Width: =50
+    X: =0
+    Y: =0
+    ZIndex: =1
+
+    En As label:
+        Align: =Align.Center
+        Color: =RGBA(255, 255, 255, 1)
+        Height: =50
+        Size: =21
+        Text: ="En"
+        Visible: =!LangEn
+        Width: =50
+        ZIndex: =1
+
+    Fr As label:
+        Align: =Align.Center
+        Color: =RGBA(255, 255, 255, 1)
+        Height: =50
+        Size: =21
+        Text: ="Fr"
+        Visible: =LangEn
+        Width: =50
+        ZIndex: =2
+

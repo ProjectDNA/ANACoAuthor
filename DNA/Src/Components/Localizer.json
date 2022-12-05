@@ -1,0 +1,71 @@
+{
+  "ComponentAllowCustomization": true,
+  "ComponentChangedSinceFileImport": true,
+  "ComponentManifest": {
+    "AllowAccessToGlobals": true,
+    "AllowCustomization": true,
+    "Description": "",
+    "Name": "Localizer",
+    "TemplateGuid": "a517fe5616d745e8a0b2083d920900ca"
+  },
+  "ComponentType": "CanvasComponent",
+  "CustomGroupControlTemplateName": "",
+  "CustomProperties": [
+    {
+      "Category": 0,
+      "DisplayName": "Localize",
+      "Hidden": true,
+      "Name": "Localize",
+      "PropertyDataTypeKey": "String",
+      "PropertyScopeKey": {
+        "PropertyScopeRuleNamespaceKey": "22",
+        "PropertyScopeRulesKey": [
+          {
+            "DisplayName": "Localize_StringId",
+            "Name": "Localize_StringId",
+            "PropertyDataTypeKey": "String",
+            "ScopeVariableInfo": {
+              "DependencyType": "New",
+              "Description": "The StringId of the LocalizationEnFr table you want to use.",
+              "IsRequired": true,
+              "ResolveExpands": false,
+              "ResolveSelects": false,
+              "ScopeVariableName": "StringId"
+            },
+            "Tooltip": "The StringId of the LocalizationEnFr table you want to use.",
+            "Type": "{\"Version\":\"1.326\",\"Type\":{\"Name\":\"Root\",\"Kind\":\"String\",\"EnumString\":\"\",\"Type\":[]}}"
+          },
+          {
+            "DisplayName": "Localize_IsLangEn",
+            "Name": "Localize_IsLangEn",
+            "PropertyDataTypeKey": "Boolean",
+            "ScopeVariableInfo": {
+              "DependencyType": "New",
+              "Description": "Is the langauge english or french.",
+              "IsRequired": true,
+              "ResolveExpands": false,
+              "ResolveSelects": false,
+              "ScopeVariableName": "IsLangEn"
+            },
+            "Tooltip": "Is the langauge english or french.",
+            "Type": "{\"Version\":\"1.326\",\"Type\":{\"Name\":\"Root\",\"Kind\":\"_MinPrimitive\",\"EnumString\":\"\",\"Type\":[]}}"
+          }
+        ]
+      },
+      "Tooltip": "Call this to localize text based in StringId.",
+      "Type": "{\"Version\":\"1.326\",\"Type\":{\"Name\":\"Root\",\"Kind\":\"String\",\"EnumString\":\"\",\"Type\":[]}}"
+    }
+  ],
+  "FirstParty": true,
+  "Id": "http://microsoft.com/appmagic/Component",
+  "IsComponentLocked": false,
+  "IsComponentTemplate": true,
+  "IsCustomGroupControlTemplate": false,
+  "IsPcfControl": false,
+  "IsPremiumPcfControl": false,
+  "IsWidgetTemplate": false,
+  "LastModifiedTimestamp": "638058497004512572",
+  "Name": "a517fe5616d745e8a0b2083d920900ca",
+  "OverridableProperties": {},
+  "Version": "637734804272964857"
+}

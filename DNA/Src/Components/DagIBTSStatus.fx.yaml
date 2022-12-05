@@ -1,0 +1,54 @@
+DagIBTSStatus As CanvasComponent:
+    ExpirationDate: ="Text"
+    Fill: =Yellow1
+    Height: =60
+    Name: ="Text"
+    SortColumn1: ="Text"
+    SortColumn2: ="Text"
+    SortColumn3: ="Text"
+    Status: ="Text"
+    Width: =640
+    X: =0
+    Y: =0
+    ZIndex: =1
+
+    DagIBTSStatusExpDate As label:
+        Font: =FontFamilyA
+        FontWeight: =FontWeight.Bold
+        Height: =60
+        OnSelect: |-
+            =Set(SortKey, Parent.SortColumn3);
+            Set(SortVariable, !SortVariable);
+        Size: =CardHeaderFont
+        Text: =Parent.ExpirationDate
+        Width: =167
+        X: =473
+        ZIndex: =1
+
+    DagIBTSStatusStatus As label:
+        Font: =FontFamilyA
+        FontWeight: =FontWeight.Bold
+        Height: =60
+        OnSelect: |-
+            =//Set(SortKey, Parent.SortColumn2);
+            //Set(SortVariable, !SortVariable);
+            //
+        Size: =CardHeaderFont
+        Text: =Parent.Status
+        Width: =114
+        X: =274
+        ZIndex: =2
+
+    DagIBTSStatusName As label:
+        Font: =FontFamilyA
+        FontWeight: =FontWeight.Bold
+        Height: =60
+        OnSelect: |-
+            =Set(SortKey, Parent.SortColumn1);
+            Set(SortVariable, !SortVariable);
+        Size: =CardHeaderFont
+        Text: =Parent.Name
+        Width: =111
+        X: =7
+        ZIndex: =3
+

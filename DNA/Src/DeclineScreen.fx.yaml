@@ -1,0 +1,112 @@
+"DeclineScreen As screen.'phoneLayout_Success_ver3.0'":
+    Fill: =If(DarkMode,Dark3,White1)
+    OnVisible: |
+        =Refresh('Training Event Attendees');
+        Set(
+            
+                AlertNumber, CountA(
+                    Filter(
+                        'Training Event Attendees',
+                        Personnel.Personnel = currPersonnel.Personnel && 'Commit to Training Status' = [@'Commit to Training Status'].Declined
+                    ).'Training Event'
+                )
+            
+        );
+
+    Decline_RedBackground As rectangle:
+        Fill: =If(DarkMode,DeclinedRed,Red)
+        Height: =380
+        Width: =640
+        Y: =180
+        ZIndex: =1
+
+    Decline_RefusalConfirmed As label:
+        Align: =Align.Center
+        Color: =If(DarkMode,White1,Black)
+        Font: =FontFamilyB
+        FontWeight: =FontWeight.Semibold
+        Height: =65
+        Size: =CardInfoHeaderFont
+        Text: =__localizer.Localize("ANA_DECLINE_CONFIRMED", LangEn)
+        Width: =640
+        Y: =981
+        ZIndex: =4
+
+    Decline_MainHeader As MainHeader:
+        PersonalImage: =currPersonnelImage
+        PersonalInfoScreen: =PersonalInfoScreen
+        ZIndex: =5
+
+    Decline_MenuLowerHeader As MenuLowerHeader:
+        LowerMenuTextLabel: =__localizer.Localize("ANA_DECLINE_REFUSAL", LangEn)
+        Y: =90
+        ZIndex: =6
+
+    Decline_Message As label:
+        Align: =Align.Justify
+        Color: =If(DarkMode,White1,Black)
+        Font: =FontFamilyB
+        Height: =208
+        LineHeight: =1.5
+        PaddingLeft: =50
+        PaddingRight: =50
+        Size: =20
+        Text: =__localizer.Localize("ANA_DECLINE_MESSAGE", LangEn)
+        Width: =640
+        Y: =560
+        ZIndex: =8
+
+    Decline_Details As label:
+        Align: =Align.Center
+        Color: =RGBA(255, 255, 255, 1)
+        Font: =FontFamilyB
+        FontWeight: =FontWeight.Bold
+        Height: =70
+        PaddingLeft: =15
+        PaddingRight: =15
+        Size: =CardInfoHeaderFont
+        Text: =__localizer.Localize("ANA_DECLINE_OPI_NOTIFED", LangEn)
+        Width: =640
+        Y: =460
+        ZIndex: =9
+
+    Decline_IconGroup As group:
+        Height: =5
+        Width: =5
+        X: =40
+        Y: =40
+        ZIndex: =34
+
+        Decline_IconCircle As circle.Circle:
+            Fill: =RGBA(255, 255, 255, 1)
+            Height: =126
+            Width: =126
+            X: =257
+            Y: =248
+            ZIndex: =2
+
+        Decline_IconCheck As icon.Check:
+            Color: =If(DarkMode,DeclinedRed,Red)
+            Height: =126
+            Icon: =Icon.Cancel
+            PaddingBottom: =Self.PaddingTop
+            PaddingLeft: =Self.PaddingTop
+            PaddingRight: =Self.PaddingTop
+            PaddingTop: =18
+            Width: =126
+            X: =257
+            Y: =248
+            ZIndex: =3
+
+        Decline_EventDeclined As label:
+            Align: =Align.Center
+            Color: =RGBA(255, 255, 255, 1)
+            Font: =FontFamilyB
+            FontWeight: =FontWeight.Semibold
+            Height: =70
+            Size: =CardInfoHeaderFont
+            Text: =__localizer.Localize("ANA_DECLINE_EVENT_DECLINED", LangEn)
+            Width: =640
+            Y: =400
+            ZIndex: =7
+

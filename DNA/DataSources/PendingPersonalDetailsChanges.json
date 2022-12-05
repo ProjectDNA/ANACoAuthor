@@ -1,0 +1,141 @@
+[
+  {
+    "CdsFCBContext": "{\"FileType\":true,\"ImageExternalStorage\":true}",
+    "EntitySetName": "wywm_pendingpersonaldetailschangeses",
+    "IsHidden": false,
+    "IsSampleData": false,
+    "IsWritable": true,
+    "LogicalName": "wywm_pendingpersonaldetailschanges",
+    "MaxGetRowsCount": 500,
+    "Name": "PendingPersonalDetailsChanges",
+    "NativeCDSDataSourceInfoNameMapping": {
+      "_ownerid_value": "Owner (_ownerid_value)",
+      "bpf_wywm_pendingpersonaldetailschanges_wywm_bpf_confirmpersonaldetails": "Confirm Personal Details Flows",
+      "createdby": "Created By (createdby)",
+      "createdon": "Created On",
+      "createdonbehalfby": "Created By (Delegate)",
+      "importsequencenumber": "Import Sequence Number",
+      "modifiedby": "Modified By",
+      "modifiedon": "Modified On",
+      "modifiedonbehalfby": "Modified By (Delegate)",
+      "overriddencreatedon": "Record Created On",
+      "owningbusinessunit": "Owning Business Unit (owningbusinessunit)",
+      "owningteam": "Created By (owningteam)",
+      "owninguser": "Owning Business Unit (owninguser)",
+      "processid": "Process Id",
+      "stageid": "(Deprecated) Stage Id",
+      "statecode": "Status",
+      "statuscode": "Status Reason",
+      "timezoneruleversionnumber": "Time Zone Rule Version Number",
+      "traversedpath": "(Deprecated) Traversed Path",
+      "utcconversiontimezonecode": "Owner (utcconversiontimezonecode)",
+      "versionnumber": "Version Number",
+      "wywm_approvedeny": "PendingPersonalDetailsApprovedStatus",
+      "wywm_currentcity": "CurrentCity",
+      "wywm_currentcivilianemail": "CurrentCivilianEmail",
+      "wywm_currentcountry": "CurrentCountry",
+      "wywm_currentmobilephonenumber": "CurrentMobilePhoneNumber",
+      "wywm_currentpostalcode": "CurrentPostalCode",
+      "wywm_currentprovince": "CurrentProvince",
+      "wywm_currentreligion": "CurrentReligion",
+      "wywm_currentstreet1": "CurrentStreet1",
+      "wywm_name": "Id",
+      "wywm_OwningPersonnelRecord": "OwningPersonnelRecord",
+      "wywm_pendingcity": "PendingCity",
+      "wywm_pendingcivilianemail": "PendingCivilianEmail",
+      "wywm_pendingcountry": "PendingCountry",
+      "wywm_pendingmobilephonenumber": "PendingMobilePhoneNumber",
+      "wywm_pendingpersonaldetailschanges_AsyncOperations": "System Jobs",
+      "wywm_pendingpersonaldetailschanges_BulkDeleteFailures": "Bulk Delete Failures",
+      "wywm_pendingpersonaldetailschanges_DuplicateBaseRecord": "Duplicate Records (wywm_pendingpersonaldetailschanges_DuplicateBaseRecord)",
+      "wywm_pendingpersonaldetailschanges_DuplicateMatchingRecord": "Duplicate Records (wywm_pendingpersonaldetailschanges_DuplicateMatchingRecord)",
+      "wywm_pendingpersonaldetailschanges_MailboxTrackingFolders": "Mailbox Auto Tracking Folders",
+      "wywm_pendingpersonaldetailschanges_PrincipalObjectAttributeAccesses": "Field Sharing",
+      "wywm_pendingpersonaldetailschanges_ProcessSession": "Process Sessions",
+      "wywm_pendingpersonaldetailschanges_SyncErrors": "Sync Errors",
+      "wywm_pendingpersonaldetailschanges_Teams": "Teams",
+      "wywm_pendingpersonaldetailschangesid": "PendingPersonalDetailsChanges",
+      "wywm_pendingpostalcode": "PendingPostalCode",
+      "wywm_pendingprovince": "PendingProvince",
+      "wywm_pendingreligion": "PendingReligion",
+      "wywm_pendingstreet1": "PendingStreet1"
+    },
+    "PreferredName": "PendingPersonalDetailsChanges",
+    "Type": "NativeCDSDataSourceInfo"
+  },
+  {
+    "DisplayName": "PendingPersonalDetailsChanges (Views)",
+    "Name": "_wywm_pendingpersonaldetailschanges_views",
+    "RelatedEntityName": "PendingPersonalDetailsChanges",
+    "TrimmedViewName": true,
+    "Type": "ViewInfo",
+    "ViewInfoNameMapping": {
+      "70cd02df-8145-487a-8616-b20c74a96c35": "PendingPersonalDetailsChanges Advanced Find View",
+      "770f1ff0-a83c-4fac-ab2f-b9b6993ba90d": "Active PendingPersonalDetailsChanges",
+      "99ad2abf-d1c6-4fee-bb6f-15d01dce7576": "PendingPersonalDetailsChanges Associated View",
+      "cb795aa1-3bf2-4332-af6c-2f59fb74ff31": "PendingPersonalDetailsChanges Lookup View",
+      "e435e261-63c9-4d0b-9983-00a72b96551d": "Inactive PendingPersonalDetailsChanges"
+    }
+  },
+  {
+    "DisplayName": "ApproveDeny",
+    "Name": "wywm_approvedeny",
+    "OptionSetInfoNameMapping": {
+      "801200000": "Approve",
+      "801200001": "Deny",
+      "801200002": "Not Reviewed"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": true,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "wywm_approvedeny",
+        "OptionSetReferenceEntityName": "PendingPersonalDetailsChanges"
+      }
+    },
+    "OptionSetTypeKey": "PicklistType",
+    "RelatedColumnInvariantName": "wywm_approvedeny",
+    "RelatedEntityName": "PendingPersonalDetailsChanges",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Status (PendingPersonalDetailsChanges)",
+    "Name": "wywm_pendingpersonaldetailschanges_statecode",
+    "OptionSetInfoNameMapping": {
+      "0": "Active",
+      "1": "Inactive"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "statecode",
+        "OptionSetReferenceEntityName": "PendingPersonalDetailsChanges"
+      }
+    },
+    "OptionSetTypeKey": "StateType",
+    "RelatedColumnInvariantName": "statecode",
+    "RelatedEntityName": "PendingPersonalDetailsChanges",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Status Reason (PendingPersonalDetailsChanges)",
+    "Name": "wywm_pendingpersonaldetailschanges_statuscode",
+    "OptionSetInfoNameMapping": {
+      "1": "Active",
+      "2": "Inactive"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "statuscode",
+        "OptionSetReferenceEntityName": "PendingPersonalDetailsChanges"
+      }
+    },
+    "OptionSetTypeKey": "StatusType",
+    "RelatedColumnInvariantName": "statuscode",
+    "RelatedEntityName": "PendingPersonalDetailsChanges",
+    "Type": "OptionSetInfo"
+  }
+]

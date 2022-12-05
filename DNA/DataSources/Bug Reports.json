@@ -1,0 +1,154 @@
+[
+  {
+    "CdsFCBContext": "{\"FileType\":true,\"ImageExternalStorage\":true}",
+    "EntitySetName": "wywm_bugreports",
+    "IsHidden": false,
+    "IsSampleData": false,
+    "IsWritable": true,
+    "LogicalName": "wywm_bugreport",
+    "MaxGetRowsCount": 500,
+    "Name": "Bug Reports",
+    "NativeCDSDataSourceInfoNameMapping": {
+      "_ownerid_value": "Owner",
+      "{Attachments}": "Attachments",
+      "createdby": "Created By",
+      "createdon": "Created On",
+      "createdonbehalfby": "Created By (Delegate)",
+      "importsequencenumber": "Import Sequence Number",
+      "modifiedby": "Modified By",
+      "modifiedon": "Modified On",
+      "modifiedonbehalfby": "Modified By (Delegate)",
+      "overriddencreatedon": "Record Created On (overriddencreatedon)",
+      "owningbusinessunit": "Owning Business Unit",
+      "owningteam": "Owning Team (owningteam)",
+      "owninguser": "Owning Team (owninguser)",
+      "statecode": "Status",
+      "statuscode": "Status Reason",
+      "timezoneruleversionnumber": "UTC Conversion Time Zone Code",
+      "utcconversiontimezonecode": "Owning User",
+      "versionnumber": "Record Created On (versionnumber)",
+      "wywm_bugcategory": "Category",
+      "wywm_bugdescription": "Description",
+      "wywm_bugreport_Annotations": "Notes",
+      "wywm_bugreport_AsyncOperations": "System Jobs",
+      "wywm_bugreport_BulkDeleteFailures": "Bulk Delete Failures",
+      "wywm_bugreport_DuplicateBaseRecord": "Duplicate Records (wywm_bugreport_DuplicateBaseRecord)",
+      "wywm_bugreport_DuplicateMatchingRecord": "Duplicate Records (wywm_bugreport_DuplicateMatchingRecord)",
+      "wywm_bugreport_MailboxTrackingFolders": "Mailbox Auto Tracking Folders",
+      "wywm_bugreport_PrincipalObjectAttributeAccesses": "Field Sharing",
+      "wywm_bugreport_ProcessSession": "Process Sessions",
+      "wywm_bugreport_SyncErrors": "Sync Errors",
+      "wywm_bugreport_Teams": "Teams",
+      "wywm_bugreportid": "BugReport",
+      "wywm_bugtitle": "Title",
+      "wywm_priority": "Priority"
+    },
+    "PreferredName": "Bug Reports",
+    "Type": "NativeCDSDataSourceInfo"
+  },
+  {
+    "DisplayName": "Bug Reports (Views)",
+    "Name": "_wywm_bugreport_views",
+    "RelatedEntityName": "Bug Reports",
+    "TrimmedViewName": true,
+    "Type": "ViewInfo",
+    "ViewInfoNameMapping": {
+      "02222c2e-830a-49c9-ab24-78a4f27ec658": "BugReport Associated View",
+      "66bf73d3-14cd-4160-86ba-d0d18afd46ae": "Inactive BugReports",
+      "b25fee2d-c87c-4c82-91a2-aba99357ac21": "Active BugReports",
+      "e3947b24-ef98-43db-b8be-fbac9c2e6c49": "BugReport Advanced Find View",
+      "e780fdc7-ad82-4189-a403-adb69e66a2ce": "BugReport Lookup View"
+    }
+  },
+  {
+    "DisplayName": "Delivery Priority",
+    "Name": "activitypointer_deliveryprioritycode",
+    "OptionSetInfoNameMapping": {
+      "0": "Low",
+      "1": "Normal",
+      "2": "High"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": true,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "wywm_priority",
+        "OptionSetReferenceEntityName": "Bug Reports"
+      }
+    },
+    "OptionSetTypeKey": "PicklistType",
+    "RelatedColumnInvariantName": "wywm_priority",
+    "RelatedEntityName": "Bug Reports",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Bug Category",
+    "Name": "wywm_bugcategory",
+    "OptionSetInfoNameMapping": {
+      "801200000": "DAG",
+      "801200001": "IBTS",
+      "801200002": "Dashboard",
+      "801200003": "Qualifications",
+      "801200004": "Documents Viewer",
+      "801200005": "Visual",
+      "801200006": "Other",
+      "801200007": "Homepage/Dashboard",
+      "801200008": "Settings",
+      "801200009": "Notifications",
+      "801200010": "Language Issues",
+      "801200011": "Account/App Access Issues"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": true,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "wywm_bugcategory",
+        "OptionSetReferenceEntityName": "Bug Reports"
+      }
+    },
+    "OptionSetTypeKey": "PicklistType",
+    "RelatedColumnInvariantName": "wywm_bugcategory",
+    "RelatedEntityName": "Bug Reports",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Status (Bug Reports)",
+    "Name": "wywm_bugreport_statecode",
+    "OptionSetInfoNameMapping": {
+      "0": "Active",
+      "1": "Inactive"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "statecode",
+        "OptionSetReferenceEntityName": "Bug Reports"
+      }
+    },
+    "OptionSetTypeKey": "StateType",
+    "RelatedColumnInvariantName": "statecode",
+    "RelatedEntityName": "Bug Reports",
+    "Type": "OptionSetInfo"
+  },
+  {
+    "DisplayName": "Status Reason (Bug Reports)",
+    "Name": "wywm_bugreport_statuscode",
+    "OptionSetInfoNameMapping": {
+      "1": "Active",
+      "2": "Inactive"
+    },
+    "OptionSetIsBooleanValued": false,
+    "OptionSetIsGlobal": false,
+    "OptionSetReference": {
+      "OptionSetReferenceItem0": {
+        "OptionSetReferenceColumnName": "statuscode",
+        "OptionSetReferenceEntityName": "Bug Reports"
+      }
+    },
+    "OptionSetTypeKey": "StatusType",
+    "RelatedColumnInvariantName": "statuscode",
+    "RelatedEntityName": "Bug Reports",
+    "Type": "OptionSetInfo"
+  }
+]
